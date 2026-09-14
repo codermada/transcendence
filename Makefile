@@ -122,6 +122,9 @@ rebuild-backend:
 rebuild-frontend:
 	docker compose up -d --build --no-deps frontend
 
+prisma-studio:
+	docker compose exec backend npm run prisma:studio
+
 ps:
 	$(COMPOSE) ps
 
@@ -139,6 +142,11 @@ start:
 
 clean:
 	$(COMPOSE) down --volumes --remove-orphans
+
+fclean:
+	docker compose down -v --rmi all
+	docker system prune -a --volumes -f
+	docker volume prune -a -f
 
 prune:
 	docker system prune -f

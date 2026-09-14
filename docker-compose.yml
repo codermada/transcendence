@@ -26,6 +26,9 @@ services:
     build:
       context: ./srcs/backend
     container_name: nest-backend
+    restart: unless-stopped
+    env_file:
+      - .env
     volumes:
       - ./srcs/backend:/app
       - /app/node_modules
@@ -45,6 +48,9 @@ services:
     build:
       context: ./srcs/frontend
     container_name: next-frontend
+    restart: unless-stopped
+    env_file:
+      - .env
     volumes:
       - ./srcs/frontend:/app
       - /app/node_modules
