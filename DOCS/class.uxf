@@ -1,0 +1,125 @@
+<diagram program="umletino" version="15.1"><zoom_level>9</zoom_level><element><id>UMLClass</id><coordinates><x>486</x><y>219</y><w>189</w><h>180</h></coordinates><panel_attributes>User
+-
+*id: string*
+email: string
+pseudo: string
+name: string
+password: string
+role: ADMIN | USER
+avatar: string
+isEmailVerified: boolean
+isOAuthGoogleProvider: boolean
+createdAt: datetime
+updatedAt: datetime
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>129</y><w>117</w><h>72</h></coordinates><panel_attributes>UsedToken
+-
+*jti: string*
+expiresAt: datetime
+usedAt: datetime</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>531</x><y>129</y><w>36</w><h>108</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=*</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>180</x><y>111</y><w>189</w><h>117</h></coordinates><panel_attributes>UserSettings
+-
+*id: string*
+/*userId: string*/
+theme: LIGHT | DARK | SYSTEM
+language: FR | EN | ES
+createdAt: datetime
+updatedAt: datetime
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1035</x><y>219</y><w>189</w><h>180</h></coordinates><panel_attributes>Post
+-
+*id: string*
+/*userId: string*/
+/*eventCategoryId: string*/
+description: string
+pictureLinks: string[]
+createdAt: datetime
+updatedAt: datetime</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>666</x><y>246</y><w>387</w><h>36</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=*</panel_attributes><additional_attributes>10;10;410;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>783</x><y>435</y><w>135</w><h>126</h></coordinates><panel_attributes>Comment
+-
+*id: string*
+/*userId: string*/
+/*postId: string*/
+value: string
+pictureLink: string
+createdAt: datetime
+updatedAt: datetime</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>909</x><y>345</y><w>144</w><h>162</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=*</panel_attributes><additional_attributes>140;10;100;10;100;150;10;150</additional_attributes></element><element><id>Relation</id><coordinates><x>666</x><y>345</y><w>135</w><h>162</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=*</panel_attributes><additional_attributes>10;10;50;10;50;150;130;150</additional_attributes></element><element><id>UMLClass</id><coordinates><x>783</x><y>138</y><w>135</w><h>90</h></coordinates><panel_attributes>UserPostLike
+-
+*id: string*
+/*userId: string*/
+/*postId: string*/
+createdAt: datetime
+updatedAt: datetime</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>585</x><y>165</y><w>216</w><h>72</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=*</panel_attributes><additional_attributes>10;60;10;10;220;10</additional_attributes></element><element><id>Relation</id><coordinates><x>909</x><y>165</y><w>252</w><h>72</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=*</panel_attributes><additional_attributes>250;60;250;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>387</x><y>12</y><w>189</w><h>126</h></coordinates><panel_attributes>Notification
+-
+*id: string*
+/*userId: string*/
+message: string
+link: string
+isSeen: boolean
+createdAt: datetime
+updatedAt: datetime
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>783</x><y>291</y><w>135</w><h>90</h></coordinates><panel_attributes>UserCommentLike
+-
+*id: string*
+/*userId: string*/
+/*postId: string*/
+createdAt: datetime
+updatedAt: datetime</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>666</x><y>309</y><w>135</w><h>36</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=*</panel_attributes><additional_attributes>10;10;130;10</additional_attributes></element><element><id>Relation</id><coordinates><x>837</x><y>372</y><w>36</w><h>81</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=*</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>360</x><y>165</y><w>180</w><h>72</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=*</panel_attributes><additional_attributes>170;60;170;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>90</x><y>255</y><w>189</w><h>135</h></coordinates><panel_attributes>Message
+-
+*id: string*
+/*senderId: string*/
+/*receiverId: string*/
+content: string
+pictureLinks: string[]
+isSeen: boolean
+createdAt: datetime
+updatedAt: datetime
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>270</x><y>273</y><w>234</w><h>36</h></coordinates><panel_attributes>lt=&lt;-
+m1=2
+m2=*</panel_attributes><additional_attributes>240;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>513</x><y>651</y><w>135</w><h>126</h></coordinates><panel_attributes>Channel
+-
+*id: string*
+createdById: string
+title: string
+description: string
+pictureLink: string
+createdAt: datetime
+updatedAt: datetime</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>513</x><y>462</y><w>135</w><h>117</h></coordinates><panel_attributes>UserInChannel
+-
+*id: string*
+/*userId: string*/
+/*channelId: string*/
+isOwner: boolean
+createdAt: datetime
+updatedAt: datetime</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>567</x><y>390</y><w>36</w><h>90</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=*</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>567</x><y>570</y><w>36</w><h>99</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=*</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>234</x><y>453</y><w>144</w><h>135</h></coordinates><panel_attributes>UserChannelMessage
+-
+*id: string*
+/*senderId: string*/
+/*channelId: string*/
+content: string
+pictureLinks: string[]
+createdAt: datetime
+updatedAt: datetime
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>297</x><y>579</y><w>234</w><h>171</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=*</panel_attributes><additional_attributes>240;160;10;160;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>351</x><y>354</y><w>153</w><h>117</h></coordinates><panel_attributes>lt=&lt;-
+m1=1
+m2=*</panel_attributes><additional_attributes>150;10;10;10;10;110</additional_attributes></element></diagram>
