@@ -14,7 +14,7 @@ const prisma = new PrismaClient({
 export const auth = betterAuth({
   appName: "ft_transcendence",
 
-  baseURL: process.env.BETTER_AUTH_URL ?? "https://localhost:9000",
+  baseURL: process.env.BETTER_AUTH_URL ?? "https://localhost:3000",
 
   basePath: "/auth",
 
