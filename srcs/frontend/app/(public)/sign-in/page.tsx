@@ -1,17 +1,49 @@
 "use client";
 
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "@/lib/auth/sign-in";
 
 export default function SignInPage() {
   const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleBackgroundClick = () => {
     router.push("/");
   };
 
-  const stopPropagation = (e) => {
+  const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    setError("");
+    setLoading(true);
+
+    try {
+      const result = await signIn({
+        email,
+        password,
+      });
+
+      if (result.error) {
+        setError(result.error.message ?? "Invalid email or password.");
+        return;
+      }
+
+      router.push("/feed");
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <main
@@ -33,7 +65,8 @@ export default function SignInPage() {
           {/* Header */}
           <div className="mb-8 text-center">
             <h1 className="text-3xl font-bold text-white">
-              Welcome back to Heart<span className="text-violet-500">beat</span>
+              Welcome back to Heart
+              <span className="text-violet-500">beat</span>
             </h1>
 
             <p className="mt-2 text-sm text-zinc-400">
@@ -42,13 +75,7 @@ export default function SignInPage() {
           </div>
 
           {/* Form */}
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              router.push("/feed");
-            }}
-            className="space-y-5"
-          >
+          <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email */}
             <div>
               <label
@@ -63,7 +90,10 @@ export default function SignInPage() {
                 name="email"
                 type="email"
                 placeholder="you@example.com"
+                autoComplete="email"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-600 focus:border-violet-500"
               />
             </div>
@@ -91,23 +121,37 @@ export default function SignInPage() {
                 name="password"
                 type="password"
                 placeholder="Your password"
+                autoComplete="current-password"
                 required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-600 focus:border-violet-500"
               />
             </div>
 
+            {/* Error */}
+            {error && (
+              <p
+                className="rounded-lg border border-red-900/50 bg-red-950/30 px-4 py-3 text-sm text-red-400"
+                role="alert"
+              >
+                {error}
+              </p>
+            )}
+
             {/* Submit */}
             <button
               type="submit"
-              className="w-full rounded-lg bg-violet-600 py-3 text-sm font-semibold text-white transition hover:bg-violet-500"
+              disabled={loading}
+              className="w-full rounded-lg bg-violet-600 py-3 text-sm font-semibold text-white transition hover:bg-violet-500 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Sign in
+              {loading ? "Signing in..." : "Sign in"}
             </button>
           </form>
 
           {/* Sign up */}
           <p className="mt-6 text-center text-sm text-zinc-500">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <a
               href="/sign-up"
               className="text-violet-400 hover:text-violet-300"
