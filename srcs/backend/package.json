@@ -5,7 +5,6 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "type": "module",
   "scripts": {
     "build": "nest build",
     "deploy": "nest deploy",
@@ -22,14 +21,20 @@
     "test:e2e": "vitest run --config ./vitest.config.e2e.ts",
     "prisma:migrate": "prisma migrate dev",
     "prisma:generate": "prisma generate",
-    "prisma:studio": "prisma studio --browser none"
+    "prisma:studio": "prisma studio --browser none",
+    "auth:generate": "better-auth generate",
+    "auth:generate:force": "better-auth generate --force",
+    "auth:generate:force:prisma": "better-auth generate --force --adapter prisma",
+    "auth:generate:force:prisma:pg": "better-auth generate --force --adapter prisma --db pg"
   },
   "dependencies": {
+    "@better-auth/prisma-adapter": "^1.7.5",
     "@nestjs/common": "^12.0.1",
     "@nestjs/core": "^12.0.1",
     "@nestjs/platform-express": "^12.0.1",
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
+    "better-auth": "^1.7.5",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
     "prisma": "^7.9.1",
