@@ -24,6 +24,7 @@ export function SignUpForm() {
       name: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
@@ -78,6 +79,16 @@ export function SignUpForm() {
         autoComplete="new-password"
         error={errors.password?.message}
         {...register("password")}
+      />
+
+      <InputField
+        id="confirmPassword"
+        label="Confirm password"
+        type="password"
+        placeholder="Confirm your password"
+        autoComplete="new-password"
+        error={errors.confirmPassword?.message}
+        {...register("confirmPassword")}
       />
 
       <FormAlert message={serverError} type="error" />
