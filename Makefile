@@ -143,7 +143,7 @@ start:
 clean:
 	$(COMPOSE) down --volumes --remove-orphans
 
-fclean:
+fclean: clean
 	docker compose down -v --rmi all
 	docker system prune -a --volumes -f
 	docker volume prune -a -f
