@@ -1,0 +1,127 @@
+{
+  "Common": {
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "error": "Error",
+    "success": "Éxito",
+    "or": "o"
+  },
+  "Nav": {
+    "brand": "Heart",
+    "brandAccent": "beat",
+    "feed": "Feed",
+    "play": "Jugar",
+    "leaderboard": "Clasificación",
+    "chat": "Chat",
+    "settings": "Ajustes",
+    "apiKeys": "Claves API",
+    "createAccount": "Crear cuenta",
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión",
+    "signingOut": "Cerrando sesión...",
+    "toggleMenu": "Abrir menú"
+  },
+  "Auth": {
+    "signIn": {
+      "title": "Bienvenido de nuevo",
+      "subtitle": "Inicia sesión en tu cuenta",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "passwordLabel": "Contraseña",
+      "passwordPlaceholder": "Tu contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "submit": "Iniciar sesión",
+      "submitting": "Iniciando sesión...",
+      "noAccount": "¿No tienes una cuenta?",
+      "signUpLink": "Regístrate",
+      "invalidCredentials": "Correo electrónico o contraseña no válidos.",
+      "genericError": "Algo salió mal. Por favor, inténtalo de nuevo."
+    },
+    "signUp": {
+      "title": "Crear una cuenta",
+      "subtitle": "Únete a la comunidad hoy",
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Tu nombre",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "passwordLabel": "Contraseña",
+      "passwordPlaceholder": "Crea una contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "confirmPasswordPlaceholder": "Confirma tu contraseña",
+      "submit": "Crear cuenta",
+      "submitting": "Creando cuenta...",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "signInLink": "Iniciar sesión",
+      "accountCreationError": "No se pudo crear la cuenta.",
+      "genericError": "Algo salió mal. Por favor, inténtalo de nuevo."
+    },
+    "forgotPassword": {
+      "title": "Restablecer contraseña",
+      "subtitle": "Introduce tu correo para recibir un enlace de recuperación",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "submit": "Enviar enlace",
+      "submitting": "Enviando enlace...",
+      "rememberPassword": "¿Recuerdas tu contraseña?",
+      "signInLink": "Iniciar sesión",
+      "successMessage": "Si existe una cuenta con este correo, recibirás un enlace de recuperación pronto.",
+      "errorMessage": "No se pudo enviar el enlace de recuperación. Inténtalo más tarde."
+    },
+    "validation": {
+      "emailRequired": "El correo electrónico es obligatorio",
+      "emailInvalid": "Por favor introduce un correo electrónico válido",
+      "passwordRequired": "La contraseña es obligatoria",
+      "passwordMin": "La contraseña debe tener al menos 8 caracteres",
+      "nameRequired": "El nombre es obligatorio",
+      "nameMin": "El nombre debe tener al menos 2 caracteres",
+      "nameMax": "El nombre no puede superar los 50 caracteres",
+      "confirmPasswordRequired": "Por favor confirma tu contraseña",
+      "passwordsDoNotMatch": "Las contraseñas no coinciden"
+    }
+  },
+  "Home": {
+    "title": "Domina la raqueta",
+    "subtitle": "Plataforma competitiva de Pong en tiempo real con funciones sociales modernas",
+    "playNow": "Jugar ahora",
+    "signIn": "Iniciar sesión",
+    "welcome": "Bienvenido a ft_transcendence"
+  },
+  "Feed": {
+    "title": "Feed",
+    "welcomeMessage": "¡Bienvenido a tu feed!",
+    "activity": "Actividad reciente"
+  },
+  "Settings": {
+    "apiKeys": {
+      "title": "Crear clave API",
+      "subtitle": "Genera una clave para autenticar tus aplicaciones.",
+      "nameLabel": "Nombre",
+      "namePlaceholder": "ej. CI Pipeline",
+      "nameHelp": "Una etiqueta para reconocer esta clave más tarde.",
+      "expiresLabel": "Expira en (días)",
+      "expiresHelp": "Establece 0 para una clave que nunca expire.",
+      "submit": "Crear clave API",
+      "submitting": "Creando…",
+      "cancel": "Cancelar",
+      "createdTitle": "Clave API creada",
+      "copyWarning": "⚠️ Copia esta clave ahora. No podrás volver a verla.",
+      "copy": "Copiar",
+      "copied": "¡Copiado!",
+      "name": "Nombre",
+      "expires": "Expira el",
+      "never": "Nunca",
+      "done": "Hecho",
+      "createAnother": "Crear otra",
+      "errorFailed": "Error al crear la clave API",
+      "errorNoKey": "El servidor no devolvió ninguna clave",
+      "errorUnexpected": "Error inesperado"
+    }
+  },
+  "Language": {
+    "switchLanguage": "Idioma",
+    "en": "English",
+    "fr": "Français",
+    "es": "Español"
+  }
+}

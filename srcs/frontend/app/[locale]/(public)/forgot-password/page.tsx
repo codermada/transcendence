@@ -1,17 +1,20 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/routing";
 import { AuthCard } from "@/components/auth/AuthCard";
 import { ForgotPasswordForm } from "@/components/auth/ForgotPasswordForm";
 
-export default function ForgotPasswordPage() {
+export default async function ForgotPasswordPage() {
+  const t = await getTranslations("Auth.forgotPassword");
+
   return (
     <AuthCard
-      title="Forgot your password?"
-      subtitle="Enter your email address and we'll send you a link to reset your password."
+      title={t("title")}
+      subtitle={t("subtitle")}
       footer={
         <p>
-          Remember your password?{" "}
+          {t("rememberPassword")}{" "}
           <Link href="/sign-in" className="text-violet-400 hover:text-violet-300">
-            Sign in
+            {t("signInLink")}
           </Link>
         </p>
       }

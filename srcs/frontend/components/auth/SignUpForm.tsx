@@ -1,25 +1,39 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/routing";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpSchema, type SignUpFormData } from "@/lib/validations/auth";
+import { createSignUpSchema, type SignUpFormData } from "@/lib/validations/auth";
 import { signUp } from "@/lib/auth/sign-up";
 import { InputField } from "@/components/ui/InputField";
 import { FormAlert } from "@/components/ui/FormAlert";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 
 export function SignUpForm() {
+  const t = useTranslations("Auth.signUp");
+  const tVal = useTranslations("Auth.validation");
   const router = useRouter();
   const [serverError, setServerError] = useState("");
+
+  const schema = createSignUpSchema({
+    nameRequired: tVal("nameRequired"),
+    nameMin: tVal("nameMin"),
+    nameMax: tVal("nameMax"),
+    emailRequired: tVal("emailRequired"),
+    emailInvalid: tVal("emailInvalid"),
+    passwordMin: tVal("passwordMin"),
+    confirmPasswordRequired: tVal("confirmPasswordRequired"),
+    passwordsDoNotMatch: tVal("passwordsDoNotMatch"),
+  });
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<SignUpFormData>({
-    resolver: zodResolver(signUpSchema),
+    resolver: zodResolver(schema),
     defaultValues: {
       name: "",
       email: "",
@@ -39,13 +53,13 @@ export function SignUpForm() {
       });
 
       if (result.error) {
-        setServerError(result.error.message ?? "Unable to create account.");
+        setServerError(result.error.message ?? t("accountCreationError"));
         return;
       }
 
       router.push("/feed");
     } catch {
-      setServerError("Something went wrong. Please try again.");
+      setServerError(t("genericError"));
     }
   };
 
@@ -53,9 +67,9 @@ export function SignUpForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
       <InputField
         id="name"
-        label="Name"
+        label={t("nameLabel")}
         type="text"
-        placeholder="Your name"
+        placeholder={t("namePlaceholder")}
         autoComplete="name"
         error={errors.name?.message}
         {...register("name")}
@@ -63,9 +77,9 @@ export function SignUpForm() {
 
       <InputField
         id="email"
-        label="Email"
+        label={t("emailLabel")}
         type="email"
-        placeholder="you@example.com"
+        placeholder={t("emailPlaceholder")}
         autoComplete="email"
         error={errors.email?.message}
         {...register("email")}
@@ -73,9 +87,9 @@ export function SignUpForm() {
 
       <InputField
         id="password"
-        label="Password"
+        label={t("passwordLabel")}
         type="password"
-        placeholder="Create a password"
+        placeholder={t("passwordPlaceholder")}
         autoComplete="new-password"
         error={errors.password?.message}
         {...register("password")}
@@ -83,9 +97,9 @@ export function SignUpForm() {
 
       <InputField
         id="confirmPassword"
-        label="Confirm password"
+        label={t("confirmPasswordLabel")}
         type="password"
-        placeholder="Confirm your password"
+        placeholder={t("confirmPasswordPlaceholder")}
         autoComplete="new-password"
         error={errors.confirmPassword?.message}
         {...register("confirmPassword")}
@@ -93,8 +107,8 @@ export function SignUpForm() {
 
       <FormAlert message={serverError} type="error" />
 
-      <SubmitButton isLoading={isSubmitting} loadingText="Creating account...">
-        Create account
+      <SubmitButton isLoading={isSubmitting} loadingText={t("submitting")}>
+        {t("submit")}
       </SubmitButton>
     </form>
   );
