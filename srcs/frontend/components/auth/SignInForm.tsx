@@ -10,6 +10,7 @@ import { signIn } from "@/lib/auth/sign-in";
 import { InputField } from "@/components/ui/InputField";
 import { FormAlert } from "@/components/ui/FormAlert";
 import { SubmitButton } from "@/components/ui/SubmitButton";
+import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton"; // adjust path
 
 export function SignInForm() {
   const t = useTranslations("Auth.signIn");
@@ -56,40 +57,55 @@ export function SignInForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
-      <InputField
-        id="email"
-        label={t("emailLabel")}
-        type="email"
-        placeholder={t("emailPlaceholder")}
-        autoComplete="email"
-        error={errors.email?.message}
-        {...register("email")}
-      />
+    <div className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
+        <InputField
+          id="email"
+          label={t("emailLabel")}
+          type="email"
+          placeholder={t("emailPlaceholder")}
+          autoComplete="email"
+          error={errors.email?.message}
+          {...register("email")}
+        />
 
-      <InputField
-        id="password"
-        label={t("passwordLabel")}
-        type="password"
-        placeholder={t("passwordPlaceholder")}
-        autoComplete="current-password"
-        rightLabel={
-          <Link
-            href="/forgot-password"
-            className="text-xs text-violet-400 hover:text-violet-300"
-          >
-            {t("forgotPassword")}
-          </Link>
-        }
-        error={errors.password?.message}
-        {...register("password")}
-      />
+        <InputField
+          id="password"
+          label={t("passwordLabel")}
+          type="password"
+          placeholder={t("passwordPlaceholder")}
+          autoComplete="current-password"
+          rightLabel={
+            <Link
+              href="/forgot-password"
+              className="text-xs text-violet-400 hover:text-violet-300"
+            >
+              {t("forgotPassword")}
+            </Link>
+          }
+          error={errors.password?.message}
+          {...register("password")}
+        />
 
-      <FormAlert message={serverError} type="error" />
+        <FormAlert message={serverError} type="error" />
 
-      <SubmitButton isLoading={isSubmitting} loadingText={t("submitting")}>
-        {t("submit")}
-      </SubmitButton>
-    </form>
+        <SubmitButton isLoading={isSubmitting} loadingText={t("submitting")}>
+          {t("submit")}
+        </SubmitButton>
+      </form>
+
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center" aria-hidden="true">
+          <div className="w-full border-t border-surface-border" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-surface px-2 text-surface-foreground/60">
+            {t("orContinueWith")}
+          </span>
+        </div>
+      </div>
+
+      <GoogleAuthButton mode="signin" callbackURL="/feed" />
+    </div>
   );
 }
