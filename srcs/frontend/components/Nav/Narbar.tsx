@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { LanguageSwitcher } from "@/components/common/LanguageSwitcher";
+import { ThemeToggle } from "@/components/common/ThemeToggle";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,7 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-4 md:flex">
           <LanguageSwitcher />
+          <ThemeToggle />
 
           <Link
             href="/sign-in"
@@ -39,6 +41,7 @@ export default function Navbar() {
         {/* Mobile Actions */}
         <div className="flex items-center gap-2 md:hidden">
           <LanguageSwitcher />
+          <ThemeToggle />
 
           <button
             onClick={() => setIsOpen(!isOpen)}

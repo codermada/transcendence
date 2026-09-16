@@ -8,16 +8,15 @@ export default async function SignUpPage() {
 
   return (
     <AuthCard
-      title={
-        <>
-          {t("title")}
-        </>
-      }
+      title={<>{t("title")}</>}
       subtitle={t("subtitle")}
       footer={
-        <p>
+        <p className="text-muted">
           {t("hasAccount")}{" "}
-          <Link href="/sign-in" className="text-violet-400 hover:text-violet-300">
+          <Link
+            href="/sign-in"
+            className="text-accent-text font-medium transition-colors hover:text-brand-300"
+          >
             {t("signInLink")}
           </Link>
         </p>
