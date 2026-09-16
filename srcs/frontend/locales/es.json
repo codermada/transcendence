@@ -23,7 +23,8 @@
     "toggleMenu": "Abrir menú",
     "toggleTheme": "Cambiar tema",
     "switchToLight": "Cambiar a modo claro",
-    "switchToDark": "Cambiar a modo oscuro"
+    "switchToDark": "Cambiar a modo oscuro",
+    "admin": "Admin"
   },
   "Auth": {
     "signIn": {
@@ -123,8 +124,11 @@
       "emailLabel": "Correo electrónico",
       "emailPlaceholder": "tu@ejemplo.com",
       "emailHelp": "Lo usaremos para notificaciones e inicio de sesión.",
+      "emailLocked": "El correo electrónico no se puede cambiar.",
       "submit": "Guardar cambios",
-      "submitting": "Guardando…"
+      "submitting": "Guardando…",
+      "saved": "Perfil actualizado",
+      "errorUnexpected": "Algo salió mal. Por favor, inténtalo de nuevo."
     },
     "security": {
       "title": "Seguridad",
@@ -176,6 +180,14 @@
       "errorFailed": "Error al crear la clave API",
       "errorNoKey": "El servidor no devolvió ninguna clave",
       "errorUnexpected": "Error inesperado"
+    }
+  },
+  "Admin": {
+    "users": {
+      "title": "Usuarios",
+      "subtitle": "Gestiona las cuentas de usuario y los roles.",
+      "errorFailed": "No se pudieron cargar los usuarios.",
+      "errorUnexpected": "Algo salió mal."
     }
   },
   "Language": {

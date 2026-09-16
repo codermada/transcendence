@@ -10,11 +10,18 @@ import { CurrentUser } from '../auth/CurrentUser';
 import { AuthGuard } from '../auth/AuthGuard';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AdminGuard } from '../auth/AdminGuard';
 
 @ApiTags('user')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @Get()
+  @UseGuards(AdminGuard)
+  async getAllUsers() {
+    return this.userService.getAllUsers();
+  }
 
   @ApiOperation({ summary: 'Get current user (requires session cookie)' })
   @Get('me')

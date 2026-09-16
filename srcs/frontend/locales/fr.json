@@ -23,7 +23,8 @@
     "toggleMenu": "Ouvrir le menu",
     "toggleTheme": "Changer de thème",
     "switchToLight": "Passer en mode clair",
-    "switchToDark": "Passer en mode sombre"
+    "switchToDark": "Passer en mode sombre",
+    "admin": "Admin"
   },
   "Auth": {
     "signIn": {
@@ -123,8 +124,11 @@
       "emailLabel": "E-mail",
       "emailPlaceholder": "vous@exemple.com",
       "emailHelp": "Nous l'utiliserons pour les notifications et la connexion.",
+      "emailLocked": "L'e-mail ne peut pas être modifié.",
       "submit": "Enregistrer les modifications",
-      "submitting": "Enregistrement…"
+      "submitting": "Enregistrement…",
+      "saved": "Profil mis à jour",
+      "errorUnexpected": "Une erreur est survenue. Veuillez réessayer."
     },
     "security": {
       "title": "Sécurité",
@@ -176,6 +180,14 @@
       "errorFailed": "Échec de la création de la clé API",
       "errorNoKey": "Aucune clé renvoyée par le serveur",
       "errorUnexpected": "Erreur inattendue"
+    }
+  },
+  "Admin": {
+    "users": {
+      "title": "Utilisateurs",
+      "subtitle": "Gérez les comptes utilisateurs et les rôles.",
+      "errorFailed": "Échec du chargement des utilisateurs.",
+      "errorUnexpected": "Une erreur est survenue."
     }
   },
   "Language": {

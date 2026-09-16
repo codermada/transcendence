@@ -25,7 +25,8 @@
     "auth:generate": "better-auth generate",
     "auth:generate:force": "better-auth generate --force",
     "auth:generate:force:prisma": "better-auth generate --force --adapter prisma",
-    "auth:generate:force:prisma:pg": "better-auth generate --force --adapter prisma --db pg"
+    "auth:generate:force:prisma:pg": "better-auth generate --force --adapter prisma --db pg",
+    "create-admin": "tsx src/scripts/create-admin.ts"
   },
   "dependencies": {
     "@better-auth/api-key": "^1.7.5",
@@ -44,7 +45,8 @@
     "nodemailer": "^10.0.10",
     "prisma": "^7.9.1",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "tsx": "^4.23.13"
   },
   "devDependencies": {
     "@nestjs/cli": "^12.0.0",
