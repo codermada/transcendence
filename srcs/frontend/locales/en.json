@@ -21,7 +21,6 @@
     "signOut": "Sign out",
     "signingOut": "Signing out...",
     "toggleMenu": "Toggle menu",
-
     "toggleTheme": "Toggle theme",
     "switchToLight": "Switch to light mode",
     "switchToDark": "Switch to dark mode"
@@ -97,6 +96,61 @@
     "activity": "Recent Activity"
   },
   "Settings": {
+    "nav": {
+      "ariaLabel": "Settings navigation",
+      "apiKeys": "API Keys",
+      "profile": "Profile",
+      "security": "Security"
+    },
+    "home": {
+      "title": "Settings",
+      "subtitle": "Manage your account and integrations.",
+      "apiKeysTitle": "API Keys",
+      "apiKeysDesc": "Create and manage keys for programmatic access.",
+      "profileTitle": "Profile",
+      "profileDesc": "Update your name, email, and avatar.",
+      "securityTitle": "Security",
+      "securityDesc": "Passwords, sessions, and two-factor authentication."
+    },
+    "profile": {
+      "title": "Profile",
+      "subtitle": "Update your name and email address.",
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "nameHelp": "This is how other users will see you.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "emailHelp": "We'll use this for notifications and sign-in.",
+      "submit": "Save changes",
+      "submitting": "Saving…"
+    },
+    "security": {
+      "title": "Security",
+      "subtitle": "Manage your account security and sessions.",
+      "twoFactor": {
+        "title": "Two-Factor Authentication",
+        "description": "Add an extra layer of security to your account by requiring a verification code in addition to your password.",
+        "enabled": "Enabled",
+        "disabled": "Disabled",
+        "enable": "Enable 2FA",
+        "disable": "Disable 2FA",
+        "submitting": "Please wait…"
+      },
+      "moreTitle": "More options",
+      "comingSoon": "Coming soon",
+      "password": {
+        "title": "Password",
+        "description": "Change your account password."
+      },
+      "sessions": {
+        "title": "Active sessions",
+        "description": "Review and revoke devices that are signed in to your account."
+      },
+      "danger": {
+        "title": "Danger zone",
+        "description": "Permanently delete your account and all associated data."
+      }
+    },
     "apiKeys": {
       "title": "Create API Key",
       "subtitle": "Generate a key to authenticate your apps against the API.",

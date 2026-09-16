@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth/use-session";
+import { NavAuth } from "@/components/Nav/NavAuth";
 
 export default function PrivateLayout({
   children,
@@ -30,5 +31,5 @@ export default function PrivateLayout({
     return null;
   }
 
-  return <>{children}</>;
+  return <><NavAuth />{children}</>;
 }

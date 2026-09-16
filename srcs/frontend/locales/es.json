@@ -21,7 +21,6 @@
     "signOut": "Cerrar sesión",
     "signingOut": "Cerrando sesión...",
     "toggleMenu": "Abrir menú",
-
     "toggleTheme": "Cambiar tema",
     "switchToLight": "Cambiar a modo claro",
     "switchToDark": "Cambiar a modo oscuro"
@@ -97,6 +96,61 @@
     "activity": "Actividad reciente"
   },
   "Settings": {
+    "nav": {
+      "ariaLabel": "Navegación de ajustes",
+      "apiKeys": "Claves API",
+      "profile": "Perfil",
+      "security": "Seguridad"
+    },
+    "home": {
+      "title": "Ajustes",
+      "subtitle": "Gestiona tu cuenta e integraciones.",
+      "apiKeysTitle": "Claves API",
+      "apiKeysDesc": "Crea y gestiona claves para acceso programático.",
+      "profileTitle": "Perfil",
+      "profileDesc": "Actualiza tu nombre, correo y avatar.",
+      "securityTitle": "Seguridad",
+      "securityDesc": "Contraseñas, sesiones y autenticación de dos factores."
+    },
+    "profile": {
+      "title": "Perfil",
+      "subtitle": "Actualiza tu nombre y correo electrónico.",
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Tu nombre",
+      "nameHelp": "Así es como te verán otros usuarios.",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "emailHelp": "Lo usaremos para notificaciones e inicio de sesión.",
+      "submit": "Guardar cambios",
+      "submitting": "Guardando…"
+    },
+    "security": {
+      "title": "Seguridad",
+      "subtitle": "Gestiona la seguridad de tu cuenta y las sesiones.",
+      "twoFactor": {
+        "title": "Autenticación de dos factores",
+        "description": "Añade una capa extra de seguridad a tu cuenta solicitando un código de verificación además de tu contraseña.",
+        "enabled": "Activada",
+        "disabled": "Desactivada",
+        "enable": "Activar 2FA",
+        "disable": "Desactivar 2FA",
+        "submitting": "Espera un momento…"
+      },
+      "moreTitle": "Más opciones",
+      "comingSoon": "Próximamente",
+      "password": {
+        "title": "Contraseña",
+        "description": "Cambia la contraseña de tu cuenta."
+      },
+      "sessions": {
+        "title": "Sesiones activas",
+        "description": "Revisa y revoca los dispositivos conectados a tu cuenta."
+      },
+      "danger": {
+        "title": "Zona de peligro",
+        "description": "Elimina permanentemente tu cuenta y todos los datos asociados."
+      }
+    },
     "apiKeys": {
       "title": "Crear clave API",
       "subtitle": "Genera una clave para autenticar tus aplicaciones.",
