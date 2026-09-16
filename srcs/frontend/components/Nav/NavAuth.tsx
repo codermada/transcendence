@@ -1,10 +1,11 @@
-// components/Nav/NavAuth.tsx
+
 "use client";
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { signOut } from "@/lib/auth/sign-out";
+import { authClient } from "@/lib/auth/auth-client";
 import { LanguageSwitcher } from "@/components/common/LanguageSwitcher";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { NavShell } from "./NavShell";
@@ -17,6 +18,9 @@ export function NavAuth() {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const t = useTranslations("Nav");
+
+  const { data: session } = authClient.useSession();
+  const isAdmin = session?.user?.role === "admin";
 
   async function handleSignOut() {
     setLoading(true);
@@ -56,6 +60,16 @@ export function NavAuth() {
                 {t("settings")}
               </NavLink>
 
+              {isAdmin && (
+                <NavLink
+                  href="/admin"
+                  variant="mobile"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {t("admin")}
+                </NavLink>
+              )}
+
               <button
                 type="button"
                 onClick={handleSignOut}
@@ -75,6 +89,11 @@ export function NavAuth() {
       <div className="hidden items-center gap-3 md:flex">
         <NavLink href="/feed">{t("feed")}</NavLink>
         <NavLink href="/settings">{t("settings")}</NavLink>
+
+        {isAdmin && (
+          <NavLink href="/admin">{t("admin")}</NavLink>
+        )}
+
         <LanguageSwitcher />
         <ThemeToggle />
         <button
