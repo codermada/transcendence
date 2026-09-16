@@ -20,7 +20,11 @@
     "signIn": "Sign in",
     "signOut": "Sign out",
     "signingOut": "Signing out...",
-    "toggleMenu": "Toggle menu"
+    "toggleMenu": "Toggle menu",
+
+    "toggleTheme": "Toggle theme",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
   },
   "Auth": {
     "signIn": {
