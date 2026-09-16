@@ -121,8 +121,11 @@
       "emailLabel": "Email",
       "emailPlaceholder": "you@example.com",
       "emailHelp": "We'll use this for notifications and sign-in.",
+      "emailLocked": "Email cannot be changed.",
       "submit": "Save changes",
-      "submitting": "Saving…"
+      "submitting": "Saving…",
+      "saved": "Profile updated",
+      "errorUnexpected": "Something went wrong. Please try again."
     },
     "security": {
       "title": "Security",
