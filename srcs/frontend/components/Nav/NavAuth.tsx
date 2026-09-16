@@ -48,6 +48,14 @@ export function NavAuth() {
                 {t("feed")}
               </NavLink>
 
+              <NavLink
+                href="/settings"
+                variant="mobile"
+                onClick={() => setIsOpen(false)}
+              >
+                {t("settings")}
+              </NavLink>
+
               <button
                 type="button"
                 onClick={handleSignOut}
@@ -66,6 +74,7 @@ export function NavAuth() {
       {/* Desktop */}
       <div className="hidden items-center gap-3 md:flex">
         <NavLink href="/feed">{t("feed")}</NavLink>
+        <NavLink href="/settings">{t("settings")}</NavLink>
         <LanguageSwitcher />
         <ThemeToggle />
         <button

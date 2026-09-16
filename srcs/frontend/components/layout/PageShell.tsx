@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { NavAuth } from "@/components/Nav/NavAuth";
+
 
 interface PageShellProps {
   title: string;
@@ -17,7 +17,6 @@ export function PageShell({
 }: PageShellProps) {
   return (
     <main className="min-h-dvh bg-background text-foreground">
-      <NavAuth />
 
       <div className={`mx-auto ${maxWidth} p-6`}>
         <header className="mb-6">
