@@ -39,7 +39,8 @@
       "noAccount": "Vous n'avez pas de compte ?",
       "signUpLink": "S'inscrire",
       "invalidCredentials": "E-mail ou mot de passe invalide.",
-      "genericError": "Une erreur est survenue. Veuillez réessayer."
+      "genericError": "Une erreur est survenue. Veuillez réessayer.",
+      "orContinueWith": "Ou continuer avec"
     },
     "signUp": {
       "title": "Créer un compte",
@@ -57,7 +58,8 @@
       "hasAccount": "Vous avez déjà un compte ?",
       "signInLink": "Se connecter",
       "accountCreationError": "Impossible de créer le compte.",
-      "genericError": "Une erreur est survenue. Veuillez réessayer."
+      "genericError": "Une erreur est survenue. Veuillez réessayer.",
+      "orContinueWith": "Ou continuer avec"
     },
     "forgotPassword": {
       "title": "Réinitialiser le mot de passe",

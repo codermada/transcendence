@@ -39,7 +39,8 @@
       "noAccount": "¿No tienes una cuenta?",
       "signUpLink": "Regístrate",
       "invalidCredentials": "Correo electrónico o contraseña no válidos.",
-      "genericError": "Algo salió mal. Por favor, inténtalo de nuevo."
+      "genericError": "Algo salió mal. Por favor, inténtalo de nuevo.",
+      "orContinueWith": "O continúa con"
     },
     "signUp": {
       "title": "Crear una cuenta",
@@ -57,7 +58,8 @@
       "hasAccount": "¿Ya tienes una cuenta?",
       "signInLink": "Iniciar sesión",
       "accountCreationError": "No se pudo crear la cuenta.",
-      "genericError": "Algo salió mal. Por favor, inténtalo de nuevo."
+      "genericError": "Algo salió mal. Por favor, inténtalo de nuevo.",
+      "orContinueWith": "O continúa con"
     },
     "forgotPassword": {
       "title": "Restablecer contraseña",
