@@ -3,7 +3,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { apiKey } from "@better-auth/api-key";
-import { twoFactor } from 'better-auth/plugins';
+import { twoFactor, admin } from 'better-auth/plugins';
 import { generateUsername } from "../lib/generateUsername";
 
 const adapter = new PrismaPg({
@@ -68,6 +68,9 @@ export const auth = betterAuth({
     }),
     twoFactor({
       issuer: 'ft_transcendence',
+    }),
+    admin({
+      defaultRole: 'user',
     }),
   ],
 });
