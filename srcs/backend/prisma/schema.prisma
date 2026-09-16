@@ -35,15 +35,15 @@ model Task {
 }
 
 model User {
-  id              String   @id @default(cuid(2))
-  name            String
-  pseudo          String?  @unique
-  email           String
-  isEmailVerified Boolean  @default(false)
-  image           String?
-  role            Role     @default(USER)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id            String   @id @default(cuid(2))
+  name          String
+  pseudo        String?  @unique
+  email         String
+  emailVerified Boolean  @default(false)
+  image         String?
+  role          Role     @default(USER)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   sessions Session[]
   accounts Account[]
