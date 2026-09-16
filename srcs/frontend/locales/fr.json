@@ -20,7 +20,10 @@
     "signIn": "Se connecter",
     "signOut": "Se déconnecter",
     "signingOut": "Déconnexion...",
-    "toggleMenu": "Ouvrir le menu"
+    "toggleMenu": "Ouvrir le menu",
+    "toggleTheme": "Changer de thème",
+    "switchToLight": "Passer en mode clair",
+    "switchToDark": "Passer en mode sombre"
   },
   "Auth": {
     "signIn": {
@@ -93,6 +96,61 @@
     "activity": "Activité récente"
   },
   "Settings": {
+    "nav": {
+      "ariaLabel": "Navigation des paramètres",
+      "apiKeys": "Clés API",
+      "profile": "Profil",
+      "security": "Sécurité"
+    },
+    "home": {
+      "title": "Paramètres",
+      "subtitle": "Gérez votre compte et vos intégrations.",
+      "apiKeysTitle": "Clés API",
+      "apiKeysDesc": "Créez et gérez des clés pour l'accès programmatique.",
+      "profileTitle": "Profil",
+      "profileDesc": "Mettez à jour votre nom, votre e-mail et votre avatar.",
+      "securityTitle": "Sécurité",
+      "securityDesc": "Mots de passe, sessions et authentification à deux facteurs."
+    },
+    "profile": {
+      "title": "Profil",
+      "subtitle": "Mettez à jour votre nom et votre adresse e-mail.",
+      "nameLabel": "Nom",
+      "namePlaceholder": "Votre nom",
+      "nameHelp": "C'est ainsi que les autres utilisateurs vous verront.",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "emailHelp": "Nous l'utiliserons pour les notifications et la connexion.",
+      "submit": "Enregistrer les modifications",
+      "submitting": "Enregistrement…"
+    },
+    "security": {
+      "title": "Sécurité",
+      "subtitle": "Gérez la sécurité de votre compte et vos sessions.",
+      "twoFactor": {
+        "title": "Authentification à deux facteurs",
+        "description": "Ajoutez une couche de sécurité supplémentaire à votre compte en exigeant un code de vérification en plus de votre mot de passe.",
+        "enabled": "Activée",
+        "disabled": "Désactivée",
+        "enable": "Activer la 2FA",
+        "disable": "Désactiver la 2FA",
+        "submitting": "Veuillez patienter…"
+      },
+      "moreTitle": "Plus d'options",
+      "comingSoon": "Bientôt disponible",
+      "password": {
+        "title": "Mot de passe",
+        "description": "Modifiez le mot de passe de votre compte."
+      },
+      "sessions": {
+        "title": "Sessions actives",
+        "description": "Consultez et révoquez les appareils connectés à votre compte."
+      },
+      "danger": {
+        "title": "Zone de danger",
+        "description": "Supprimez définitivement votre compte et toutes les données associées."
+      }
+    },
     "apiKeys": {
       "title": "Créer une clé API",
       "subtitle": "Générez une clé pour authentifier vos applications auprès de l'API.",

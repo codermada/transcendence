@@ -3,6 +3,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { apiKey } from "@better-auth/api-key";
+import { twoFactor } from 'better-auth/plugins';
 
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL!,
@@ -42,6 +43,9 @@ export const auth = betterAuth({
       apiKeyHeaders: "x-api-key", 
       enableMetadata: true,
       enableSessionForAPIKeys: true,
+    }),
+    twoFactor({
+      issuer: 'ft_transcendence',
     }),
   ],
 });
