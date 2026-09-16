@@ -218,10 +218,10 @@ export default function ProfileSettingsPage() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
+        <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-white">
           {t("title")}
         </h1>
-        <p className="mt-2 text-sm text-muted">{t("subtitle")}</p>
+        <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{t("subtitle")}</p>
       </header>
 
       <div
@@ -229,12 +229,8 @@ export default function ProfileSettingsPage() {
           relative overflow-hidden
           space-y-6
           rounded-2xl
-          border border-border
-          bg-surface/40
-          p-5
-          shadow-2xl
-          shadow-black/20
-          backdrop-blur-xl
+          border border-zinc-200/80 bg-white p-5 shadow-xs transition-colors
+          dark:border-zinc-800 dark:bg-zinc-900/50 dark:shadow-none
           sm:p-6
         "
       >
@@ -246,7 +242,7 @@ export default function ProfileSettingsPage() {
             h-px
             bg-gradient-to-r
             from-transparent
-            via-brand-500/50
+            via-violet-500/50
             to-transparent
             shadow-[0_0_14px_rgb(139_92_246_/_0.35)]
           "
@@ -352,7 +348,11 @@ export default function ProfileSettingsPage() {
             <button
               type="submit"
               disabled={isLoading || isSessionLoading || !isDirty}
-              className="btn-primary disabled:cursor-not-allowed disabled:opacity-50"
+              className="
+              rounded-xl bg-violet-600 px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700
+              dark:bg-violet-600 dark:hover:bg-violet-500
+              disabled:cursor-not-allowed disabled:opacity-50
+            "
             >
               {isLoading ? t("submitting") : t("submit")}
             </button>
