@@ -23,7 +23,8 @@
     "toggleMenu": "Toggle menu",
     "toggleTheme": "Toggle theme",
     "switchToLight": "Switch to light mode",
-    "switchToDark": "Switch to dark mode"
+    "switchToDark": "Switch to dark mode",
+    "admin": "Admin"
   },
   "Auth": {
     "signIn": {
@@ -179,6 +180,14 @@
       "errorFailed": "Failed to create API key",
       "errorNoKey": "No key returned from server",
       "errorUnexpected": "Unexpected error"
+    }
+  },
+  "Admin": {
+    "users": {
+      "title": "Users",
+      "subtitle": "Manage user accounts and roles.",
+      "errorFailed": "Failed to fetch users.",
+      "errorUnexpected": "Something went wrong."
     }
   },
   "Language": {
