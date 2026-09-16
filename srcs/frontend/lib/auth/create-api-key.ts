@@ -1,6 +1,6 @@
 import { authClient } from "@/lib/auth/auth-client";
 
-const createApiKey = async () => {
+export const createApiKey = async () => {
   try {
     const { data: key, error } = await authClient.apiKey.create({
       name: "My Frontend App Key",

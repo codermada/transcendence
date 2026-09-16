@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/routing";
 import { authClient } from "@/lib/auth/auth-client";
 
 type GeneratedKey = {
@@ -13,6 +14,7 @@ type GeneratedKey = {
 
 export default function CreateApiKeyPage() {
   const router = useRouter();
+  const t = useTranslations("Settings.apiKeys");
 
   const [name, setName] = useState("My Frontend App Key");
   const [expiresInDays, setExpiresInDays] = useState(7);
@@ -36,12 +38,12 @@ export default function CreateApiKeyPage() {
       });
 
       if (error) {
-        setError(error.message ?? "Failed to create API key");
+        setError(error.message ?? t("errorFailed"));
         return;
       }
 
       if (!data) {
-        setError("No key returned from server");
+        setError(t("errorNoKey"));
         return;
       }
 
@@ -52,7 +54,7 @@ export default function CreateApiKeyPage() {
         expiresAt: data.expiresAt ?? null,
       });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unexpected error");
+      setError(err instanceof Error ? err.message : t("errorUnexpected"));
     } finally {
       setIsLoading(false);
     }
@@ -69,34 +71,34 @@ export default function CreateApiKeyPage() {
   if (generatedKey) {
     return (
       <div className="mx-auto max-w-2xl p-6">
-        <h1 className="text-2xl font-semibold">API Key Created</h1>
-        <p className="mt-2 text-sm text-red-600 dark:text-red-400">
-          ⚠️ Copy this key now. You will <strong>not</strong> be able to see it again.
+        <h1 className="text-2xl font-semibold text-white">{t("createdTitle")}</h1>
+        <p className="mt-2 text-sm text-red-400">
+          {t("copyWarning")}
         </p>
 
-        <div className="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-900">
+        <div className="mt-6 rounded-lg border border-zinc-800 bg-zinc-900 p-4">
           <div className="flex items-center justify-between gap-4">
-            <code className="break-all text-sm font-mono">{generatedKey.key}</code>
+            <code className="break-all text-sm font-mono text-white">{generatedKey.key}</code>
             <button
               onClick={handleCopy}
-              className="shrink-0 rounded-md bg-gray-900 px-3 py-1.5 text-xs font-medium text-white hover:bg-gray-700 dark:bg-white dark:text-gray-900"
+              className="shrink-0 rounded-md bg-violet-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-violet-500"
             >
-              {copied ? "Copied!" : "Copy"}
+              {copied ? t("copied") : t("copy")}
             </button>
           </div>
         </div>
 
         <dl className="mt-6 space-y-2 text-sm">
           <div className="flex justify-between">
-            <dt className="text-gray-500">Name</dt>
-            <dd>{generatedKey.name}</dd>
+            <dt className="text-zinc-400">{t("name")}</dt>
+            <dd className="text-zinc-200">{generatedKey.name}</dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-gray-500">Expires</dt>
-            <dd>
+            <dt className="text-zinc-400">{t("expires")}</dt>
+            <dd className="text-zinc-200">
               {generatedKey.expiresAt
                 ? new Date(generatedKey.expiresAt).toLocaleString()
-                : "Never"}
+                : t("never")}
             </dd>
           </div>
         </dl>
@@ -104,18 +106,18 @@ export default function CreateApiKeyPage() {
         <div className="mt-8 flex gap-3">
           <button
             onClick={() => router.push("/settings/api-keys")}
-            className="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700"
+            className="rounded-md bg-violet-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-violet-500"
           >
-            Done
+            {t("done")}
           </button>
           <button
             onClick={() => {
               setGeneratedKey(null);
               setCopied(false);
             }}
-            className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-50"
+            className="rounded-md border border-zinc-800 px-4 py-2 text-sm font-medium text-zinc-300 transition hover:bg-zinc-800 hover:text-white"
           >
-            Create another
+            {t("createAnother")}
           </button>
         </div>
       </div>
@@ -125,15 +127,15 @@ export default function CreateApiKeyPage() {
   // ---- Form screen ----
   return (
     <div className="mx-auto max-w-2xl p-6">
-      <h1 className="text-2xl font-semibold">Create API Key</h1>
-      <p className="mt-2 text-sm text-gray-500">
-        Generate a key to authenticate your apps against the API.
+      <h1 className="text-2xl font-semibold text-white">{t("title")}</h1>
+      <p className="mt-2 text-sm text-zinc-400">
+        {t("subtitle")}
       </p>
 
       <form onSubmit={handleCreate} className="mt-8 space-y-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium">
-            Name
+          <label htmlFor="name" className="block text-sm font-medium text-zinc-300">
+            {t("nameLabel")}
           </label>
           <input
             id="name"
@@ -141,17 +143,17 @@ export default function CreateApiKeyPage() {
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-gray-900 focus:outline-none"
-            placeholder="e.g. CI Pipeline"
+            className="mt-1 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-white placeholder:text-zinc-600 focus:border-violet-500 focus:outline-none"
+            placeholder={t("namePlaceholder")}
           />
-          <p className="mt-1 text-xs text-gray-500">
-            A label to help you recognize this key later.
+          <p className="mt-1 text-xs text-zinc-500">
+            {t("nameHelp")}
           </p>
         </div>
 
         <div>
-          <label htmlFor="expiresInDays" className="block text-sm font-medium">
-            Expires in (days)
+          <label htmlFor="expiresInDays" className="block text-sm font-medium text-zinc-300">
+            {t("expiresLabel")}
           </label>
           <input
             id="expiresInDays"
@@ -159,17 +161,17 @@ export default function CreateApiKeyPage() {
             min={0}
             value={expiresInDays}
             onChange={(e) => setExpiresInDays(Number(e.target.value))}
-            className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-gray-900 focus:outline-none"
+            className="mt-1 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-white placeholder:text-zinc-600 focus:border-violet-500 focus:outline-none"
           />
-          <p className="mt-1 text-xs text-gray-500">
-            Set to <code>0</code> for a key that never expires.
+          <p className="mt-1 text-xs text-zinc-500">
+            {t("expiresHelp")}
           </p>
         </div>
 
         {error && (
           <div
             role="alert"
-            className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-700"
+            className="rounded-md border border-red-900/50 bg-red-950/30 px-3 py-2 text-sm text-red-400"
           >
             {error}
           </div>
@@ -179,16 +181,16 @@ export default function CreateApiKeyPage() {
           <button
             type="submit"
             disabled={isLoading || !name.trim()}
-            className="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+            className="rounded-md bg-violet-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-violet-500 disabled:opacity-50"
           >
-            {isLoading ? "Creating…" : "Create API Key"}
+            {isLoading ? t("submitting") : t("submit")}
           </button>
           <button
             type="button"
             onClick={() => router.back()}
-            className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium hover:bg-gray-50"
+            className="rounded-md border border-zinc-800 px-4 py-2 text-sm font-medium text-zinc-300 transition hover:bg-zinc-800 hover:text-white"
           >
-            Cancel
+            {t("cancel")}
           </button>
         </div>
       </form>

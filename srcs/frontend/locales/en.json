@@ -1,0 +1,127 @@
+{
+  "Common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "error": "Error",
+    "success": "Success",
+    "or": "or"
+  },
+  "Nav": {
+    "brand": "Heart",
+    "brandAccent": "beat",
+    "feed": "Feed",
+    "play": "Play",
+    "leaderboard": "Leaderboard",
+    "chat": "Chat",
+    "settings": "Settings",
+    "apiKeys": "API Keys",
+    "createAccount": "Create account",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signingOut": "Signing out...",
+    "toggleMenu": "Toggle menu"
+  },
+  "Auth": {
+    "signIn": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to your account",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Your password",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign in",
+      "submitting": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "signUpLink": "Sign up",
+      "invalidCredentials": "Invalid email or password.",
+      "genericError": "Something went wrong. Please try again."
+    },
+    "signUp": {
+      "title": "Create an account",
+      "subtitle": "Join the community today",
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Create a password",
+      "confirmPasswordLabel": "Confirm password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "submit": "Create account",
+      "submitting": "Creating account...",
+      "hasAccount": "Already have an account?",
+      "signInLink": "Sign in",
+      "accountCreationError": "Unable to create account.",
+      "genericError": "Something went wrong. Please try again."
+    },
+    "forgotPassword": {
+      "title": "Reset password",
+      "subtitle": "Enter your email to receive a reset link",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "submit": "Send reset link",
+      "submitting": "Sending link...",
+      "rememberPassword": "Remember your password?",
+      "signInLink": "Sign in",
+      "successMessage": "If an account exists with this email, you will receive a reset link shortly.",
+      "errorMessage": "Unable to send reset link. Please try again later."
+    },
+    "validation": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 8 characters",
+      "nameRequired": "Name is required",
+      "nameMin": "Name must be at least 2 characters",
+      "nameMax": "Name cannot exceed 50 characters",
+      "confirmPasswordRequired": "Please confirm your password",
+      "passwordsDoNotMatch": "Passwords do not match"
+    }
+  },
+  "Home": {
+    "title": "Master the Paddle",
+    "subtitle": "Real-time competitive Pong platform with modern social features",
+    "playNow": "Play Now",
+    "signIn": "Sign In",
+    "welcome": "Welcome to ft_transcendence"
+  },
+  "Feed": {
+    "title": "Feed",
+    "welcomeMessage": "Welcome to your feed!",
+    "activity": "Recent Activity"
+  },
+  "Settings": {
+    "apiKeys": {
+      "title": "Create API Key",
+      "subtitle": "Generate a key to authenticate your apps against the API.",
+      "nameLabel": "Name",
+      "namePlaceholder": "e.g. CI Pipeline",
+      "nameHelp": "A label to help you recognize this key later.",
+      "expiresLabel": "Expires in (days)",
+      "expiresHelp": "Set to 0 for a key that never expires.",
+      "submit": "Create API Key",
+      "submitting": "Creating…",
+      "cancel": "Cancel",
+      "createdTitle": "API Key Created",
+      "copyWarning": "⚠️ Copy this key now. You will not be able to see it again.",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "name": "Name",
+      "expires": "Expires",
+      "never": "Never",
+      "done": "Done",
+      "createAnother": "Create another",
+      "errorFailed": "Failed to create API key",
+      "errorNoKey": "No key returned from server",
+      "errorUnexpected": "Unexpected error"
+    }
+  },
+  "Language": {
+    "switchLanguage": "Language",
+    "en": "English",
+    "fr": "Français",
+    "es": "Español"
+  }
+}
