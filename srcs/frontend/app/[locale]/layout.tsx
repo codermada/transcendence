@@ -6,6 +6,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Providers } from '../providers';
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Heartbeat",
@@ -37,6 +38,18 @@ export default async function LocaleLayout({
         <Providers>
           <NextIntlClientProvider messages={messages}>
             {children}
+              <Toaster
+                theme="dark"
+                position="top-right"
+                toastOptions={{
+                  classNames: {
+                    toast: "border border-border bg-surface text-foreground",
+                    description: "text-muted",
+                    actionButton: "bg-brand-600 text-white",
+                    cancelButton: "bg-surface text-muted",
+                  },
+                }}
+              />
           </NextIntlClientProvider>
         </Providers>
         

@@ -1,20 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
+
+import { ShieldCheck, ChevronRight } from "@/components/icons";
 
 export default function SecuritySettingsPage() {
   const t = useTranslations("Settings.security");
-
-  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleToggleTwoFactor = async () => {
-    setIsLoading(true);
-    // TODO: wire up to auth client (enable/disable 2FA)
-    setTwoFactorEnabled((v) => !v);
-    setIsLoading(false);
-  };
 
   return (
     <div className="space-y-6">
@@ -25,14 +17,21 @@ export default function SecuritySettingsPage() {
         <p className="mt-2 text-sm text-muted">{t("subtitle")}</p>
       </header>
 
-      {/* ===== Two-Factor Authentication ===== */}
-      <section
+      {/* ===== Two-Factor Authentication — links to dedicated page ===== */}
+      <Link
+        href="/settings/security/two-factor"
         className="
-          relative overflow-hidden
+          group relative block
+          overflow-hidden
           rounded-2xl
           border border-brand-500/20
           bg-brand-500/[0.04]
           p-5
+          transition-colors
+          hover:border-brand-500/40
+          focus:outline-none
+          focus:ring-2
+          focus:ring-brand-500/20
           sm:p-6
         "
       >
@@ -56,27 +55,12 @@ export default function SecuritySettingsPage() {
               bg-brand-500/10
               text-brand-400
               shadow-[0_0_20px_rgb(139_92_246_/_0.12)]
+              transition-colors
+              group-hover:border-brand-500/50
+              group-hover:bg-brand-500/15
             "
           >
-            <svg
-              aria-hidden
-              viewBox="0 0 24 24"
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 3.5 5 6v6c0 4 3 7 7 8.5 4-1.5 7-4.5 7-8.5V6z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m9 12 2 2 4-4"
-              />
-            </svg>
+            <ShieldCheck className="h-5 w-5" />
           </div>
 
           <div className="min-w-0 flex-1">
@@ -84,53 +68,24 @@ export default function SecuritySettingsPage() {
               <h2 className="text-sm font-semibold text-foreground">
                 {t("twoFactor.title")}
               </h2>
-
-              <span
-                className={
-                  twoFactorEnabled
-                    ? "badge-brand"
-                    : `
-                      inline-flex items-center
-                      rounded-full
-                      border border-border
-                      bg-surface
-                      px-3 py-0.5
-                      text-xs font-medium
-                      text-muted
-                    `
-                }
-              >
-                {twoFactorEnabled
-                  ? t("twoFactor.enabled")
-                  : t("twoFactor.disabled")}
-              </span>
             </div>
 
             <p className="mt-1 text-xs leading-relaxed text-muted">
               {t("twoFactor.description")}
             </p>
-
-            <div className="mt-4">
-              <button
-                type="button"
-                onClick={handleToggleTwoFactor}
-                disabled={isLoading}
-                className={
-                  twoFactorEnabled
-                    ? "btn-secondary disabled:cursor-not-allowed disabled:opacity-50"
-                    : "btn-primary disabled:cursor-not-allowed disabled:opacity-50"
-                }
-              >
-                {isLoading
-                  ? t("twoFactor.submitting")
-                  : twoFactorEnabled
-                    ? t("twoFactor.disable")
-                    : t("twoFactor.enable")}
-              </button>
-            </div>
           </div>
+
+          <ChevronRight
+            className="
+              mt-2 h-4 w-4 shrink-0
+              text-muted
+              transition-all
+              group-hover:translate-x-0.5
+              group-hover:text-brand-400
+            "
+          />
         </div>
-      </section>
+      </Link>
 
       {/* ===== Placeholders ===== */}
       <section className="space-y-3">
