@@ -1,16 +1,17 @@
-'use client'
+"use client";
 
-import { ThemeProvider } from '@teispace/next-themes'
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import * as React from "react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        storage="local" // Add this if you want the old behavior
-        >
-        {children}
-    </ThemeProvider>
-  )
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      {children}
+    </NextThemesProvider>
+  );
 }
