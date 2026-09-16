@@ -1,21 +1,24 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/routing";
 import { AuthCard } from "@/components/auth/AuthCard";
 import { SignUpForm } from "@/components/auth/SignUpForm";
 
-export default function SignUpPage() {
+export default async function SignUpPage() {
+  const t = await getTranslations("Auth.signUp");
+
   return (
     <AuthCard
       title={
         <>
-          Join Heart<span className="text-violet-500">beat</span>
+          {t("title")}
         </>
       }
-      subtitle="Create an account and start connecting with friends."
+      subtitle={t("subtitle")}
       footer={
         <p>
-          Already have an account?{" "}
+          {t("hasAccount")}{" "}
           <Link href="/sign-in" className="text-violet-400 hover:text-violet-300">
-            Sign in
+            {t("signInLink")}
           </Link>
         </p>
       }

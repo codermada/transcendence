@@ -1,26 +1,34 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link, useRouter } from "@/i18n/routing";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signInSchema, type SignInFormData } from "@/lib/validations/auth";
+import { createSignInSchema, type SignInFormData } from "@/lib/validations/auth";
 import { signIn } from "@/lib/auth/sign-in";
 import { InputField } from "@/components/ui/InputField";
 import { FormAlert } from "@/components/ui/FormAlert";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 
 export function SignInForm() {
+  const t = useTranslations("Auth.signIn");
+  const tVal = useTranslations("Auth.validation");
   const router = useRouter();
   const [serverError, setServerError] = useState("");
+
+  const schema = createSignInSchema({
+    emailRequired: tVal("emailRequired"),
+    emailInvalid: tVal("emailInvalid"),
+    passwordRequired: tVal("passwordRequired"),
+  });
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<SignInFormData>({
-    resolver: zodResolver(signInSchema),
+    resolver: zodResolver(schema),
     defaultValues: {
       email: "",
       password: "",
@@ -37,13 +45,13 @@ export function SignInForm() {
       });
 
       if (result.error) {
-        setServerError(result.error.message ?? "Invalid email or password.");
+        setServerError(result.error.message ?? t("invalidCredentials"));
         return;
       }
 
       router.push("/feed");
     } catch {
-      setServerError("Something went wrong. Please try again.");
+      setServerError(t("genericError"));
     }
   };
 
@@ -51,9 +59,9 @@ export function SignInForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
       <InputField
         id="email"
-        label="Email"
+        label={t("emailLabel")}
         type="email"
-        placeholder="you@example.com"
+        placeholder={t("emailPlaceholder")}
         autoComplete="email"
         error={errors.email?.message}
         {...register("email")}
@@ -61,16 +69,16 @@ export function SignInForm() {
 
       <InputField
         id="password"
-        label="Password"
+        label={t("passwordLabel")}
         type="password"
-        placeholder="Your password"
+        placeholder={t("passwordPlaceholder")}
         autoComplete="current-password"
         rightLabel={
           <Link
             href="/forgot-password"
             className="text-xs text-violet-400 hover:text-violet-300"
           >
-            Forgot password?
+            {t("forgotPassword")}
           </Link>
         }
         error={errors.password?.message}
@@ -79,8 +87,8 @@ export function SignInForm() {
 
       <FormAlert message={serverError} type="error" />
 
-      <SubmitButton isLoading={isSubmitting} loadingText="Signing in...">
-        Sign in
+      <SubmitButton isLoading={isSubmitting} loadingText={t("submitting")}>
+        {t("submit")}
       </SubmitButton>
     </form>
   );
