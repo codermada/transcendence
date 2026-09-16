@@ -20,7 +20,11 @@
     "signIn": "Iniciar sesión",
     "signOut": "Cerrar sesión",
     "signingOut": "Cerrando sesión...",
-    "toggleMenu": "Abrir menú"
+    "toggleMenu": "Abrir menú",
+
+    "toggleTheme": "Cambiar tema",
+    "switchToLight": "Cambiar a modo claro",
+    "switchToDark": "Cambiar a modo oscuro"
   },
   "Auth": {
     "signIn": {
