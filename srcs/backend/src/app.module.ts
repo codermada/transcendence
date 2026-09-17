@@ -9,6 +9,8 @@ import { PrismaModule } from './prisma/prisma.module';
 import { TestModule } from './test/test.module';
 import { UserModule } from './user/user.module';
 import { FriendModule } from './friend/friend.module';
+import { ChatModule } from './chat/chat.module';
+import { PresenceModule } from './presence/presence.module.js';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { FriendModule } from './friend/friend.module';
     TestModule,
     UserModule,
     FriendModule,
+    ChatModule,
+    PresenceModule
   ],
   controllers: [AppController, AuthController],
   providers: [AppService],
