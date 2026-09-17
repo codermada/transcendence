@@ -9,7 +9,7 @@ export class ChatService {
 	constructor(private readonly prismaService: PrismaService) {}
 
 	// Find or create conversation table between 2 user
-	async getOrCreateConversation(userOneId: string, userTwoId: string) {
+	private async getOrCreateConversation(userOneId: string, userTwoId: string) {
 		if (userOneId === userTwoId) {
 			throw new ForbiddenException('Cannot create a conversation with yourself.');
 		}
