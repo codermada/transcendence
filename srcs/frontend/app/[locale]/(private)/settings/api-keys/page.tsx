@@ -109,9 +109,8 @@ export default function CreateApiKeyPage() {
             className="
               relative overflow-hidden
               rounded-2xl
-              border border-brand-500/20
-              bg-brand-500/[0.04]
-              p-5
+              border border-violet-200/80 bg-violet-50/50 p-5 shadow-xs transition-colors
+              dark:border-violet-500/20 dark:bg-violet-500/[0.04] dark:shadow-none
             "
           >
             <div
@@ -119,8 +118,8 @@ export default function CreateApiKeyPage() {
               className="
                 pointer-events-none
                 absolute inset-0
-                bg-ambient
-                opacity-40
+                bg-gradient-to-r from-violet-200/20 via-transparent to-transparent
+                opacity-60 dark:opacity-40
               "
             />
 
@@ -130,10 +129,10 @@ export default function CreateApiKeyPage() {
                   flex h-10 w-10 shrink-0
                   items-center justify-center
                   rounded-xl
-                  border border-brand-500/30
-                  bg-brand-500/10
-                  text-brand-400
-                  shadow-[0_0_20px_rgb(139_92_246_/_0.12)]
+                  border border-violet-200 bg-violet-100 text-violet-700
+                  shadow-xs
+                  dark:border-violet-500/30 dark:bg-violet-500/10 dark:text-violet-400
+                  dark:shadow-[0_0_20px_rgb(139_92_246_/_0.12)]
                 "
               >
                 <svg
@@ -153,11 +152,11 @@ export default function CreateApiKeyPage() {
               </div>
 
               <div>
-                <p className="text-sm font-semibold text-foreground">
+                <p className="text-sm font-semibold text-zinc-900 dark:text-white">
                   {t("createdTitle")}
                 </p>
 
-                <p className="mt-1 text-xs leading-relaxed text-muted">
+                <p className="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
                   {t("copyWarning")}
                 </p>
               </div>
@@ -167,11 +166,11 @@ export default function CreateApiKeyPage() {
           {/* API key */}
           <section className="space-y-2">
             <div className="flex items-center justify-between px-1">
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted">
+              <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                 API Key
               </span>
 
-              <span className="text-[10px] font-medium uppercase tracking-wider text-brand-400">
+              <span className="text-[10px] font-medium uppercase tracking-wider text-violet-600 dark:text-violet-400">
                 Secret
               </span>
             </div>
@@ -180,11 +179,8 @@ export default function CreateApiKeyPage() {
               className="
                 relative overflow-hidden
                 rounded-xl
-                border border-border
-                bg-background
-                p-3
-                transition-colors
-                hover:border-border-hover
+                border border-zinc-200 bg-white p-3 transition-colors
+                dark:border-zinc-800 dark:bg-zinc-950
               "
             >
               <div
@@ -195,7 +191,7 @@ export default function CreateApiKeyPage() {
                   h-px
                   bg-gradient-to-r
                   from-transparent
-                  via-brand-500/60
+                  via-violet-500/60
                   to-transparent
                 "
               />
@@ -208,7 +204,7 @@ export default function CreateApiKeyPage() {
                     font-mono
                     text-xs
                     leading-relaxed
-                    text-subtle
+                    text-zinc-900 dark:text-zinc-200
                   "
                 >
                   {generatedKey.key}
@@ -220,18 +216,15 @@ export default function CreateApiKeyPage() {
                   className="
                     shrink-0
                     rounded-lg
-                    border border-brand-500/30
-                    bg-brand-500/10
-                    px-3 py-2
-                    text-xs font-semibold
-                    text-brand-400
+                    border border-violet-200 bg-violet-50 px-3 py-2
+                    text-xs font-semibold text-violet-700
                     transition-all
-                    hover:border-brand-500/50
-                    hover:bg-brand-500/15
-                    hover:text-brand-300
+                    hover:bg-violet-100 hover:text-violet-800
+                    dark:border-violet-500/30 dark:bg-violet-500/10 dark:text-violet-400
+                    dark:hover:border-violet-500/50 dark:hover:bg-violet-500/15 dark:hover:text-violet-300
                     focus:outline-none
                     focus:ring-2
-                    focus:ring-brand-500/20
+                    focus:ring-violet-500/20
                   "
                 >
                   {copied ? t("copied") : t("copy")}
@@ -243,30 +236,26 @@ export default function CreateApiKeyPage() {
           {/* Metadata */}
           <dl
             className="
-              divide-y
-              divide-border
-              rounded-xl
-              border border-border
-              bg-surface/60
-              px-4
+              divide-y divide-zinc-200 rounded-xl border border-zinc-200/80 bg-white px-4 shadow-xs transition-colors
+              dark:divide-zinc-800 dark:border-zinc-800 dark:bg-zinc-900/50 dark:shadow-none
             "
           >
             <div className="flex items-center justify-between gap-4 py-3">
-              <dt className="text-xs text-muted">
+              <dt className="text-xs text-zinc-500 dark:text-zinc-400">
                 {t("name")}
               </dt>
 
-              <dd className="truncate text-right text-sm text-subtle">
+              <dd className="truncate text-right text-sm font-medium text-zinc-900 dark:text-zinc-200">
                 {generatedKey.name}
               </dd>
             </div>
 
             <div className="flex items-center justify-between gap-4 py-3">
-              <dt className="text-xs text-muted">
+              <dt className="text-xs text-zinc-500 dark:text-zinc-400">
                 {t("expires")}
               </dt>
 
-              <dd className="text-right text-sm text-subtle">
+              <dd className="text-right text-sm font-medium text-zinc-900 dark:text-zinc-200">
                 {generatedKey.expiresAt
                   ? new Date(
                       generatedKey.expiresAt
@@ -285,7 +274,10 @@ export default function CreateApiKeyPage() {
                 setCopied(false);
                 setError(null);
               }}
-              className="btn-secondary flex-1"
+              className="
+                flex-1 rounded-xl bg-zinc-100 px-5 py-2.5 text-sm font-medium text-zinc-700 transition hover:bg-zinc-200
+                dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700
+              "
             >
               {t("createAnother")}
             </button>
@@ -293,7 +285,10 @@ export default function CreateApiKeyPage() {
             <button
               type="button"
               onClick={() => router.push("/")}
-              className="btn-primary flex-1"
+              className="
+                flex-1 rounded-xl bg-violet-600 px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700
+                dark:bg-violet-600 dark:hover:bg-violet-500
+              "
             >
               {t("done")}
             </button>
@@ -314,23 +309,19 @@ export default function CreateApiKeyPage() {
       maxWidth="max-w-2xl"
     >
       <form onSubmit={handleCreate} className="space-y-7">
-        {/* Form */}
+        {/* Form Container */}
         <div
           className="
             relative
             overflow-hidden
             space-y-6
             rounded-2xl
-            border border-border
-            bg-surface/40
-            p-5
-            shadow-2xl
-            shadow-black/20
-            backdrop-blur-xl
+            border border-zinc-200/80 bg-white p-5 shadow-xs transition-colors
+            dark:border-zinc-800 dark:bg-zinc-900/50 dark:shadow-none
             sm:p-6
           "
         >
-          {/* Futuristic top line */}
+          {/* Futuristic top glow */}
           <div
             aria-hidden
             className="
@@ -339,7 +330,7 @@ export default function CreateApiKeyPage() {
               h-px
               bg-gradient-to-r
               from-transparent
-              via-brand-500/50
+              via-violet-500/50
               to-transparent
               shadow-[0_0_14px_rgb(139_92_246_/_0.35)]
             "
@@ -387,11 +378,9 @@ export default function CreateApiKeyPage() {
             className="
               flex items-start gap-3
               rounded-xl
-              border border-danger/30
-              bg-danger/10
-              px-4 py-3
-              text-sm text-danger
-              shadow-[0_0_20px_rgb(239_68_68_/_0.06)]
+              border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700
+              dark:border-rose-500/30 dark:bg-rose-950/20 dark:text-rose-400
+              shadow-xs
             "
           >
             <svg
@@ -420,10 +409,9 @@ export default function CreateApiKeyPage() {
             onClick={() => router.back()}
             disabled={isLoading}
             className="
-              btn-secondary
-              flex-1
-              disabled:cursor-not-allowed
-              disabled:opacity-50
+              flex-1 rounded-xl bg-zinc-100 px-5 py-2.5 text-sm font-medium text-zinc-700 transition hover:bg-zinc-200
+              dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700
+              disabled:cursor-not-allowed disabled:opacity-50
             "
           >
             {t("cancel")}
@@ -433,10 +421,9 @@ export default function CreateApiKeyPage() {
             type="submit"
             disabled={isLoading || !name.trim()}
             className="
-              btn-primary
-              flex-1
-              disabled:cursor-not-allowed
-              disabled:opacity-50
+              flex-1 rounded-xl bg-violet-600 px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700
+              dark:bg-violet-600 dark:hover:bg-violet-500
+              disabled:cursor-not-allowed disabled:opacity-50
             "
           >
             {isLoading ? (

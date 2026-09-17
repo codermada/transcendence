@@ -107,12 +107,12 @@ export function ProfileCard() {
 
   if (isLoading) {
     return (
-      <div className="relative overflow-hidden rounded-2xl border border-border bg-surface/40 p-6 shadow-2xl shadow-black/20 backdrop-blur-xl">
+      <div className="relative overflow-hidden rounded-2xl border border-zinc-200/80 bg-white/80 p-6 shadow-xl backdrop-blur-xl dark:border-zinc-800 dark:bg-zinc-900/40 dark:shadow-2xl dark:shadow-black/20">
         <div className="flex items-center gap-5">
-          <div className="h-20 w-20 animate-pulse rounded-full bg-surface-hover" />
+          <div className="h-20 w-20 animate-pulse rounded-full bg-zinc-200 dark:bg-zinc-800" />
           <div className="flex-1 space-y-3">
-            <div className="h-5 w-40 animate-pulse rounded bg-surface-hover" />
-            <div className="h-4 w-56 animate-pulse rounded bg-surface-hover" />
+            <div className="h-5 w-40 animate-pulse rounded bg-zinc-200 dark:bg-zinc-800" />
+            <div className="h-4 w-56 animate-pulse rounded bg-zinc-200 dark:bg-zinc-800" />
           </div>
         </div>
       </div>
@@ -121,8 +121,10 @@ export function ProfileCard() {
 
   if (!user) {
     return (
-      <div className="rounded-2xl border border-border bg-surface/40 p-10 text-center backdrop-blur-xl">
-        <p className="text-sm text-muted">{t("errorUnexpected")}</p>
+      <div className="rounded-2xl border border-zinc-200/80 bg-white/80 p-10 text-center backdrop-blur-xl dark:border-zinc-800 dark:bg-zinc-900/40">
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          {t("errorUnexpected")}
+        </p>
       </div>
     );
   }
@@ -131,10 +133,10 @@ export function ProfileCard() {
   const initials = getInitials(displayName);
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-border bg-surface/40 p-6 shadow-2xl shadow-black/20 backdrop-blur-xl">
+    <div className="relative overflow-hidden rounded-2xl border border-zinc-200/80 bg-white/80 p-6 shadow-xl backdrop-blur-xl dark:border-zinc-800 dark:bg-zinc-900/40 dark:shadow-2xl dark:shadow-black/20">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-brand-500/50 to-transparent shadow-[0_0_14px_rgb(139_92_246_/_0.35)]"
+        className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent shadow-[0_0_14px_rgba(139,92,246,0.35)]"
       />
 
       <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
@@ -142,7 +144,7 @@ export function ProfileCard() {
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={isUploading}
-          className="group relative shrink-0 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:cursor-wait"
+          className="group relative shrink-0 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-zinc-950 disabled:cursor-wait"
           aria-label={t("changeAvatar")}
         >
           <Avatar src={user.image} initials={initials} alt={displayName} />
@@ -170,23 +172,31 @@ export function ProfileCard() {
         />
 
         <div className="min-w-0 flex-1">
-          <h2 className="truncate text-xl font-semibold text-foreground">
+          <h2 className="truncate text-xl font-semibold text-zinc-900 dark:text-white">
             {displayName}
           </h2>
-          <p className="mt-1 truncate text-sm text-muted">{user.email}</p>
+          <p className="mt-1 truncate text-sm text-zinc-500 dark:text-zinc-400">
+            {user.email}
+          </p>
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
-          <Link href={`/profile/${user.id}`} className="btn-secondary">
+          <Link
+            href={`/profile/${user.id}`}
+            className="rounded-xl border border-zinc-200/80 bg-zinc-100/80 px-3.5 py-2 text-xs font-medium text-zinc-700 transition-colors hover:bg-zinc-200/80 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-white"
+          >
             {t("viewPublicProfile")}
           </Link>
-          <Link href="/settings/profile" className="btn-secondary">
+          <Link
+            href="/settings/profile"
+            className="rounded-xl border border-zinc-200/80 bg-zinc-100/80 px-3.5 py-2 text-xs font-medium text-zinc-700 transition-colors hover:bg-zinc-200/80 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-white"
+          >
             {t("edit")}
           </Link>
         </div>
       </div>
 
-      <dl className="mt-6 grid grid-cols-1 gap-4 border-t border-border pt-5 sm:grid-cols-2">
+      <dl className="mt-6 grid grid-cols-1 gap-4 border-t border-zinc-200/80 pt-5 dark:border-zinc-800/80 sm:grid-cols-2">
         <MetaRow label={t("idLabel")} value={user.id} mono />
         <MetaRow label={t("emailLabel")} value={user.email} />
       </dl>
@@ -209,7 +219,7 @@ function Avatar({
       <img
         src={src}
         alt={alt}
-        className="h-20 w-20 shrink-0 rounded-full object-cover ring-1 ring-border"
+        className="h-20 w-20 shrink-0 rounded-full object-cover ring-1 ring-zinc-200/80 dark:ring-zinc-800"
         onError={(e) => {
           e.currentTarget.style.display = "none";
         }}
@@ -218,7 +228,7 @@ function Avatar({
   }
 
   return (
-    <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-brand-600/15 text-lg font-semibold text-brand-400 ring-1 ring-border">
+    <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-violet-100 text-lg font-semibold text-violet-700 ring-1 ring-zinc-200/80 dark:bg-violet-500/15 dark:text-violet-400 dark:ring-zinc-800">
       {initials}
     </div>
   );
@@ -235,11 +245,11 @@ function MetaRow({
 }) {
   return (
     <div className="min-w-0">
-      <dt className="text-xs font-medium uppercase tracking-wide text-muted">
+      <dt className="text-xs font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
         {label}
       </dt>
       <dd
-        className={`mt-1 truncate text-sm text-foreground ${
+        className={`mt-1 truncate text-sm text-zinc-900 dark:text-white ${
           mono ? "font-mono text-xs" : ""
         }`}
       >
