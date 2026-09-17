@@ -230,7 +230,13 @@
     "unnamed": "Usuario sin nombre",
     "idLabel": "ID de usuario",
     "emailLabel": "Correo electrónico",
-    "errorUnexpected": "Algo salió mal. Inténtalo de nuevo."
+    "errorUnexpected": "Algo salió mal. Inténtalo de nuevo.",
+    "changeAvatar": "Cambiar avatar",
+    "uploadingAvatar": "Subiendo…",
+    "avatarUpdated": "Avatar actualizado",
+    "errorAvatarType": "Elige una imagen PNG, JPG, WebP o GIF.",
+    "errorAvatarSize": "La imagen debe pesar 5 MB o menos.",
+    "errorAvatarUpload": "No se pudo subir tu avatar. Inténtalo de nuevo."
   },
   "Language": {
     "switchLanguage": "Idioma",

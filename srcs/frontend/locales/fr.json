@@ -230,7 +230,13 @@
     "unnamed": "Utilisateur sans nom",
     "idLabel": "Identifiant utilisateur",
     "emailLabel": "Adresse e-mail",
-    "errorUnexpected": "Une erreur est survenue. Veuillez réessayer."
+    "errorUnexpected": "Une erreur est survenue. Veuillez réessayer.",
+    "changeAvatar": "Changer d'avatar",
+    "uploadingAvatar": "Envoi…",
+    "avatarUpdated": "Avatar mis à jour",
+    "errorAvatarType": "Choisissez une image PNG, JPG, WebP ou GIF.",
+    "errorAvatarSize": "L'image doit faire 5 Mo ou moins.",
+    "errorAvatarUpload": "Impossible d'envoyer votre avatar. Réessayez."
   },
   "Language": {
     "switchLanguage": "Langue",
