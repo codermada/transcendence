@@ -1,0 +1,90 @@
+services:
+  postgres:
+    build:
+      context: ./srcs/database
+    image: postgres
+    container_name: postgres-db
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    networks:
+      - net
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  backend:
+    build:
+      context: ./srcs/backend
+    container_name: nest-backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./srcs/backend:/app
+      - /app/node_modules
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+      - "51212:51212"
+    
+    networks:
+      - net
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./srcs/frontend
+    container_name: next-frontend
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./srcs/frontend:/app
+      - /app/node_modules
+      - /app/.next
+    expose:
+      - "3000"
+    ports:
+      - "3001:3000"
+
+    networks:
+      - net
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  nginx:
+    build:
+      context: ./srcs/nginx
+    image: nginx
+    container_name: nginx-server
+    restart: unless-stopped
+    depends_on:
+      - frontend
+      - backend
+    ports:
+      - "9000:443"
+    networks:
+      - net
+
+
+networks:
+  net:
+    driver: bridge
+
+
+volumes:
+  postgres_data:
