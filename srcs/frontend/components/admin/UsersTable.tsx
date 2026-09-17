@@ -4,7 +4,7 @@ import { useState } from "react";
 import { authClient } from "@/lib/auth/auth-client";
 import { ChevronLeft, ChevronRight } from "@/components/icons";
 
-type User = {
+export type User = {
   id: string;
   name: string;
   email: string;

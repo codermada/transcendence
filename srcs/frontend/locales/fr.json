@@ -11,10 +11,11 @@
     "brand": "Heart",
     "brandAccent": "beat",
     "feed": "Fil d'actualité",
-    "play": "Jouer",
-    "leaderboard": "Classement",
-    "chat": "Chat",
+    "friends": "Amis",
+    "chat": "Messagerie",
     "settings": "Paramètres",
+    "security": "Sécurité & 2FA",
+    "profile": "Mon profil",
     "apiKeys": "Clés API",
     "createAccount": "Créer un compte",
     "signIn": "Se connecter",
@@ -24,7 +25,14 @@
     "toggleTheme": "Changer de thème",
     "switchToLight": "Passer en mode clair",
     "switchToDark": "Passer en mode sombre",
-    "admin": "Admin"
+    "admin": "Tableau de bord admin",
+    "searchPlaceholder": "Rechercher publications, amis...",
+    "notifications": "Notifications",
+    "noNotifications": "Aucune notification",
+    "zeroUnread": "0 non lu",
+    "online": "En ligne",
+    "preferences": "Préférences",
+    "user": "Utilisateur"
   },
   "Auth": {
     "signIn": {
@@ -87,16 +95,31 @@
     }
   },
   "Home": {
-    "title": "Maîtrisez la raquette",
-    "subtitle": "Plateforme compétitive de Pong en temps réel avec fonctionnalités sociales modernes",
-    "playNow": "Jouer maintenant",
-    "signIn": "Connexion",
+    "title": "Connectez-vous & Partagez",
+    "subtitle": "Une plateforme sociale moderne et rapide pour échanger avec vos amis, discuter et partager vos moments.",
+    "playNow": "Commencer",
+    "signIn": "Se connecter",
     "welcome": "Bienvenue sur ft_transcendence"
   },
   "Feed": {
     "title": "Fil d'actualité",
     "welcomeMessage": "Bienvenue sur votre fil d'actualité !",
     "activity": "Activité récente"
+  },
+  "Friends": {
+    "title": "Amis",
+    "subtitle": "Gérez vos amis et relations dans la communauté.",
+    "findFriends": "Trouver des amis",
+    "requests": "Demandes d'amis",
+    "emptyTitle": "Pas encore d'amis",
+    "emptyDescription": "Recherchez et ajoutez des amis pour voir leurs actualités et échanger."
+  },
+  "Chat": {
+    "title": "Messagerie",
+    "subtitle": "Messages privés et canaux de discussion.",
+    "emptyTitle": "Vos messages",
+    "emptyDescription": "Sélectionnez une conversation ou commencez une nouvelle discussion avec un ami.",
+    "newMessage": "Nouveau message"
   },
   "Settings": {
     "nav": {

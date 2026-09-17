@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "@/i18n/routing";
+import { Link, useRouter } from "@/i18n/routing";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth/auth-client";
 
@@ -213,12 +213,12 @@ export default function TwoFactorPage() {
             <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted" />
             <span>
               Lost access to your authenticator?{" "}
-              <a
+              <Link
                 href="/support"
                 className="font-medium text-brand-400 underline-offset-2 hover:underline"
               >
                 Contact support
-              </a>
+              </Link>
               .
             </span>
           </div>
