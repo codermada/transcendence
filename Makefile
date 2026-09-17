@@ -140,16 +140,13 @@ stop:
 start:
 	$(COMPOSE) start
 
-clean:
-	$(COMPOSE) down --volumes --remove-orphans
-
-fclean:
-	docker compose down -v --rmi all
-	docker system prune -a --volumes -f
-	docker volume prune -a -f
+rm-images:
+	$(COMPOSE) down -v --rmi all --remove-orphans
 
 prune:
-	docker system prune -f
+	docker system prune -a --volumes -f
+
+fclean: rm-images prune
 
 # Open a shell in a service:
 # Usage: make shell SERVICE=app
