@@ -1,0 +1,251 @@
+{
+  "Common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "error": "Error",
+    "success": "Success",
+    "or": "or"
+  },
+  "Nav": {
+    "brand": "Heart",
+    "brandAccent": "beat",
+    "feed": "Feed",
+    "friends": "Friends",
+    "chat": "Messages",
+    "settings": "Settings",
+    "security": "Security & 2FA",
+    "profile": "My Profile",
+    "apiKeys": "API Keys",
+    "createAccount": "Create account",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signingOut": "Signing out...",
+    "toggleMenu": "Toggle menu",
+    "toggleTheme": "Toggle theme",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode",
+    "admin": "Admin",
+    "searchPlaceholder": "Search posts, friends...",
+    "notifications": "Notifications",
+    "noNotifications": "No new notifications",
+    "zeroUnread": "0 unread",
+    "online": "Online",
+    "preferences": "Preferences",
+    "user": "User"
+  },
+  "Auth": {
+    "signIn": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to your account",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Your password",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign in",
+      "submitting": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "signUpLink": "Sign up",
+      "invalidCredentials": "Invalid email or password.",
+      "genericError": "Something went wrong. Please try again.",
+      "orContinueWith": "Or continue with"
+    },
+    "signUp": {
+      "title": "Create an account",
+      "subtitle": "Join the community today",
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Create a password",
+      "confirmPasswordLabel": "Confirm password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "submit": "Create account",
+      "submitting": "Creating account...",
+      "hasAccount": "Already have an account?",
+      "signInLink": "Sign in",
+      "accountCreationError": "Unable to create account.",
+      "genericError": "Something went wrong. Please try again.",
+      "orContinueWith": "Or continue with"
+    },
+    "forgotPassword": {
+      "title": "Reset password",
+      "subtitle": "Enter your email to receive a reset link",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "submit": "Send reset link",
+      "submitting": "Sending link...",
+      "rememberPassword": "Remember your password?",
+      "signInLink": "Sign in",
+      "successMessage": "If an account exists with this email, you will receive a reset link shortly.",
+      "errorMessage": "Unable to send reset link. Please try again later."
+    },
+    "validation": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 8 characters",
+      "nameRequired": "Name is required",
+      "nameMin": "Name must be at least 2 characters",
+      "nameMax": "Name cannot exceed 50 characters",
+      "confirmPasswordRequired": "Please confirm your password",
+      "passwordsDoNotMatch": "Passwords do not match"
+    }
+  },
+  "Home": {
+    "title": "Connect & Share",
+    "subtitle": "A modern social platform to connect with friends, chat, and share moments.",
+    "playNow": "Get Started",
+    "signIn": "Sign In",
+    "welcome": "Welcome to ft_transcendence"
+  },
+  "Feed": {
+    "title": "Feed",
+    "welcomeMessage": "Welcome to your feed!",
+    "activity": "Recent Activity"
+  },
+  "Friends": {
+    "title": "Friends",
+    "subtitle": "Manage your friends and community connections.",
+    "findFriends": "Find Friends",
+    "requests": "Friend Requests",
+    "emptyTitle": "No friends yet",
+    "emptyDescription": "Search and add friends to see their updates and messages here."
+  },
+  "Chat": {
+    "title": "Messages",
+    "subtitle": "Direct messages and group channels.",
+    "emptyTitle": "Your Messages",
+    "emptyDescription": "Select a conversation or start a new chat with a friend.",
+    "newMessage": "New message"
+  },
+  "Settings": {
+    "nav": {
+      "ariaLabel": "Settings navigation",
+      "apiKeys": "API Keys",
+      "profile": "Profile",
+      "security": "Security"
+    },
+    "home": {
+      "title": "Settings",
+      "subtitle": "Manage your account and integrations.",
+      "apiKeysTitle": "API Keys",
+      "apiKeysDesc": "Create and manage keys for programmatic access.",
+      "profileTitle": "Profile",
+      "profileDesc": "Update your name, email, and avatar.",
+      "securityTitle": "Security",
+      "securityDesc": "Passwords, sessions, and two-factor authentication."
+    },
+    "profile": {
+      "title": "Profile",
+      "subtitle": "Update your name and email address.",
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "nameHelp": "This is how other users will see you.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "emailHelp": "We'll use this for notifications and sign-in.",
+      "emailLocked": "Email cannot be changed.",
+      "submit": "Save changes",
+      "submitting": "Saving…",
+      "saved": "Profile updated",
+      "errorUnexpected": "Something went wrong. Please try again."
+    },
+    "security": {
+      "title": "Security",
+      "subtitle": "Manage your account security and sessions.",
+      "twoFactor": {
+        "title": "Two-Factor Authentication",
+        "description": "Add an extra layer of security to your account by requiring a verification code in addition to your password.",
+        "enabled": "Enabled",
+        "disabled": "Disabled",
+        "enable": "Enable 2FA",
+        "disable": "Disable 2FA",
+        "submitting": "Please wait…"
+      },
+      "moreTitle": "More options",
+      "comingSoon": "Coming soon",
+      "password": {
+        "title": "Password",
+        "description": "Change your account password."
+      },
+      "sessions": {
+        "title": "Active sessions",
+        "description": "Review and revoke devices that are signed in to your account."
+      },
+      "danger": {
+        "title": "Danger zone",
+        "description": "Permanently delete your account and all associated data."
+      }
+    },
+    "apiKeys": {
+      "title": "Create API Key",
+      "subtitle": "Generate a key to authenticate your apps against the API.",
+      "nameLabel": "Name",
+      "namePlaceholder": "e.g. CI Pipeline",
+      "nameHelp": "A label to help you recognize this key later.",
+      "expiresLabel": "Expires in (days)",
+      "expiresHelp": "Set to 0 for a key that never expires.",
+      "submit": "Create API Key",
+      "submitting": "Creating…",
+      "cancel": "Cancel",
+      "createdTitle": "API Key Created",
+      "copyWarning": "⚠️ Copy this key now. You will not be able to see it again.",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "name": "Name",
+      "expires": "Expires",
+      "never": "Never",
+      "done": "Done",
+      "createAnother": "Create another",
+      "errorFailed": "Failed to create API key",
+      "errorNoKey": "No key returned from server",
+      "errorUnexpected": "Unexpected error"
+    }
+  },
+  "Admin": {
+    "users": {
+      "title": "Users",
+      "subtitle": "Manage user accounts and roles.",
+      "errorFailed": "Failed to fetch users.",
+      "errorUnexpected": "Something went wrong."
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Overview of your instance"
+    },
+    "nav": {
+      "title": "Admin",
+      "subtitle": "Administration",
+      "dashboard": "Dashboard",
+      "users": "Users"
+    }
+  },
+    "Profile": {
+    "title": "Your profile",
+    "subtitle": "How you appear across the app.",
+    "edit": "Edit profile",
+    "unnamed": "Unnamed user",
+    "idLabel": "User ID",
+    "emailLabel": "Email",
+    "errorUnexpected": "Something went wrong. Please try again.",
+    "changeAvatar": "Change avatar",
+    "uploadingAvatar": "Uploading…",
+    "avatarUpdated": "Avatar updated",
+    "errorAvatarType": "Please choose a PNG, JPG, WebP, or GIF image.",
+    "errorAvatarSize": "Image must be 5 MB or smaller.",
+    "errorAvatarUpload": "Couldn't upload your avatar. Please try again.",
+    "removeAvatar": "Remove avatar",
+    "removingAvatar": "Removing...",
+    "avatarRemoved": "Avatar removed",
+    "errorAvatarRemove": "Failed to remove avatar"
+  },
+  "Language": {
+    "switchLanguage": "Language",
+    "en": "English",
+    "fr": "Français",
+    "es": "Español"
+  }
+}

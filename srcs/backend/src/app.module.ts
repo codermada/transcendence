@@ -2,11 +2,20 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { AuthController } from './auth/auth.controller';
+import { AuthModule } from '@thallesp/nestjs-better-auth';
+import { auth } from './auth/auth'; // your better-auth instance
 
 import { PrismaModule } from './prisma/prisma.module';
+import { TestModule } from './test/test.module';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [ PrismaModule ],
+  imports: [
+    AuthModule.forRoot({ auth }), // <-- Add this
+    PrismaModule,
+    TestModule,
+    UserModule,
+  ],
   controllers: [AppController, AuthController],
   providers: [AppService],
 })
