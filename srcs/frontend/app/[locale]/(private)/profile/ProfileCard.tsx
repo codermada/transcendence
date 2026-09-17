@@ -81,6 +81,11 @@ export function ProfileCard() {
         body: form,
       });
 
+      if (res.status === 413) {
+        toast.error(t("errorAvatarSize"));
+        return;
+      }
+
       if (!res.ok) {
         toast.error(t("errorAvatarUpload"));
         return;
