@@ -236,11 +236,7 @@
     "avatarUpdated": "Avatar mis à jour",
     "errorAvatarType": "Choisissez une image PNG, JPG, WebP ou GIF.",
     "errorAvatarSize": "L'image doit faire 5 Mo ou moins.",
-    "errorAvatarUpload": "Impossible d'envoyer votre avatar. Réessayez.",
-    "removeAvatar": "Supprimer l'avatar",
-    "removingAvatar": "Suppression…",
-    "avatarRemoved": "Avatar supprimé",
-    "errorAvatarRemove": "Impossible de supprimer votre avatar. Réessayez."
+    "errorAvatarUpload": "Impossible d'envoyer votre avatar. Réessayez."
   },
   "Language": {
     "switchLanguage": "Langue",
