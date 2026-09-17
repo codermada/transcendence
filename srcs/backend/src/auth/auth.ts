@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { PrismaClient } from "@prisma/client";
@@ -14,10 +15,13 @@ const prisma = new PrismaClient({
   adapter,
 });
 
+const defaultPort = process.env.PORT ?? 3000;
+const defaultBaseURL = `http://localhost:${defaultPort}`;
+
 export const auth = betterAuth({
   appName: "ft_transcendence",
 
-  baseURL: process.env.BETTER_AUTH_URL ?? "https://localhost:3000",
+  baseURL: process.env.BETTER_AUTH_URL ?? defaultBaseURL,
 
   basePath: "/auth",
 
@@ -38,6 +42,9 @@ export const auth = betterAuth({
 
   trustedOrigins: [
     "https://localhost:9000",
+    "http://localhost:3000",
+    "http://localhost:3001",
+    ...(process.env.UI_URL ? [process.env.UI_URL] : []),
   ],
   socialProviders: {
     google: {
