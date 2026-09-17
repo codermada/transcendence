@@ -2,15 +2,8 @@ import { createAuthClient } from "better-auth/react";
 import { apiKeyClient } from "@better-auth/api-key/client";
 import { twoFactorClient, adminClient } from "better-auth/client/plugins";
 
-const getBaseURL = () => {
-  if (typeof window !== "undefined") {
-    return `${window.location.origin}/nest/auth`;
-  }
-  return `${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000"}/auth`;
-};
-
 export const authClient = createAuthClient({
-  baseURL: getBaseURL(),
+  baseURL: "https://localhost:9000/nest/auth",
   fetchOptions: {
     credentials: "include",
   },
