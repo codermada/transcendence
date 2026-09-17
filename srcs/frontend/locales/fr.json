@@ -1,0 +1,241 @@
+{
+  "Common": {
+    "loading": "Chargement...",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "error": "Erreur",
+    "success": "Succès",
+    "or": "ou"
+  },
+  "Nav": {
+    "brand": "Heart",
+    "brandAccent": "beat",
+    "feed": "Fil d'actualité",
+    "friends": "Amis",
+    "chat": "Messagerie",
+    "settings": "Paramètres",
+    "security": "Sécurité & 2FA",
+    "profile": "Mon profil",
+    "apiKeys": "Clés API",
+    "createAccount": "Créer un compte",
+    "signIn": "Se connecter",
+    "signOut": "Se déconnecter",
+    "signingOut": "Déconnexion...",
+    "toggleMenu": "Ouvrir le menu",
+    "toggleTheme": "Changer de thème",
+    "switchToLight": "Passer en mode clair",
+    "switchToDark": "Passer en mode sombre",
+    "admin": "Tableau de bord admin",
+    "searchPlaceholder": "Rechercher publications, amis...",
+    "notifications": "Notifications",
+    "noNotifications": "Aucune notification",
+    "zeroUnread": "0 non lu",
+    "online": "En ligne",
+    "preferences": "Préférences",
+    "user": "Utilisateur"
+  },
+  "Auth": {
+    "signIn": {
+      "title": "Bon retour parmi nous",
+      "subtitle": "Connectez-vous à votre compte",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "passwordLabel": "Mot de passe",
+      "passwordPlaceholder": "Votre mot de passe",
+      "forgotPassword": "Mot de passe oublié ?",
+      "submit": "Se connecter",
+      "submitting": "Connexion en cours...",
+      "noAccount": "Vous n'avez pas de compte ?",
+      "signUpLink": "S'inscrire",
+      "invalidCredentials": "E-mail ou mot de passe invalide.",
+      "genericError": "Une erreur est survenue. Veuillez réessayer.",
+      "orContinueWith": "Ou continuer avec"
+    },
+    "signUp": {
+      "title": "Créer un compte",
+      "subtitle": "Rejoignez la communauté dès aujourd'hui",
+      "nameLabel": "Nom",
+      "namePlaceholder": "Votre nom",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "passwordLabel": "Mot de passe",
+      "passwordPlaceholder": "Créez un mot de passe",
+      "confirmPasswordLabel": "Confirmer le mot de passe",
+      "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
+      "submit": "Créer un compte",
+      "submitting": "Création du compte...",
+      "hasAccount": "Vous avez déjà un compte ?",
+      "signInLink": "Se connecter",
+      "accountCreationError": "Impossible de créer le compte.",
+      "genericError": "Une erreur est survenue. Veuillez réessayer.",
+      "orContinueWith": "Ou continuer avec"
+    },
+    "forgotPassword": {
+      "title": "Réinitialiser le mot de passe",
+      "subtitle": "Entrez votre e-mail pour recevoir un lien de réinitialisation",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "submit": "Envoyer le lien",
+      "submitting": "Envoi en cours...",
+      "rememberPassword": "Vous vous souvenez de votre mot de passe ?",
+      "signInLink": "Se connecter",
+      "successMessage": "Si un compte existe avec cet e-mail, vous recevrez bientôt un lien de réinitialisation.",
+      "errorMessage": "Impossible d'envoyer le lien de réinitialisation. Veuillez réessayer plus tard."
+    },
+    "validation": {
+      "emailRequired": "L'e-mail est requis",
+      "emailInvalid": "Veuillez entrer une adresse e-mail valide",
+      "passwordRequired": "Le mot de passe est requis",
+      "passwordMin": "Le mot de passe doit comporter au moins 8 caractères",
+      "nameRequired": "Le nom est requis",
+      "nameMin": "Le nom doit comporter au moins 2 caractères",
+      "nameMax": "Le nom ne peut pas dépasser 50 caractères",
+      "confirmPasswordRequired": "Veuillez confirmer votre mot de passe",
+      "passwordsDoNotMatch": "Les mots de passe ne correspondent pas"
+    }
+  },
+  "Home": {
+    "title": "Connectez-vous & Partagez",
+    "subtitle": "Une plateforme sociale moderne et rapide pour échanger avec vos amis, discuter et partager vos moments.",
+    "playNow": "Commencer",
+    "signIn": "Se connecter",
+    "welcome": "Bienvenue sur ft_transcendence"
+  },
+  "Feed": {
+    "title": "Fil d'actualité",
+    "welcomeMessage": "Bienvenue sur votre fil d'actualité !",
+    "activity": "Activité récente"
+  },
+  "Friends": {
+    "title": "Amis",
+    "subtitle": "Gérez vos amis et relations dans la communauté.",
+    "findFriends": "Trouver des amis",
+    "requests": "Demandes d'amis",
+    "emptyTitle": "Pas encore d'amis",
+    "emptyDescription": "Recherchez et ajoutez des amis pour voir leurs actualités et échanger."
+  },
+  "Chat": {
+    "title": "Messagerie",
+    "subtitle": "Messages privés et canaux de discussion.",
+    "emptyTitle": "Vos messages",
+    "emptyDescription": "Sélectionnez une conversation ou commencez une nouvelle discussion avec un ami.",
+    "newMessage": "Nouveau message"
+  },
+  "Settings": {
+    "nav": {
+      "ariaLabel": "Navigation des paramètres",
+      "apiKeys": "Clés API",
+      "profile": "Profil",
+      "security": "Sécurité"
+    },
+    "home": {
+      "title": "Paramètres",
+      "subtitle": "Gérez votre compte et vos intégrations.",
+      "apiKeysTitle": "Clés API",
+      "apiKeysDesc": "Créez et gérez des clés pour l'accès programmatique.",
+      "profileTitle": "Profil",
+      "profileDesc": "Mettez à jour votre nom, votre e-mail et votre avatar.",
+      "securityTitle": "Sécurité",
+      "securityDesc": "Mots de passe, sessions et authentification à deux facteurs."
+    },
+    "profile": {
+      "title": "Profil",
+      "subtitle": "Mettez à jour votre nom et votre adresse e-mail.",
+      "nameLabel": "Nom",
+      "namePlaceholder": "Votre nom",
+      "nameHelp": "C'est ainsi que les autres utilisateurs vous verront.",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "emailHelp": "Nous l'utiliserons pour les notifications et la connexion.",
+      "emailLocked": "L'e-mail ne peut pas être modifié.",
+      "submit": "Enregistrer les modifications",
+      "submitting": "Enregistrement…",
+      "saved": "Profil mis à jour",
+      "errorUnexpected": "Une erreur est survenue. Veuillez réessayer."
+    },
+    "security": {
+      "title": "Sécurité",
+      "subtitle": "Gérez la sécurité de votre compte et vos sessions.",
+      "twoFactor": {
+        "title": "Authentification à deux facteurs",
+        "description": "Ajoutez une couche de sécurité supplémentaire à votre compte en exigeant un code de vérification en plus de votre mot de passe.",
+        "enabled": "Activée",
+        "disabled": "Désactivée",
+        "enable": "Activer la 2FA",
+        "disable": "Désactiver la 2FA",
+        "submitting": "Veuillez patienter…"
+      },
+      "moreTitle": "Plus d'options",
+      "comingSoon": "Bientôt disponible",
+      "password": {
+        "title": "Mot de passe",
+        "description": "Modifiez le mot de passe de votre compte."
+      },
+      "sessions": {
+        "title": "Sessions actives",
+        "description": "Consultez et révoquez les appareils connectés à votre compte."
+      },
+      "danger": {
+        "title": "Zone de danger",
+        "description": "Supprimez définitivement votre compte et toutes les données associées."
+      }
+    },
+    "apiKeys": {
+      "title": "Créer une clé API",
+      "subtitle": "Générez une clé pour authentifier vos applications auprès de l'API.",
+      "nameLabel": "Nom",
+      "namePlaceholder": "ex. Pipeline CI",
+      "nameHelp": "Un libellé pour vous aider à reconnaître cette clé ultérieurement.",
+      "expiresLabel": "Expire dans (jours)",
+      "expiresHelp": "Définissez à 0 pour une clé qui n'expire jamais.",
+      "submit": "Créer la clé API",
+      "submitting": "Création en cours…",
+      "cancel": "Annuler",
+      "createdTitle": "Clé API créée",
+      "copyWarning": "⚠️ Copiez cette clé maintenant. Vous ne pourrez plus la revoir.",
+      "copy": "Copier",
+      "copied": "Copié !",
+      "name": "Nom",
+      "expires": "Expire le",
+      "never": "Jamais",
+      "done": "Terminé",
+      "createAnother": "En créer une autre",
+      "errorFailed": "Échec de la création de la clé API",
+      "errorNoKey": "Aucune clé renvoyée par le serveur",
+      "errorUnexpected": "Erreur inattendue"
+    }
+  },
+  "Admin": {
+    "users": {
+      "title": "Utilisateurs",
+      "subtitle": "Gérez les comptes utilisateurs et les rôles.",
+      "errorFailed": "Échec du chargement des utilisateurs.",
+      "errorUnexpected": "Une erreur est survenue."
+    },
+    "dashboard": {
+      "title": "Tableau de bord",
+      "subtitle": "Aperçu de votre instance"
+    },
+    "nav": {
+      "title": "Admin",
+      "subtitle": "Administration",
+      "dashboard": "Tableau de bord",
+      "users": "Utilisateurs"
+    }
+  },
+  "Profile": {
+    "title": "Votre profil",
+    "subtitle": "Voici comment vous apparaissez dans l'application.",
+    "edit": "Modifier le profil",
+    "unnamed": "Utilisateur sans nom",
+    "idLabel": "Identifiant utilisateur",
+    "emailLabel": "Adresse e-mail",
+    "errorUnexpected": "Une erreur est survenue. Veuillez réessayer."
+  },
+  "Language": {
+    "switchLanguage": "Langue",
+    "en": "English",
+    "fr": "Français",
+    "es": "Español"
+  }
+}
