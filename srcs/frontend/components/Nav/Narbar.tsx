@@ -11,12 +11,12 @@ export default function Navbar() {
   const t = useTranslations("Nav");
 
   return (
-    <nav className="border-b border-zinc-200 bg-white text-zinc-900 transition-colors dark:border-zinc-800 dark:bg-zinc-950 dark:text-white">
+    <nav className="sticky top-0 z-50 border-b border-zinc-200/80 bg-white/80 text-zinc-900 backdrop-blur-md transition-colors dark:border-zinc-800 dark:bg-zinc-950/80 dark:text-white">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         {/* Logo */}
-        <Link href="/" className="text-xl font-bold">
+        <Link href="/" className="text-xl font-bold tracking-tight">
           {t("brand")}
-          <span className="text-violet-600 dark:text-violet-500">
+          <span className="text-violet-600 dark:text-violet-400">
             {t("brandAccent")}
           </span>
         </Link>
@@ -35,7 +35,7 @@ export default function Navbar() {
 
           <Link
             href="/sign-up"
-            className="rounded-full bg-violet-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-violet-500 dark:bg-violet-600 dark:hover:bg-violet-500"
+            className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-medium text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700 dark:bg-violet-600 dark:hover:bg-violet-500"
           >
             {t("createAccount")}
           </Link>
@@ -49,7 +49,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
-            className="rounded-lg p-2 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-white"
+            className="rounded-xl p-2 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-white"
             aria-label={t("toggleMenu")}
             aria-expanded={isOpen}
           >
@@ -88,12 +88,12 @@ export default function Navbar() {
 
       {/* Mobile Navigation Dropdown */}
       {isOpen && (
-        <div className="border-t border-zinc-200 px-6 pb-5 pt-4 dark:border-zinc-800 md:hidden">
+        <div className="border-t border-zinc-200/80 bg-white px-6 pb-5 pt-4 dark:border-zinc-800 dark:bg-zinc-950 md:hidden">
           <div className="flex flex-col gap-3">
             <Link
               href="/sign-in"
               onClick={() => setIsOpen(false)}
-              className="rounded-lg px-3 py-2 text-sm text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-white"
+              className="rounded-xl px-3 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-white"
             >
               {t("signIn")}
             </Link>
@@ -101,7 +101,7 @@ export default function Navbar() {
             <Link
               href="/sign-up"
               onClick={() => setIsOpen(false)}
-              className="rounded-full bg-violet-600 px-4 py-2.5 text-center text-sm font-medium text-white transition hover:bg-violet-500"
+              className="rounded-xl bg-violet-600 px-4 py-2.5 text-center text-sm font-medium text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500"
             >
               {t("createAccount")}
             </Link>
