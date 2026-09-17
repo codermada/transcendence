@@ -92,6 +92,11 @@
       "nameMax": "Name cannot exceed 50 characters",
       "confirmPasswordRequired": "Please confirm your password",
       "passwordsDoNotMatch": "Passwords do not match"
+    },
+    "Google": {
+      "signIn": "Continue with Google",
+      "signUp": "Sign up with Google",
+      "redirecting": "Redirecting..."
     }
   },
   "Home": {

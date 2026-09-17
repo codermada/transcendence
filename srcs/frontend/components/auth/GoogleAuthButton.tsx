@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { authClient } from "@/lib/auth/auth-client";
 import { Google } from "@/components/icons"; // adjust path to match your project
 
@@ -13,6 +14,7 @@ export function GoogleAuthButton({
   mode = "signin",
   callbackURL = "/radio",
 }: GoogleAuthButtonProps) {
+  const t = useTranslations("Auth.Google");
   const [loading, setLoading] = useState(false);
 
   const handleGoogleSignIn = async () => {
@@ -27,9 +29,6 @@ export function GoogleAuthButton({
     }
   };
 
-  const label =
-    mode === "signup" ? "Sign up with Google" : "Continue with Google";
-
   return (
     <button
       type="button"
@@ -38,7 +37,7 @@ export function GoogleAuthButton({
       className="flex w-full items-center justify-center gap-3 rounded-md border border-surface-border bg-surface px-4 py-2.5 text-sm font-medium text-surface-foreground transition-colors hover:border-violet-400/60 hover:bg-surface/80 focus:outline-none focus:ring-2 focus:ring-violet-400 focus:ring-offset-2 focus:ring-offset-surface disabled:cursor-not-allowed disabled:opacity-60"
     >
       <Google className="h-5 w-5 shrink-0" />
-      <span>{loading ? "Redirecting..." : label}</span>
+      <span>{loading ? t("redirecting") : t(mode === "signup" ? "signUp" : "signIn")}</span>
     </button>
   );
 }
