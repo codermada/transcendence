@@ -1,6 +1,6 @@
 "use client";
 
-import { useTheme } from "next-themes";
+import { useTheme } from "@teispace/next-themes";
 import { useTranslations } from "next-intl";
 import React from "react";
 
@@ -34,6 +34,7 @@ export function ThemeToggle() {
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/20
         dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-400 dark:shadow-none
         dark:hover:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-white
+        cursor-pointer
       "
       aria-label={
         !mounted
