@@ -1337,3 +1337,103 @@ export function Upload(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+// ============================================================
+// Actions (continued)
+// ============================================================
+
+export function UserPlus(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <circle cx="9" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.8" />
+      <path
+        d="M2.5 19.5a6.5 6.5 0 0 1 13 0"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M19 8v6m-3-3h6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function UserMinus(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <circle cx="9" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.8" />
+      <path
+        d="M2.5 19.5a6.5 6.5 0 0 1 13 0"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M16 11h6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function UserCheck(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <circle cx="9" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.8" />
+      <path
+        d="M2.5 19.5a6.5 6.5 0 0 1 13 0"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="m16 12 2 2 4-4"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function Inbox(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M21 12v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6m18 0-3-7a2 2 0 0 0-1.9-1.3H6.9A2 2 0 0 0 5 5l-3 7m19 0H16l-1 3h-6l-1-3H2"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+

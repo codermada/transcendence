@@ -254,8 +254,82 @@
     "unnamed": "Utilisateur sans nom",
     "notFound": "Utilisateur introuvable",
     "notFoundHint": "Ce profil n'existe pas ou n'est plus disponible.",
-    "idLabel": "ID",
-    "joinedLabel": "Inscription"
+    "idLabel": "Identifiant",
+    "joinedLabel": "Inscrit le",
+    "actionError": "Une erreur est survenue. Veuillez réessayer.",
+    "friendStatus": {
+      "friends": "Amis",
+      "requestSent": "Demande envoyée",
+      "requestReceived": "Souhaite devenir ami",
+      "blocked": "Bloqué"
+    },
+    "actions": {
+      "addFriend": "Ajouter en ami",
+      "adding": "Ajout…",
+      "cancelRequest": "Annuler la demande",
+      "cancelling": "Annulation…",
+      "accept": "Accepter",
+      "accepting": "Acceptation…",
+      "reject": "Refuser",
+      "rejecting": "Refus…",
+      "removeFriend": "Retirer l'ami",
+      "removing": "Retrait…",
+      "blocked": "Bloqué"
+    }
+  },
+  "FriendRequests": {
+    "title": "Demandes d'amis",
+    "subtitle": "Gérez celles que vous avez envoyées et reçues.",
+    "tabsAriaLabel": "Onglets des demandes d'amis",
+    "searchPlaceholder": "Rechercher par nom ou pseudo…",
+    "loadError": "Impossible de charger vos demandes d'amis.",
+    "loadErrorHint": "Veuillez actualiser la page ou réessayer plus tard.",
+    "actionError": "Une erreur est survenue. Veuillez réessayer.",
+    "unnamed": "Utilisateur sans nom",
+    "tabs": {
+      "incoming": "Reçues",
+      "outgoing": "Envoyées"
+    },
+    "empty": {
+      "incomingTitle": "Aucune demande reçue",
+      "incomingDescription": "Quand quelqu'un souhaite devenir votre ami, cela apparaîtra ici.",
+      "outgoingTitle": "Aucune demande envoyée",
+      "outgoingDescription": "Les demandes que vous envoyez apparaîtront ici jusqu'à leur réponse.",
+      "searchTitle": "Aucun résultat",
+      "searchDescription": "Aucune demande ne correspond à votre recherche."
+    },
+    "actions": {
+      "accept": "Accepter",
+      "accepting": "Acceptation…",
+      "reject": "Refuser",
+      "rejecting": "Refus…",
+      "cancel": "Annuler la demande",
+      "cancelling": "Annulation…"
+    }
+  },
+  "FriendsList": {
+    "title": "Mes amis",
+    "subtitle": "Toutes les personnes avec qui vous êtes connecté.",
+    "searchPlaceholder": "Rechercher par nom ou pseudo…",
+    "count": "{count, plural, =0 {Aucun ami} =1 {1 ami} other {# amis}}",
+    "unnamed": "Utilisateur sans nom",
+    "loadError": "Impossible de charger vos amis.",
+    "loadErrorHint": "Veuillez actualiser la page ou réessayer plus tard.",
+    "actionError": "Une erreur est survenue. Veuillez réessayer.",
+    "empty": {
+      "title": "Aucun ami pour le moment",
+      "description": "Recherchez et ajoutez des amis pour les voir ici.",
+      "searchTitle": "Aucun résultat",
+      "searchDescription": "Aucun ami ne correspond à votre recherche."
+    },
+    "actions": {
+      "remove": "Retirer l'ami"
+    },
+    "pagination": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "page": "Page {page} sur {pages}"
+    }
   },
   "Language": {
     "switchLanguage": "Langue",
