@@ -240,7 +240,17 @@
     "removeAvatar": "Eliminar avatar",
     "removingAvatar": "Eliminando...",
     "avatarRemoved": "Avatar eliminado",
-    "errorAvatarRemove": "No se pudo eliminar el avatar"
+    "errorAvatarRemove": "No se pudo eliminar el avatar",
+    "viewPublicProfile": "Ver perfil público"
+  },
+  "PublicProfile": {
+    "title": "Perfil",
+    "subtitle": "Información pública sobre este miembro.",
+    "unnamed": "Usuario sin nombre",
+    "notFound": "Usuario no encontrado",
+    "notFoundHint": "Este perfil no existe o ya no está disponible.",
+    "idLabel": "ID",
+    "joinedLabel": "Registro"
   },
   "Language": {
     "switchLanguage": "Idioma",
