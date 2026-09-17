@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
@@ -12,11 +12,16 @@ type CurrentUser = {
   image: string | null;
 };
 
+const MAX_AVATAR_BYTES = 5 * 1024 * 1024; // keep in sync with backend
+const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/webp", "image/gif"];
+
 export function ProfileCard() {
   const t = useTranslations("Profile");
 
   const [user, setUser] = useState<CurrentUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -49,6 +54,51 @@ export function ProfileCard() {
       cancelled = true;
     };
   }, [t]);
+
+  async function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    // Reset so selecting the same file twice still triggers onChange
+    e.target.value = "";
+    if (!file) return;
+
+    if (!ACCEPTED_TYPES.includes(file.type)) {
+      toast.error(t("errorAvatarType"));
+      return;
+    }
+    if (file.size > MAX_AVATAR_BYTES) {
+      toast.error(t("errorAvatarSize"));
+      return;
+    }
+
+    setIsUploading(true);
+    const form = new FormData();
+    form.append("file", file);
+
+    try {
+      const res = await fetch("/nest/user/me/avatar", {
+        method: "PATCH",
+        credentials: "include",
+        body: form,
+      });
+
+      if (!res.ok) {
+        toast.error(t("errorAvatarUpload"));
+        return;
+      }
+
+      const updated: CurrentUser = await res.json();
+      // Cache-bust so the <img> re-fetches the new file
+      setUser({
+        ...updated,
+        image: updated.image ? `${updated.image}?v=${Date.now()}` : null,
+      });
+      toast.success(t("avatarUpdated"));
+    } catch {
+      toast.error(t("errorAvatarUpload"));
+    } finally {
+      setIsUploading(false);
+    }
+  }
 
   if (isLoading) {
     return (
@@ -83,7 +133,36 @@ export function ProfileCard() {
       />
 
       <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
-        <Avatar src={user.image} initials={initials} alt={displayName} />
+        <button
+          type="button"
+          onClick={() => fileInputRef.current?.click()}
+          disabled={isUploading}
+          className="group relative shrink-0 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:cursor-wait"
+          aria-label={t("changeAvatar")}
+        >
+          <Avatar src={user.image} initials={initials} alt={displayName} />
+
+          {/* Hover/upload overlay */}
+          <span
+            className={`absolute inset-0 flex items-center justify-center rounded-full bg-black/55 text-xs font-medium text-white transition-opacity ${
+              isUploading ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+            }`}
+          >
+            {isUploading ? (
+              <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+            ) : (
+              t("changeAvatar")
+            )}
+          </span>
+        </button>
+
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept={ACCEPTED_TYPES.join(",")}
+          className="hidden"
+          onChange={handleAvatarChange}
+        />
 
         <div className="min-w-0 flex-1">
           <h2 className="truncate text-xl font-semibold text-foreground">
@@ -121,6 +200,9 @@ function Avatar({
         src={src}
         alt={alt}
         className="h-20 w-20 shrink-0 rounded-full object-cover ring-1 ring-border"
+        onError={(e) => {
+          e.currentTarget.style.display = "none";
+        }}
       />
     );
   }
