@@ -112,11 +112,11 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
         aria-label="Open user menu"
         className="
           flex items-center gap-1.5 rounded-full p-1
-          transition-all duration-150 hover:bg-zinc-800/80
-          focus:outline-none focus:ring-2 focus:ring-violet-500/40
+          transition-all duration-150 hover:bg-zinc-100 dark:hover:bg-zinc-800/80
+          focus:outline-none focus:ring-2 focus:ring-violet-500/40 cursor-pointer
         "
       >
-        <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-indigo-600 text-xs font-semibold text-white shadow-md ring-1 ring-white/10">
+        <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-indigo-600 text-xs font-semibold text-white shadow-md ring-1 ring-black/5 dark:ring-white/10">
           {user?.image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -130,13 +130,13 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
           {/* Online badge dot */}
           <span
             aria-hidden="true"
-            className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-zinc-950"
+            className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-zinc-950"
           />
         </div>
 
         <ChevronDown
-          className={`hidden h-3.5 w-3.5 text-zinc-400 transition-transform duration-200 sm:block ${
-            isOpen ? "rotate-180 text-violet-400" : ""
+          className={`hidden h-3.5 w-3.5 text-zinc-500 transition-transform duration-200 dark:text-zinc-400 sm:block ${
+            isOpen ? "rotate-180 text-violet-600 dark:text-violet-400" : ""
           }`}
         />
       </button>
@@ -148,18 +148,15 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
           role="menu"
           aria-orientation="vertical"
           className="
-            absolute right-0 top-full mt-2 w-72 sm:w-80
-            origin-top-right rounded-2xl
-            border border-zinc-800/90
-            bg-zinc-950/95 p-2
-            shadow-2xl shadow-black/80
-            backdrop-blur-xl z-50
-            animate-in fade-in zoom-in-95 duration-100
+            absolute right-0 top-full z-50 mt-2 w-72 origin-top-right sm:w-80
+            rounded-2xl border border-zinc-200/80 bg-white/95 p-2
+            shadow-xl backdrop-blur-xl animate-in fade-in zoom-in-95 duration-100
+            dark:border-zinc-800/90 dark:bg-zinc-950/95 dark:shadow-2xl dark:shadow-black/80
           "
         >
           {/* User Profile Header */}
-          <div className="flex items-center gap-3 rounded-xl bg-zinc-900/60 p-3">
-            <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-indigo-600 text-sm font-semibold text-white ring-1 ring-white/10">
+          <div className="flex items-center gap-3 rounded-xl bg-zinc-100/80 p-3 dark:bg-zinc-900/60">
+            <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-indigo-600 text-sm font-semibold text-white ring-1 ring-black/5 dark:ring-white/10">
               {user?.image ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -172,26 +169,26 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
               )}
               <span
                 aria-hidden="true"
-                className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-zinc-900"
+                className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-zinc-900"
               />
             </div>
 
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5">
-                <p className="truncate text-sm font-semibold text-white">
+                <p className="truncate text-sm font-semibold text-zinc-900 dark:text-white">
                   {displayName}
                 </p>
-                <span className="inline-flex items-center rounded-full bg-emerald-500/15 px-1.5 py-0.5 text-[10px] font-medium text-emerald-400">
+                <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-medium text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400">
                   {t("online")}
                 </span>
               </div>
-              <p className="truncate text-xs text-zinc-400">
+              <p className="truncate text-xs text-zinc-500 dark:text-zinc-400">
                 {user?.email || ""}
               </p>
             </div>
           </div>
 
-          <div className="my-1.5 h-px bg-zinc-800/70" />
+          <div className="my-1.5 h-px bg-zinc-200/70 dark:bg-zinc-800/70" />
 
           {/* Navigation Links */}
           <div className="flex flex-col gap-0.5">
@@ -201,11 +198,12 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
               role="menuitem"
               className="
                 flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium
-                text-zinc-300 transition-colors
-                hover:bg-zinc-900 hover:text-white
+                text-zinc-600 transition-colors
+                hover:bg-zinc-100 hover:text-zinc-900
+                dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-white
               "
             >
-              <User className="h-4 w-4 text-zinc-400" />
+              <User className="h-4 w-4 text-zinc-400 dark:text-zinc-400" />
               <span>{t("profile")}</span>
             </Link>
 
@@ -215,11 +213,12 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
               role="menuitem"
               className="
                 flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium
-                text-zinc-300 transition-colors
-                hover:bg-zinc-900 hover:text-white
+                text-zinc-600 transition-colors
+                hover:bg-zinc-100 hover:text-zinc-900
+                dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-white
               "
             >
-              <Settings className="h-4 w-4 text-zinc-400" />
+              <Settings className="h-4 w-4 text-zinc-400 dark:text-zinc-400" />
               <span>{t("settings")}</span>
             </Link>
 
@@ -229,11 +228,12 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
               role="menuitem"
               className="
                 flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium
-                text-zinc-300 transition-colors
-                hover:bg-zinc-900 hover:text-white
+                text-zinc-600 transition-colors
+                hover:bg-zinc-100 hover:text-zinc-900
+                dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-white
               "
             >
-              <Shield className="h-4 w-4 text-zinc-400" />
+              <Shield className="h-4 w-4 text-zinc-400 dark:text-zinc-400" />
               <span>{t("security")}</span>
             </Link>
 
@@ -243,11 +243,12 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
               role="menuitem"
               className="
                 flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium
-                text-zinc-300 transition-colors
-                hover:bg-zinc-900 hover:text-white
+                text-zinc-600 transition-colors
+                hover:bg-zinc-100 hover:text-zinc-900
+                dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-white
               "
             >
-              <KeyRound className="h-4 w-4 text-zinc-400" />
+              <KeyRound className="h-4 w-4 text-zinc-400 dark:text-zinc-400" />
               <span>{t("apiKeys")}</span>
             </Link>
 
@@ -258,17 +259,18 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
                 role="menuitem"
                 className="
                   flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium
-                  text-violet-300 transition-colors
-                  hover:bg-violet-500/10 hover:text-violet-200
+                  text-violet-600 transition-colors
+                  hover:bg-violet-50 hover:text-violet-700
+                  dark:text-violet-300 dark:hover:bg-violet-500/10 dark:hover:text-violet-200
                 "
               >
-                <LayoutDashboard className="h-4 w-4 text-violet-400" />
+                <LayoutDashboard className="h-4 w-4 text-violet-600 dark:text-violet-400" />
                 <span>{t("admin")}</span>
               </Link>
             )}
           </div>
 
-          <div className="my-1.5 h-px bg-zinc-800/70" />
+          <div className="my-1.5 h-px bg-zinc-200/70 dark:bg-zinc-800/70" />
 
           {/* Sign Out Action */}
           <button
@@ -278,9 +280,10 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
             role="menuitem"
             className="
               flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium
-              text-rose-400 transition-colors
-              hover:bg-rose-500/10 hover:text-rose-300
-              disabled:cursor-not-allowed disabled:opacity-50
+              text-rose-600 transition-colors
+              hover:bg-rose-50 hover:text-rose-700
+              dark:text-rose-400 dark:hover:bg-rose-500/10 dark:hover:text-rose-300
+              disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer
             "
           >
             {isSigningOut ? (

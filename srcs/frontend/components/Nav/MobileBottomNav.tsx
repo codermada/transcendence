@@ -40,9 +40,10 @@ export function MobileBottomNav() {
     <nav
       aria-label="Mobile Navigation"
       className="
-        fixed bottom-0 inset-x-0 h-16 z-40
-        bg-zinc-950/95 backdrop-blur-md
-        border-t border-zinc-800/80
+        fixed bottom-0 inset-x-0 z-40 h-16
+        border-t border-zinc-200/80 bg-white/95 text-zinc-900 backdrop-blur-md
+        transition-colors
+        dark:border-zinc-800/80 dark:bg-zinc-950/95 dark:text-white
         flex items-center justify-around px-2
         md:hidden
       "
@@ -59,18 +60,22 @@ export function MobileBottomNav() {
             href={item.href}
             aria-current={isActive ? "page" : undefined}
             className={`
-              flex flex-col items-center justify-center gap-1 py-1 px-3 rounded-xl transition-colors
+              flex flex-col items-center justify-center gap-1 rounded-xl px-3 py-1 transition-colors
               ${
                 isActive
-                  ? "text-violet-400 font-semibold"
-                  : "text-zinc-400 hover:text-zinc-200"
+                  ? "font-semibold text-violet-600 dark:text-violet-400"
+                  : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200"
               }
             `}
           >
             <div
               className={`
                 relative flex h-8 w-8 items-center justify-center rounded-xl transition-all
-                ${isActive ? "bg-violet-500/15" : ""}
+                ${
+                  isActive
+                    ? "bg-violet-100 dark:bg-violet-500/15"
+                    : ""
+                }
               `}
             >
               <Icon className="h-5 w-5" />

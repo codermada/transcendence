@@ -10,7 +10,7 @@ import { signUp } from "@/lib/auth/sign-up";
 import { InputField } from "@/components/ui/InputField";
 import { FormAlert } from "@/components/ui/FormAlert";
 import { SubmitButton } from "@/components/ui/SubmitButton";
-import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton"; // adjust path
+import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton";
 
 export function SignUpForm() {
   const t = useTranslations("Auth.signUp");
@@ -116,10 +116,10 @@ export function SignUpForm() {
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="w-full border-t border-surface-border" />
+          <div className="w-full border-t border-zinc-200/80 dark:border-zinc-800" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-surface px-2 text-surface-foreground/60">
+          <span className="bg-white px-2.5 font-medium text-zinc-500 dark:bg-zinc-950 dark:text-zinc-400">
             {t("orContinueWith")}
           </span>
         </div>
