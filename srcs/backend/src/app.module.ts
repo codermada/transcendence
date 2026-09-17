@@ -8,6 +8,7 @@ import { auth } from './auth/auth'; // your better-auth instance
 import { PrismaModule } from './prisma/prisma.module';
 import { TestModule } from './test/test.module';
 import { UserModule } from './user/user.module';
+import { FriendModule } from './friend/friend.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { UserModule } from './user/user.module';
     PrismaModule,
     TestModule,
     UserModule,
+    FriendModule,
   ],
   controllers: [AppController, AuthController],
   providers: [AppService],
