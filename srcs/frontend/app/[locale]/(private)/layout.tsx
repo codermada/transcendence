@@ -5,6 +5,7 @@ import { useRouter } from "@/i18n/routing";
 import { useSession } from "@/lib/auth/use-session";
 import { AuthenticatedNavbar } from "@/components/Nav/AuthenticatedNavbar";
 import { MobileBottomNav } from "@/components/Nav/MobileBottomNav";
+import { usePresenceInit } from "@/hooks/use-presence";
 
 export default function PrivateLayout({
   children,
@@ -13,6 +14,8 @@ export default function PrivateLayout({
 }>) {
   const router = useRouter();
   const { data: session, isPending } = useSession();
+
+  usePresenceInit();
 
   useEffect(() => {
     if (!isPending && !session) {
