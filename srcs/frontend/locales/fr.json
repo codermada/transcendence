@@ -238,9 +238,9 @@
     "errorAvatarSize": "L'image doit faire 5 Mo ou moins.",
     "errorAvatarUpload": "Impossible d'envoyer votre avatar. Réessayez.",
     "removeAvatar": "Supprimer l'avatar",
-    "removingAvatar": "Suppression…",
+    "removingAvatar": "Suppression...",
     "avatarRemoved": "Avatar supprimé",
-    "errorAvatarRemove": "Impossible de supprimer votre avatar. Réessayez."
+    "errorAvatarRemove": "Échec de la suppression de l'avatar"
   },
   "Language": {
     "switchLanguage": "Langue",

@@ -238,9 +238,9 @@
     "errorAvatarSize": "La imagen debe pesar 5 MB o menos.",
     "errorAvatarUpload": "No se pudo subir tu avatar. Inténtalo de nuevo.",
     "removeAvatar": "Eliminar avatar",
-    "removingAvatar": "Eliminando…",
+    "removingAvatar": "Eliminando...",
     "avatarRemoved": "Avatar eliminado",
-    "errorAvatarRemove": "No se pudo eliminar tu avatar. Inténtalo de nuevo."
+    "errorAvatarRemove": "No se pudo eliminar el avatar"
   },
   "Language": {
     "switchLanguage": "Idioma",
