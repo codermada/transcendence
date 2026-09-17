@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Patch,
+  Delete,
   Body,
   UseGuards,
   UseInterceptors,
@@ -72,5 +73,12 @@ export class UserController {
     file: Express.Multer.File,
   ) {
     return this.userService.updateAvatar(user.id, file);
+  }
+
+  @ApiOperation({ summary: 'Delete current user avatar (reset to default)' })
+  @Delete('me/avatar')
+  @UseGuards(AuthGuard)
+  deleteAvatar(@CurrentUser() user: { id: string }) {
+    return this.userService.deleteAvatar(user.id);
   }
 }
