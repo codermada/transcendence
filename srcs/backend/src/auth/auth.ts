@@ -14,11 +14,11 @@ const prisma = new PrismaClient({
   adapter,
 });
 
+const DEFAULT_AVATAR = "/nest/uploads/default-avatar.png";
+
 export const auth = betterAuth({
   appName: "ft_transcendence",
-
   baseURL: process.env.BETTER_AUTH_URL ?? "https://localhost:3000",
-
   basePath: "/auth",
 
   database: prismaAdapter(prisma, {
@@ -39,6 +39,25 @@ export const auth = betterAuth({
   trustedOrigins: [
     "https://localhost:9000",
   ],
+
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (user) => {
+          return {
+            data: {
+              ...user,
+              image: DEFAULT_AVATAR, // always override — ignore Google's picture
+              pseudo:
+                (user as { pseudo?: string | null }).pseudo ??
+                (user.email ? generateUsername(user.email) : null),
+            },
+          };
+        },
+      },
+    },
+  },
+
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -52,17 +71,15 @@ export const auth = betterAuth({
 
         return {
           name: profile.name ?? "",
-
           pseudo: generateUsername(profile.email),
-
-          image: profile.picture ?? null,
         };
       },
     },
   },
+
   plugins: [
     apiKey({
-      apiKeyHeaders: "x-api-key", 
+      apiKeyHeaders: "x-api-key",
       enableMetadata: true,
       enableSessionForAPIKeys: true,
     }),
@@ -74,7 +91,3 @@ export const auth = betterAuth({
     }),
   ],
 });
-
-
-//npx @better-auth/cli generate (generate the database schema in schema.prisma)
-// npx @better-auth/cli info

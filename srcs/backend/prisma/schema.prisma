@@ -23,6 +23,14 @@ enum Language {
   ES
 }
 
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  BLOCKED
+  CANCELLED
+}
+
 model Task {
   id        String  @id @default(cuid(2))
   task      String
@@ -35,7 +43,7 @@ model User {
   pseudo        String?  @unique
   email         String
   emailVerified Boolean  @default(false)
-  image         String?
+  image         String   @default("/nest/uploads/default-avatar.png") 
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -46,8 +54,9 @@ model User {
   notifications        Notification[]
   sentMessages         Message[]            @relation("SentMessages")
   receivedMessages     Message[]            @relation("ReceivedMessages")
-  friendshipsInitiated Friendship[]         @relation("User1Friendships")
-  friendshipsReceived  Friendship[]         @relation("User2Friendships")
+  friendshipsSent      Friendship[]         @relation("FriendshipRequester")
+  friendshipsReceived  Friendship[]         @relation("FriendshipAddressee")
+  friendshipsBlocked   Friendship[]         @relation("FriendshipBlocker")
   channelsCreated      Channel[]            @relation("ChannelCreator")
   channelMemberships   UserInChannel[]
   channelMessages      UserChannelMessage[]
@@ -187,18 +196,36 @@ model Notification {
 }
 
 model Friendship {
-  id         String    @id @default(cuid(2))
-  user1Id    String
-  user2Id    String
-  acceptedAt DateTime?
-  createdAt  DateTime  @default(now())
+  id          String           @id @default(cuid(2))
+  requesterId String
+  addresseeId String
+  status      FriendshipStatus @default(PENDING)
 
-  user1 User @relation("User1Friendships", fields: [user1Id], references: [id], onDelete: Cascade)
-  user2 User @relation("User2Friendships", fields: [user2Id], references: [id], onDelete: Cascade)
+  // Who initiated the block (only set when status = BLOCKED).
+  // If null while status = BLOCKED, treat the requester as the blocker.
+  blockedById String?
 
-  @@unique([user1Id, user2Id])
-  @@index([user1Id])
-  @@index([user2Id])
+  // Optional message attached to the friend request.
+  message String?
+
+  // Canonical "smallerId:largerId" key to prevent (A,B) and (B,A) duplicates.
+  pairKey String @unique
+
+  // Timestamps for lifecycle events.
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  acceptedAt  DateTime?
+  rejectedAt  DateTime?
+  blockedAt   DateTime?
+  cancelledAt DateTime?
+
+  requester User  @relation("FriendshipRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  addressee User  @relation("FriendshipAddressee", fields: [addresseeId], references: [id], onDelete: Cascade)
+  blockedBy User? @relation("FriendshipBlocker",   fields: [blockedById], references: [id], onDelete: SetNull)
+
+  @@index([requesterId, status])
+  @@index([addresseeId, status])
+  @@index([blockedById])
   @@map("friendships")
 }
 
