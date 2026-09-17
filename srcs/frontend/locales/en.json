@@ -211,7 +211,26 @@
       "subtitle": "Manage user accounts and roles.",
       "errorFailed": "Failed to fetch users.",
       "errorUnexpected": "Something went wrong."
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Overview of your instance"
+    },
+    "nav": {
+      "title": "Admin",
+      "subtitle": "Administration",
+      "dashboard": "Dashboard",
+      "users": "Users"
     }
+  },
+    "Profile": {
+    "title": "Your profile",
+    "subtitle": "How you appear across the app.",
+    "edit": "Edit profile",
+    "unnamed": "Unnamed user",
+    "idLabel": "User ID",
+    "emailLabel": "Email",
+    "errorUnexpected": "Something went wrong. Please try again."
   },
   "Language": {
     "switchLanguage": "Language",

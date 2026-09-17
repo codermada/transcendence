@@ -196,7 +196,7 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
           {/* Navigation Links */}
           <div className="flex flex-col gap-0.5">
             <Link
-              href="/settings/profile"
+              href="/profile"
               onClick={() => setIsOpen(false)}
               role="menuitem"
               className="

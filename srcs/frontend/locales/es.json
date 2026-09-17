@@ -211,7 +211,26 @@
       "subtitle": "Gestiona las cuentas de usuario y los roles.",
       "errorFailed": "No se pudieron cargar los usuarios.",
       "errorUnexpected": "Algo salió mal."
+    },
+    "dashboard": {
+      "title": "Panel",
+      "subtitle": "Resumen de tu instancia"
+    },
+    "nav": {
+      "title": "Admin",
+      "subtitle": "Administración",
+      "dashboard": "Panel",
+      "users": "Usuarios"
     }
+  },
+    "Profile": {
+    "title": "Tu perfil",
+    "subtitle": "Así apareces en la aplicación.",
+    "edit": "Editar perfil",
+    "unnamed": "Usuario sin nombre",
+    "idLabel": "ID de usuario",
+    "emailLabel": "Correo electrónico",
+    "errorUnexpected": "Algo salió mal. Inténtalo de nuevo."
   },
   "Language": {
     "switchLanguage": "Idioma",
