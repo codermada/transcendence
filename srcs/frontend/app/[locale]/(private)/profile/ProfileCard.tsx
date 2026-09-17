@@ -12,8 +12,8 @@ type CurrentUser = {
   image: string | null;
 };
 
-const MAX_AVATAR_BYTES = 5 * 1024 * 1024; // keep in sync with backend
-const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/webp", "image/gif"];
+const MAX_AVATAR_BYTES = 50 * 1024 * 1024; // 50 MB — keep in sync with backend
+const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/svg+xml"];
 
 export function ProfileCard() {
   const t = useTranslations("Profile");

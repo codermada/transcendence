@@ -2,13 +2,24 @@ import { Injectable, NotFoundException, ConflictException, BadRequestException }
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { promises as fs } from 'fs';
-import { join, extname } from 'path';
+import { join } from 'path';
 import { randomUUID } from 'crypto';
+import sharp from 'sharp';
 
 const AVATAR_DIR = join(process.cwd(), 'uploads', 'avatars');
 const DEFAULT_AVATAR = '/nest/uploads/default-avatar.png';
 
-const ALLOWED_EXT = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif']);
+// Output size in pixels (square). 512 is plenty for a 80–200px avatar.
+const AVATAR_SIZE = 512;
+
+// Accepted input MIME types. Sharp sniffs the actual bytes, so this is
+// a first-pass gate; a mislabeled file will still be rejected by sharp.
+const ALLOWED_MIME = new Set([
+  'image/png',
+  'image/jpeg',
+  'image/webp',
+  'image/gif',
+]);
 
 // Fields safe to expose on a public profile.
 const PUBLIC_USER_SELECT = {
@@ -105,16 +116,34 @@ export class UserService {
       throw new NotFoundException('User not found');
     }
 
-    const ext = extname(file.originalname).toLowerCase();
-    if (!ALLOWED_EXT.has(ext)) {
+    if (!ALLOWED_MIME.has(file.mimetype)) {
       throw new BadRequestException('Unsupported image type');
     }
 
-    const filename = `${userId}-${Date.now()}-${randomUUID().slice(0, 8)}${ext}`;
+    // Process with sharp: auto-rotate (EXIF), crop to a centered square,
+    // resize, strip metadata, encode as WebP.
+    let processed: Buffer;
+    try {
+      processed = await sharp(file.buffer)
+        .rotate() // apply EXIF orientation before cropping
+        .resize(AVATAR_SIZE, AVATAR_SIZE, {
+          fit: 'cover',           // crop to fill the square
+          position: 'centre',     // centered crop
+          withoutEnlargement: false,
+        })
+        .webp({ quality: 85 })
+        .toBuffer();
+    } catch {
+      // Sharp throws on malformed/corrupt images or unsupported formats.
+      throw new BadRequestException('Invalid or corrupted image');
+    }
+
+    // Always .webp now — the output format is fixed by sharp.
+    const filename = `${userId}-${Date.now()}-${randomUUID().slice(0, 8)}.webp`;
     const filepath = join(AVATAR_DIR, filename);
 
     await fs.mkdir(AVATAR_DIR, { recursive: true });
-    await fs.writeFile(filepath, file.buffer);
+    await fs.writeFile(filepath, processed);
 
     // Delete the previous avatar file (best-effort).
     // Skip if it's the default — nothing of ours to delete.
@@ -160,7 +189,7 @@ export class UserService {
 
     const user = await this.prisma.user.update({
       where: { id: userId },
-      data: { image: DEFAULT_AVATAR },   // ← reset to default, not null
+      data: { image: DEFAULT_AVATAR },
       select: {
         id: true,
         name: true,
