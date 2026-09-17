@@ -211,7 +211,32 @@
       "subtitle": "Gestiona las cuentas de usuario y los roles.",
       "errorFailed": "No se pudieron cargar los usuarios.",
       "errorUnexpected": "Algo salió mal."
+    },
+    "dashboard": {
+      "title": "Panel",
+      "subtitle": "Resumen de tu instancia"
+    },
+    "nav": {
+      "title": "Admin",
+      "subtitle": "Administración",
+      "dashboard": "Panel",
+      "users": "Usuarios"
     }
+  },
+    "Profile": {
+    "title": "Tu perfil",
+    "subtitle": "Así apareces en la aplicación.",
+    "edit": "Editar perfil",
+    "unnamed": "Usuario sin nombre",
+    "idLabel": "ID de usuario",
+    "emailLabel": "Correo electrónico",
+    "errorUnexpected": "Algo salió mal. Inténtalo de nuevo.",
+    "changeAvatar": "Cambiar avatar",
+    "uploadingAvatar": "Subiendo…",
+    "avatarUpdated": "Avatar actualizado",
+    "errorAvatarType": "Elige una imagen PNG, JPG, WebP o GIF.",
+    "errorAvatarSize": "La imagen debe pesar 5 MB o menos.",
+    "errorAvatarUpload": "No se pudo subir tu avatar. Inténtalo de nuevo."
   },
   "Language": {
     "switchLanguage": "Idioma",
