@@ -4,6 +4,7 @@ import {
   Patch,
   Delete,
   Body,
+  Param,
   UseGuards,
   UseInterceptors,
   UploadedFile,
@@ -80,5 +81,12 @@ export class UserController {
   @UseGuards(AuthGuard)
   deleteAvatar(@CurrentUser() user: { id: string }) {
     return this.userService.deleteAvatar(user.id);
+  }
+
+  @ApiOperation({ summary: 'Get a user public profile by id' })
+  @Get(':id')
+  @UseGuards(AuthGuard)
+  getPublicProfile(@Param('id') id: string) {
+    return this.userService.getPublicProfile(id);
   }
 }

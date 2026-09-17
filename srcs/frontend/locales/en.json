@@ -92,6 +92,11 @@
       "nameMax": "Name cannot exceed 50 characters",
       "confirmPasswordRequired": "Please confirm your password",
       "passwordsDoNotMatch": "Passwords do not match"
+    },
+    "Google": {
+      "signIn": "Continue with Google",
+      "signUp": "Sign up with Google",
+      "redirecting": "Redirecting..."
     }
   },
   "Home": {
@@ -223,7 +228,7 @@
       "users": "Users"
     }
   },
-    "Profile": {
+  "Profile": {
     "title": "Your profile",
     "subtitle": "How you appear across the app.",
     "edit": "Edit profile",
@@ -240,7 +245,17 @@
     "removeAvatar": "Remove avatar",
     "removingAvatar": "Removing...",
     "avatarRemoved": "Avatar removed",
-    "errorAvatarRemove": "Failed to remove avatar"
+    "errorAvatarRemove": "Failed to remove avatar",
+    "viewPublicProfile": "View public profile"
+  },
+  "PublicProfile": {
+    "title": "Profile",
+    "subtitle": "Public information about this member.",
+    "unnamed": "Unnamed user",
+    "notFound": "User not found",
+    "notFoundHint": "This profile doesn't exist or is no longer available.",
+    "idLabel": "ID",
+    "joinedLabel": "Joined"
   },
   "Language": {
     "switchLanguage": "Language",
