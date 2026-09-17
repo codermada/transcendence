@@ -211,7 +211,32 @@
       "subtitle": "Gérez les comptes utilisateurs et les rôles.",
       "errorFailed": "Échec du chargement des utilisateurs.",
       "errorUnexpected": "Une erreur est survenue."
+    },
+    "dashboard": {
+      "title": "Tableau de bord",
+      "subtitle": "Aperçu de votre instance"
+    },
+    "nav": {
+      "title": "Admin",
+      "subtitle": "Administration",
+      "dashboard": "Tableau de bord",
+      "users": "Utilisateurs"
     }
+  },
+  "Profile": {
+    "title": "Votre profil",
+    "subtitle": "Voici comment vous apparaissez dans l'application.",
+    "edit": "Modifier le profil",
+    "unnamed": "Utilisateur sans nom",
+    "idLabel": "Identifiant utilisateur",
+    "emailLabel": "Adresse e-mail",
+    "errorUnexpected": "Une erreur est survenue. Veuillez réessayer.",
+    "changeAvatar": "Changer d'avatar",
+    "uploadingAvatar": "Envoi…",
+    "avatarUpdated": "Avatar mis à jour",
+    "errorAvatarType": "Choisissez une image PNG, JPG, WebP ou GIF.",
+    "errorAvatarSize": "L'image doit faire 5 Mo ou moins.",
+    "errorAvatarUpload": "Impossible d'envoyer votre avatar. Réessayez."
   },
   "Language": {
     "switchLanguage": "Langue",
