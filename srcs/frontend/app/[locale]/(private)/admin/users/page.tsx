@@ -4,15 +4,8 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
 import AdminNav from "@/components/admin/AdminNav";
-import UsersTable from "@/components/admin/UsersTable";
+import UsersTable, { type User } from "@/components/admin/UsersTable";
 import { Users as UsersIcon } from "@/components/icons";
-
-type User = {
-  id: string;
-  username: string;
-  email: string;
-  role: "user" | "admin";
-};
 
 const Users = () => {
   const t = useTranslations("Admin.users");
