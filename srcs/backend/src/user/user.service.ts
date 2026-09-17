@@ -125,6 +125,39 @@ export class UserService {
     return this.withAvatar(user);
   }
 
+  async deleteAvatar(userId: string) {
+    const existing = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, image: true },
+    });
+
+    if (!existing) {
+      throw new NotFoundException('User not found');
+    }
+
+    // Remove the uploaded file (best-effort). Skip if it's the default
+    // or null, since there's nothing of ours to delete in that case.
+    if (existing.image && existing.image !== DEFAULT_AVATAR) {
+      const oldName = existing.image.split('/').pop();
+      if (oldName) {
+        await fs.unlink(join(AVATAR_DIR, oldName)).catch(() => undefined);
+      }
+    }
+
+    const user = await this.prisma.user.update({
+      where: { id: userId },
+      data: { image: null },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        image: true,
+      },
+    });
+
+    return this.withAvatar(user);
+  }
+
   async getAllUsers() {
     const users = await this.prisma.user.findMany({
       select: {
