@@ -176,9 +176,14 @@ export function ProfileCard() {
           <p className="mt-1 truncate text-sm text-muted">{user.email}</p>
         </div>
 
-        <Link href="/settings/profile" className="btn-secondary shrink-0">
-          {t("edit")}
-        </Link>
+        <div className="flex shrink-0 items-center gap-2">
+          <Link href={`/profile/${user.id}`} className="btn-secondary">
+            {t("viewPublicProfile")}
+          </Link>
+          <Link href="/settings/profile" className="btn-secondary">
+            {t("edit")}
+          </Link>
+        </div>
       </div>
 
       <dl className="mt-6 grid grid-cols-1 gap-4 border-t border-border pt-5 sm:grid-cols-2">
