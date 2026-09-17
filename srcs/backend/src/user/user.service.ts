@@ -10,6 +10,15 @@ const DEFAULT_AVATAR = '/nest/uploads/default-avatar.png';
 
 const ALLOWED_EXT = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif']);
 
+// Fields safe to expose on a public profile.
+const PUBLIC_USER_SELECT = {
+  id: true,
+  name: true,
+  image: true,
+  role: true,
+  createdAt: true,
+} as const;
+
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
@@ -34,6 +43,22 @@ export class UserService {
         email: true,
         image: true,
       },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return this.withAvatar(user);
+  }
+
+  /**
+   * Public profile of any user — no email or other private fields.
+   */
+  async getPublicProfile(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: PUBLIC_USER_SELECT,
     });
 
     if (!user) {

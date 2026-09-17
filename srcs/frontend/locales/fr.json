@@ -92,6 +92,11 @@
       "nameMax": "Le nom ne peut pas dépasser 50 caractères",
       "confirmPasswordRequired": "Veuillez confirmer votre mot de passe",
       "passwordsDoNotMatch": "Les mots de passe ne correspondent pas"
+    },
+    "Google": {
+      "signIn": "Continuer avec Google",
+      "signUp": "S'inscrire avec Google",
+      "redirecting": "Redirection..."
     }
   },
   "Home": {
@@ -240,7 +245,17 @@
     "removeAvatar": "Supprimer l'avatar",
     "removingAvatar": "Suppression...",
     "avatarRemoved": "Avatar supprimé",
-    "errorAvatarRemove": "Échec de la suppression de l'avatar"
+    "errorAvatarRemove": "Échec de la suppression de l'avatar",
+    "viewPublicProfile": "Voir le profil public"
+  },
+  "PublicProfile": {
+    "title": "Profil",
+    "subtitle": "Informations publiques sur ce membre.",
+    "unnamed": "Utilisateur sans nom",
+    "notFound": "Utilisateur introuvable",
+    "notFoundHint": "Ce profil n'existe pas ou n'est plus disponible.",
+    "idLabel": "ID",
+    "joinedLabel": "Inscription"
   },
   "Language": {
     "switchLanguage": "Langue",
