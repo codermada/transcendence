@@ -1,7 +1,10 @@
 // app/admin/page.tsx
+import { getTranslations } from "next-intl/server";
 import { LayoutDashboard } from "@/components/icons";
 
-export default function AdminDashboardPage() {
+export default async function AdminDashboardPage() {
+  const t = await getTranslations("Admin.dashboard");
+
   return (
     <>
       <header className="mb-7 flex items-start gap-4">
@@ -21,11 +24,9 @@ export default function AdminDashboardPage() {
 
         <div>
           <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-            Dashboard
+            {t("title")}
           </h1>
-          <p className="mt-1 text-sm text-muted">
-            Overview of your instance
-          </p>
+          <p className="mt-1 text-sm text-muted">{t("subtitle")}</p>
         </div>
       </header>
 

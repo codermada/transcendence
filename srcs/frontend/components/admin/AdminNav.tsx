@@ -1,7 +1,8 @@
 "use client";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 import { LayoutDashboard, Users } from "@/components/icons";
 
@@ -12,16 +13,17 @@ type AdminNavItem = {
 };
 
 export default function AdminNav() {
+  const t = useTranslations("Admin.nav");
   const pathname = usePathname();
 
   const navItems: AdminNavItem[] = [
     {
-      label: "Dashboard",
+      label: t("dashboard"),
       href: "/admin",
       icon: <LayoutDashboard className="h-4 w-4" />,
     },
     {
-      label: "Users",
+      label: t("users"),
       href: "/admin/users",
       icon: <Users className="h-4 w-4" />,
     },
@@ -55,11 +57,11 @@ export default function AdminNav() {
         {/* Header */}
         <div className="border-b border-border px-6 py-5">
           <h2 className="text-lg font-semibold tracking-tight text-foreground">
-            Admin
+            {t("title")}
           </h2>
 
           <p className="mt-1 text-sm text-muted">
-            Administration
+            {t("subtitle")}
           </p>
         </div>
 
