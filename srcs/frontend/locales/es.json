@@ -10,11 +10,12 @@
   "Nav": {
     "brand": "Heart",
     "brandAccent": "beat",
-    "feed": "Feed",
-    "play": "Jugar",
-    "leaderboard": "Clasificación",
-    "chat": "Chat",
+    "feed": "Inicio",
+    "friends": "Amigos",
+    "chat": "Mensajes",
     "settings": "Ajustes",
+    "security": "Seguridad y 2FA",
+    "profile": "Mi perfil",
     "apiKeys": "Claves API",
     "createAccount": "Crear cuenta",
     "signIn": "Iniciar sesión",
@@ -22,9 +23,16 @@
     "signingOut": "Cerrando sesión...",
     "toggleMenu": "Abrir menú",
     "toggleTheme": "Cambiar tema",
-    "switchToLight": "Cambiar a modo claro",
-    "switchToDark": "Cambiar a modo oscuro",
-    "admin": "Admin"
+    "switchToLight": "Modo claro",
+    "switchToDark": "Modo oscuro",
+    "admin": "Panel de administración",
+    "searchPlaceholder": "Buscar publicaciones, amigos...",
+    "notifications": "Notificaciones",
+    "noNotifications": "Sin notificaciones",
+    "zeroUnread": "0 no leídos",
+    "online": "En línea",
+    "preferences": "Preferencias",
+    "user": "Usuario"
   },
   "Auth": {
     "signIn": {
@@ -87,9 +95,9 @@
     }
   },
   "Home": {
-    "title": "Domina la raqueta",
-    "subtitle": "Plataforma competitiva de Pong en tiempo real con funciones sociales modernas",
-    "playNow": "Jugar ahora",
+    "title": "Conecta y Comparte",
+    "subtitle": "Una plataforma social moderna y rápida para conectar con amigos, chatear y compartir momentos.",
+    "playNow": "Empezar",
     "signIn": "Iniciar sesión",
     "welcome": "Bienvenido a ft_transcendence"
   },
@@ -97,6 +105,21 @@
     "title": "Feed",
     "welcomeMessage": "¡Bienvenido a tu feed!",
     "activity": "Actividad reciente"
+  },
+  "Friends": {
+    "title": "Amigos",
+    "subtitle": "Gestiona tus amigos y conexiones en la comunidad.",
+    "findFriends": "Buscar amigos",
+    "requests": "Solicitudes de amistad",
+    "emptyTitle": "Aún no tienes amigos",
+    "emptyDescription": "Busca y añade amigos para ver sus novedades y chatear."
+  },
+  "Chat": {
+    "title": "Mensajes",
+    "subtitle": "Mensajes directos y canales grupales.",
+    "emptyTitle": "Tus mensajes",
+    "emptyDescription": "Selecciona una conversación o inicia un nuevo chat con un amigo.",
+    "newMessage": "Nuevo mensaje"
   },
   "Settings": {
     "nav": {

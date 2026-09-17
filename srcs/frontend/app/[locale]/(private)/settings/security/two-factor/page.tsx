@@ -81,7 +81,7 @@ export default function TwoFactorPage() {
         );
       }
 
-      if (!data?.totpURI) {
+      if (!data || data.method !== "totp" || !("totpURI" in data) || !data.totpURI) {
         throw new Error("The server did not return a TOTP setup URI.");
       }
 

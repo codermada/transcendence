@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 import { useSession } from "@/lib/auth/use-session";
-import { NavAuth } from "@/components/Nav/NavAuth";
+import { AuthenticatedNavbar } from "@/components/Nav/AuthenticatedNavbar";
+import { MobileBottomNav } from "@/components/Nav/MobileBottomNav";
 
 export default function PrivateLayout({
   children,
@@ -22,7 +23,10 @@ export default function PrivateLayout({
   if (isPending) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-zinc-950">
-        <p className="text-sm text-zinc-400">Loading...</p>
+        <div className="flex flex-col items-center gap-3">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-violet-500 border-t-transparent" />
+          <p className="text-sm text-zinc-400">Loading...</p>
+        </div>
       </main>
     );
   }
@@ -31,5 +35,13 @@ export default function PrivateLayout({
     return null;
   }
 
-  return <><NavAuth />{children}</>;
+  return (
+    <div className="min-h-screen bg-zinc-950 text-white flex flex-col">
+      <AuthenticatedNavbar />
+      <main className="flex-1 pt-14 pb-16 md:pb-0">
+        {children}
+      </main>
+      <MobileBottomNav />
+    </div>
+  );
 }
