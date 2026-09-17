@@ -23,17 +23,6 @@ const PUBLIC_USER_SELECT = {
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
-  /**
-   * Resolves the avatar URL for a user, falling back to the default.
-   * Keeps the DB value untouched — the fallback is a presentation concern.
-   */
-  private withAvatar<T extends { image: string | null }>(user: T) {
-    return {
-      ...user,
-      image: user.image ?? DEFAULT_AVATAR,
-    };
-  }
-
   async getMe(userId: string) {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
@@ -49,7 +38,7 @@ export class UserService {
       throw new NotFoundException('User not found');
     }
 
-    return this.withAvatar(user);
+    return user;
   }
 
   /**
@@ -65,7 +54,7 @@ export class UserService {
       throw new NotFoundException('User not found');
     }
 
-    return this.withAvatar(user);
+    return user;
   }
 
   async updateMe(userId: string, dto: UpdateUserDto) {
@@ -103,7 +92,7 @@ export class UserService {
       },
     });
 
-    return this.withAvatar(user);
+    return user;
   }
 
   async updateAvatar(userId: string, file: Express.Multer.File) {
@@ -128,8 +117,8 @@ export class UserService {
     await fs.writeFile(filepath, file.buffer);
 
     // Delete the previous avatar file (best-effort).
-    // Only delete if it's NOT the default and points to an uploaded file.
-    if (existing.image && existing.image !== DEFAULT_AVATAR) {
+    // Skip if it's the default — nothing of ours to delete.
+    if (existing.image !== DEFAULT_AVATAR) {
       const oldName = existing.image.split('/').pop();
       if (oldName) {
         await fs.unlink(join(AVATAR_DIR, oldName)).catch(() => undefined);
@@ -147,7 +136,7 @@ export class UserService {
       },
     });
 
-    return this.withAvatar(user);
+    return user;
   }
 
   async deleteAvatar(userId: string) {
@@ -160,9 +149,9 @@ export class UserService {
       throw new NotFoundException('User not found');
     }
 
-    // Remove the uploaded file (best-effort). Skip if it's the default
-    // or null, since there's nothing of ours to delete in that case.
-    if (existing.image && existing.image !== DEFAULT_AVATAR) {
+    // Remove the uploaded file (best-effort). Skip if it's already the
+    // default — nothing of ours to delete.
+    if (existing.image !== DEFAULT_AVATAR) {
       const oldName = existing.image.split('/').pop();
       if (oldName) {
         await fs.unlink(join(AVATAR_DIR, oldName)).catch(() => undefined);
@@ -171,7 +160,7 @@ export class UserService {
 
     const user = await this.prisma.user.update({
       where: { id: userId },
-      data: { image: null },
+      data: { image: DEFAULT_AVATAR },   // ← reset to default, not null
       select: {
         id: true,
         name: true,
@@ -180,7 +169,7 @@ export class UserService {
       },
     });
 
-    return this.withAvatar(user);
+    return user;
   }
 
   async getAllUsers() {
@@ -197,6 +186,6 @@ export class UserService {
       },
     });
 
-    return users.map((u) => this.withAvatar(u));
+    return users;
   }
 }

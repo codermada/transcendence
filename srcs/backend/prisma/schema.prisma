@@ -43,7 +43,7 @@ model User {
   pseudo        String?  @unique
   email         String
   emailVerified Boolean  @default(false)
-  image         String?
+  image         String   @default("/nest/uploads/default-avatar.png") 
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
