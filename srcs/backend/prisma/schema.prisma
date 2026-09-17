@@ -43,7 +43,7 @@ model User {
   pseudo        String?  @unique
   email         String
   emailVerified Boolean  @default(false)
-  image         String   @default("/nest/uploads/default-avatar.png") 
+  image         String   @default("/nest/uploads/default-avatar.png")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -54,6 +54,8 @@ model User {
   notifications        Notification[]
   sentMessages         Message[]            @relation("SentMessages")
   receivedMessages     Message[]            @relation("ReceivedMessages")
+  messageTablesAsUser1 MessageTable[]       @relation("MessageTableUser1")
+  messageTablesAsUser2 MessageTable[]       @relation("MessageTableUser2")
   friendshipsSent      Friendship[]         @relation("FriendshipRequester")
   friendshipsReceived  Friendship[]         @relation("FriendshipAddressee")
   friendshipsBlocked   Friendship[]         @relation("FriendshipBlocker")
@@ -229,20 +231,42 @@ model Friendship {
   @@map("friendships")
 }
 
+model MessageTable {
+  id        String   @id @default(cuid(2))
+  user1Id   String?
+  user2Id   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Canonical "smallerId:largerId" key to prevent duplicate conversations.
+  pairKey String @unique
+
+  user1    User?     @relation("MessageTableUser1", fields: [user1Id], references: [id], onDelete: SetNull)
+  user2    User?     @relation("MessageTableUser2", fields: [user2Id], references: [id], onDelete: SetNull)
+  messages Message[]
+
+  @@index([user1Id])
+  @@index([user2Id])
+  @@map("message_tables")
+}
+
 model Message {
-  id         String    @id @default(cuid(2))
-  senderId   String
-  receiverId String
-  content    String
-  mediaUrls  String[]  @default([])
-  isSeen     Boolean   @default(false)
-  seenAt     DateTime?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id             String    @id @default(cuid(2))
+  messageTableId String
+  senderId       String
+  receiverId     String
+  content        String
+  mediaUrls      String[]  @default([])
+  isSeen         Boolean   @default(false)
+  seenAt         DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
-  sender   User @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
-  receiver User @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+  messageTable MessageTable @relation(fields: [messageTableId], references: [id], onDelete: Cascade)
+  sender       User         @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver     User         @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
 
+  @@index([messageTableId, createdAt(sort: Desc)])
   @@index([senderId, receiverId, createdAt(sort: Desc)])
   @@map("messages")
 }
