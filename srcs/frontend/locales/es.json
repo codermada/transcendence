@@ -255,7 +255,81 @@
     "notFound": "Usuario no encontrado",
     "notFoundHint": "Este perfil no existe o ya no está disponible.",
     "idLabel": "ID",
-    "joinedLabel": "Registro"
+    "joinedLabel": "Se unió",
+    "actionError": "Algo salió mal. Inténtalo de nuevo.",
+    "friendStatus": {
+      "friends": "Amigos",
+      "requestSent": "Solicitud enviada",
+      "requestReceived": "Quiere ser tu amigo",
+      "blocked": "Bloqueado"
+    },
+    "actions": {
+      "addFriend": "Añadir amigo",
+      "adding": "Añadiendo…",
+      "cancelRequest": "Cancelar solicitud",
+      "cancelling": "Cancelando…",
+      "accept": "Aceptar",
+      "accepting": "Aceptando…",
+      "reject": "Rechazar",
+      "rejecting": "Rechazando…",
+      "removeFriend": "Eliminar amigo",
+      "removing": "Eliminando…",
+      "blocked": "Bloqueado"
+    }
+  },
+  "FriendRequests": {
+    "title": "Solicitudes de amistad",
+    "subtitle": "Gestiona las que enviaste y las que recibiste.",
+    "tabsAriaLabel": "Pestañas de solicitudes de amistad",
+    "searchPlaceholder": "Buscar por nombre o alias…",
+    "loadError": "No se pudieron cargar tus solicitudes de amistad.",
+    "loadErrorHint": "Actualiza la página o inténtalo de nuevo más tarde.",
+    "actionError": "Algo salió mal. Inténtalo de nuevo.",
+    "unnamed": "Usuario sin nombre",
+    "tabs": {
+      "incoming": "Recibidas",
+      "outgoing": "Enviadas"
+    },
+    "empty": {
+      "incomingTitle": "No hay solicitudes recibidas",
+      "incomingDescription": "Cuando alguien quiera ser tu amigo, aparecerá aquí.",
+      "outgoingTitle": "No hay solicitudes enviadas",
+      "outgoingDescription": "Las solicitudes que envíes aparecerán aquí hasta que se respondan.",
+      "searchTitle": "Sin resultados",
+      "searchDescription": "Ninguna solicitud coincide con tu búsqueda."
+    },
+    "actions": {
+      "accept": "Aceptar",
+      "accepting": "Aceptando…",
+      "reject": "Rechazar",
+      "rejecting": "Rechazando…",
+      "cancel": "Cancelar solicitud",
+      "cancelling": "Cancelando…"
+    }
+  },
+  "FriendsList": {
+    "title": "Mis amigos",
+    "subtitle": "Todas las personas con las que estás conectado.",
+    "searchPlaceholder": "Buscar por nombre o alias…",
+    "count": "{count, plural, =0 {Sin amigos} =1 {1 amigo} other {# amigos}}",
+    "unnamed": "Usuario sin nombre",
+    "loadError": "No se pudieron cargar tus amigos.",
+    "loadErrorHint": "Actualiza la página o inténtalo de nuevo más tarde.",
+    "actionError": "Algo salió mal. Inténtalo de nuevo.",
+    "empty": {
+      "title": "Aún no tienes amigos",
+      "description": "Busca y añade amigos para verlos aquí.",
+      "searchTitle": "Sin resultados",
+      "searchDescription": "Ningún amigo coincide con tu búsqueda."
+    },
+    "actions": {
+      "remove": "Eliminar amigo"
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "page": "Página {page} de {pages}"
+    }
   },
   "Language": {
     "switchLanguage": "Idioma",
