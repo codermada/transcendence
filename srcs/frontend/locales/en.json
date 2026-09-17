@@ -11,10 +11,11 @@
     "brand": "Heart",
     "brandAccent": "beat",
     "feed": "Feed",
-    "play": "Play",
-    "leaderboard": "Leaderboard",
-    "chat": "Chat",
+    "friends": "Friends",
+    "chat": "Messages",
     "settings": "Settings",
+    "security": "Security & 2FA",
+    "profile": "My Profile",
     "apiKeys": "API Keys",
     "createAccount": "Create account",
     "signIn": "Sign in",
@@ -24,7 +25,14 @@
     "toggleTheme": "Toggle theme",
     "switchToLight": "Switch to light mode",
     "switchToDark": "Switch to dark mode",
-    "admin": "Admin"
+    "admin": "Admin",
+    "searchPlaceholder": "Search posts, friends...",
+    "notifications": "Notifications",
+    "noNotifications": "No new notifications",
+    "zeroUnread": "0 unread",
+    "online": "Online",
+    "preferences": "Preferences",
+    "user": "User"
   },
   "Auth": {
     "signIn": {
@@ -87,9 +95,9 @@
     }
   },
   "Home": {
-    "title": "Master the Paddle",
-    "subtitle": "Real-time competitive Pong platform with modern social features",
-    "playNow": "Play Now",
+    "title": "Connect & Share",
+    "subtitle": "A modern social platform to connect with friends, chat, and share moments.",
+    "playNow": "Get Started",
     "signIn": "Sign In",
     "welcome": "Welcome to ft_transcendence"
   },
@@ -97,6 +105,21 @@
     "title": "Feed",
     "welcomeMessage": "Welcome to your feed!",
     "activity": "Recent Activity"
+  },
+  "Friends": {
+    "title": "Friends",
+    "subtitle": "Manage your friends and community connections.",
+    "findFriends": "Find Friends",
+    "requests": "Friend Requests",
+    "emptyTitle": "No friends yet",
+    "emptyDescription": "Search and add friends to see their updates and messages here."
+  },
+  "Chat": {
+    "title": "Messages",
+    "subtitle": "Direct messages and group channels.",
+    "emptyTitle": "Your Messages",
+    "emptyDescription": "Select a conversation or start a new chat with a friend.",
+    "newMessage": "New message"
   },
   "Settings": {
     "nav": {
