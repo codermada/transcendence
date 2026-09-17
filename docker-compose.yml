@@ -22,6 +22,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
   backend:
     build:
       context: ./srcs/backend
@@ -37,11 +38,12 @@ services:
     ports:
       - "3000:3000"
       - "51212:51212"
-    
     networks:
       - net
     depends_on:
       postgres:
+        condition: service_healthy
+      minio:
         condition: service_healthy
 
   frontend:
@@ -59,12 +61,35 @@ services:
       - "3000"
     ports:
       - "3001:3000"
-
     networks:
       - net
     depends_on:
       postgres:
         condition: service_healthy
+
+  minio:
+    build:
+      context: ./srcs/minio
+    container_name: minio-s3
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    ports:
+      - "9002:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - net
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   nginx:
     build:
@@ -80,11 +105,10 @@ services:
     networks:
       - net
 
-
 networks:
   net:
     driver: bridge
 
-
 volumes:
   postgres_data:
+  minio_data:
