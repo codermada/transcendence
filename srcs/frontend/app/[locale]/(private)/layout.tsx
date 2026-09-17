@@ -36,7 +36,7 @@ export default function PrivateLayout({
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white flex flex-col">
+    <div className="flex min-h-screen flex-col bg-white text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-white">
       <AuthenticatedNavbar />
       <main className="flex-1 pt-14 pb-16 md:pb-0">
         {children}
