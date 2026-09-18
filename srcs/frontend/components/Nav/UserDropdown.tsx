@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { signOut } from "@/lib/auth/sign-out";
 import { authClient } from "@/lib/auth/auth-client";
+import { usePresence } from "@/hooks/use-presence";
 import {
   User,
   Settings,
@@ -31,6 +32,7 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const t = useTranslations("Nav");
+  const { isOnline } = usePresence();
 
   const { data: session } = authClient.useSession();
   const user = initialUser ?? session?.user;
@@ -127,11 +129,19 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
           ) : (
             <span>{initials}</span>
           )}
-          {/* Online badge dot */}
+          {/* Online / Offline badge dot */}
           <span
-            aria-hidden="true"
-            className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-zinc-950"
-          />
+            aria-label={isOnline ? t("online") : t("offline")}
+            title={isOnline ? t("online") : t("offline")}
+            className={`
+              absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full ring-2 ring-white dark:ring-zinc-950 transition-colors duration-300
+              ${isOnline ? "bg-emerald-500" : "bg-zinc-400 dark:bg-zinc-600"}
+            `}
+          >
+            {isOnline && (
+              <span className="absolute inset-0 rounded-full bg-emerald-400 opacity-75 animate-ping" />
+            )}
+          </span>
         </div>
 
         <ChevronDown
@@ -169,7 +179,10 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
               )}
               <span
                 aria-hidden="true"
-                className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-zinc-900"
+                className={`
+                  absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full ring-2 ring-white dark:ring-zinc-900 transition-colors duration-300
+                  ${isOnline ? "bg-emerald-500" : "bg-zinc-400 dark:bg-zinc-600"}
+                `}
               />
             </div>
 
@@ -178,9 +191,17 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
                 <p className="truncate text-sm font-semibold text-zinc-900 dark:text-white">
                   {displayName}
                 </p>
-                <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-medium text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400">
-                  {t("online")}
-                </span>
+                {isOnline ? (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-medium text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    {t("online")}
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-zinc-500/10 px-1.5 py-0.5 text-[10px] font-medium text-zinc-500 dark:bg-zinc-500/15 dark:text-zinc-400">
+                    <span className="h-1.5 w-1.5 rounded-full bg-zinc-400 dark:bg-zinc-500" />
+                    {t("offline")}
+                  </span>
+                )}
               </div>
               <p className="truncate text-xs text-zinc-500 dark:text-zinc-400">
                 {user?.email || ""}
