@@ -1,18 +1,16 @@
-import { getTranslations } from "next-intl/server";
-
+import { ProfileSidebar } from "./_components/profile-sidebar/ProfileSidebar";
+import { FeedSection } from "./_components/feed-section/FeedSection";
+import { NetworkSidebar } from "./_components/network-sidebar/NetworkSidebar";
 
 export default async function FeedPage() {
-  const t = await getTranslations("Feed");
-
   return (
-    <main className="min-h-dvh bg-white text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-white">
-      <div className="mx-auto max-w-4xl p-6">
-        <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">
-          {t("title")}
-        </h1>
-        <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-          {t("welcomeMessage")}
-        </p>
+    <main className="h-dvh w-full overflow-hidden bg-zinc-50 text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-white">
+      <div className="mx-auto flex h-dvh max-w-7xl flex-col px-4 py-6 sm:px-6 lg:px-8">
+        <div className="grid h-full min-h-0 flex-1 grid-cols-1 gap-6 overflow-hidden lg:grid-cols-12">
+          <ProfileSidebar />
+          <FeedSection />
+          <NetworkSidebar />
+        </div>
       </div>
     </main>
   );
