@@ -9,7 +9,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { TestModule } from './test/test.module';
 import { UserModule } from './user/user.module';
 import { FriendModule } from './friend/friend.module';
-import { ChatModule } from './chat/chat.module';
+// import { ChatModule } from './chat/chat.module';
 import { PresenceModule } from './presence/presence.module.js';
 
 @Module({
@@ -19,7 +19,7 @@ import { PresenceModule } from './presence/presence.module.js';
     TestModule,
     UserModule,
     FriendModule,
-    ChatModule,
+    // ChatModule,
     PresenceModule
   ],
   controllers: [AppController, AuthController],
