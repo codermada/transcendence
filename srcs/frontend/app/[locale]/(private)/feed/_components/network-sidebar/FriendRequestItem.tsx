@@ -1,16 +1,4 @@
-interface ReceivedRequestProps {
-  type: "received";
-  name: string;
-  initials: string;
-}
-
-interface SentRequestProps {
-  type: "sent";
-  name: string;
-  initials: string;
-}
-
-type FriendRequestItemProps = ReceivedRequestProps | SentRequestProps;
+import type { FriendRequestItemProps } from "./network-sidebar.types";
 
 export function FriendRequestItem(props: FriendRequestItemProps) {
   if (props.type === "received") {
