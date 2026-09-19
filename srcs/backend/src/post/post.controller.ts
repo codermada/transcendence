@@ -34,11 +34,13 @@ export class PostController {
 	}
 
 	@Get()
+	@UseGuards(AuthGuard)
 	async getPosts(@Query() filters: GetPostsFilterDto) {
 		return this.postService.getAllPosts(filters);
 	}
 
 	@Get(':id')
+	@UseGuards(AuthGuard)
 	async getPostById(@Param('id') id: string) {
 		return this.postService.getPostById(id);
 	}
