@@ -110,7 +110,64 @@
   "Feed": {
     "title": "Fil d'actualité",
     "welcomeMessage": "Bienvenue sur votre fil d'actualité !",
-    "activity": "Activité récente"
+    "activity": "Activité récente",
+    "feed-section": {
+      "CreatePostCard": {
+        "placeholder": "Quoi de neuf aujourd'hui ?",
+        "plurialMedia": "Photos / Vidéos",
+        "singularMedia": "Photo / Vidéo",
+        "publish": "Publier",
+        "isLoading": "Publication..."
+      },
+      "FeedSection": {
+        "emptyTitle": "Aucun message pour le moment",
+        "emptyDescription": "Soyez le premier à publier quelque chose ou ajoutez des amis pour voir leurs actualités.",
+        "defaultTimeAgo": "À l'instant"
+      },
+      "MediaModal": {
+
+      },
+      "PostActions": {
+
+      },
+      "PostCard": {
+
+      },
+      "PostHeader": {
+
+      },
+      "PostMedia": {
+
+      }
+    },
+    "network-sidebar": {
+      "FriendRequestItem": {
+
+      },
+      "FriendRequestsCard": {
+
+      },
+      "FriendSuggestionItem": {
+
+      },
+      "FriendSuggestionsCard": {
+
+      },
+      "NetworkSidebar": {
+
+      }
+    },
+    "profile-sidebar": {
+      "ProfileCard": {
+
+      },
+      "ProfileSidebar": {
+
+      },
+      "ProfileStats": {
+
+      }
+    }
   },
   "Friends": {
     "title": "Amis",
