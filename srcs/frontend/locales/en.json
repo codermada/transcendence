@@ -110,7 +110,64 @@
   "Feed": {
     "title": "Feed",
     "welcomeMessage": "Welcome to your feed!",
-    "activity": "Recent Activity"
+    "activity": "Recent Activity",
+    "feed-section": {
+      "CreatePostCard": {
+        "placeholder": "What's on your mind today?",
+        "plurialMedia": "Photos / Videos",
+        "singularMedia": "Photo / Video",
+        "publish": "Publish",
+        "isLoading": "Publishing..."
+      },
+      "FeedSection": {
+        "emptyTitle": "No posts yet",
+        "emptyDescription": "Be the first to post something or add friends to see their updates.",
+        "defaultTimeAgo": "Just now"
+      },
+      "MediaModal": {
+
+      },
+      "PostActions": {
+
+      },
+      "PostCard": {
+
+      },
+      "PostHeader": {
+
+      },
+      "PostMedia": {
+
+      }
+    },
+    "network-sidebar": {
+      "FriendRequestItem": {
+
+      },
+      "FriendRequestsCard": {
+
+      },
+      "FriendSuggestionItem": {
+
+      },
+      "FriendSuggestionsCard": {
+
+      },
+      "NetworkSidebar": {
+
+      }
+    },
+    "profile-sidebar": {
+      "ProfileCard": {
+
+      },
+      "ProfileSidebar": {
+
+      },
+      "ProfileStats": {
+
+      }
+    }
   },
   "Friends": {
     "title": "Friends",
