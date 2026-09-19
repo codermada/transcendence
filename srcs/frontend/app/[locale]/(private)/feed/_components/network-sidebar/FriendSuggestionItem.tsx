@@ -1,8 +1,4 @@
-interface FriendSuggestionItemProps {
-  name: string;
-  initials: string;
-  mutualFriends: number;
-}
+import type { FriendSuggestionItemProps } from "./network-sidebar.types";
 
 export function FriendSuggestionItem({
   name,
