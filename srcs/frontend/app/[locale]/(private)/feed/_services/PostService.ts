@@ -5,7 +5,26 @@ export interface CreatePostDto {
   files?: File[];
 }
 
+const API_URL = process.env.NEXT_PUBLIC_NEST_URL || "http://localhost:4000";
+
 export const postService = {
+  async getAllPosts(): Promise<Post[]> {
+    const response = await fetch(`${API_URL}/posts`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || "Erreur lors de la récupération des posts");
+    }
+
+    return response.json();
+  },
+
   async createPost(dto: CreatePostDto): Promise<Post> {
     const formData = new FormData();
     formData.append("content", dto.content);
@@ -16,7 +35,7 @@ export const postService = {
       });
     }
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_NEST_URL}/posts`, {
+    const response = await fetch(`${API_URL}/posts`, {
       method: "POST",
       credentials: "include",
       body: formData,
