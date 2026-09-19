@@ -30,7 +30,6 @@ export default function FeedPage() {
         const fetchedPosts = await postService.getAllPosts();
         
         if (isMounted) {
-          // Injection directe : l'ordre (3 récents + 7 aléatoires) est déjà garanti par le backend
           setPosts(fetchedPosts);
         }
       } catch (error) {
