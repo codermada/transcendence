@@ -11,11 +11,11 @@ export interface Post {
   id: string;
   author: string;
   initials: string;
-  timeAgo: string;
+  timeAgo?: string;
   content: string;
   likesCount: number;
   commentsCount: number;
-  mediaUrl?: string;
+  mediaUrls?: string[];
 }
 
 export interface FeedSectionProps {
@@ -25,17 +25,18 @@ export interface FeedSectionProps {
 export interface PostCardProps {
   author: string;
   initials: string;
-  timeAgo: string;
+  timeAgo?: string;
   content: string;
   likesCount: number;
   commentsCount: number;
+  mediaUrls?: string[];
   children?: ReactNode;
 }
 
 export interface PostHeaderProps {
   author: string;
   initials: string;
-  timeAgo: string;
+  timeAgo?: string;
 }
 
 export interface PostActionsProps {
