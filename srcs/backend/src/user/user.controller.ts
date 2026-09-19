@@ -1,35 +1,47 @@
 import {
-  Controller,
-  Get,
-  Patch,
-  Delete,
   Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  MaxFileSizeValidator,
   Param,
+  ParseFilePipe,
+  Patch,
+  UploadedFile,
   UseGuards,
   UseInterceptors,
-  UploadedFile,
-  ParseFilePipe,
-  MaxFileSizeValidator,
   FileTypeValidator,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { UserService } from './user.service';
-import { CurrentUser } from '../auth/CurrentUser';
-import { AuthGuard } from '../auth/AuthGuard';
-import { ApiTags, ApiOperation, ApiConsumes, ApiBody } from '@nestjs/swagger';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AdminGuard } from '../auth/AdminGuard';
+import { AuthGuard } from '../auth/AuthGuard';
+import { CurrentUser } from '../auth/CurrentUser';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUserRoleDto } from './dto/update-user-role.dto';
+import { UserService } from './user.service';
 
 @ApiTags('user')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  // ─────────────────────────────────────────────────────────────
+  // Admin — list
+  // ─────────────────────────────────────────────────────────────
+
+  @ApiOperation({ summary: 'Admin: list all users' })
   @Get()
   @UseGuards(AdminGuard)
-  async getAllUsers() {
+  getAllUsers() {
     return this.userService.getAllUsers();
   }
+
+  // ─────────────────────────────────────────────────────────────
+  // Self
+  // ─────────────────────────────────────────────────────────────
 
   @ApiOperation({ summary: 'Get current user (requires session cookie)' })
   @Get('me')
@@ -82,6 +94,54 @@ export class UserController {
   deleteAvatar(@CurrentUser() user: { id: string }) {
     return this.userService.deleteAvatar(user.id);
   }
+
+  @ApiOperation({ summary: 'Delete current user account (self-deletion)' })
+  @Delete('me')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard)
+  deleteMe(@CurrentUser() user: { id: string }) {
+    return this.userService.deleteMe(user.id);
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Admin — mutate a specific user
+  // ─────────────────────────────────────────────────────────────
+
+  @ApiOperation({ summary: 'Admin: update a user by id' })
+  @Patch(':id')
+  @UseGuards(AdminGuard)
+  updateUserById(
+    @Param('id') id: string,
+    @Body() dto: UpdateUserDto,
+  ) {
+    return this.userService.updateUserById(id, dto);
+  }
+
+  @ApiOperation({ summary: 'Admin: change a user role by id' })
+  @Patch(':id/role')
+  @UseGuards(AdminGuard)
+  updateUserRole(
+    @Param('id') id: string,
+    @Body() dto: UpdateUserRoleDto,
+    @CurrentUser() admin: { id: string },
+  ) {
+    return this.userService.updateUserRole(id, dto.role, admin.id);
+  }
+
+  @ApiOperation({ summary: 'Admin: delete a user by id' })
+  @Delete(':id')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AdminGuard)
+  deleteUser(
+    @Param('id') id: string,
+    @CurrentUser() admin: { id: string },
+  ) {
+    return this.userService.deleteUser(id, admin.id);
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Public profile — must come after all literal `:id` siblings
+  // ─────────────────────────────────────────────────────────────
 
   @ApiOperation({ summary: 'Get a user public profile by id' })
   @Get(':id')
