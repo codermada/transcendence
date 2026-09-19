@@ -1,17 +1,5 @@
 import { ProfileCard } from "./ProfileCard";
-
-interface ProfileSidebarProps {
-  user: {
-    name: string;
-    username: string;
-    initials: string;
-    stats: {
-      friendsCount: number;
-      postsCount: number;
-      reactionsCount: number;
-    };
-  };
-}
+import type { ProfileSidebarProps } from "./profile-sidebar.types";
 
 export function ProfileSidebar({ user }: ProfileSidebarProps) {
   return (
