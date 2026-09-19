@@ -16,8 +16,9 @@ export const postService = {
       });
     }
 
-    const response = await fetch("/api/posts", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_NEST_URL}/posts`, {
       method: "POST",
+      credentials: "include",
       body: formData,
     });
 
