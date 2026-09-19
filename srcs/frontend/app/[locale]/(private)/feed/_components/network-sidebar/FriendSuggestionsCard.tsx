@@ -1,13 +1,5 @@
 import { FriendSuggestionItem } from "./FriendSuggestionItem";
-
-interface FriendSuggestionsCardProps {
-  suggestions?: Array<{
-    id: string;
-    name: string;
-    initials: string;
-    mutualFriends: number;
-  }>;
-}
+import type { FriendSuggestionsCardProps } from "./network-sidebar.types";
 
 export function FriendSuggestionsCard({
   suggestions = [],
