@@ -1,11 +1,20 @@
+"use client";
+
+import { useState } from "react";
 import { CreatePostCard } from "./CreatePostCard";
 import { PostCard } from "./PostCard";
-import type { FeedSectionProps } from "./feed-section.types";
+import type { FeedSectionProps, Post } from "./feed-section.types";
 
-export function FeedSection({ posts = [] }: FeedSectionProps) {
+export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
+  const [posts, setPosts] = useState<Post[]>(initialPosts);
+
+  const handlePostCreated = (newPost: Post) => {
+    setPosts((prev) => [newPost, ...prev]);
+  };
+
   return (
     <section className="custom-scrollbar pb-15 h-full min-h-0 space-y-6 overflow-y-auto pr-2 lg:col-span-6">
-      <CreatePostCard />
+      <CreatePostCard onPostCreated={handlePostCreated} />
 
       {posts.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-300 p-8 text-center dark:border-zinc-800">
