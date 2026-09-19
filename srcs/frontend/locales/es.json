@@ -216,7 +216,49 @@
       "title": "Usuarios",
       "subtitle": "Gestiona las cuentas de usuario y los roles.",
       "errorFailed": "No se pudieron cargar los usuarios.",
-      "errorUnexpected": "Algo salió mal."
+      "errorUnexpected": "Algo salió mal.",
+
+      "colUser": "Usuario",
+      "colEmail": "Correo electrónico",
+      "colRole": "Rol",
+      "colActions": "Acciones",
+
+      "roleAdmin": "Admin",
+      "roleUser": "Usuario",
+      "you": "tú",
+      "empty": "No se encontraron usuarios.",
+
+      "edit": "Editar usuario",
+      "delete": "Eliminar usuario",
+      "promoteToAdmin": "Ascender a admin",
+      "demoteToUser": "Degradar a usuario",
+      "cannotChangeOwnRole": "No puedes cambiar tu propio rol",
+      "cannotDeleteSelf": "No puedes eliminar tu propia cuenta aquí",
+
+      "errorUpdate": "No se pudo actualizar el usuario.",
+      "errorRole": "No se pudo actualizar el rol.",
+      "errorDelete": "No se pudo eliminar el usuario.",
+
+      "toastUpdated": "Usuario actualizado.",
+      "toastDeleted": "Usuario eliminado.",
+
+      "editModal": {
+        "title": "Editar usuario",
+        "subtitle": "Actualiza la información de perfil de {name}.",
+        "nameLabel": "Nombre",
+        "emailLabel": "Correo electrónico",
+        "cancel": "Cancelar",
+        "save": "Guardar cambios"
+      },
+
+      "deleteModal": {
+        "title": "Eliminar usuario",
+        "subtitle": "Esto eliminará permanentemente a {name} ({email}) y todos los datos asociados. Esta acción no se puede deshacer.",
+        "confirmLabel": "Escribe \"{name}\" para confirmar",
+        "confirm": "Eliminar usuario",
+        "deleting": "Eliminando…",
+        "cancel": "Cancelar"
+      }
     },
     "dashboard": {
       "title": "Panel",
@@ -229,7 +271,7 @@
       "users": "Usuarios"
     }
   },
-    "Profile": {
+  "Profile": {
     "title": "Tu perfil",
     "subtitle": "Así apareces en la aplicación.",
     "edit": "Editar perfil",

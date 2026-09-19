@@ -216,7 +216,49 @@
       "title": "Utilisateurs",
       "subtitle": "Gérez les comptes utilisateurs et les rôles.",
       "errorFailed": "Échec du chargement des utilisateurs.",
-      "errorUnexpected": "Une erreur est survenue."
+      "errorUnexpected": "Une erreur est survenue.",
+
+      "colUser": "Utilisateur",
+      "colEmail": "E-mail",
+      "colRole": "Rôle",
+      "colActions": "Actions",
+
+      "roleAdmin": "Admin",
+      "roleUser": "Utilisateur",
+      "you": "vous",
+      "empty": "Aucun utilisateur trouvé.",
+
+      "edit": "Modifier l'utilisateur",
+      "delete": "Supprimer l'utilisateur",
+      "promoteToAdmin": "Promouvoir en admin",
+      "demoteToUser": "Rétrograder en utilisateur",
+      "cannotChangeOwnRole": "Vous ne pouvez pas modifier votre propre rôle",
+      "cannotDeleteSelf": "Vous ne pouvez pas supprimer votre propre compte ici",
+
+      "errorUpdate": "Échec de la mise à jour de l'utilisateur.",
+      "errorRole": "Échec de la mise à jour du rôle.",
+      "errorDelete": "Échec de la suppression de l'utilisateur.",
+
+      "toastUpdated": "Utilisateur mis à jour.",
+      "toastDeleted": "Utilisateur supprimé.",
+
+      "editModal": {
+        "title": "Modifier l'utilisateur",
+        "subtitle": "Mettez à jour les informations de profil de {name}.",
+        "nameLabel": "Nom",
+        "emailLabel": "E-mail",
+        "cancel": "Annuler",
+        "save": "Enregistrer les modifications"
+      },
+
+      "deleteModal": {
+        "title": "Supprimer l'utilisateur",
+        "subtitle": "Cela supprimera définitivement {name} ({email}) et toutes les données associées. Cette action est irréversible.",
+        "confirmLabel": "Tapez \"{name}\" pour confirmer",
+        "confirm": "Supprimer l'utilisateur",
+        "deleting": "Suppression…",
+        "cancel": "Annuler"
+      }
     },
     "dashboard": {
       "title": "Tableau de bord",

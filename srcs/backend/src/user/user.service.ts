@@ -1,10 +1,17 @@
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import sharp from 'sharp';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ALLOWED_ROLES, type AllowedRole } from './dto/update-user-role.dto';
 
 const AVATAR_DIR = join(process.cwd(), 'uploads', 'avatars');
 const DEFAULT_AVATAR = '/nest/uploads/default-avatar.png';
@@ -30,19 +37,37 @@ const PUBLIC_USER_SELECT = {
   createdAt: true,
 } as const;
 
+// Fields returned on the authenticated user's own record.
+const SELF_USER_SELECT = {
+  id: true,
+  name: true,
+  email: true,
+  image: true,
+  role: true,
+} as const;
+
+// Fields returned to the admin users table.
+// Matches the `User` type on the frontend (UsersTable.tsx).
+const ADMIN_USER_SELECT = {
+  id: true,
+  name: true,
+  email: true,
+  image: true,
+  role: true,
+} as const;
+
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
+  // ─────────────────────────────────────────────────────────────
+  // Read
+  // ─────────────────────────────────────────────────────────────
+
   async getMe(userId: string) {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        image: true,
-      },
+      select: SELF_USER_SELECT,
     });
 
     if (!user) {
@@ -68,43 +93,88 @@ export class UserService {
     return user;
   }
 
-  async updateMe(userId: string, dto: UpdateUserDto) {
-    const existing = await this.prisma.user.findUnique({
-      where: { id: userId },
-      select: { id: true },
+  async getAllUsers() {
+    const users = await this.prisma.user.findMany({
+      select: ADMIN_USER_SELECT,
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
 
-    if (!existing) {
+    return users;
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Update — profile
+  // ─────────────────────────────────────────────────────────────
+
+  async updateMe(userId: string, dto: UpdateUserDto) {
+    await this.assertUserExists(userId);
+    return this.applyUserUpdate(userId, dto);
+  }
+
+  /**
+   * Admin-only: update another user's name and/or email.
+   * Shares the same validation + conflict logic as `updateMe`.
+   */
+  async updateUserById(targetUserId: string, dto: UpdateUserDto) {
+    await this.assertUserExists(targetUserId);
+    return this.applyUserUpdate(targetUserId, dto);
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Update — role
+  // ─────────────────────────────────────────────────────────────
+
+  /**
+   * Admin-only: change another user's role.
+   *
+   * Guards:
+   *  - Role must be in the allow-list (DTO-enforced, re-checked here
+   *    as defence-in-depth for direct service calls).
+   *  - Target must exist.
+   *  - The requesting admin cannot change their own role — prevents
+   *    accidental lock-out and keeps the audit trail clean.
+   */
+  async updateUserRole(
+    targetUserId: string,
+    role: string,
+    requestingUserId: string,
+  ) {
+    if (!ALLOWED_ROLES.includes(role as AllowedRole)) {
+      throw new BadRequestException('Invalid role');
+    }
+
+    if (targetUserId === requestingUserId) {
+      throw new ForbiddenException('You cannot change your own role');
+    }
+
+    const target = await this.prisma.user.findUnique({
+      where: { id: targetUserId },
+      select: { id: true, role: true },
+    });
+
+    if (!target) {
       throw new NotFoundException('User not found');
     }
 
-    if (dto.email) {
-      const conflict = await this.prisma.user.findUnique({
-        where: { email: dto.email },
-        select: { id: true },
-      });
-
-      if (conflict && conflict.id !== userId) {
-        throw new ConflictException('Email already in use');
-      }
+    // No-op short-circuit: avoids a pointless write and a misleading
+    // "updated" response when nothing actually changes.
+    if (target.role === role) {
+      return this.getAdminUserView(targetUserId);
     }
 
-    const user = await this.prisma.user.update({
-      where: { id: userId },
-      data: {
-        ...(dto.name !== undefined && { name: dto.name }),
-        ...(dto.email !== undefined && { email: dto.email }),
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        image: true,
-      },
+    await this.prisma.user.update({
+      where: { id: targetUserId },
+      data: { role },
     });
 
-    return user;
+    return this.getAdminUserView(targetUserId);
   }
+
+  // ─────────────────────────────────────────────────────────────
+  // Update — avatar
+  // ─────────────────────────────────────────────────────────────
 
   async updateAvatar(userId: string, file: Express.Multer.File) {
     const existing = await this.prisma.user.findUnique({
@@ -157,12 +227,7 @@ export class UserService {
     const user = await this.prisma.user.update({
       where: { id: userId },
       data: { image: `/nest/uploads/avatars/${filename}` },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        image: true,
-      },
+      select: SELF_USER_SELECT,
     });
 
     return user;
@@ -190,31 +255,144 @@ export class UserService {
     const user = await this.prisma.user.update({
       where: { id: userId },
       data: { image: DEFAULT_AVATAR },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        image: true,
-      },
+      select: SELF_USER_SELECT,
     });
 
     return user;
   }
 
-  async getAllUsers() {
-    const users = await this.prisma.user.findMany({
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        image: true,
-        role: true,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
+  // ─────────────────────────────────────────────────────────────
+  // Delete
+  // ─────────────────────────────────────────────────────────────
+
+  /**
+   * Delete the currently authenticated user (self-deletion).
+   * Uses a transaction to ensure atomicity.
+   */
+  async deleteMe(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, image: true },
     });
 
-    return users;
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return this.performUserDeletion(user.id, user.image);
+  }
+
+  /**
+   * Admin-only: delete any user by ID.
+   * Guarded at the controller level with a role check.
+   */
+  async deleteUser(targetUserId: string, requestingUserId: string) {
+    if (targetUserId === requestingUserId) {
+      throw new ForbiddenException('Use deleteMe to delete your own account');
+    }
+
+    const user = await this.prisma.user.findUnique({
+      where: { id: targetUserId },
+      select: { id: true, image: true },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return this.performUserDeletion(user.id, user.image);
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Internal helpers
+  // ─────────────────────────────────────────────────────────────
+
+  /**
+   * Shared update path for self-service and admin edits.
+   * Validates uniqueness of the new email and returns the
+   * admin-facing user shape.
+   */
+  private async applyUserUpdate(userId: string, dto: UpdateUserDto) {
+    // Only check email uniqueness if the email is actually changing.
+    // (Avoids a false conflict when the client re-sends the current email.)
+    if (dto.email) {
+      const conflict = await this.prisma.user.findUnique({
+        where: { email: dto.email },
+        select: { id: true },
+      });
+
+      if (conflict && conflict.id !== userId) {
+        throw new ConflictException('Email already in use');
+      }
+    }
+
+    const user = await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        ...(dto.name !== undefined && { name: dto.name }),
+        ...(dto.email !== undefined && { email: dto.email }),
+      },
+      select: ADMIN_USER_SELECT,
+    });
+
+    return user;
+  }
+
+  private async assertUserExists(userId: string) {
+    const existing = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true },
+    });
+
+    if (!existing) {
+      throw new NotFoundException('User not found');
+    }
+  }
+
+  /**
+   * Shape returned to the admin UI. Must match the `User` type used
+   * by `UsersTable` on the frontend.
+   */
+  private async getAdminUserView(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: ADMIN_USER_SELECT,
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
+  }
+
+  /**
+   * Shared deletion logic.
+   * - Deletes the avatar file (best-effort, skipped if default).
+   * - Deletes the user row; Prisma cascades handle related records
+   *   per the onDelete rules in the schema.
+   */
+  private async performUserDeletion(userId: string, image: string) {
+    // 1. Best-effort file cleanup BEFORE the DB row goes away,
+    //    so we can still reference the filename if deletion fails.
+    if (image && image !== DEFAULT_AVATAR) {
+      const oldName = image.split('/').pop();
+      if (oldName) {
+        await fs.unlink(join(AVATAR_DIR, oldName)).catch(() => undefined);
+      }
+    }
+
+    // 2. Delete the user. Relations with onDelete: Cascade are removed
+    //    automatically; relations with onDelete: SetNull have their
+    //    FK nulled. MessageTable rows keep their pairKey uniqueness.
+    await this.prisma.user.delete({
+      where: { id: userId },
+    });
+
+    return {
+      id: userId,
+      deleted: true,
+      deletedAt: new Date().toISOString(),
+    };
   }
 }
