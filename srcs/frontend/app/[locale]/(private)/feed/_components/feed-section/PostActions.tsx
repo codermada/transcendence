@@ -1,7 +1,4 @@
-interface PostActionsProps {
-  likesCount: number;
-  commentsCount: number;
-}
+import type { PostActionsProps } from "./feed-section.types";
 
 export function PostActions({ likesCount, commentsCount }: PostActionsProps) {
   return (
