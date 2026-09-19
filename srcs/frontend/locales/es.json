@@ -110,7 +110,64 @@
   "Feed": {
     "title": "Feed",
     "welcomeMessage": "¡Bienvenido a tu feed!",
-    "activity": "Actividad reciente"
+    "activity": "Actividad reciente",
+    "feed-section": {
+      "CreatePostCard": {
+        "placeholder": "¿Qué hay de nuevo hoy?",
+        "plurialMedia": "Fotos / Videos",
+        "singularMedia": "Foto / Video",
+        "publish": "Publicar",
+        "isLoading": "Publicando..."
+      },
+      "FeedSection": {
+        "emptyTitle": "No hay publicaciones aún",
+        "emptyDescription": "Sé el primero en publicar algo o añade amigos para ver sus novedades.",
+        "defaultTimeAgo": "Hace un momento"
+      },
+      "MediaModal": {
+
+      },
+      "PostActions": {
+
+      },
+      "PostCard": {
+
+      },
+      "PostHeader": {
+
+      },
+      "PostMedia": {
+
+      }
+    },
+    "network-sidebar": {
+      "FriendRequestItem": {
+
+      },
+      "FriendRequestsCard": {
+
+      },
+      "FriendSuggestionItem": {
+
+      },
+      "FriendSuggestionsCard": {
+
+      },
+      "NetworkSidebar": {
+
+      }
+    },
+    "profile-sidebar": {
+      "ProfileCard": {
+
+      },
+      "ProfileSidebar": {
+
+      },
+      "ProfileStats": {
+
+      }
+    }
   },
   "Friends": {
     "title": "Amigos",
