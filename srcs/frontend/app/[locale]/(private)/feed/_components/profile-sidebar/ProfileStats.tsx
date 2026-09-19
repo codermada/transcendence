@@ -1,8 +1,4 @@
-interface ProfileStatsProps {
-  friendsCount?: number;
-  postsCount?: number;
-  reactionsCount?: number;
-}
+import type { ProfileStatsProps } from "./profile-sidebar.types";
 
 export function ProfileStats({
   friendsCount = 0,
