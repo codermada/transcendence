@@ -114,11 +114,18 @@
   },
   "Friends": {
     "title": "Amigos",
-    "subtitle": "Gestiona tus amigos y conexiones en la comunidad.",
+    "subtitle": "Gestiona tus amigos y conexiones con la comunidad.",
     "findFriends": "Buscar amigos",
     "requests": "Solicitudes de amistad",
     "emptyTitle": "Aún no tienes amigos",
-    "emptyDescription": "Busca y añade amigos para ver sus novedades y chatear."
+    "emptyDescription": "Busca y agrega amigos para ver sus publicaciones y mensajes aquí.",
+    "searchPlaceholder": "Buscar por nombre…",
+    "startTyping": "Empieza a escribir para buscar personas.",
+    "noResults": "No se encontraron usuarios.",
+    "searchError": "Algo salió mal. Inténtalo de nuevo.",
+    "add": "Agregar",
+    "back": "Atrás",
+    "adding": "Añadiendo…"
   },
   "Chat": {
     "title": "Mensajes",

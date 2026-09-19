@@ -56,6 +56,13 @@ const ADMIN_USER_SELECT = {
   role: true,
 } as const;
 
+// Lightweight shape for the "find people to befriend" results list.
+const SEARCH_USER_SELECT = {
+  id: true,
+  name: true,
+  image: true,
+} as const;
+
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
@@ -102,6 +109,71 @@ export class UserService {
     });
 
     return users;
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Search — discover users to befriend
+  // ─────────────────────────────────────────────────────────────
+
+  /**
+   * Search users by name, excluding:
+   *  - the current user,
+   *  - users who already have a friendship row with the current user
+   *    (any status: pending, accepted, or blocked, in either direction).
+   *
+   * Returns a paginated list of lightweight user records.
+   */
+  async searchUsers(
+    currentUserId: string,
+    query: { q?: string; page?: number; limit?: number },
+  ) {
+    const page = Math.max(1, query.page ?? 1);
+    const limit = Math.min(50, Math.max(1, query.limit ?? 20));
+    const skip = (page - 1) * limit;
+
+    // IDs the current user already has a relationship with
+    // (as requester OR addressee), so we can exclude them.
+    const relationships = await this.prisma.friendship.findMany({
+      where: {
+        OR: [
+          { requesterId: currentUserId },
+          { addresseeId: currentUserId },
+        ],
+      },
+      select: { requesterId: true, addresseeId: true },
+    });
+
+    const excludedIds = new Set<string>([currentUserId]);
+    for (const r of relationships) {
+      excludedIds.add(r.requesterId);
+      excludedIds.add(r.addresseeId);
+    }
+
+    const where = {
+      id: { notIn: Array.from(excludedIds) },
+      ...(query.q
+        ? { name: { contains: query.q, mode: 'insensitive' as const } }
+        : {}),
+    };
+
+    const [items, total] = await this.prisma.$transaction([
+      this.prisma.user.findMany({
+        where,
+        select: SEARCH_USER_SELECT,
+        orderBy: { name: 'asc' },
+        skip,
+        take: limit,
+      }),
+      this.prisma.user.count({ where }),
+    ]);
+
+    return {
+      items,
+      total,
+      page,
+      limit,
+      hasMore: skip + items.length < total,
+    };
   }
 
   // ─────────────────────────────────────────────────────────────

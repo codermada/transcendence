@@ -114,11 +114,18 @@
   },
   "Friends": {
     "title": "Amis",
-    "subtitle": "Gérez vos amis et relations dans la communauté.",
+    "subtitle": "Gérez vos amis et vos connexions.",
     "findFriends": "Trouver des amis",
     "requests": "Demandes d'amis",
-    "emptyTitle": "Pas encore d'amis",
-    "emptyDescription": "Recherchez et ajoutez des amis pour voir leurs actualités et échanger."
+    "emptyTitle": "Aucun ami pour l'instant",
+    "emptyDescription": "Recherchez et ajoutez des amis pour voir leurs publications et messages ici.",
+    "searchPlaceholder": "Rechercher par nom…",
+    "startTyping": "Commencez à taper pour rechercher des personnes.",
+    "noResults": "Aucun utilisateur trouvé.",
+    "searchError": "Une erreur est survenue. Réessayez.",
+    "add": "Ajouter",
+    "back": "Retour",
+    "adding": "Ajout…"
   },
   "Chat": {
     "title": "Messagerie",
