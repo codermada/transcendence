@@ -132,7 +132,8 @@
     "subtitle": "Direct messages and group channels.",
     "emptyTitle": "Your Messages",
     "emptyDescription": "Select a conversation or start a new chat with a friend.",
-    "newMessage": "New message"
+    "newMessage": "New message",
+    "message": "Message"
   },
   "Settings": {
     "nav": {
