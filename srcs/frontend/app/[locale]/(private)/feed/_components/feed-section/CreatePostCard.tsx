@@ -1,13 +1,7 @@
 "use client";
 
 import { useRef, useState, ChangeEvent } from "react";
-
-interface MediaPreview {
-  id: string;
-  file: File;
-  url: string;
-  type: "image" | "video";
-}
+import type { MediaPreview } from "./feed-section.types";
 
 export function CreatePostCard() {
   const [selectedMedia, setSelectedMedia] = useState<MediaPreview[]>([]);
@@ -26,7 +20,6 @@ export function CreatePostCard() {
 
     setSelectedMedia((prev) => [...prev, ...newMedia]);
 
-    // Re-initialiser la valeur pour permettre la ré-sélection du même fichier si besoin
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -35,7 +28,6 @@ export function CreatePostCard() {
   const handleRemoveMedia = (idToRemove: string) => {
     setSelectedMedia((prev) => {
       const filtered = prev.filter((item) => item.id !== idToRemove);
-      // Nettoyage de la mémoire de l'URL révoquée pour éviter les fuites de mémoire
       const itemToRemove = prev.find((item) => item.id === idToRemove);
       if (itemToRemove) {
         URL.revokeObjectURL(itemToRemove.url);
@@ -57,34 +49,20 @@ export function CreatePostCard() {
         />
       </div>
 
-      {/* Zone d'aperçu des médias sélectionnés */}
       {selectedMedia.length > 0 && (
         <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
           {selectedMedia.map((media) => (
             <div key={media.id} className="group relative aspect-video overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-800">
               {media.type === "image" ? (
-                <img
-                  src={media.url}
-                  alt={media.file.name}
-                  className="h-full w-full object-cover"
-                />
+                <img src={media.url} alt={media.file.name} className="h-full w-full object-cover" />
               ) : (
-                <video
-                  src={media.url}
-                  className="h-full w-full object-cover"
-                  controls={false}
-                  muted
-                />
+                <video src={media.url} className="h-full w-full object-cover" controls={false} muted />
               )}
-
-              {/* Tag de type pour distinguer une vidéo au survol / visuellement */}
               {media.type === "video" && (
                 <span className="absolute bottom-1.5 left-1.5 rounded-md bg-black/60 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur-xs">
                   Vidéo
                 </span>
               )}
-
-              {/* Bouton de suppression du média */}
               <button
                 type="button"
                 onClick={() => handleRemoveMedia(media.id)}
@@ -100,7 +78,6 @@ export function CreatePostCard() {
         </div>
       )}
 
-      {/* Input file masqué avec 'multiple' */}
       <input
         type="file"
         ref={fileInputRef}
