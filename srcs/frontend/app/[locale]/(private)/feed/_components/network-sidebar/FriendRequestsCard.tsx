@@ -1,9 +1,5 @@
 import { FriendRequestItem } from "./FriendRequestItem";
-
-interface FriendRequestsCardProps {
-  receivedRequests?: Array<{ id: string; name: string; initials: string }>;
-  sentRequests?: Array<{ id: string; name: string; initials: string }>;
-}
+import type { FriendRequestsCardProps } from "./network-sidebar.types";
 
 export function FriendRequestsCard({
   receivedRequests = [],
