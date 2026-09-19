@@ -36,10 +36,11 @@ export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
             key={post.id}
             author={post.author}
             initials={post.initials}
-            timeAgo={post.timeAgo}
+            timeAgo={post.timeAgo || "À l'instant"}
             content={post.content}
             likesCount={post.likesCount}
             commentsCount={post.commentsCount}
+            mediaUrls={post.mediaUrls}
           />
         ))
       )}
