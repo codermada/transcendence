@@ -249,6 +249,8 @@
       "toastUpdated": "Usuario actualizado.",
       "toastDeleted": "Usuario eliminado.",
 
+      "toastRoleUpdated": "Rol actualizado",
+
       "editModal": {
         "title": "Editar usuario",
         "subtitle": "Actualiza la información de perfil de {name}.",
