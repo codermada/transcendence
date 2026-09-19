@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { ChangeEvent, useRef, useState } from "react";
 import { toast } from "sonner";
 import { postService } from "../../_services/PostService";
@@ -10,6 +11,8 @@ interface CreatePostCardProps {
 }
 
 export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
+  const t = useTranslations("Feed.feed-section.CreatePostCard");
+  
   const [content, setContent] = useState("");
   const [selectedMedia, setSelectedMedia] = useState<MediaPreview[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -90,7 +93,7 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           disabled={isLoading}
-          placeholder="Quoi de neuf aujourd'hui ?"
+          placeholder={t("placeholder")}
           className="w-full resize-none bg-transparent text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none disabled:opacity-50 dark:text-zinc-100 dark:placeholder-zinc-500"
         />
       </div>
@@ -146,8 +149,8 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
           </svg>
           <span>
             {selectedMedia.length > 0
-              ? `Photos / Vidéos (${selectedMedia.length})`
-              : "Photo / Vidéo"}
+              ? `${t("plurialMedia")} (${selectedMedia.length})`
+              : `${t("singularMedia")}`}
           </span>
         </button>
 
@@ -157,7 +160,7 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
           onClick={handleSubmit}
           className="flex items-center gap-1.5 rounded-xl bg-violet-600 px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-violet-500 disabled:opacity-50 active:scale-95"
         >
-          <span>{isLoading ? "Publication..." : "Publier"}</span>
+          <span>{isLoading ? t("isLoading") : t("publish")}</span>
           <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
           </svg>
