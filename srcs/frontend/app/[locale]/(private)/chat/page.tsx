@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { MessageSquare } from "@/components/icons";
+import Link from "next/link";
 
 export default async function ChatPage() {
   const t = await getTranslations("Chat");
@@ -22,12 +23,14 @@ export default async function ChatPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          <button
-            type="button"
-            className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700 cursor-pointer"
-          >
-            {t("newMessage")}
-          </button>
+          <Link href={'/friends/search'}>
+            <button
+              type="button"
+              className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700 cursor-pointer"
+            >
+              {t("newMessage")}
+            </button>
+          </Link>
         </div>
       </div>
 

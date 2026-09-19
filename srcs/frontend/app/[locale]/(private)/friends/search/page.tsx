@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { Search, ArrowLeft, Loader2, UserPlus } from "@/components/icons";
+import { Search, ArrowLeft, Loader2, UserPlus, MessageSquare } from "@/components/icons";
 
 type SearchUser = {
   id: string;
@@ -21,6 +21,7 @@ type SearchResponse = {
 
 export default function SearchFriendsPage() {
   const t = useTranslations("Friends");
+  const tChat = useTranslations("Chat");
 
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchUser[]>([]);
@@ -157,15 +158,27 @@ export default function SearchFriendsPage() {
                   </span>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => handleAdd(u.id)}
-                  disabled={isPending}
-                  className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                  <UserPlus className="h-3.5 w-3.5" />
-                  {isPending ? t("adding") : t("add")}
-                </button>
+                <div className="flex gap-2">
+                  <Link href={'chat/' + u.id}>
+                    <button
+                      type="button"
+                      disabled={isPending}
+                      className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      <MessageSquare className="h-3.5 w-3.5" />
+                      {tChat("message")}
+                    </button>
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => handleAdd(u.id)}
+                    disabled={isPending}
+                    className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    <UserPlus className="h-3.5 w-3.5" />
+                    {isPending ? t("adding") : t("add")}
+                  </button>
+                </div>
               </li>
             );
           })}

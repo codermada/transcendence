@@ -132,7 +132,8 @@
     "subtitle": "Messages privés et canaux de discussion.",
     "emptyTitle": "Vos messages",
     "emptyDescription": "Sélectionnez une conversation ou commencez une nouvelle discussion avec un ami.",
-    "newMessage": "Nouveau message"
+    "newMessage": "Nouveau message",
+    "message": "Message"
   },
   "Settings": {
     "nav": {

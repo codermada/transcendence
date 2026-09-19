@@ -132,7 +132,8 @@
     "subtitle": "Mensajes directos y canales grupales.",
     "emptyTitle": "Tus mensajes",
     "emptyDescription": "Selecciona una conversación o inicia un nuevo chat con un amigo.",
-    "newMessage": "Nuevo mensaje"
+    "newMessage": "Nuevo mensaje",
+    "message": "Mensaje"
   },
   "Settings": {
     "nav": {
