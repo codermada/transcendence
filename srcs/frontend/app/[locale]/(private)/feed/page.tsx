@@ -1,9 +1,16 @@
-import { FeedSectionProps } from "./_components/feed-section/feed-section.types";
+"use client";
+
+import { useEffect, useState } from "react";
+import { Post } from "./_components/feed-section/feed-section.types";
 import { FeedSection } from "./_components/feed-section/FeedSection";
 import { NetworkSidebar } from "./_components/network-sidebar/NetworkSidebar";
 import { ProfileSidebar } from "./_components/profile-sidebar/ProfileSidebar";
+import { postService } from "./_services/PostService";
 
-export default async function FeedPage() {
+export default function FeedPage() {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const currentUser = {
     name: "Alex User",
     username: "alex_hb",
@@ -15,28 +22,33 @@ export default async function FeedPage() {
     },
   };
 
-  const posts: FeedSectionProps = {
-    posts: [
-      {
-        id: '1',
-        author: 'Rakoto',
-        initials: 'R',
-        timeAgo: '2 hours ago',
-        content: 'test',
-        likesCount: 4,
-        commentsCount: 0,
-      }, {
-        id: '2',
-        author: 'John Doe',
-        initials: 'JD',
-        timeAgo: '5 minutes ago',
-        content: 'Hello world!',
-        likesCount: 0,
-        commentsCount: 0,
+  useEffect(() => {
+    let isMounted = true;
+
+    async function fetchPosts() {
+      try {
+        const fetchedPosts = await postService.getAllPosts();
+        
+        if (isMounted) {
+          // Injection directe : l'ordre (3 récents + 7 aléatoires) est déjà garanti par le backend
+          setPosts(fetchedPosts);
+        }
+      } catch (error) {
+        console.error("Erreur de chargement des posts :", error);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
-    ]
-  }
-  
+    }
+
+    fetchPosts();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   const networkData = {
     receivedRequests: [],
     sentRequests: [],
@@ -48,7 +60,15 @@ export default async function FeedPage() {
       <div className="mx-auto flex h-dvh max-w-7xl flex-col px-4 py-6 sm:px-6 lg:px-8">
         <div className="grid h-full min-h-0 flex-1 grid-cols-1 gap-6 overflow-hidden lg:grid-cols-12">
           <ProfileSidebar user={currentUser} />
-          <FeedSection posts={posts.posts || []} />
+          
+          {isLoading ? (
+            <div className="col-span-1 flex items-center justify-center lg:col-span-6">
+              <p className="animate-pulse text-zinc-500">Chargement du fil d'actualité...</p>
+            </div>
+          ) : (
+            <FeedSection posts={posts} />
+          )}
+
           <NetworkSidebar
             receivedRequests={networkData.receivedRequests}
             sentRequests={networkData.sentRequests}
