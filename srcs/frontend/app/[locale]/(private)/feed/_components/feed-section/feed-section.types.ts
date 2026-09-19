@@ -15,6 +15,7 @@ export interface Post {
   content: string;
   likesCount: number;
   commentsCount: number;
+  createdAt?: string | Date;
   mediaUrls?: string[];
 }
 
