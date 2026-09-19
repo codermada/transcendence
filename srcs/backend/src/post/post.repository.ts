@@ -8,39 +8,65 @@ export class PostRepository {
 	constructor(private readonly prisma: PrismaService) {}
 
 	async findAll(filters: GetPostsFilterDto) {
-		const { search, limit = 20, offset = 0 } = filters;
+		const { search } = filters;
 
-		return this.prisma.post.findMany({
-			where: search
-				? {
-						content: {
-							contains: search,
-							mode: 'insensitive',
-						},
-					}
-				: {},
-			take: Number(limit),
-			skip: Number(offset),
+		const baseWhere = search
+			? {
+					content: {
+						contains: search,
+						mode: 'insensitive' as const,
+					},
+				}
+			: {};
+
+		const includeRelations = {
+			user: {
+				select: {
+					id: true,
+					name: true,
+					pseudo: true,
+					image: true,
+				},
+			},
+			_count: {
+				select: {
+					likes: true,
+					comments: true,
+				},
+			},
+		};
+
+		const recentPosts = await this.prisma.post.findMany({
+			where: baseWhere,
+			take: 3,
 			orderBy: {
 				createdAt: 'desc',
 			},
-			include: {
-				user: {
-					select: {
-						id: true,
-						name: true,
-						pseudo: true,
-						image: true,
-					},
-				},
-				_count: {
-					select: {
-						likes: true,
-						comments: true,
-					},
+			include: includeRelations,
+		});
+
+		const recentIds = recentPosts.map((post) => post.id);
+
+		const olderPosts = await this.prisma.post.findMany({
+			where: {
+				...baseWhere,
+				id: {
+					notIn: recentIds,
 				},
 			},
+			take: 50,
+			include: includeRelations,
 		});
+
+		const shuffledOlderPosts = [...olderPosts];
+		for (let i = shuffledOlderPosts.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[shuffledOlderPosts[i], shuffledOlderPosts[j]] = [shuffledOlderPosts[j], shuffledOlderPosts[i]];
+		}
+
+		const selectedOlderPosts = shuffledOlderPosts.slice(0, 7);
+
+		return [...recentPosts, ...selectedOlderPosts];
 	}
 
 	async findById(id: string) {
