@@ -1,8 +1,4 @@
-interface PostHeaderProps {
-  author: string;
-  initials: string;
-  timeAgo: string;
-}
+import type { PostHeaderProps } from "./feed-section.types";
 
 export function PostHeader({ author, initials, timeAgo }: PostHeaderProps) {
   return (
