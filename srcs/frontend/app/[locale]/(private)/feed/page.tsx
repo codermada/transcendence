@@ -1,4 +1,5 @@
-import { FeedSection, FeedSectionProps } from "./_components/feed-section/FeedSection";
+import { FeedSectionProps } from "./_components/feed-section/feed-section.types";
+import { FeedSection } from "./_components/feed-section/FeedSection";
 import { NetworkSidebar } from "./_components/network-sidebar/NetworkSidebar";
 import { ProfileSidebar } from "./_components/profile-sidebar/ProfileSidebar";
 
@@ -14,7 +15,27 @@ export default async function FeedPage() {
     },
   };
 
-  const posts: FeedSectionProps = {posts: []}
+  const posts: FeedSectionProps = {
+    posts: [
+      {
+        id: '1',
+        author: 'Rakoto',
+        initials: 'R',
+        timeAgo: '2 hours ago',
+        content: 'test',
+        likesCount: 4,
+        commentsCount: 0,
+      }, {
+        id: '2',
+        author: 'John Doe',
+        initials: 'JD',
+        timeAgo: '5 minutes ago',
+        content: 'Hello world!',
+        likesCount: 0,
+        commentsCount: 0,
+      }
+    ]
+  }
   
   const networkData = {
     receivedRequests: [],
