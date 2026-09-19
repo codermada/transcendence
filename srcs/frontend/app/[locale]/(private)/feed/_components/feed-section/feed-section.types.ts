@@ -42,3 +42,7 @@ export interface PostActionsProps {
   likesCount: number;
   commentsCount: number;
 }
+
+export interface CreatePostCardProps {
+  onPostCreated?: (newPost: Post) => void;
+}
