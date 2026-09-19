@@ -1,16 +1,6 @@
 import { FriendRequestsCard } from "./FriendRequestsCard";
 import { FriendSuggestionsCard } from "./FriendSuggestionsCard";
-
-interface NetworkSidebarProps {
-  receivedRequests?: Array<{ id: string; name: string; initials: string }>;
-  sentRequests?: Array<{ id: string; name: string; initials: string }>;
-  suggestions?: Array<{
-    id: string;
-    name: string;
-    initials: string;
-    mutualFriends: number;
-  }>;
-}
+import type { NetworkSidebarProps } from "./network-sidebar.types";
 
 export function NetworkSidebar({
   receivedRequests = [],
