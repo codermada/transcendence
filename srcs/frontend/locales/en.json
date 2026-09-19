@@ -216,7 +216,49 @@
       "title": "Users",
       "subtitle": "Manage user accounts and roles.",
       "errorFailed": "Failed to fetch users.",
-      "errorUnexpected": "Something went wrong."
+      "errorUnexpected": "Something went wrong.",
+
+      "colUser": "User",
+      "colEmail": "Email",
+      "colRole": "Role",
+      "colActions": "Actions",
+
+      "roleAdmin": "Admin",
+      "roleUser": "User",
+      "you": "you",
+      "empty": "No users found.",
+
+      "edit": "Edit user",
+      "delete": "Delete user",
+      "promoteToAdmin": "Promote to admin",
+      "demoteToUser": "Demote to user",
+      "cannotChangeOwnRole": "You cannot change your own role",
+      "cannotDeleteSelf": "You cannot delete your own account here",
+
+      "errorUpdate": "Failed to update user.",
+      "errorRole": "Failed to update role.",
+      "errorDelete": "Failed to delete user.",
+
+      "toastUpdated": "User updated.",
+      "toastDeleted": "User deleted.",
+
+      "editModal": {
+        "title": "Edit user",
+        "subtitle": "Update {name}'s profile information.",
+        "nameLabel": "Name",
+        "emailLabel": "Email",
+        "cancel": "Cancel",
+        "save": "Save changes"
+      },
+
+      "deleteModal": {
+        "title": "Delete user",
+        "subtitle": "This will permanently delete {name} ({email}) and all associated data. This action cannot be undone.",
+        "confirmLabel": "Type \"{name}\" to confirm",
+        "confirm": "Delete user",
+        "deleting": "Deleting…",
+        "cancel": "Cancel"
+      }
     },
     "dashboard": {
       "title": "Dashboard",
