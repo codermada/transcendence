@@ -1,36 +1,53 @@
-// api-key.guard.ts
-import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AuthService } from '@thallesp/nestjs-better-auth';
-import { fromNodeHeaders } from 'better-auth/node';
-import { auth } from './auth'; // Your auth instance
+import { auth } from './auth';
 
 @Injectable()
 export class ApiKeyGuard implements CanActivate {
-  constructor(private authService: AuthService<typeof auth>) {}
+  constructor(private readonly authService: AuthService<typeof auth>) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const apiKey = request.headers['x-api-key'];
 
-    if (!apiKey) {
+    // 1. Normalize header (can be string | string[] | undefined)
+    const rawKey = request.headers['x-api-key'];
+    const apiKey = Array.isArray(rawKey) ? rawKey[0] : rawKey;
+
+    if (!apiKey || typeof apiKey !== 'string' || apiKey.trim() === '') {
       throw new UnauthorizedException('API key is missing');
     }
 
+    // 2. Verify with Better Auth
+    let result: Awaited<ReturnType<typeof this.authService.api.verifyApiKey>>;
     try {
-      // Verify the API key using Better Auth's API
-      const result = await this.authService.api.verifyApiKey({
+      result = await this.authService.api.verifyApiKey({
         body: { key: apiKey },
       });
-
-      if (!result.valid) {
-        throw new UnauthorizedException('Invalid API key');
-      }
-
-      // Optionally attach the API key details to the request for later use
-      request.apiKey = result.key;
-      return true;
-    } catch (error) {
+    } catch {
+      // Don't leak internal errors (DB/network) to the client
       throw new UnauthorizedException('Invalid API key');
     }
+
+    // 3. Validate result
+    if (!result?.valid || !result.key) {
+      throw new UnauthorizedException('Invalid API key');
+    }
+
+    if (result.key.enabled === false) {
+      throw new UnauthorizedException('API key is disabled');
+    }
+
+    if (result.key.expiresAt && new Date(result.key.expiresAt) < new Date()) {
+      throw new UnauthorizedException('API key has expired');
+    }
+
+    // 4. Attach for downstream handlers
+    request.apiKey = result.key;
+    return true;
   }
 }
