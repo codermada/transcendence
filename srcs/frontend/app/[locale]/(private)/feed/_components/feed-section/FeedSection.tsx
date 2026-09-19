@@ -1,18 +1,6 @@
 import { CreatePostCard } from "./CreatePostCard";
 import { PostCard } from "./PostCard";
-
-export interface FeedSectionProps {
-  posts?: Array<{
-    id: string;
-    author: string;
-    initials: string;
-    timeAgo: string;
-    content: string;
-    likesCount: number;
-    commentsCount: number;
-    mediaUrl?: string;
-  }>;
-}
+import type { FeedSectionProps } from "./feed-section.types";
 
 export function FeedSection({ posts = [] }: FeedSectionProps) {
   return (
