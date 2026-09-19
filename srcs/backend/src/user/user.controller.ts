@@ -9,6 +9,7 @@ import {
   Param,
   ParseFilePipe,
   Patch,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -21,6 +22,7 @@ import { AuthGuard } from '../auth/AuthGuard';
 import { CurrentUser } from '../auth/CurrentUser';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUserRoleDto } from './dto/update-user-role.dto';
+import { SearchUsersQueryDto } from './dto/search-users-query.dto';
 import { UserService } from './user.service';
 
 @ApiTags('user')
@@ -37,6 +39,25 @@ export class UserController {
   @UseGuards(AdminGuard)
   getAllUsers() {
     return this.userService.getAllUsers();
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // Search — discover users to befriend
+  // MUST be declared before `@Get(':id')` so `search` isn't
+  // captured by the `:id` param route.
+  // ─────────────────────────────────────────────────────────────
+
+  @ApiOperation({
+    summary:
+      'Search users to befriend (excludes self, existing friends, pending requests, and blocked)',
+  })
+  @Get('search')
+  @UseGuards(AuthGuard)
+  searchUsers(
+    @CurrentUser() user: { id: string },
+    @Query() query: SearchUsersQueryDto,
+  ) {
+    return this.userService.searchUsers(user.id, query);
   }
 
   // ─────────────────────────────────────────────────────────────

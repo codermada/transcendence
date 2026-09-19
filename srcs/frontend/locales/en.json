@@ -118,7 +118,14 @@
     "findFriends": "Find Friends",
     "requests": "Friend Requests",
     "emptyTitle": "No friends yet",
-    "emptyDescription": "Search and add friends to see their updates and messages here."
+    "emptyDescription": "Search and add friends to see their updates and messages here.",
+    "searchPlaceholder": "Search by name…",
+    "startTyping": "Start typing to search for people.",
+    "noResults": "No users found.",
+    "searchError": "Something went wrong. Try again.",
+    "add": "Add",
+    "back": "Back",
+    "adding": "Adding…"
   },
   "Chat": {
     "title": "Messages",

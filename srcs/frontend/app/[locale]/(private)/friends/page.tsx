@@ -33,12 +33,12 @@ export default async function FriendsPage() {
             {t("requests")}
           </Link>
 
-          <button
-            type="button"
-            className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700 cursor-pointer"
+          <Link
+            href="/friends/search"
+            className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700"
           >
             {t("findFriends")}
-          </button>
+          </Link>
         </div>
       </div>
 
