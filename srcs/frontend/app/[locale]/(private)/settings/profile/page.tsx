@@ -30,6 +30,14 @@ type CurrentUser = {
 const MAX_AVATAR_BYTES = 5 * 1024 * 1024; // keep in sync with backend
 const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/webp", "image/gif"];
 
+// Toast ids — stable strings let Sonner dedupe / replace
+const TOAST_IDS = {
+  load: "profile-load",
+  avatarUpload: "profile-avatar-upload",
+  avatarDelete: "profile-avatar-delete",
+  profileSave: "profile-save",
+} as const;
+
 // ============================================================
 // Page
 // ============================================================
@@ -76,7 +84,7 @@ export default function ProfileSettingsPage() {
         if (cancelled) return;
 
         if (!res.ok) {
-          toast.error(ta("errorUnexpected"));
+          toast.error(ta("errorUnexpected"), { id: TOAST_IDS.load });
           return;
         }
 
@@ -86,7 +94,9 @@ export default function ProfileSettingsPage() {
         setImage(user.image);
         reset({ name: user.name ?? "" });
       } catch {
-        if (!cancelled) toast.error(ta("errorUnexpected"));
+        if (!cancelled) {
+          toast.error(ta("errorUnexpected"), { id: TOAST_IDS.load });
+        }
       } finally {
         if (!cancelled) setIsSessionLoading(false);
       }
@@ -108,17 +118,19 @@ export default function ProfileSettingsPage() {
     if (!file) return;
 
     if (!ACCEPTED_TYPES.includes(file.type)) {
-      toast.error(ta("errorAvatarType"));
+      toast.error(ta("errorAvatarType"), { id: TOAST_IDS.avatarUpload });
       return;
     }
     if (file.size > MAX_AVATAR_BYTES) {
-      toast.error(ta("errorAvatarSize"));
+      toast.error(ta("errorAvatarSize"), { id: TOAST_IDS.avatarUpload });
       return;
     }
 
     setIsUploading(true);
     const form = new FormData();
     form.append("file", file);
+
+    toast.loading(ta("uploadingAvatar"), { id: TOAST_IDS.avatarUpload });
 
     try {
       const res = await fetch("/nest/user/me/avatar", {
@@ -128,19 +140,19 @@ export default function ProfileSettingsPage() {
       });
 
       if (res.status === 413) {
-        toast.error(ta("errorAvatarSize"));
+        toast.error(ta("errorAvatarSize"), { id: TOAST_IDS.avatarUpload });
         return;
       }
       if (!res.ok) {
-        toast.error(ta("errorAvatarUpload"));
+        toast.error(ta("errorAvatarUpload"), { id: TOAST_IDS.avatarUpload });
         return;
       }
 
       const updated: CurrentUser = await res.json();
       setImage(updated.image ? `${updated.image}?v=${Date.now()}` : null);
-      toast.success(ta("avatarUpdated"));
+      toast.success(ta("avatarUpdated"), { id: TOAST_IDS.avatarUpload });
     } catch {
-      toast.error(ta("errorAvatarUpload"));
+      toast.error(ta("errorAvatarUpload"), { id: TOAST_IDS.avatarUpload });
     } finally {
       setIsUploading(false);
     }
@@ -152,6 +164,9 @@ export default function ProfileSettingsPage() {
 
   async function handleAvatarDelete() {
     setIsDeleting(true);
+
+    toast.loading(ta("removingAvatar"), { id: TOAST_IDS.avatarDelete });
+
     try {
       const res = await fetch("/nest/user/me/avatar", {
         method: "DELETE",
@@ -159,15 +174,15 @@ export default function ProfileSettingsPage() {
       });
 
       if (!res.ok) {
-        toast.error(ta("errorAvatarRemove"));
+        toast.error(ta("errorAvatarRemove"), { id: TOAST_IDS.avatarDelete });
         return;
       }
 
       const updated: CurrentUser = await res.json();
       setImage(updated.image);
-      toast.success(ta("avatarRemoved"));
+      toast.success(ta("avatarRemoved"), { id: TOAST_IDS.avatarDelete });
     } catch {
-      toast.error(ta("errorAvatarRemove"));
+      toast.error(ta("errorAvatarRemove"), { id: TOAST_IDS.avatarDelete });
     } finally {
       setIsDeleting(false);
     }
@@ -189,20 +204,25 @@ export default function ProfileSettingsPage() {
       });
 
       if (!res.ok) {
+        // Prefer the backend's message when present; otherwise fall back
+        // to a translated generic error.
         const body = await res.json().catch(() => null);
+        const raw = body?.message;
         const message =
-          body?.message ?? `Request failed with status ${res.status}`;
-        throw new Error(
-          Array.isArray(message) ? message.join(", ") : message,
-        );
+          Array.isArray(raw) && raw.length
+            ? raw.join(", ")
+            : typeof raw === "string" && raw.trim()
+              ? raw
+              : ta("errorUnexpected");
+
+        toast.error(message, { id: TOAST_IDS.profileSave });
+        return;
       }
 
-      toast.success(t("saved"));
+      toast.success(t("saved"), { id: TOAST_IDS.profileSave });
       reset(values); // clear isDirty after successful save
-    } catch (err) {
-      toast.error(
-        err instanceof Error ? err.message : ta("errorUnexpected"),
-      );
+    } catch {
+      toast.error(ta("errorUnexpected"), { id: TOAST_IDS.profileSave });
     } finally {
       setIsLoading(false);
     }
