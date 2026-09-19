@@ -34,22 +34,39 @@ export class PostService {
 			uploadedMediaUrls.push(...(await Promise.all(files.map((file) => this.s3Service.uploadFile(file, 'posts')))));
 		}
 
+		const existingMediaUrls = Array.isArray(dto.mediaUrls)
+			? dto.mediaUrls
+			: typeof dto.mediaUrls === 'string'
+				? [dto.mediaUrls]
+				: [];
+
 		const createdPost = await this.postRepository.create(userId, {
 			...dto,
-			mediaUrls: [...(dto.mediaUrls || []), ...uploadedMediaUrls],
+			mediaUrls: [...existingMediaUrls, ...uploadedMediaUrls],
 		});
 
 		return this.formatPost(createdPost);
 	}
 
 	private formatPost(post: any) {
+		const authorName = post.user.name || post.user.pseudo || 'Utilisateur';
+
+		const initials =
+			authorName
+				.split(' ')
+				.filter(Boolean)
+				.map((part: string) => part[0])
+				.join('')
+				.substring(0, 2)
+				.toUpperCase() || 'U';
+
 		return {
 			id: post.id,
-			author: post.user.name,
-			initials: post.user.name.substring(0, 2).toUpperCase(),
+			author: authorName,
+			initials,
 			authorImage: post.user.image,
 			content: post.content,
-			mediaUrls: post.mediaUrls,
+			mediaUrls: post.mediaUrls || [],
 			createdAt: post.createdAt,
 			likesCount: post._count?.likes ?? 0,
 			commentsCount: post._count?.comments ?? 0,
