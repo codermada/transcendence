@@ -1,11 +1,14 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { CreatePostCard } from "./CreatePostCard";
 import { PostCard } from "./PostCard";
 import type { FeedSectionProps, Post } from "./feed-section.types";
 
 export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
+  const t = useTranslations("Feed.feed-section.FeedSection");
+
   const [posts, setPosts] = useState<Post[]>(initialPosts);
 
   const handlePostCreated = (newPost: Post) => {
@@ -24,10 +27,10 @@ export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
             </svg>
           </div>
           <h3 className="mt-3 text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-            Aucun message pour le moment
+            {t('emptyTitle')}
           </h3>
           <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
-            Soyez le premier à publier quelque chose ou ajoutez des amis pour voir leurs actualités.
+            {t('emptyDescription')}
           </p>
         </div>
       ) : (
@@ -36,7 +39,7 @@ export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
             key={post.id}
             author={post.author}
             initials={post.initials}
-            timeAgo={post.timeAgo || "À l'instant"}
+            timeAgo={post.timeAgo || t("defaultTimeAgo")}
             content={post.content}
             likesCount={post.likesCount}
             commentsCount={post.commentsCount}
