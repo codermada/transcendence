@@ -1,18 +1,6 @@
 import { Link } from "@/i18n/routing";
 import { ProfileStats } from "./ProfileStats";
-
-export interface ProfileCardProps {
-  user: {
-    name: string;
-    username: string;
-    initials: string;
-    stats: {
-      friendsCount: number;
-      postsCount: number;
-      reactionsCount: number;
-    };
-  };
-}
+import type { ProfileCardProps } from "./profile-sidebar.types";
 
 export function ProfileCard({ user }: ProfileCardProps) {
   return (
