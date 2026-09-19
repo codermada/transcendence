@@ -1,16 +1,6 @@
-import { ReactNode } from "react";
 import { PostHeader } from "./PostHeader";
 import { PostActions } from "./PostActions";
-
-interface PostCardProps {
-  author: string;
-  initials: string;
-  timeAgo: string;
-  content: string;
-  likesCount: number;
-  commentsCount: number;
-  children?: ReactNode;
-}
+import type { PostCardProps } from "./feed-section.types";
 
 export function PostCard({
   author,
