@@ -131,10 +131,22 @@
 
       },
       "PostCard": {
-
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving...",
+        "updateSuccess": "Post updated successfully",
+        "updateError": "Failed to update post",
+        "mediaLabel": "Media (max 10)",
+        "addMedia": "Add",
+        "placeholder": "What's on your mind?",
+        "maxFilesError": "You cannot attach more than 10 media files in total.",
+        "emptyPostError": "A post cannot be empty."
       },
       "PostHeader": {
-        "timeAgo": "{value, plural, =0 {Just now} =1 {1 {unit} ago} other {{value} {unit, select, minute {minutes} hour {hours} day {days} other {}} ago}}"
+        "timeAgo": "{value, plural, =0 {Just now} =1 {1 {unit} ago} other {{value} {unit, select, minute {minutes} hour {hours} day {days} other {}} ago}}",
+        "options": "Post options",
+        "edit": "Edit",
+        "delete": "Delete"
       },
       "PostMedia": {
 
