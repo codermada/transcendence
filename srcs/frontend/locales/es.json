@@ -134,7 +134,7 @@
 
       },
       "PostHeader": {
-
+        "timeAgo": "{value, plural, =0 {Hace un momento} =1 {Hace 1 {unit, select, minute {minuto} hour {hora} day {día} other {}}} other {Hace {value} {unit, select, minute {minutos} hour {horas} day {días} other {}}}}"
       },
       "PostMedia": {
 
