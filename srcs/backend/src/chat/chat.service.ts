@@ -145,4 +145,16 @@ export class ChatService {
 
 		return { conversationId, updatedCount: result.count, seenAt: now };
 	}
+
+	async getConversation(userOneId: string, userTwoId: string) {
+		return this.prismaService.messageTable.findUniqueOrThrow({
+			where: {
+				pairKey: buildPairKey(userOneId, userTwoId),
+			},
+			include: {
+				user1: { select: { id: true, name: true, image: true } },
+				user2: { select: { id: true, name: true, image: true } },
+			},
+		});
+	}
 }
