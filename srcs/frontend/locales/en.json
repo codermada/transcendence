@@ -161,7 +161,9 @@
         "addButton": "Add"
       },
       "FriendSuggestionsCard": {
-
+        "friendSuggestions": "Friend Suggestions",
+        "noAvailableFriendSuggestions": "No suggestions available",
+        "upToDate": "Check back later to discover new profiles."
       },
       "NetworkSidebar": {
 
