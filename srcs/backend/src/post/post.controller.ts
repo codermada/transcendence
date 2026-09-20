@@ -17,6 +17,7 @@ import { AuthGuard } from '../auth/AuthGuard';
 import { CreatePostDto } from './dto/create-post.dto';
 import { GetPostsFilterDto } from './dto/get-posts.dto';
 import { PostService } from './post.service';
+import { CurrentUser } from '../auth/CurrentUser';
 
 @ApiTags('posts')
 @ApiBearerAuth()
@@ -64,8 +65,8 @@ export class PostController {
 	@ApiOperation({ summary: 'Retrieve feed posts with hybrid pagination and filters' })
 	@ApiResponse({ status: 200, description: 'List of posts retrieved successfully.' })
 	@ApiResponse({ status: 401, description: 'Unauthorized.' })
-	async getPosts(@Query() filters: GetPostsFilterDto) {
-		return this.postService.getAllPosts(filters);
+	async getPosts(@Query() filters: GetPostsFilterDto, @CurrentUser('id') currentUserId: string) {
+		return this.postService.getAllPosts(filters, currentUserId);
 	}
 
 	@Get(':id')
