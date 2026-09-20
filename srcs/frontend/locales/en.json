@@ -133,7 +133,20 @@
     "emptyTitle": "Your Messages",
     "emptyDescription": "Select a conversation or start a new chat with a friend.",
     "newMessage": "New message",
-    "message": "Message"
+    "message": "Message",
+    "sendMessage": "Send",
+    "cancel": "Cancel",
+    "typeMessagePlaceholder": "Write a message…",
+    "startConversationWith": "Send a message to",
+    "newMessageTitle": "New conversation",
+    "sending": "Sending…",
+    "backToMessages": "Back to messages",
+    "conversationWith": "Conversation with",
+    "noMessagesYet": "No messages yet.",
+    "sayHello": "Say hello to start the conversation!",
+    "sendError": "Failed to send message. Please try again.",
+    "online": "Online",
+    "offline": "Offline"
   },
   "Settings": {
     "nav": {
