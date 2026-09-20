@@ -11,11 +11,10 @@ export interface Post {
   id: string;
   author: string;
   initials: string;
-  timeAgo?: string;
+  createdAt?: string | Date;
   content: string;
   likesCount: number;
   commentsCount: number;
-  createdAt?: string | Date;
   mediaUrls?: string[];
 }
 
@@ -26,7 +25,7 @@ export interface FeedSectionProps {
 export interface PostCardProps {
   author: string;
   initials: string;
-  timeAgo?: string;
+  createdAt?: string | Date;
   content: string;
   likesCount: number;
   commentsCount: number;
@@ -37,7 +36,7 @@ export interface PostCardProps {
 export interface PostHeaderProps {
   author: string;
   initials: string;
-  timeAgo?: string;
+  createdAt?: string | Date;
 }
 
 export interface PostActionsProps {
