@@ -5,12 +5,13 @@ import { CurrentUser } from '../auth/CurrentUser';
 import { ChatService } from './chat.service';
 import { GetMessagesQueryDto } from './dto/get-message-query.dto';
 import { SendMessageDto } from './dto/send-message.dto';
+import { ChatGateway } from './chat.gateway';
 
 @ApiTags('chat')
 @Controller('chat')
 @UseGuards(AuthGuard)
 export class ChatController {
-  constructor(private readonly chatService: ChatService) {}
+  constructor(private readonly chatService: ChatService, private readonly chatGateway: ChatGateway) {}
 
   @Get('conversations')
   @ApiOperation({ summary: 'Get all conversations for the authenticated user' })
@@ -34,7 +35,13 @@ export class ChatController {
     @CurrentUser() user: { id: string },
     @Param('id') conversationId: string,
   ) {
-    return this.chatService.markAsSeen(user.id, conversationId);
+    return this.chatService.markAsSeen(user.id, conversationId)
+    .then((result) => {
+      if (result.updatedCount > 0) {
+        this.chatGateway.broadcastSeen(conversationId, user.id, result.seenAt);
+      }
+      return result;
+    });
   }
 
   @Get('conversation/:receiverId')
@@ -54,6 +61,10 @@ export class ChatController {
     @CurrentUser() user: { id: string },
     @Body() dto: SendMessageDto,
   ) {
-    return this.chatService.saveMessage(user.id, dto);
+    return this.chatService.saveMessage(user.id, dto)
+    .then((message) => {
+      this.chatGateway.broadcastNewMessage(message);
+      return message;
+    });
   }
 }
