@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { GetPostsFilterDto } from './dto/get-posts.dto';
+import { UpdatePostDto } from './dto/update-post.dto';
 
 @Injectable()
 export class PostRepository {
@@ -118,6 +119,38 @@ export class PostRepository {
 					},
 				},
 			},
+		});
+	}
+
+	async update(id: string, dto: UpdatePostDto) {
+		return this.prisma.post.update({
+			where: { id },
+			data: {
+				content: dto.content,
+				mediaUrls: dto.mediaUrls,
+			},
+			include: {
+				user: {
+					select: {
+						id: true,
+						name: true,
+						pseudo: true,
+						image: true,
+					},
+				},
+				_count: {
+					select: {
+						likes: true,
+						comments: true,
+					},
+				},
+			},
+		});
+	}
+
+	async delete(id: string) {
+		return this.prisma.post.delete({
+			where: { id },
 		});
 	}
 }
