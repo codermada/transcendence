@@ -156,7 +156,9 @@
         "sent": "Enviada"
       },
       "FriendSuggestionItem": {
-
+        "mutualFriend": "amigo en común",
+        "mutualFriends": "amigos en común",
+        "addButton": "Añadir"
       },
       "FriendSuggestionsCard": {
 
