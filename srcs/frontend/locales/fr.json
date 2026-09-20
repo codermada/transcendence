@@ -110,7 +110,78 @@
   "Feed": {
     "title": "Fil d'actualité",
     "welcomeMessage": "Bienvenue sur votre fil d'actualité !",
-    "activity": "Activité récente"
+    "activity": "Activité récente",
+    "feed-section": {
+      "CreatePostCard": {
+        "placeholder": "Quoi de neuf aujourd'hui ?",
+        "plurialMedia": "Photos / Vidéos",
+        "singularMedia": "Photo / Vidéo",
+        "publish": "Publier",
+        "isLoading": "Publication..."
+      },
+      "FeedSection": {
+        "emptyTitle": "Aucun message pour le moment",
+        "emptyDescription": "Soyez le premier à publier quelque chose ou ajoutez des amis pour voir leurs actualités.",
+        "defaultTimeAgo": "À l'instant"
+      },
+      "MediaModal": {
+
+      },
+      "PostActions": {
+
+      },
+      "PostCard": {
+
+      },
+      "PostHeader": {
+        "timeAgo": "{value, plural, =0 {À l'instant} =1 {Il y a une {unit}} other {Il y a {value} {unit, select, minute {minutes} hour {heures} day {jours} other {}}}}"
+      },
+      "PostMedia": {
+
+      }
+    },
+    "network-sidebar": {
+      "FriendRequestItem": {
+        "acceptButton": "Accepter",
+        "declineButton": "Refuser",
+        "cancelButton": "Annuler"
+      },
+      "FriendRequestsCard": {
+        "friendRequests": "Demandes d'amis",
+        "noFriendRequests": "Aucune demande d'ami",
+        "upToDate": "Vous êtes à jour !",
+        "multiReceived": "Reçues",
+        "multiSent": "Envoyées",
+        "received": "Reçue",
+        "sent": "Envoyée"
+      },
+      "FriendSuggestionItem": {
+        "mutualFriend": "ami en commun",
+        "mutualFriends": "amis en commun",
+        "addButton": "Ajouter"
+      },
+      "FriendSuggestionsCard": {
+        "friendSuggestions": "Suggestions d'amis",
+        "noAvailableFriendSuggestions": "Aucune suggestion disponible",
+        "upToDate": "Revenez plus tard pour découvrir de nouveaux profils."
+      },
+      "NetworkSidebar": {
+
+      }
+    },
+    "profile-sidebar": {
+      "ProfileCard": {
+        "myProfileButton": "Mon Profil"
+      },
+      "ProfileSidebar": {
+
+      },
+      "ProfileStats": {
+        "friends": "Amis",
+        "posts": "Publications",
+        "reactions": "Réactions"
+      }
+    }
   },
   "Friends": {
     "title": "Amis",

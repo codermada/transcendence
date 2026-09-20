@@ -110,7 +110,78 @@
   "Feed": {
     "title": "Feed",
     "welcomeMessage": "Welcome to your feed!",
-    "activity": "Recent Activity"
+    "activity": "Recent Activity",
+    "feed-section": {
+      "CreatePostCard": {
+        "placeholder": "What's on your mind today?",
+        "plurialMedia": "Photos / Videos",
+        "singularMedia": "Photo / Video",
+        "publish": "Publish",
+        "isLoading": "Publishing..."
+      },
+      "FeedSection": {
+        "emptyTitle": "No posts yet",
+        "emptyDescription": "Be the first to post something or add friends to see their updates.",
+        "defaultTimeAgo": "Just now"
+      },
+      "MediaModal": {
+
+      },
+      "PostActions": {
+
+      },
+      "PostCard": {
+
+      },
+      "PostHeader": {
+        "timeAgo": "{value, plural, =0 {Just now} =1 {1 {unit} ago} other {{value} {unit, select, minute {minutes} hour {hours} day {days} other {}} ago}}"
+      },
+      "PostMedia": {
+
+      }
+    },
+    "network-sidebar": {
+      "FriendRequestItem": {
+        "acceptButton": "Accept",
+        "declineButton": "Decline",
+        "cancelButton": "Cancel"
+      },
+      "FriendRequestsCard": {
+        "friendRequests": "Friend Requests",
+        "noFriendRequests": "No friend requests",
+        "upToDate": "You're all caught up!",
+        "multiReceived": "Received",
+        "multiSent": "Sent",
+        "received": "Received",
+        "sent": "Sent"
+      },
+      "FriendSuggestionItem": {
+        "mutualFriend": "mutual friend",
+        "mutualFriends": "mutual friends",
+        "addButton": "Add"
+      },
+      "FriendSuggestionsCard": {
+        "friendSuggestions": "Friend Suggestions",
+        "noAvailableFriendSuggestions": "No suggestions available",
+        "upToDate": "Check back later to discover new profiles."
+      },
+      "NetworkSidebar": {
+
+      }
+    },
+    "profile-sidebar": {
+      "ProfileCard": {
+        "myProfileButton": "My Profile"
+      },
+      "ProfileSidebar": {
+
+      },
+      "ProfileStats": {
+        "friends": "Friends",
+        "posts": "Posts",
+        "reactions": "Reactions"
+      }
+    }
   },
   "Friends": {
     "title": "Friends",

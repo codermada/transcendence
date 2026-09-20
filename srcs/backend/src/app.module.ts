@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { FriendModule } from './friend/friend.module';
 // import { ChatModule } from './chat/chat.module';
 import { PresenceModule } from './presence/presence.module.js';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { PresenceModule } from './presence/presence.module.js';
     UserModule,
     FriendModule,
     // ChatModule,
-    PresenceModule
+    PresenceModule,
+    PostModule
   ],
   controllers: [AppController, AuthController],
   providers: [AppService],
