@@ -77,8 +77,11 @@ export class PostController {
 			storage: memoryStorage(),
 		}),
 	)
-	async createPost(@Req() req: any, @Body() dto: CreatePostDto, @UploadedFiles() files?: Express.Multer.File[]) {
-		const userId = req.user.id;
+	async createPost(
+		@CurrentUser('id') userId: string,
+		@Body() dto: CreatePostDto,
+		@UploadedFiles() files?: Express.Multer.File[],
+	) {
 		return this.postService.createPost(userId, dto, files);
 	}
 
