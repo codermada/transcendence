@@ -177,7 +177,9 @@
 
       },
       "ProfileStats": {
-
+        "friends": "Amigos",
+        "posts": "Publicaciones",
+        "reactions": "Reacciones"
       }
     }
   },
