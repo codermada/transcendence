@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Param, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Query, UseGuards, NotFoundException } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/AuthGuard';
 import { CurrentUser } from '../auth/CurrentUser';
 import { ChatService } from './chat.service';
 import { GetMessagesQueryDto } from './dto/get-message-query.dto';
+import { SendMessageDto } from './dto/send-message.dto';
 
 @ApiTags('chat')
 @Controller('chat')
@@ -34,5 +35,25 @@ export class ChatController {
     @Param('id') conversationId: string,
   ) {
     return this.chatService.markAsSeen(user.id, conversationId);
+  }
+
+  @Get('conversation/:receiverId')
+  @ApiOperation({ summary: 'Get conversation by receiver id' })
+  getConversationByReceiverId(
+    @CurrentUser() user: { id: string },
+    @Param('receiverId') receiverId: string,
+  ) {
+    return this.chatService.getConversation(user.id, receiverId).catch(() => {
+      throw new NotFoundException("Conversation not found");
+    });
+  }
+
+  @Post('messages')
+  @ApiOperation({ summary: 'Send a message to create or continue a conversation' })
+  sendMessage(
+    @CurrentUser() user: { id: string },
+    @Body() dto: SendMessageDto,
+  ) {
+    return this.chatService.saveMessage(user.id, dto);
   }
 }
