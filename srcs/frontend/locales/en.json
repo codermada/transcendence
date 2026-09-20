@@ -177,7 +177,9 @@
 
       },
       "ProfileStats": {
-
+        "friends": "Friends",
+        "posts": "Posts",
+        "reactions": "Reactions"
       }
     }
   },
