@@ -161,7 +161,9 @@
         "addButton": "Añadir"
       },
       "FriendSuggestionsCard": {
-
+        "friendSuggestions": "Sugerencias de amistad",
+        "noAvailableFriendSuggestions": "No hay sugerencias disponibles",
+        "upToDate": "Vuelve más tarde para descubrir nuevos perfiles."
       },
       "NetworkSidebar": {
 
