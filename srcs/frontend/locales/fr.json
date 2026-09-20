@@ -147,7 +147,13 @@
         "cancelButton": "Annuler"
       },
       "FriendRequestsCard": {
-
+        "friendRequests": "Demandes d'amis",
+        "noFriendRequests": "Aucune demande d'ami",
+        "upToDate": "Vous êtes à jour !",
+        "multiReceived": "Reçues",
+        "multiSent": "Envoyées",
+        "received": "Reçue",
+        "sent": "Envoyée"
       },
       "FriendSuggestionItem": {
 
