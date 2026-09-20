@@ -18,8 +18,8 @@ export class PostService {
 		return posts.map((post) => this.formatPost(post));
 	}
 
-	async getPostById(id: string) {
-		const post = await this.postRepository.findById(id);
+	async getPostById(id: string, currentUserId?: string) {
+		const post = await this.postRepository.findById(id, currentUserId);
 
 		if (!post) {
 			throw new NotFoundException(`Publication introuvable avec l'ID: ${id}`);
@@ -46,11 +46,15 @@ export class PostService {
 			mediaUrls: [...existingMediaUrls, ...uploadedMediaUrls],
 		});
 
-		return this.formatPost(createdPost);
+		return this.formatPost({
+			...createdPost,
+			isOwner: true,
+			isLiked: false,
+		});
 	}
 
 	async updatePost(postId: string, userId: string, dto: UpdatePostDto, files?: Express.Multer.File[]) {
-		const existingPost = await this.postRepository.findById(postId);
+		const existingPost = await this.postRepository.findById(postId, userId);
 
 		if (!existingPost) {
 			throw new NotFoundException(`Publication introuvable avec l'ID: ${postId}`);
@@ -86,11 +90,12 @@ export class PostService {
 		return this.formatPost({
 			...updatedPost,
 			isOwner: true,
+			isLiked: existingPost.isLiked,
 		});
 	}
 
 	async deletePost(postId: string, userId: string) {
-		const existingPost = await this.postRepository.findById(postId);
+		const existingPost = await this.postRepository.findById(postId, userId);
 
 		if (!existingPost) {
 			throw new NotFoundException(`Publication introuvable avec l'ID: ${postId}`);
@@ -128,7 +133,8 @@ export class PostService {
 			authorImage: post.user.image,
 			content: post.content,
 			mediaUrls: post.mediaUrls || [],
-			isOwner: post.isOwner,
+			isOwner: post.isOwner ?? false,
+			isLiked: post.isLiked ?? false,
 			createdAt: post.createdAt,
 			likesCount: post._count?.likes ?? 0,
 			commentsCount: post._count?.comments ?? 0,
