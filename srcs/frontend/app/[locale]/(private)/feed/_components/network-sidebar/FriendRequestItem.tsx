@@ -1,6 +1,9 @@
+import { useTranslations } from "next-intl";
 import type { FriendRequestItemProps } from "./network-sidebar.types";
 
 export function FriendRequestItem(props: FriendRequestItemProps) {
+  const t = useTranslations("Feed.network-sidebar.FriendRequestItem")
+
   if (props.type === "received") {
     return (
       <li className="flex flex-col gap-2 rounded-xl border border-zinc-100 bg-zinc-50 p-2.5 dark:border-zinc-800 dark:bg-zinc-800/40">
@@ -19,13 +22,13 @@ export function FriendRequestItem(props: FriendRequestItemProps) {
             type="button"
             className="flex-1 rounded-lg bg-violet-600 py-1 text-[11px] font-medium text-white transition-colors hover:bg-violet-500"
           >
-            Accepter
+            {t("acceptButton")}
           </button>
           <button
             type="button"
             className="flex-1 rounded-lg bg-zinc-200/80 py-1 text-[11px] font-medium text-zinc-700 transition-colors hover:bg-zinc-300 dark:bg-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-600"
           >
-            Refuser
+            {t("declineButton")}
           </button>
         </div>
       </li>
@@ -46,7 +49,7 @@ export function FriendRequestItem(props: FriendRequestItemProps) {
         type="button"
         className="shrink-0 rounded-lg border border-zinc-200 px-2 py-0.5 text-[10px] font-medium text-zinc-500 transition-colors hover:border-red-500/30 hover:bg-red-50 hover:text-red-600 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-red-500/10 dark:hover:text-red-400"
       >
-        Annuler
+        {t("cancelButton")}
       </button>
     </li>
   );
