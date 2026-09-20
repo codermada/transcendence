@@ -133,7 +133,20 @@
     "emptyTitle": "Vos messages",
     "emptyDescription": "Sélectionnez une conversation ou commencez une nouvelle discussion avec un ami.",
     "newMessage": "Nouveau message",
-    "message": "Message"
+    "message": "Message",
+    "sendMessage": "Envoyer",
+    "cancel": "Annuler",
+    "typeMessagePlaceholder": "Écrivez un message…",
+    "startConversationWith": "Envoyer un message à",
+    "newMessageTitle": "Nouvelle conversation",
+    "sending": "Envoi…",
+    "backToMessages": "Retour aux messages",
+    "conversationWith": "Discussion avec",
+    "noMessagesYet": "Aucun message pour le moment.",
+    "sayHello": "Dites bonjour pour démarrer la discussion !",
+    "sendError": "Impossible d'envoyer le message. Veuillez réessayer.",
+    "online": "En ligne",
+    "offline": "Hors ligne"
   },
   "Settings": {
     "nav": {
