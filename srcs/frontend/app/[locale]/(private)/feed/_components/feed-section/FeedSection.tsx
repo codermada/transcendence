@@ -37,6 +37,7 @@ export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
         posts.map((post) => (
           <PostCard
             key={post.id}
+            postId={post.id}
             author={post.author}
             initials={post.initials}
             createdAt={post.createdAt}
@@ -44,6 +45,7 @@ export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
             likesCount={post.likesCount}
             commentsCount={post.commentsCount}
             mediaUrls={post.mediaUrls}
+            isOwner={post.isOwner}
           />
         ))
       )}
