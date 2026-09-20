@@ -34,7 +34,7 @@ useEffect(() => {
           <h4 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
             {author}
           </h4>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400">{t('reported', { value: createdAtTimestamp.value, unit: createdAtTimestamp.time })}</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">{t('timeAgo', { value: createdAtTimestamp.value, unit: createdAtTimestamp.time })}</p>
         </div>
       </div>
     </div>
