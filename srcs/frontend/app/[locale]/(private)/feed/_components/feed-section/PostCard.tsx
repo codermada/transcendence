@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useRef, useState } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { toast } from "sonner";
 import { PostActions } from "./PostActions";
 import { PostHeader } from "./PostHeader";
@@ -11,6 +11,8 @@ import type { PostCardProps } from "./feed-section.types";
 interface ExtendedPostCardProps extends PostCardProps {
   postId: string;
   isOwner?: boolean;
+  isLiked?: boolean;
+  children?: ReactNode;
   onUpdatePost?: (
     postId: string,
     data: {
@@ -20,6 +22,7 @@ interface ExtendedPostCardProps extends PostCardProps {
     }
   ) => Promise<void>;
   onDeletePost?: (postId: string) => Promise<void>;
+  onToggleLike?: (postId: string) => Promise<void>;
 }
 
 export function PostCard({
@@ -32,8 +35,10 @@ export function PostCard({
   commentsCount,
   mediaUrls = [],
   isOwner = false,
+  isLiked = false,
   onUpdatePost,
   onDeletePost,
+  onToggleLike,
   children,
 }: ExtendedPostCardProps) {
   const t = useTranslations("Feed.feed-section.PostCard");
@@ -144,12 +149,12 @@ export function PostCard({
 
             <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
               {keptMediaUrls.map((url) => (
-                <div key={url} className="group relative aspect-square rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-700">
+                <div key={url} className="group relative aspect-square overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-700">
                   <img src={url} alt="Media" className="h-full w-full object-cover" />
                   <button
                     type="button"
                     onClick={() => handleRemoveExistingMedia(url)}
-                    className="absolute top-1 right-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white hover:bg-red-600 transition-colors"
+                    className="absolute top-1 right-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white transition-colors hover:bg-red-600"
                   >
                     ✕
                   </button>
@@ -157,12 +162,12 @@ export function PostCard({
               ))}
 
               {newFilePreviews.map((previewUrl, index) => (
-                <div key={previewUrl} className="group relative aspect-square rounded-lg overflow-hidden border border-violet-300 dark:border-violet-700">
+                <div key={previewUrl} className="group relative aspect-square overflow-hidden rounded-lg border border-violet-300 dark:border-violet-700">
                   <img src={previewUrl} alt="New media preview" className="h-full w-full object-cover" />
                   <button
                     type="button"
                     onClick={() => handleRemoveNewFile(index)}
-                    className="absolute top-1 right-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white hover:bg-red-600 transition-colors"
+                    className="absolute top-1 right-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white transition-colors hover:bg-red-600"
                   >
                     ✕
                   </button>
@@ -225,7 +230,13 @@ export function PostCard({
 
       {children}
 
-      <PostActions likesCount={likesCount} commentsCount={commentsCount} />
+      <PostActions
+        postId={postId}
+        likesCount={likesCount}
+        commentsCount={commentsCount}
+        isLiked={isLiked}
+        onToggleLike={onToggleLike}
+      />
     </article>
   );
 }
