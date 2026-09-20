@@ -142,7 +142,9 @@
     },
     "network-sidebar": {
       "FriendRequestItem": {
-
+        "acceptButton": "Accepter",
+        "declineButton": "Refuser",
+        "cancelButton": "Annuler"
       },
       "FriendRequestsCard": {
 
