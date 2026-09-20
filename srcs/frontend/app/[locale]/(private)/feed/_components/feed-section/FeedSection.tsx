@@ -65,6 +65,7 @@ export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
             commentsCount={post.commentsCount}
             mediaUrls={post.mediaUrls}
             isOwner={post.isOwner}
+            isLiked={post.isLiked}
             onUpdatePost={handleUpdatePost}
             onDeletePost={handleDeletePost}
           />
