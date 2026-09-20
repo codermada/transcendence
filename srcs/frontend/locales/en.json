@@ -147,7 +147,13 @@
         "cancelButton": "Cancel"
       },
       "FriendRequestsCard": {
-
+        "friendRequests": "Friend Requests",
+        "noFriendRequests": "No friend requests",
+        "upToDate": "You're all caught up!",
+        "multiReceived": "Received",
+        "multiSent": "Sent",
+        "received": "Received",
+        "sent": "Sent"
       },
       "FriendSuggestionItem": {
 
