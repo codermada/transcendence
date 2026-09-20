@@ -156,7 +156,9 @@
         "sent": "Sent"
       },
       "FriendSuggestionItem": {
-
+        "mutualFriend": "mutual friend",
+        "mutualFriends": "mutual friends",
+        "addButton": "Add"
       },
       "FriendSuggestionsCard": {
 
