@@ -11,8 +11,8 @@ export class PostService {
 		private readonly s3Service: S3Service,
 	) {}
 
-	async getAllPosts(filters: GetPostsFilterDto) {
-		const posts = await this.postRepository.findAll(filters);
+	async getAllPosts(filters: GetPostsFilterDto, currentUserId: string) {
+		const posts = await this.postRepository.findAll(filters, currentUserId);
 
 		return posts.map((post) => this.formatPost(post));
 	}
@@ -67,6 +67,7 @@ export class PostService {
 			authorImage: post.user.image,
 			content: post.content,
 			mediaUrls: post.mediaUrls || [],
+			isOwner: post.isOwner,
 			createdAt: post.createdAt,
 			likesCount: post._count?.likes ?? 0,
 			commentsCount: post._count?.comments ?? 0,
