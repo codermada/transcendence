@@ -1,8 +1,11 @@
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { ProfileStats } from "./ProfileStats";
 import type { ProfileCardProps } from "./profile-sidebar.types";
 
 export function ProfileCard({ user }: ProfileCardProps) {
+  const t = useTranslations("Feed.profile-sidebar.ProfileCard");
+
   return (
     <div className="rounded-2xl border border-zinc-200/80 bg-white/80 p-5 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-900/50">
       <div className="flex items-center gap-3">
@@ -29,7 +32,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
-          <span>Mon Profil</span>
+          <span>{t("myProfileButton")}</span>
         </Link>
       </div>
     </div>
