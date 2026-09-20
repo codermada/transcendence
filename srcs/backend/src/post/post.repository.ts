@@ -7,7 +7,7 @@ import { GetPostsFilterDto } from './dto/get-posts.dto';
 export class PostRepository {
 	constructor(private readonly prisma: PrismaService) {}
 
-	async findAll(filters: GetPostsFilterDto) {
+	async findAll(filters: GetPostsFilterDto, currentUserId: string) {
 		const { search } = filters;
 
 		const baseWhere = search
@@ -65,8 +65,12 @@ export class PostRepository {
 		}
 
 		const selectedOlderPosts = shuffledOlderPosts.slice(0, 7);
+		const combinedPosts = [...recentPosts, ...selectedOlderPosts];
 
-		return [...recentPosts, ...selectedOlderPosts];
+		return combinedPosts.map((post) => ({
+			...post,
+			isOwner: post.user.id === currentUserId,
+		}));
 	}
 
 	async findById(id: string) {
