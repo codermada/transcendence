@@ -16,6 +16,7 @@ export interface Post {
   likesCount: number;
   commentsCount: number;
   mediaUrls?: string[];
+  isOwner: boolean;
 }
 
 export interface FeedSectionProps {
