@@ -4,35 +4,17 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { usePresence } from "@/hooks/use-presence";
+import { useChatStore } from "@/stores/use-chat-store";
 import { Loader2, MessageSquare } from "@/components/icons";
-
-interface Participant {
-  id: string;
-  name: string;
-  image: string | null;
-}
-
-interface LastMessage {
-  id: string;
-  content: string;
-  createdAt: string;
-}
-
-interface Conversation {
-  id: string;
-  participant: Participant | null;
-  lastMessage: LastMessage | null;
-  unreadCount: number;
-  updatedAt: string;
-}
 
 export function ChatListClient() {
   const t = useTranslations("Chat");
   const tNav = useTranslations("Nav");
   const { checkIsOnline } = usePresence();
 
-  const [conversations, setConversations] = useState<Conversation[]>([]);
-  const [loading, setLoading] = useState(true);
+  const conversations = useChatStore((state) => state.conversations);
+  const setConversations = useChatStore((state) => state.setConversations);
+  const [loading, setLoading] = useState(conversations.length === 0);
 
   useEffect(() => {
     let cancelled = false;
@@ -62,7 +44,7 @@ export function ChatListClient() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [setConversations]);
 
   return (
     <div className="mx-auto max-w-5xl p-6">
@@ -125,7 +107,7 @@ export function ChatListClient() {
         <div className="mt-6 divide-y divide-zinc-100 overflow-hidden rounded-2xl border border-zinc-200/80 bg-white shadow-xs dark:divide-zinc-800 dark:border-zinc-800 dark:bg-zinc-900/60">
           {conversations.map((conv) => {
             const participant = conv.participant;
-            const displayName = participant?.name || "User";
+            const displayName = participant?.name || tNav("user");
             const initials = displayName
               .split(" ")
               .map((n) => n[0])

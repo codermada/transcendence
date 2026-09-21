@@ -328,6 +328,26 @@ export function Check(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function CheckCheck(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="m18 6-11 11-5-5m16 0-9.5 9.5-2.5-2.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+
 export function Copy(props: SVGProps<SVGSVGElement>) {
   return (
     <svg

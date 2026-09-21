@@ -127,7 +127,7 @@ export default function SearchFriendsPage() {
         <Link
           href="/friends"
           className="rounded-lg p-2 text-zinc-500 transition hover:bg-zinc-100 dark:hover:bg-zinc-800"
-          aria-label="Back"
+          aria-label={t("back")}
         >
           <ArrowLeft className="h-5 w-5" />
         </Link>
