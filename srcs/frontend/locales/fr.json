@@ -146,7 +146,11 @@
     "sayHello": "Dites bonjour pour démarrer la discussion !",
     "sendError": "Impossible d'envoyer le message. Veuillez réessayer.",
     "online": "En ligne",
-    "offline": "Hors ligne"
+    "offline": "Hors ligne",
+    "seen": "Vu",
+    "sent": "Envoyé",
+    "close": "Fermer",
+    "loadError": "Impossible de charger la discussion."
   },
   "Settings": {
     "nav": {

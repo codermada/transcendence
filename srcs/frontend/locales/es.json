@@ -146,7 +146,11 @@
     "sayHello": "¡Saluda para comenzar la conversación!",
     "sendError": "Error al enviar el mensaje. Inténtalo de nuevo.",
     "online": "En línea",
-    "offline": "Desconectado"
+    "offline": "Desconectado",
+    "seen": "Visto",
+    "sent": "Enviado",
+    "close": "Cerrar",
+    "loadError": "No se pudo cargar la conversación."
   },
   "Settings": {
     "nav": {

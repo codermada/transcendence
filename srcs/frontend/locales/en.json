@@ -146,7 +146,11 @@
     "sayHello": "Say hello to start the conversation!",
     "sendError": "Failed to send message. Please try again.",
     "online": "Online",
-    "offline": "Offline"
+    "offline": "Offline",
+    "seen": "Seen",
+    "sent": "Sent",
+    "close": "Close",
+    "loadError": "Failed to load conversation."
   },
   "Settings": {
     "nav": {
