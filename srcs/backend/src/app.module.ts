@@ -10,6 +10,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { TestModule } from './test/test.module';
 import { UserModule } from './user/user.module';
 // import { ChatModule } from './chat/chat.module';
+import { ProfileModule } from './feed/profile/profile.module.js';
 import { PostLikeModule } from './post-like/post-like.module.js';
 import { PostModule } from './post/post.module';
 import { PresenceModule } from './presence/presence.module.js';
@@ -25,6 +26,7 @@ import { PresenceModule } from './presence/presence.module.js';
 		PresenceModule,
 		PostModule,
 		PostLikeModule,
+		ProfileModule,
 	],
 	controllers: [AppController, AuthController],
 	providers: [AppService],
