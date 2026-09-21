@@ -23,6 +23,7 @@ interface NewMessageModalProps {
 
 export function NewMessageModal({ isOpen, onClose, receiver }: NewMessageModalProps) {
   const t = useTranslations("Chat");
+  const tNav = useTranslations("Nav");
   const router = useRouter();
   const { checkIsOnline } = usePresence();
 
@@ -34,7 +35,7 @@ export function NewMessageModal({ isOpen, onClose, receiver }: NewMessageModalPr
 
   const isOnline = receiver ? checkIsOnline(receiver.id) : false;
 
-  const displayName = receiver?.name?.trim() || receiver?.pseudo || receiver?.email?.split("@")[0] || "User";
+  const displayName = receiver?.name?.trim() || receiver?.pseudo || receiver?.email?.split("@")[0] || tNav("user");
   const initials = getInitials(displayName);
 
   const handleClose = useCallback(() => {
@@ -126,7 +127,7 @@ export function NewMessageModal({ isOpen, onClose, receiver }: NewMessageModalPr
           <button
             type="button"
             onClick={handleClose}
-            aria-label="Close"
+            aria-label={t("close")}
             className="rounded-lg p-1.5 text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800 dark:hover:text-zinc-300 cursor-pointer"
           >
             <Close className="h-4 w-4" />
@@ -136,6 +137,7 @@ export function NewMessageModal({ isOpen, onClose, receiver }: NewMessageModalPr
         <div className="my-6 flex flex-col items-center text-center">
           <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br from-violet-600 to-indigo-600 text-lg font-bold text-white shadow-md ring-2 ring-violet-500/20">
             {receiver.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={receiver.image}
                 alt={displayName}

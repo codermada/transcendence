@@ -1,20 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { useSession } from "@/lib/auth/use-session";
 import { usePresence } from "@/hooks/use-presence";
-import { ArrowLeft, Loader2, MessageSquare, Send } from "@/components/icons";
-
-interface MessageItem {
-  id: string;
-  senderId: string;
-  receiverId: string;
-  content: string;
-  createdAt: string;
-  isSeen: boolean;
-}
+import { useChatStore } from "@/stores/use-chat-store";
+import { useConversationSocket } from "@/hooks/use-chat-socket";
+import { ArrowLeft, Check, CheckCheck, Loader2, MessageSquare, Send } from "@/components/icons";
 
 interface Participant {
   id: string;
@@ -25,7 +18,6 @@ interface Participant {
 interface ConversationItem {
   id: string;
   participant: Participant | null;
-  lastMessage: MessageItem | null;
   unreadCount: number;
   updatedAt: string;
 }
@@ -40,7 +32,13 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
   const { data: session } = useSession();
   const { checkIsOnline } = usePresence();
 
-  const [messages, setMessages] = useState<MessageItem[]>([]);
+  const { sendSeen } = useConversationSocket(conversationId);
+
+  const activeMessages = useChatStore((state) => state.activeMessages);
+  const setActiveMessages = useChatStore((state) => state.setActiveMessages);
+  const setActiveConversationId = useChatStore((state) => state.setActiveConversationId);
+  const addActiveMessage = useChatStore((state) => state.addActiveMessage);
+
   const [participant, setParticipant] = useState<Participant | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -50,9 +48,16 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const currentUserId = session?.user?.id;
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
+
+  useEffect(() => {
+    setActiveConversationId(conversationId);
+    return () => {
+      setActiveConversationId(null);
+    };
+  }, [conversationId, setActiveConversationId]);
 
   // Load conversation participant & message history
   useEffect(() => {
@@ -86,18 +91,19 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
 
         if (!cancelled) {
           // Backend returns newest first (desc), reverse for chronological display
-          const rawMessages: MessageItem[] = msgData.messages || [];
-          setMessages([...rawMessages].reverse());
+          const rawMessages = msgData.messages || [];
+          setActiveMessages([...rawMessages].reverse());
         }
 
-        // 3. Mark conversation as seen
+        // 3. Mark conversation as seen via REST and WebSocket
+        sendSeen();
         await fetch(`/nest/chat/conversations/${conversationId}/seen`, {
           method: "POST",
           credentials: "include",
         });
       } catch (err: unknown) {
         if (!cancelled) {
-          setError((err as Error).message || "Error loading conversation");
+          setError((err as Error).message || t("loadError"));
         }
       } finally {
         if (!cancelled) {
@@ -111,12 +117,21 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
     return () => {
       cancelled = true;
     };
-  }, [conversationId]);
+  }, [conversationId, sendSeen, setActiveMessages]);
 
-  // Auto-scroll to bottom when messages load or change
+  // Auto-scroll to bottom when messages change
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [activeMessages, scrollToBottom]);
+
+  // Send seen notification when a new message arrives from the other participant
+  useEffect(() => {
+    if (!currentUserId || activeMessages.length === 0) return;
+    const lastMsg = activeMessages[activeMessages.length - 1];
+    if (lastMsg.senderId !== currentUserId) {
+      sendSeen();
+    }
+  }, [activeMessages, currentUserId, sendSeen]);
 
   const isParticipantOnline = participant ? checkIsOnline(participant.id) : false;
 
@@ -144,8 +159,8 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
         throw new Error(t("sendError"));
       }
 
-      const createdMessage: MessageItem = await res.json();
-      setMessages((prev) => [...prev, createdMessage]);
+      const createdMessage = await res.json();
+      addActiveMessage(createdMessage);
     } catch (err) {
       console.error(err);
       // Restore input on failure
@@ -162,7 +177,7 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
     }
   }
 
-  const displayName = participant?.name || "User";
+  const displayName = participant?.name || tNav("user");
   const initials = displayName
     .split(" ")
     .map((n) => n[0])
@@ -228,7 +243,7 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
           </div>
         )}
 
-        {!loading && !error && messages.length === 0 && (
+        {!loading && !error && activeMessages.length === 0 && (
           <div className="flex h-full flex-col items-center justify-center text-center p-6">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-violet-50 text-violet-600 dark:bg-violet-950/40 dark:text-violet-400">
               <MessageSquare className="h-6 w-6" />
@@ -244,7 +259,7 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
 
         {!loading &&
           !error &&
-          messages.map((msg) => {
+          activeMessages.map((msg) => {
             const isMe = msg.senderId === currentUserId;
             const time = new Date(msg.createdAt).toLocaleTimeString([], {
               hour: "2-digit",
@@ -265,9 +280,23 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
                 >
                   <p>{msg.content}</p>
                 </div>
-                <span className="mt-1 text-[10px] text-zinc-400 dark:text-zinc-500 px-1">
-                  {time}
-                </span>
+                <div className="flex items-center gap-1 mt-1 px-1">
+                  <span className="text-[10px] text-zinc-400 dark:text-zinc-500">
+                    {time}
+                  </span>
+                  {isMe && (
+                    <span
+                      title={msg.isSeen ? t("seen") : t("sent")}
+                      className="inline-flex items-center"
+                    >
+                      {msg.isSeen ? (
+                        <CheckCheck className="h-3.5 w-3.5 text-violet-600 dark:text-violet-400" />
+                      ) : (
+                        <Check className="h-3.5 w-3.5 text-zinc-400 dark:text-zinc-500" />
+                      )}
+                    </span>
+                  )}
+                </div>
               </div>
             );
           })}
