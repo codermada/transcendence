@@ -2,17 +2,36 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { toast } from "sonner";
+import { postService } from "../../_services/PostService";
 import { CreatePostCard } from "./CreatePostCard";
 import { PostCard } from "./PostCard";
 import type { FeedSectionProps, Post } from "./feed-section.types";
 
 export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
   const t = useTranslations("Feed.feed-section.FeedSection");
-
   const [posts, setPosts] = useState<Post[]>(initialPosts);
 
   const handlePostCreated = (newPost: Post) => {
     setPosts((prev) => [newPost, ...prev]);
+  };
+
+  const handleUpdatePost = async (
+    postId: string,
+    data: { content: string; keptMediaUrls: string[]; newFiles: File[] }
+  ) => {
+    const updatedPost = await postService.updatePost(postId, data);
+    setPosts((prev) => prev.map((p) => (p.id === postId ? updatedPost : p)));
+  };
+
+  const handleDeletePost = async (postId: string) => {
+    try {
+      await postService.deletePost(postId);
+      setPosts((prev) => prev.filter((p) => p.id !== postId));
+      toast.success("Publication supprimée");
+    } catch (error) {
+      toast.error("Erreur lors de la suppression");
+    }
   };
 
   return (
@@ -27,16 +46,17 @@ export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
             </svg>
           </div>
           <h3 className="mt-3 text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-            {t('emptyTitle')}
+            {t("emptyTitle")}
           </h3>
           <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
-            {t('emptyDescription')}
+            {t("emptyDescription")}
           </p>
         </div>
       ) : (
         posts.map((post) => (
           <PostCard
             key={post.id}
+            postId={post.id}
             author={post.author}
             initials={post.initials}
             createdAt={post.createdAt}
@@ -44,6 +64,10 @@ export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
             likesCount={post.likesCount}
             commentsCount={post.commentsCount}
             mediaUrls={post.mediaUrls}
+            isOwner={post.isOwner}
+            isLiked={post.isLiked}
+            onUpdatePost={handleUpdatePost}
+            onDeletePost={handleDeletePost}
           />
         ))
       )}

@@ -131,10 +131,22 @@
 
       },
       "PostCard": {
-
+        "cancel": "Cancelar",
+        "save": "Guardar",
+        "saving": "Guardando...",
+        "updateSuccess": "Publicación actualizada con éxito",
+        "updateError": "Error al actualizar la publicación",
+        "mediaLabel": "Archivos multimedia (máx. 10)",
+        "addMedia": "Añadir",
+        "placeholder": "¿Qué estás pensando?",
+        "maxFilesError": "No puedes adjuntar más de 10 archivos multimedia en total.",
+        "emptyPostError": "Una publicación no puede estar vacía."
       },
       "PostHeader": {
-        "timeAgo": "{value, plural, =0 {Hace un momento} =1 {Hace 1 {unit, select, minute {minuto} hour {hora} day {día} other {}}} other {Hace {value} {unit, select, minute {minutos} hour {horas} day {días} other {}}}}"
+        "timeAgo": "{value, plural, =0 {Hace un momento} =1 {Hace 1 {unit, select, minute {minuto} hour {hora} day {día} other {}}} other {Hace {value} {unit, select, minute {minutos} hour {horas} day {días} other {}}}}",
+        "options": "Opciones de la publicación",
+        "edit": "Editar",
+        "delete": "Eliminar"
       },
       "PostMedia": {
 

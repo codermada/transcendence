@@ -5,7 +5,13 @@ export interface CreatePostDto {
   files?: File[];
 }
 
-const API_URL = "/nest";
+export interface UpdatePostDto {
+  content: string;
+  keptMediaUrls?: string[];
+  newFiles?: File[];
+}
+
+const API_URL = process.env.NEXT_PUBLIC_NEST_URL || "http://localhost:4000";
 
 export const postService = {
   async getAllPosts(): Promise<Post[]> {
@@ -47,5 +53,47 @@ export const postService = {
     }
 
     return response.json();
+  },
+
+  async updatePost(postId: string, dto: UpdatePostDto): Promise<Post> {
+    const formData = new FormData();
+    formData.append("content", dto.content);
+
+    if (dto.keptMediaUrls && dto.keptMediaUrls.length > 0) {
+      dto.keptMediaUrls.forEach((url) => {
+        formData.append("mediaUrls", url);
+      });
+    }
+
+    if (dto.newFiles && dto.newFiles.length > 0) {
+      dto.newFiles.forEach((file) => {
+        formData.append("files", file);
+      });
+    }
+
+    const response = await fetch(`${API_URL}/posts/${postId}`, {
+      method: "PATCH",
+      credentials: "include",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || "Erreur lors de la modification du post");
+    }
+
+    return response.json();
+  },
+
+  async deletePost(postId: string): Promise<void> {
+    const response = await fetch(`${API_URL}/posts/${postId}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || "Erreur lors de la suppression du post");
+    }
   },
 };

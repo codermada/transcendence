@@ -1,5 +1,6 @@
 import {
 	CreateBucketCommand,
+	DeleteObjectCommand,
 	HeadBucketCommand,
 	PutBucketPolicyCommand,
 	PutObjectCommand,
@@ -75,5 +76,33 @@ export class S3Service implements OnModuleInit {
 		);
 
 		return `${this.publicUrl}/${this.bucketName}/${key}`;
+	}
+
+	/**
+	 * Extraire la clé S3 d'une URL et supprimer le fichier
+	 */
+	async deleteFile(fileUrl: string): Promise<void> {
+		if (!fileUrl) return;
+
+		try {
+			const prefix = `${this.publicUrl}/${this.bucketName}/`;
+			const key = fileUrl.replace(prefix, '');
+
+			if (!key || key === fileUrl) return;
+
+			await this.s3Client.send(
+				new DeleteObjectCommand({
+					Bucket: this.bucketName,
+					Key: key,
+				}),
+			);
+		} catch (error) {
+			console.error(`Erreur lors de la suppression du fichier S3 (${fileUrl}):`, error);
+		}
+	}
+
+	async deleteFiles(fileUrls: string[]): Promise<void> {
+		if (!fileUrls || fileUrls.length === 0) return;
+		await Promise.all(fileUrls.map((url) => this.deleteFile(url)));
 	}
 }
