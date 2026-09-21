@@ -2,12 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { GetPostsFilterDto } from './dto/get-posts.dto';
+import { UpdatePostDto } from './dto/update-post.dto';
 
 @Injectable()
 export class PostRepository {
 	constructor(private readonly prisma: PrismaService) {}
 
-	async findAll(filters: GetPostsFilterDto) {
+	async findAll(filters: GetPostsFilterDto, currentUserId: string) {
 		const { search } = filters;
 
 		const baseWhere = search
@@ -26,6 +27,14 @@ export class PostRepository {
 					name: true,
 					pseudo: true,
 					image: true,
+				},
+			},
+			likes: {
+				where: {
+					userId: currentUserId,
+				},
+				select: {
+					userId: true,
 				},
 			},
 			_count: {
@@ -65,12 +74,17 @@ export class PostRepository {
 		}
 
 		const selectedOlderPosts = shuffledOlderPosts.slice(0, 7);
+		const combinedPosts = [...recentPosts, ...selectedOlderPosts];
 
-		return [...recentPosts, ...selectedOlderPosts];
+		return combinedPosts.map((post) => ({
+			...post,
+			isOwner: post.user.id === currentUserId,
+			isLiked: post.likes.length > 0,
+		}));
 	}
 
-	async findById(id: string) {
-		return this.prisma.post.findUnique({
+	async findById(id: string, currentUserId?: string) {
+		const post = await this.prisma.post.findUnique({
 			where: { id },
 			include: {
 				user: {
@@ -81,6 +95,16 @@ export class PostRepository {
 						image: true,
 					},
 				},
+				likes: currentUserId
+					? {
+							where: {
+								userId: currentUserId,
+							},
+							select: {
+								userId: true,
+							},
+						}
+					: false,
 				_count: {
 					select: {
 						likes: true,
@@ -89,6 +113,14 @@ export class PostRepository {
 				},
 			},
 		});
+
+		if (!post) return null;
+
+		return {
+			...post,
+			isOwner: currentUserId ? post.user.id === currentUserId : false,
+			isLiked: currentUserId && 'likes' in post ? (post.likes as any[]).length > 0 : false,
+		};
 	}
 
 	async create(userId: string, dto: CreatePostDto) {
@@ -114,6 +146,38 @@ export class PostRepository {
 					},
 				},
 			},
+		});
+	}
+
+	async update(id: string, dto: UpdatePostDto) {
+		return this.prisma.post.update({
+			where: { id },
+			data: {
+				content: dto.content,
+				mediaUrls: dto.mediaUrls,
+			},
+			include: {
+				user: {
+					select: {
+						id: true,
+						name: true,
+						pseudo: true,
+						image: true,
+					},
+				},
+				_count: {
+					select: {
+						likes: true,
+						comments: true,
+					},
+				},
+			},
+		});
+	}
+
+	async delete(id: string) {
+		return this.prisma.post.delete({
+			where: { id },
 		});
 	}
 }
