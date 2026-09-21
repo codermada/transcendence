@@ -94,6 +94,10 @@ export class ChatGateway implements OnGatewayConnection<Socket>, OnGatewayDiscon
 
 		const { updatedCount, seenAt } = await this.chatService.markAsSeen(user.id, markSeenDto.conversationId);
 
+		if (updatedCount > 0) {
+			this.broadcastSeen(markSeenDto.conversationId, user.id, seenAt);
+		}
+
 		return { success: true, updatedCount, seenAt };
 	}
 
