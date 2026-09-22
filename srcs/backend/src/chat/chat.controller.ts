@@ -19,6 +19,15 @@ export class ChatController {
     return this.chatService.getUserConversations(user.id);
   }
 
+  @Get('conversations/:id')
+  @ApiOperation({ summary: 'Get conversation by id' })
+  getUserConversationById(
+    @CurrentUser() user: { id: string },
+    @Param('id') conversationId: string,
+  ) {
+    return this.chatService.getConversationById(conversationId, user.id);
+  }
+
   @Get('conversations/:id/messages')
   @ApiOperation({ summary: 'Get cursor-paginated messages for a conversation' })
   getConversationMessages(
