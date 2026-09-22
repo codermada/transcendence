@@ -1,13 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { S3Service } from '../../s3/s3.service';
 import { NetworkRepository } from './network.repository';
 
 @Injectable()
 export class NetworkService {
-	constructor(
-		private readonly networkRepository: NetworkRepository,
-		private readonly s3Service: S3Service,
-	) {}
+	constructor(private readonly networkRepository: NetworkRepository) {}
 
 	async getUserNetwork(currentUserId: string) {
 		const userNetwork = await this.networkRepository.getUserNetwork(currentUserId);
@@ -25,6 +21,12 @@ export class NetworkService {
 		const sentFriendRequests = await this.networkRepository.getAllSentFriendRequests(currentUserId);
 
 		return sentFriendRequests;
+	}
+
+	async getFriendSuggestions(currentUserId: string) {
+		const friendSuggestions = await this.networkRepository.getFriendSuggestions(currentUserId);
+
+		return friendSuggestions;
 	}
 
 	private formatUserProfile(user: any) {
