@@ -57,9 +57,21 @@ export default function FeedPage() {
       }
     }
 
+    async function fetchFriendSuggestions() {
+      try {
+        const fetchedFriendSuggestions = await networkService.getFriendSuggestions();
+        if (isMounted) {
+          setFriendSuggestions(fetchedFriendSuggestions);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des demandes envoyées :", error);
+      }
+    }
+
     fetchPosts();
     fetchReceivedRequests();
     fetchSentRequests();
+    fetchFriendSuggestions();
 
     return () => {
       isMounted = false;
@@ -102,6 +114,17 @@ export default function FeedPage() {
     }
   };
 
+  const handleSendFriendRequest = async (userId: string) => {
+    try {
+      await networkService.sendFriendRequest(userId);
+      toast.success("Demande d'ami envoyée.");
+    } catch (error) {
+      console.error("Erreur lors de l'envoi de la demande d'ami :", error);
+      toast.error("Impossible d'envoyer une demande d'ami.");
+      throw error;
+    }
+  };
+
   return (
     <main className="h-dvh w-full overflow-hidden bg-zinc-50 text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-white">
       <div className="mx-auto flex h-dvh max-w-7xl flex-col px-4 py-6 sm:px-6 lg:px-8">
@@ -122,6 +145,7 @@ export default function FeedPage() {
             onAcceptRequest={handleAcceptRequest}
             onDeclineRequest={handleDeclineRequest}
             onCancelRequest={handleCancelRequest}
+            onSendRequest={handleSendFriendRequest}
           />
         </div>
       </div>
