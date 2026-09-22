@@ -43,7 +43,7 @@ export default function FeedPage() {
           setReceivedRequests(fetchedReceivedRequests);
         }
       } catch (error) {
-        console.error("Erreur de chargement des posts :", error);
+        console.error("Error loading posts :", error);
       }
     }
 
@@ -55,7 +55,7 @@ export default function FeedPage() {
           setSentRequests(fetchedSentRequests);
         }
       } catch (error: any) {
-        console.error("Erreur de chargement des posts :", error);
+        console.error("Error loading posts :", error);
         throw new Error(error.message);
       }
     }
