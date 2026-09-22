@@ -1,7 +1,19 @@
-export interface FriendRequest {
+export interface ReceivedFriendRequest {
   id: string;
-  name: string;
-  initials: string;
+  requester: {
+    id: string;
+    name: string;
+    initials: string;
+  }
+}
+
+export interface SentFriendRequest {
+  id: string;
+  addressee: {
+    id: string;
+    name: string;
+    initials: string;
+  }
 }
 
 export interface FriendSuggestion {
@@ -12,14 +24,14 @@ export interface FriendSuggestion {
 }
 
 export interface NetworkSidebarProps {
-  receivedRequests?: FriendRequest[];
-  sentRequests?: FriendRequest[];
+  receivedRequests?: ReceivedFriendRequest[];
+  sentRequests?: SentFriendRequest[];
   suggestions?: FriendSuggestion[];
 }
 
 export interface FriendRequestsCardProps {
-  receivedRequests?: FriendRequest[];
-  sentRequests?: FriendRequest[];
+  receivedRequests?: ReceivedFriendRequest[];
+  sentRequests?: SentFriendRequest[];
 }
 
 export interface FriendSuggestionsCardProps {
