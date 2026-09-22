@@ -336,6 +336,10 @@
       "you": "you",
       "empty": "No users found.",
 
+      "roleModerator": "Moderator",
+      "promoteRole": "Promote role",
+      "demoteRole": "Demote role",
+
       "edit": "Edit user",
       "delete": "Delete user",
       "promoteToAdmin": "Promote to admin",

@@ -336,6 +336,10 @@
       "you": "tú",
       "empty": "No se encontraron usuarios.",
 
+      "roleModerator": "Moderador",
+      "promoteRole": "Ascender rol",
+      "demoteRole": "Degradar rol",
+
       "edit": "Editar usuario",
       "delete": "Eliminar usuario",
       "promoteToAdmin": "Ascender a admin",
