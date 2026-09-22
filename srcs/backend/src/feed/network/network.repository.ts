@@ -18,7 +18,7 @@ export class NetworkRepository {
 
 		return await this.prisma.friendship.findMany({
 			where: {
-				addresseeId: currentUserId,
+				AND: [{ addresseeId: currentUserId }, { acceptedAt: null }],
 			},
 			orderBy: {
 				createdAt: 'desc',
@@ -54,7 +54,7 @@ export class NetworkRepository {
 
 		return await this.prisma.friendship.findMany({
 			where: {
-				requesterId: currentUserId,
+				AND: [{ requesterId: currentUserId }, { acceptedAt: null }],
 			},
 			orderBy: {
 				createdAt: 'desc',
