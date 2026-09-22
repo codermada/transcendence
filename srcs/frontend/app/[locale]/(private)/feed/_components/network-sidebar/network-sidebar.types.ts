@@ -17,7 +17,7 @@ export interface SentFriendRequest {
 }
 
 export interface FriendSuggestion {
-  id: string;
+  userId: string;
   name: string;
   initials: string;
   mutualFriends: number;
@@ -30,6 +30,7 @@ export interface NetworkSidebarProps {
   onAcceptRequest?: (requestId: string) => Promise<void> | void;
   onDeclineRequest?: (requestId: string) => Promise<void> | void;
   onCancelRequest?: (requestId: string) => Promise<void> | void;
+  onSendRequest?: (userId: string) => Promise<void> | void;
 }
 
 export interface FriendRequestsCardProps {
@@ -42,6 +43,7 @@ export interface FriendRequestsCardProps {
 
 export interface FriendSuggestionsCardProps {
   suggestions?: FriendSuggestion[];
+  onSendRequest?: (userId: string) => Promise<void> | void;
 }
 
 export interface ReceivedRequestProps {
@@ -64,7 +66,9 @@ export interface SentRequestProps {
 export type FriendRequestItemProps = ReceivedRequestProps | SentRequestProps;
 
 export interface FriendSuggestionItemProps {
+  userId: string;
   name: string;
   initials: string;
   mutualFriends: number;
+  onSend?: (userId: string) => Promise<void> | void;
 }
