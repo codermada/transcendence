@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { Post } from "./_components/feed-section/feed-section.types";
 import { FeedSection } from "./_components/feed-section/FeedSection";
 import { FriendSuggestion, ReceivedFriendRequest, SentFriendRequest } from "./_components/network-sidebar/network-sidebar.types";
@@ -22,7 +23,6 @@ export default function FeedPage() {
     async function fetchPosts() {
       try {
         const fetchedPosts = await postService.getAllPosts();
-
         if (isMounted) {
           setPosts(fetchedPosts);
         }
@@ -38,25 +38,22 @@ export default function FeedPage() {
     async function fetchReceivedRequests() {
       try {
         const fetchedReceivedRequests = await networkService.getAllReceivedRequests();
-        
         if (isMounted) {
           setReceivedRequests(fetchedReceivedRequests);
         }
       } catch (error) {
-        console.error("Error loading posts :", error);
+        console.error("Erreur lors de la récupération des demandes reçues :", error);
       }
     }
 
     async function fetchSentRequests() {
       try {
         const fetchedSentRequests = await networkService.getAllSentRequests();
-        
         if (isMounted) {
           setSentRequests(fetchedSentRequests);
         }
-      } catch (error: any) {
-        console.error("Error loading posts :", error);
-        throw new Error(error.message);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des demandes envoyées :", error);
       }
     }
 
@@ -64,92 +61,45 @@ export default function FeedPage() {
     fetchReceivedRequests();
     fetchSentRequests();
 
-    // if (isMounted) {
-    //     setIsLoading(false);
-    // }
-
     return () => {
       isMounted = false;
     };
   }, []);
 
-  const networkData = {
-    receivedRequests: [
-      {
-        id: '1',
-        requester: {
-          id: '1',
-          name: "John Doe",
-          initials: "JD",
-        }
-      },
-      {
-        id: '2',
-        requester: {
-          id: '2',
-          initials: "JD",
-          name: "Jane Doe",
-        }
-      },
-      {
-        id: '3',
-        requester: {
-          id: '3',
-          name: "Koto Koto",
-          initials: "KK",
-        }
-      },
-      {
-        id: '4',
-        requester: {
-          id: '4',
-          name: "Soa Kely",
-          initials: "SK",
-        }
-      },
-    ],
-    sentRequests: [
-      {
-        id: '5',
-        addressee: {
-          id: '5',
-          initials: "MK",
-          name: "Miora Karen",
-        }
-      },
-      {
-        id: '6',
-        addressee: {
-          id: '6',
-          initials: "AR",
-          name: "Alida Rak",
-        }
-      },
-      {
-        id: '7',
-        addressee: {
-          id: '7',
-          initials: "TM",
-          name: "Tsinjo Mikolo",
-        }
-      },
-      {
-        id: '8',
-        addressee: {
-          id: '8',
-          initials: "FE",
-          name: "Faniry Emmanuel",
-        }
-      },
-    ],
-    suggestions: [
-      {
-        id: '9',
-        initials: "AM",
-        name: "Antsa Mioty",
-        mutualFriends: 0
-      },
-    ],
+  const handleAcceptRequest = async (requestId: string) => {
+    try {
+      await networkService.acceptRequest(requestId);
+      setReceivedRequests((prev) => prev.filter((req) => req.id !== requestId));
+      toast.success("Demande d'ami acceptée.");
+    } catch (error) {
+      console.error("Erreur lors de l'acceptation :", error);
+      toast.error("Impossible d'accepter la demande.");
+      throw error;
+    }
+  };
+
+  const handleDeclineRequest = async (requestId: string) => {
+    try {
+      await networkService.declineRequest(requestId);
+      setReceivedRequests((prev) => prev.filter((req) => req.id !== requestId));
+      toast.success("Demande d'ami refusée.");
+    } catch (error) {
+      console.error("Erreur lors du refus :", error);
+      toast.error("Impossible de refuser la demande.");
+      throw error;
+    }
+  };
+
+  const handleCancelRequest = async (requestId: string) => {
+    try {
+      await networkService.cancelRequest(requestId);
+      setSentRequests((prev) => prev.filter((req) => req.id !== requestId));
+      toast.success("Demande d'ami annulée.");
+    } catch (error) {
+      console.error("Erreur lors de l'annulation :", error);
+      toast.error("Impossible d'annuler la demande.");
+      throw error;
+    }
   };
 
   return (
@@ -157,7 +107,6 @@ export default function FeedPage() {
       <div className="mx-auto flex h-dvh max-w-7xl flex-col px-4 py-6 sm:px-6 lg:px-8">
         <div className="grid h-full min-h-0 flex-1 grid-cols-1 gap-6 overflow-hidden lg:grid-cols-12">
           <ProfileSidebar />
-          
           {isLoading ? (
             <div className="col-span-1 flex items-center justify-center lg:col-span-6">
               <p className="animate-pulse text-zinc-500">Chargement du fil d'actualité...</p>
@@ -170,6 +119,9 @@ export default function FeedPage() {
             receivedRequests={receivedRequests}
             sentRequests={sentRequests}
             suggestions={friendSuggestions}
+            onAcceptRequest={handleAcceptRequest}
+            onDeclineRequest={handleDeclineRequest}
+            onCancelRequest={handleCancelRequest}
           />
         </div>
       </div>
