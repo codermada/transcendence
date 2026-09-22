@@ -7,6 +7,8 @@ import { authClient } from "@/lib/auth/auth-client";
 import {
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
+  ChevronDown,
   Pencil,
   Trash2,
 } from "@/components/icons";
@@ -26,6 +28,17 @@ type UsersTableProps = {
 };
 
 const USERS_PER_PAGE = 10;
+
+// ── Role helpers ────────────────────────────────────────────
+const ROLE_ORDER = ["user", "moderator", "admin"] as const;
+type Role = (typeof ROLE_ORDER)[number];
+
+function normalizeRole(role: string | null | undefined): Role {
+  const r = (role ?? "user").toLowerCase();
+  if (r === "admin") return "admin";
+  if (r === "moderator") return "moderator";
+  return "user";
+}
 
 export default function UsersTable({
   users,
@@ -52,12 +65,10 @@ export default function UsersTable({
     [users, startIndex],
   );
 
-  // ── Role toggle ──────────────────────────────────────────────
-  const handleRoleChange = async (user: User) => {
+  // ── Role change ─────────────────────────────────────────────
+  const handleRoleChange = async (user: User, newRole: Role) => {
     if (user.id === currentUserId) return;
-
-    const isAdmin = user.role === "ADMIN" || user.role === "admin";
-    const newRole = isAdmin ? "user" : "admin";
+    if (normalizeRole(user.role) === newRole) return;
 
     setUpdatingUserId(user.id);
 
@@ -74,10 +85,7 @@ export default function UsersTable({
       return;
     }
 
-    onUserUpdated({
-      ...user,
-      role: newRole === "admin" ? "ADMIN" : "USER",
-    });
+    onUserUpdated({ ...user, role: newRole });
     toast.success(t("toastRoleUpdated"));
   };
 
@@ -106,9 +114,7 @@ export default function UsersTable({
       toast.success(t("toastUpdated"));
     } catch (err) {
       console.error("Failed to update user:", err);
-      toast.error(
-        err instanceof Error ? err.message : t("errorUpdate"),
-      );
+      toast.error(err instanceof Error ? err.message : t("errorUpdate"));
     } finally {
       setUpdatingUserId(null);
     }
@@ -133,16 +139,11 @@ export default function UsersTable({
       toast.success(t("toastDeleted"));
 
       const remaining = users.length - 1;
-      const newTotalPages = Math.max(
-        1,
-        Math.ceil(remaining / USERS_PER_PAGE),
-      );
+      const newTotalPages = Math.max(1, Math.ceil(remaining / USERS_PER_PAGE));
       if (safePage > newTotalPages) setCurrentPage(newTotalPages);
     } catch (err) {
       console.error("Failed to delete user:", err);
-      toast.error(
-        err instanceof Error ? err.message : t("errorDelete"),
-      );
+      toast.error(err instanceof Error ? err.message : t("errorDelete"));
     } finally {
       setUpdatingUserId(null);
     }
@@ -184,7 +185,7 @@ export default function UsersTable({
                 <th className="min-w-[300px] border-r border-border px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider text-muted">
                   {t("colEmail")}
                 </th>
-                <th className="min-w-[140px] border-r border-border px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider text-muted">
+                <th className="min-w-[180px] border-r border-border px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider text-muted">
                   {t("colRole")}
                 </th>
                 <th className="w-24 px-4 py-2.5 text-right text-xs font-semibold uppercase tracking-wider text-muted">
@@ -196,8 +197,6 @@ export default function UsersTable({
             <tbody>
               {currentUsers.map((user, index) => {
                 const isCurrentUser = user.id === currentUserId;
-                const isAdmin =
-                  user.role === "ADMIN" || user.role === "admin";
                 const isUpdating = updatingUserId === user.id;
 
                 return (
@@ -205,9 +204,7 @@ export default function UsersTable({
                     key={user.id}
                     className={[
                       "group border-b border-border transition-colors last:border-b-0",
-                      isUpdating
-                        ? "opacity-50"
-                        : "hover:bg-surface-hover/50",
+                      isUpdating ? "opacity-50" : "hover:bg-surface-hover/50",
                     ].join(" ")}
                   >
                     <td className="border-r border-border bg-surface-hover/30 px-3 py-2.5 text-center text-xs text-muted">
@@ -242,49 +239,23 @@ export default function UsersTable({
                     </td>
 
                     <td className="border-r border-border px-4 py-2.5">
-                      <div className="flex items-center">
-                        <button
-                          type="button"
-                          role="switch"
-                          aria-checked={isAdmin}
-                          disabled={isCurrentUser || isUpdating}
-                          onClick={() => handleRoleChange(user)}
-                          title={
-                            isCurrentUser
-                              ? t("cannotChangeOwnRole")
-                              : isAdmin
-                                ? t("demoteToUser")
-                                : t("promoteToAdmin")
-                          }
-                          className={`
-                            relative inline-flex h-6 w-11 items-center
-                            rounded-full transition-colors
-                            focus:outline-none focus:ring-2 focus:ring-brand-500/20
-                            disabled:cursor-not-allowed disabled:opacity-40
-                            ${
-                              isAdmin
-                                ? "bg-brand-600 shadow-[0_0_12px_rgb(139_92_246_/_0.4)]"
-                                : "bg-border"
-                            }
-                          `}
-                        >
-                          <span
-                            className={`
-                              inline-block h-4 w-4 rounded-full bg-white
-                              transition-transform
-                              ${isAdmin ? "translate-x-6" : "translate-x-1"}
-                            `}
-                          />
-                        </button>
-
-                        <span
-                          className={`ml-2 text-xs ${
-                            isAdmin ? "text-brand-400" : "text-muted"
-                          }`}
-                        >
-                          {isAdmin ? t("roleAdmin") : t("roleUser")}
-                        </span>
-                      </div>
+                      <RoleSwitcher
+                        role={normalizeRole(user.role)}
+                        disabled={isCurrentUser || isUpdating}
+                        disabledReason={
+                          isCurrentUser ? t("cannotChangeOwnRole") : undefined
+                        }
+                        onChange={(next) => handleRoleChange(user, next)}
+                        labels={{
+                          user: t("roleUser"),
+                          moderator: t("roleModerator"),
+                          admin: t("roleAdmin"),
+                        }}
+                        titles={{
+                          up: t("promoteRole"),
+                          down: t("demoteRole"),
+                        }}
+                      />
                     </td>
 
                     <td className="px-4 py-2.5">
@@ -443,6 +414,84 @@ export default function UsersTable({
 }
 
 // ============================================================
+// RoleSwitcher — up/down buttons to cycle through roles
+// ============================================================
+
+function RoleSwitcher({
+  role,
+  disabled,
+  disabledReason,
+  onChange,
+  labels,
+  titles,
+}: {
+  role: Role;
+  disabled?: boolean;
+  disabledReason?: string;
+  onChange: (next: Role) => void;
+  labels: Record<Role, string>;
+  titles: { up: string; down: string };
+}) {
+  const index = ROLE_ORDER.indexOf(role);
+  const canGoUp = index < ROLE_ORDER.length - 1;
+  const canGoDown = index > 0;
+
+  const colorClasses =
+    role === "admin"
+      ? "border-brand-500/40 text-brand-400"
+      : role === "moderator"
+        ? "border-amber-500/40 text-amber-400"
+        : "border-border text-muted";
+
+  return (
+    <div
+      className={`
+        inline-flex items-center overflow-hidden rounded-lg border
+        bg-background ${colorClasses}
+        ${disabled ? "opacity-40" : ""}
+      `}
+      title={disabled ? disabledReason : undefined}
+    >
+      <span className="min-w-[86px] px-2.5 py-1.5 text-xs font-medium">
+        {labels[role]}
+      </span>
+
+      <div className="flex h-full flex-col border-l border-border">
+        <button
+          type="button"
+          disabled={disabled || !canGoUp}
+          onClick={() => canGoUp && onChange(ROLE_ORDER[index + 1])}
+          title={titles.up}
+          aria-label={titles.up}
+          className="
+            flex h-4 w-6 items-center justify-center text-muted
+            transition-colors hover:bg-surface-hover hover:text-foreground
+            disabled:cursor-not-allowed disabled:opacity-30
+          "
+        >
+          <ChevronUp className="h-3 w-3" />
+        </button>
+        <button
+          type="button"
+          disabled={disabled || !canGoDown}
+          onClick={() => canGoDown && onChange(ROLE_ORDER[index - 1])}
+          title={titles.down}
+          aria-label={titles.down}
+          className="
+            flex h-4 w-6 items-center justify-center border-t border-border
+            text-muted transition-colors
+            hover:bg-surface-hover hover:text-foreground
+            disabled:cursor-not-allowed disabled:opacity-30
+          "
+        >
+          <ChevronDown className="h-3 w-3" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
 // Modals
 // ============================================================
 
@@ -532,9 +581,7 @@ function UserEditModal({
           <button
             type="button"
             disabled={!dirty || !valid || isBusy}
-            onClick={() =>
-              onSave({ name: name.trim(), email: email.trim() })
-            }
+            onClick={() => onSave({ name: name.trim(), email: email.trim() })}
             className="
               rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white
               transition-colors hover:bg-brand-500
