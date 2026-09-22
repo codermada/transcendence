@@ -13,6 +13,7 @@ import { UserModule } from './user/user.module';
 import { PostLikeModule } from './post-like/post-like.module.js';
 import { PostModule } from './post/post.module';
 import { PresenceModule } from './presence/presence.module.js';
+import { PostCommentModule } from './post-comment/post-comment.module';
 
 @Module({
 	imports: [
@@ -25,6 +26,7 @@ import { PresenceModule } from './presence/presence.module.js';
 		PresenceModule,
 		PostModule,
 		PostLikeModule,
+		PostCommentModule,
 	],
 	controllers: [AppController, AuthController],
 	providers: [AppService],
