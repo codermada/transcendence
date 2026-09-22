@@ -1,0 +1,120 @@
+diff --git a/srcs/backend/src/auth/auth.ts b/srcs/backend/src/auth/auth.ts
+index ea14bcf..a4459ee 100644
+--- a/srcs/backend/src/auth/auth.ts
++++ b/srcs/backend/src/auth/auth.ts
+@@ -1,3 +1,4 @@
++import 'dotenv/config';
+ import { betterAuth } from "better-auth";
+ import { prismaAdapter } from "better-auth/adapters/prisma";
+ import { PrismaClient } from "@prisma/client";
+@@ -18,7 +19,7 @@ const DEFAULT_AVATAR = "/nest/uploads/default-avatar.png";
+ 
+ export const auth = betterAuth({
+   appName: "ft_transcendence",
+-  baseURL: process.env.BETTER_AUTH_URL ?? "https://localhost:3000",
++  baseURL: process.env.BETTER_AUTH_URL ?? "http://localhost:3000",
+   basePath: "/auth",
+ 
+   database: prismaAdapter(prisma, {
+@@ -38,6 +39,9 @@ export const auth = betterAuth({
+ 
+   trustedOrigins: [
+     "https://localhost:9000",
++    "http://localhost:3000",
++    "http://localhost:3001",
++    ...(process.env.UI_URL ? [process.env.UI_URL] : []),
+   ],
+ 
+   databaseHooks: {
+diff --git a/srcs/backend/src/main.ts b/srcs/backend/src/main.ts
+index b4155ac..8b2878a 100644
+--- a/srcs/backend/src/main.ts
++++ b/srcs/backend/src/main.ts
+@@ -1,3 +1,4 @@
++import 'dotenv/config';
+ import { NestFactory } from '@nestjs/core';
+ import { NestExpressApplication } from '@nestjs/platform-express';
+ import { AppModule } from './app.module.js';
+diff --git a/srcs/frontend/lib/auth/auth-client.ts b/srcs/frontend/lib/auth/auth-client.ts
+index c16db40..5fcce08 100644
+--- a/srcs/frontend/lib/auth/auth-client.ts
++++ b/srcs/frontend/lib/auth/auth-client.ts
+@@ -2,8 +2,15 @@ import { createAuthClient } from "better-auth/react";
+ import { apiKeyClient } from "@better-auth/api-key/client";
+ import { twoFactorClient, adminClient } from "better-auth/client/plugins";
+ 
++const getBaseURL = () => {
++  if (typeof window !== "undefined") {
++    return `${window.location.origin}/nest/auth`;
++  }
++  return `${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000"}/auth`;
++};
++
+ export const authClient = createAuthClient({
+-  baseURL: "https://localhost:9000/nest/auth",
++  baseURL: getBaseURL(),
+   fetchOptions: {
+     credentials: "include",
+   },
+diff --git a/srcs/frontend/lib/socket/socket-client.ts b/srcs/frontend/lib/socket/socket-client.ts
+index 080ddd8..1ed83bf 100644
+--- a/srcs/frontend/lib/socket/socket-client.ts
++++ b/srcs/frontend/lib/socket/socket-client.ts
+@@ -8,9 +8,11 @@ export const getSocketBaseUrl = (): string => {
+     return process.env.NEXT_PUBLIC_WS_URL;
+   }
+   if (typeof window !== "undefined") {
+-    return window.location.origin;
++    const { hostname, protocol } = window.location;
++    const wsProto = protocol === "https:" ? "https:" : "http:";
++    return `${wsProto}//${hostname}:3000`;
+   }
+-  return "https://localhost:9000";
++  return "http://localhost:3000";
+ };
+ 
+ // Global cache of Socket.io client instances keyed by namespace
+@@ -34,10 +36,9 @@ export function getNamespaceSocket(namespace: string): Socket {
+   const socketUrl = `${baseUrl}${normalizedNamespace}`;
+ 
+   const socket = io(socketUrl, {
+-    path: "/nest/socket.io",
+     withCredentials: true,
+     autoConnect: false, // Explicit connection managed by providers/hooks
+-    transports: ["polling", "websocket"],
++    transports: ["websocket", "polling"],
+     reconnection: true,
+     reconnectionAttempts: 10,
+     reconnectionDelay: 1000,
+diff --git a/srcs/frontend/next.config.ts b/srcs/frontend/next.config.ts
+index 2abcfdf..5e30d91 100644
+--- a/srcs/frontend/next.config.ts
++++ b/srcs/frontend/next.config.ts
+@@ -3,6 +3,15 @@ import createNextIntlPlugin from "next-intl/plugin";
+ 
+ const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
+ 
+-const nextConfig: NextConfig = {};
++const nextConfig: NextConfig = {
++  async rewrites() {
++    return [
++      {
++        source: "/nest/:path*",
++        destination: `${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000"}/:path*`,
++      },
++    ];
++  },
++};
+ 
+ export default withNextIntl(nextConfig);
+diff --git a/srcs/frontend/proxy.ts b/srcs/frontend/proxy.ts
+index 0b40b5c..b2e1d78 100644
+--- a/srcs/frontend/proxy.ts
++++ b/srcs/frontend/proxy.ts
+@@ -4,5 +4,5 @@ import { routing } from './i18n/routing';
+ export default createIntlMiddleware(routing);
+ 
+ export const config = {
+-	matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
++	matcher: ['/((?!api|nest|_next|_vercel|.*\\..*).*)'],
+ };
