@@ -11,17 +11,6 @@ export default function FeedPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const currentUser = {
-    name: "Alex User",
-    username: "alex_hb",
-    initials: "HB",
-    stats: {
-      friendsCount: 0,
-      postsCount: 0,
-      reactionsCount: 0,
-    },
-  };
-
   useEffect(() => {
     let isMounted = true;
 
@@ -58,7 +47,7 @@ export default function FeedPage() {
     <main className="h-dvh w-full overflow-hidden bg-zinc-50 text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-white">
       <div className="mx-auto flex h-dvh max-w-7xl flex-col px-4 py-6 sm:px-6 lg:px-8">
         <div className="grid h-full min-h-0 flex-1 grid-cols-1 gap-6 overflow-hidden lg:grid-cols-12">
-          <ProfileSidebar user={currentUser} />
+          <ProfileSidebar />
           
           {isLoading ? (
             <div className="col-span-1 flex items-center justify-center lg:col-span-6">

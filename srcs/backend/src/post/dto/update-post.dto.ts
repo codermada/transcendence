@@ -1,4 +1,3 @@
-// src/posts/dto/update-post.dto.ts
 import { Transform } from 'class-transformer';
 import { IsArray, IsOptional, IsString } from 'class-validator';
 

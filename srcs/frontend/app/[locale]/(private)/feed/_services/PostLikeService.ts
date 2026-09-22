@@ -3,7 +3,7 @@ export interface ToggleLikeResponse {
   likesCount: number;
 }
 
-const API_URL = process.env.NEXT_PUBLIC_NEST_URL || "http://localhost:4000";
+const API_URL = "/nest";
 
 export const postLikeService = {
   async toggleLike(postId: string): Promise<ToggleLikeResponse> {

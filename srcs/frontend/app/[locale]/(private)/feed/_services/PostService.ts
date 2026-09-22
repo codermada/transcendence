@@ -11,7 +11,13 @@ export interface UpdatePostDto {
   newFiles?: File[];
 }
 
-const API_URL = process.env.NEXT_PUBLIC_NEST_URL || "http://localhost:4000";
+export interface UpdatePostDto {
+  content: string;
+  keptMediaUrls?: string[];
+  newFiles?: File[];
+}
+
+const API_URL = "/nest";
 
 export const postService = {
   async getAllPosts(): Promise<Post[]> {

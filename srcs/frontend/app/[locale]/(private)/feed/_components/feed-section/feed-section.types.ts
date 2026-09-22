@@ -14,6 +14,7 @@ export interface Post {
   createdAt: string;
   content: string;
   mediaUrls: string[];
+  postCount: number;
   likesCount: number;
   commentsCount: number;
   isOwner: boolean;
