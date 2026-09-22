@@ -3,12 +3,17 @@
 import { useEffect, useState } from "react";
 import { Post } from "./_components/feed-section/feed-section.types";
 import { FeedSection } from "./_components/feed-section/FeedSection";
+import { FriendSuggestion, ReceivedFriendRequest, SentFriendRequest } from "./_components/network-sidebar/network-sidebar.types";
 import { NetworkSidebar } from "./_components/network-sidebar/NetworkSidebar";
 import { ProfileSidebar } from "./_components/profile-sidebar/ProfileSidebar";
+import { networkService } from "./_services/feed/network/NetworkService";
 import { postService } from "./_services/PostService";
 
 export default function FeedPage() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [receivedRequests, setReceivedRequests] = useState<ReceivedFriendRequest[]>([]);
+  const [sentRequests, setSentRequests] = useState<SentFriendRequest[]>([]);
+  const [friendSuggestions, setFriendSuggestions] = useState<FriendSuggestion[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -17,7 +22,7 @@ export default function FeedPage() {
     async function fetchPosts() {
       try {
         const fetchedPosts = await postService.getAllPosts();
-        
+
         if (isMounted) {
           setPosts(fetchedPosts);
         }
@@ -30,7 +35,38 @@ export default function FeedPage() {
       }
     }
 
+    async function fetchReceivedRequests() {
+      try {
+        const fetchedReceivedRequests = await networkService.getAllReceivedRequests();
+        
+        if (isMounted) {
+          setReceivedRequests(fetchedReceivedRequests);
+        }
+      } catch (error) {
+        console.error("Erreur de chargement des posts :", error);
+      }
+    }
+
+    async function fetchSentRequests() {
+      try {
+        const fetchedSentRequests = await networkService.getAllSentRequests();
+        
+        if (isMounted) {
+          setSentRequests(fetchedSentRequests);
+        }
+      } catch (error: any) {
+        console.error("Erreur de chargement des posts :", error);
+        throw new Error(error.message);
+      }
+    }
+
     fetchPosts();
+    fetchReceivedRequests();
+    fetchSentRequests();
+
+    // if (isMounted) {
+    //     setIsLoading(false);
+    // }
 
     return () => {
       isMounted = false;
@@ -38,9 +74,82 @@ export default function FeedPage() {
   }, []);
 
   const networkData = {
-    receivedRequests: [],
-    sentRequests: [],
-    suggestions: [],
+    receivedRequests: [
+      {
+        id: '1',
+        requester: {
+          id: '1',
+          name: "John Doe",
+          initials: "JD",
+        }
+      },
+      {
+        id: '2',
+        requester: {
+          id: '2',
+          initials: "JD",
+          name: "Jane Doe",
+        }
+      },
+      {
+        id: '3',
+        requester: {
+          id: '3',
+          name: "Koto Koto",
+          initials: "KK",
+        }
+      },
+      {
+        id: '4',
+        requester: {
+          id: '4',
+          name: "Soa Kely",
+          initials: "SK",
+        }
+      },
+    ],
+    sentRequests: [
+      {
+        id: '5',
+        addressee: {
+          id: '5',
+          initials: "MK",
+          name: "Miora Karen",
+        }
+      },
+      {
+        id: '6',
+        addressee: {
+          id: '6',
+          initials: "AR",
+          name: "Alida Rak",
+        }
+      },
+      {
+        id: '7',
+        addressee: {
+          id: '7',
+          initials: "TM",
+          name: "Tsinjo Mikolo",
+        }
+      },
+      {
+        id: '8',
+        addressee: {
+          id: '8',
+          initials: "FE",
+          name: "Faniry Emmanuel",
+        }
+      },
+    ],
+    suggestions: [
+      {
+        id: '9',
+        initials: "AM",
+        name: "Antsa Mioty",
+        mutualFriends: 0
+      },
+    ],
   };
 
   return (
@@ -58,9 +167,9 @@ export default function FeedPage() {
           )}
 
           <NetworkSidebar
-            receivedRequests={networkData.receivedRequests}
-            sentRequests={networkData.sentRequests}
-            suggestions={networkData.suggestions}
+            receivedRequests={receivedRequests}
+            sentRequests={sentRequests}
+            suggestions={friendSuggestions}
           />
         </div>
       </div>
