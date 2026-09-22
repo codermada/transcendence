@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { useSession } from "@/lib/auth/use-session";
 import { usePresence } from "@/hooks/use-presence";
-import { useChatStore } from "@/stores/use-chat-store";
+import { useChatStore, Message } from "@/stores/use-chat-store";
 import { useConversationSocket } from "@/hooks/use-chat-socket";
 import { ArrowLeft, Check, CheckCheck, Loader2, MessageSquare, Send } from "@/components/icons";
 
@@ -17,9 +17,13 @@ interface Participant {
 
 interface ConversationItem {
   id: string;
-  participant: Participant | null;
-  unreadCount: number;
-  updatedAt: string;
+  participant?: Participant | null;
+  user1?: Participant | null;
+  user2?: Participant | null;
+  user1Id?: string;
+  user2Id?: string;
+  unreadCount?: number;
+  updatedAt?: string;
 }
 
 interface ConversationClientProps {
@@ -32,7 +36,7 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
   const { data: session } = useSession();
   const { checkIsOnline } = usePresence();
 
-  const { sendSeen } = useConversationSocket(conversationId);
+  useConversationSocket(conversationId);
 
   const activeMessages = useChatStore((state) => state.activeMessages);
   const setActiveMessages = useChatStore((state) => state.setActiveMessages);
@@ -46,12 +50,29 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
   const [isSending, setIsSending] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const lastMarkedMsgIdRef = useRef<string | null>(null);
+
   const currentUserId = session?.user?.id;
 
-  const scrollToBottom = useCallback(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  const scrollToBottom = useCallback((smooth = true) => {
+    messagesEndRef.current?.scrollIntoView({ behavior: smooth ? "smooth" : "auto" });
   }, []);
 
+  // Mark conversation as seen strictly via REST API
+  const markAsSeen = useCallback(async () => {
+    if (!conversationId) return;
+    try {
+      await fetch(`/nest/chat/conversations/${conversationId}/seen`, {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (err) {
+      console.error("Failed to mark conversation as seen via REST:", err);
+    }
+  }, [conversationId]);
+
+  // Set active conversation in store for global tracking
   useEffect(() => {
     setActiveConversationId(conversationId);
     return () => {
@@ -59,7 +80,7 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
     };
   }, [conversationId, setActiveConversationId]);
 
-  // Load conversation participant & message history
+  // Load conversation details & message history
   useEffect(() => {
     let cancelled = false;
 
@@ -68,45 +89,56 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
       setError(null);
 
       try {
-        // 1. Fetch conversations list to identify the participant
-        const convsRes = await fetch("/nest/chat/conversations", {
-          credentials: "include",
-        });
+        // Fetch conversation details and messages in parallel
+        const [currentConvRes, msgRes] = await Promise.all([
+          fetch(`/nest/chat/conversations/${conversationId}`, {
+            credentials: "include",
+          }),
+          fetch(`/nest/chat/conversations/${conversationId}/messages?limit=50`, {
+            credentials: "include",
+          }),
+        ]);
 
-        if (!convsRes.ok) throw new Error("Failed to load conversation details");
-        const convs: ConversationItem[] = await convsRes.json();
-        const currentConv = convs.find((c) => c.id === conversationId);
+        if (!currentConvRes.ok) {
+          throw new Error("Failed to load conversation details");
+        }
+        const currentConv: ConversationItem = await currentConvRes.json();
 
-        if (!cancelled && currentConv) {
-          setParticipant(currentConv.participant);
+        let resolvedParticipant: Participant | null = currentConv.participant ?? null;
+        if (!resolvedParticipant && currentConv.user1 && currentConv.user2) {
+          resolvedParticipant =
+            currentConv.user1.id === currentUserId ? currentConv.user2 : currentConv.user1;
         }
 
-        // 2. Fetch messages for this conversation
-        const msgRes = await fetch(`/nest/chat/conversations/${conversationId}/messages?limit=50`, {
-          credentials: "include",
-        });
+        let rawMessages: Message[] = [];
+        if (msgRes.ok) {
+          const msgData = await msgRes.json();
+          rawMessages = msgData.messages || [];
+        }
 
-        if (!msgRes.ok) throw new Error("Failed to load messages");
-        const msgData = await msgRes.json();
+        // Fallback: extract participant from messages if not yet resolved
+        if (!resolvedParticipant && currentUserId && rawMessages.length > 0) {
+          const otherMsg = rawMessages.find((m) => m.senderId !== currentUserId);
+          if (otherMsg?.sender) {
+            resolvedParticipant = otherMsg.sender;
+          }
+        }
 
         if (!cancelled) {
+          if (resolvedParticipant) {
+            setParticipant(resolvedParticipant);
+          }
           // Backend returns newest first (desc), reverse for chronological display
-          const rawMessages = msgData.messages || [];
           setActiveMessages([...rawMessages].reverse());
+          setLoading(false);
+          setTimeout(() => scrollToBottom(false), 50);
         }
 
-        // 3. Mark conversation as seen via REST and WebSocket
-        sendSeen();
-        await fetch(`/nest/chat/conversations/${conversationId}/seen`, {
-          method: "POST",
-          credentials: "include",
-        });
+        // Mark conversation as seen via REST
+        await markAsSeen();
       } catch (err: unknown) {
         if (!cancelled) {
           setError((err as Error).message || t("loadError"));
-        }
-      } finally {
-        if (!cancelled) {
           setLoading(false);
         }
       }
@@ -117,28 +149,36 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
     return () => {
       cancelled = true;
     };
-  }, [conversationId, sendSeen, setActiveMessages]);
+  }, [conversationId, currentUserId, markAsSeen, scrollToBottom, setActiveMessages, t]);
 
-  // Auto-scroll to bottom when messages change
+  // Auto-scroll to bottom on message count update
   useEffect(() => {
-    scrollToBottom();
-  }, [activeMessages, scrollToBottom]);
+    if (!loading && activeMessages.length > 0) {
+      scrollToBottom(true);
+    }
+  }, [activeMessages.length, loading, scrollToBottom]);
 
-  // Send seen notification when a new message arrives from the other participant
+  // Send seen notification
   useEffect(() => {
     if (!currentUserId || activeMessages.length === 0) return;
+
     const lastMsg = activeMessages[activeMessages.length - 1];
-    if (lastMsg.senderId !== currentUserId) {
-      sendSeen();
+    if (
+      lastMsg.senderId !== currentUserId &&
+      !lastMsg.isSeen &&
+      lastMarkedMsgIdRef.current !== lastMsg.id
+    ) {
+      lastMarkedMsgIdRef.current = lastMsg.id;
+      markAsSeen();
     }
-  }, [activeMessages, currentUserId, sendSeen]);
+  }, [activeMessages, currentUserId, markAsSeen]);
 
   const isParticipantOnline = participant ? checkIsOnline(participant.id) : false;
 
   async function handleSendMessage() {
-    if (!inputValue.trim() || !participant || isSending) return;
-
     const content = inputValue.trim();
+    if (!content || !participant || isSending) return;
+
     setInputValue("");
     setIsSending(true);
 
@@ -161,12 +201,14 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
 
       const createdMessage = await res.json();
       addActiveMessage(createdMessage);
+      scrollToBottom(true);
     } catch (err) {
-      console.error(err);
+      console.error("Failed to send message:", err);
       // Restore input on failure
       setInputValue(content);
     } finally {
       setIsSending(false);
+      inputRef.current?.focus();
     }
   }
 
@@ -178,13 +220,14 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
   }
 
   const displayName = participant?.name || tNav("user");
-  const initials = displayName
-    .split(" ")
-    .map((n) => n[0])
-    .filter(Boolean)
-    .slice(0, 2)
-    .join("")
-    .toUpperCase() || "U";
+  const initials =
+    displayName
+      .split(" ")
+      .map((n) => n[0])
+      .filter(Boolean)
+      .slice(0, 2)
+      .join("")
+      .toUpperCase() || "U";
 
   return (
     <div className="mx-auto flex h-[calc(100vh-4rem)] max-w-4xl flex-col p-3 sm:p-6">
@@ -230,7 +273,7 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
       </div>
 
       {/* Messages Feed */}
-      <div className="flex-1 overflow-y-auto py-4 space-y-3">
+      <div className="flex-1 overflow-y-auto py-4 space-y-3" aria-live="polite">
         {loading && (
           <div className="flex h-full items-center justify-center text-zinc-500">
             <Loader2 className="h-6 w-6 animate-spin" />
@@ -300,6 +343,7 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
               </div>
             );
           })}
+
         <div ref={messagesEndRef} />
       </div>
 
@@ -307,6 +351,7 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
       <div className="border-t border-zinc-200/80 pt-3 dark:border-zinc-800">
         <div className="flex items-center gap-2">
           <input
+            ref={inputRef}
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
@@ -318,7 +363,7 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
           <button
             type="button"
             onClick={handleSendMessage}
-            disabled={!inputValue.trim() || isSending || loading}
+            disabled={!inputValue.trim() || isSending || loading || !participant}
             aria-label={t("sendMessage")}
             className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-600 text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
           >
