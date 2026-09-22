@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { useSession } from "@/lib/auth/use-session";
 import { getNamespaceSocket } from "@/lib/socket/socket-client";
 import { useChatStore, Message } from "@/stores/use-chat-store";
@@ -90,16 +90,4 @@ export function useConversationSocket(conversationId: string) {
       }
     };
   }, [socket, conversationId]);
-
-  // Send seen receipt via WebSocket
-  const sendSeen = useCallback(() => {
-    if (!conversationId) return;
-    if (socket.connected) {
-      socket.emit("seen", { conversationId });
-    }
-  }, [socket, conversationId]);
-
-  return {
-    sendSeen,
-  };
 }
