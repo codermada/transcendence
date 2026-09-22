@@ -36,8 +36,8 @@ export function FriendRequestsCard({
                   <FriendRequestItem
                     key={req.id}
                     type="received"
-                    name={req.name}
-                    initials={req.initials}
+                    name={req.requester.name}
+                    initials={req.requester.initials}
                   />
                 ))}
               </ul>
@@ -54,8 +54,8 @@ export function FriendRequestsCard({
                   <FriendRequestItem
                     key={req.id}
                     type="sent"
-                    name={req.name}
-                    initials={req.initials}
+                    name={req.addressee.name}
+                    initials={req.addressee.initials}
                   />
                 ))}
               </ul>
