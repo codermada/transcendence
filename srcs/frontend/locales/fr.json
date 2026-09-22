@@ -191,6 +191,7 @@
       "FriendSuggestionItem": {
         "mutualFriend": "ami en commun",
         "mutualFriends": "amis en commun",
+        "requestedButton": "Envoyée",
         "addButton": "Ajouter"
       },
       "FriendSuggestionsCard": {
