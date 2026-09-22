@@ -37,7 +37,7 @@ export const networkService = {
     return response.json();
   },
 
-  async getAllFriendSuggestions(): Promise<FriendSuggestion[]> {
+  async getFriendSuggestions(): Promise<FriendSuggestion[]> {
     const response = await fetch(`${API_URL}/feed-friends/suggestions`, {
       method: "GET",
       headers: {
@@ -97,5 +97,23 @@ export const networkService = {
       const errorData = await response.json().catch(() => ({}));
       throw new Error(errorData.message || "Impossible d'annuler la demande");
     }
+  },
+
+  async sendFriendRequest(addresseeId: string): Promise<SentFriendRequest> {
+    const response = await fetch(`${API_URL}/feed-friends/send`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ addresseeId }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || "Impossible d'envoyer la demande d'ami");
+    }
+
+    return response.json();
   },
 };
