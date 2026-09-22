@@ -19,7 +19,7 @@ export function FriendSuggestionItem({
             {name}
           </p>
           <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
-            {mutualFriends} {mutualFriends > 1 ? t("mutualFriends") : t("mutualFriend")}
+            {mutualFriends} {mutualFriends != 1 ? t("mutualFriends") : t("mutualFriend")}
           </span>
         </div>
       </div>
