@@ -1,5 +1,5 @@
 import { Logger, UsePipes, ValidationPipe } from '@nestjs/common';
-import { OnGatewayConnection, OnGatewayDisconnect, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
+import { ConnectedSocket, MessageBody, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { auth } from '../auth/auth';
 
@@ -39,5 +39,40 @@ export class ChatGateway implements OnGatewayConnection<Socket>, OnGatewayDiscon
 		}
 	}
 
-	async handleDisconnect(client: Socket) {}
+	async handleDisconnect(client: Socket) {
+		this.logger.log(`Client disconnected: ${client.id}`);
+	}
+
+	@SubscribeMessage('join_conversation')
+	handleJoinConversation(@ConnectedSocket() client: Socket, @MessageBody() payload: { conversationId: string }) {
+		if (!payload.conversationId) {
+			this.logger.error(`Invalid conversation ID for client: ${client.id}`);
+			return;
+		}
+		client.join(`conversation:${payload.conversationId}`);
+		return { status: 'joined', conversationId: payload.conversationId };
+	}
+
+	@SubscribeMessage('quit_conversation')
+	handleQuitConversation(@ConnectedSocket() client: Socket, @MessageBody() payload: { conversationId: string }) {
+		if (!payload.conversationId) {
+			this.logger.error(`Invalid conversation ID for client: ${client.id}`);
+			return;
+		}
+		client.leave(`conversation:${payload.conversationId}`);
+		return { status: 'left', conversationId: payload.conversationId };
+	}
+
+	broadcastNewMessage(message: any) {
+		if (this.server) {
+			this.server.to(`user:${message.receiverId}`).emit('new_message', message);
+			this.server.to(`conversation:${message.messageTableId}`).emit('new_message', message);
+		}
+	}
+
+	broadcastSeen(conversationId: string, seenByUserId: string, seenAt: Date) {
+		if (this.server) {
+			this.server.to(`conversation:${conversationId}`).emit('message_seen', { conversationId, seenByUserId, seenAt })
+		}
+	}
 }

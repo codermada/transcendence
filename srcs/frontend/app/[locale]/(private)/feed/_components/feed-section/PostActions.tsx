@@ -56,6 +56,55 @@ export function PostActions({
     }
   };
 
+export function PostActions({
+  postId,
+  likesCount: initialLikesCount,
+  commentsCount,
+  isLiked: initialIsLiked = false,
+  onToggleLike,
+}: PostActionsProps) {
+  const [isLiked, setIsLiked] = useState(initialIsLiked);
+  const [likesCount, setLikesCount] = useState(initialLikesCount);
+  const [isPending, setIsPending] = useState(false);
+
+  useEffect(() => {
+    setIsLiked(initialIsLiked);
+  }, [initialIsLiked]);
+
+  useEffect(() => {
+    setLikesCount(initialLikesCount);
+  }, [initialLikesCount]);
+
+  const handleLikeClick = async () => {
+    if (isPending) return;
+
+    const previousIsLiked = isLiked;
+    const previousLikesCount = likesCount;
+
+    const nextIsLiked = !isLiked;
+    const nextLikesCount = nextIsLiked ? likesCount + 1 : Math.max(0, likesCount - 1);
+
+    setIsLiked(nextIsLiked);
+    setLikesCount(nextLikesCount);
+    setIsPending(true);
+
+    try {
+      if (onToggleLike) {
+        await onToggleLike(postId);
+      } else {
+        const res = await postLikeService.toggleLike(postId);
+        setIsLiked(res.liked);
+        setLikesCount(res.likesCount);
+      }
+    } catch (error) {
+      setIsLiked(previousIsLiked);
+      setLikesCount(previousLikesCount);
+      toast.error("Impossible de mettre à jour la réaction.");
+    } finally {
+      setIsPending(false);
+    }
+  };
+
   return (
     <>
     <div className="flex items-center gap-6 border-t border-zinc-100 pt-3 text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
