@@ -8,3 +8,6 @@ tmp.txt
 # Local patches and guides
 run_app_host.patch
 docs/guides/
+
+# Ignore srcs/backend/tsconfig.build.tsbuildinfo
+srcs/backend/tsconfig.build.tsbuildinfo
