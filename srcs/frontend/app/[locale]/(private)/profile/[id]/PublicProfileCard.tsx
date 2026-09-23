@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { getInitials } from "@/lib/utils/user-utils";
 
 // ─────────────────────────────────────────────────────────────
 // Types
@@ -35,6 +36,7 @@ type Friendship = {
   requesterId: string;
   addresseeId: string;
   blockedById: string | null;
+  acceptedAt: string | null;
   requester: { id: string; name: string | null; pseudo: string | null; image: string | null };
   addressee: { id: string; name: string | null; pseudo: string | null; image: string | null };
 };
@@ -231,6 +233,7 @@ export function PublicProfileCard({
         setFriendship({
           id: "optimistic",
           status: "PENDING",
+          acceptedAt: null,
           requesterId: viewerId,
           addresseeId: userId,
           blockedById: null,
@@ -492,7 +495,7 @@ function FriendActions({
     );
   }
 
-  if (friendship.status === "PENDING" && friendship.requesterId === currentUserId) {
+  if (!friendship.acceptedAt && friendship.requesterId === currentUserId) {
     return (
       <button type="button" onClick={onCancel} disabled={busy} className={`${secondary} shrink-0`}>
         {pendingAction === "cancel" ? t("actions.cancelling") : t("actions.cancelRequest")}
@@ -571,15 +574,6 @@ function MetaRow({ label, value, mono }: { label: string; value: string; mono?: 
       </dd>
     </div>
   );
-}
-
-function getInitials(name: string) {
-  return name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((p) => p[0]?.toUpperCase() ?? "")
-    .join("");
 }
 
 function formatDate(iso: string) {

@@ -73,15 +73,34 @@
     },
     "forgotPassword": {
       "title": "Restablecer contraseña",
-      "subtitle": "Introduce tu correo para recibir un enlace de recuperación",
+      "subtitle": "Introduce tu correo electrónico para recibir un enlace de restablecimiento",
       "emailLabel": "Correo electrónico",
       "emailPlaceholder": "tu@ejemplo.com",
       "submit": "Enviar enlace",
       "submitting": "Enviando enlace...",
       "rememberPassword": "¿Recuerdas tu contraseña?",
       "signInLink": "Iniciar sesión",
-      "successMessage": "Si existe una cuenta con este correo, recibirás un enlace de recuperación pronto.",
-      "errorMessage": "No se pudo enviar el enlace de recuperación. Inténtalo más tarde."
+      "successMessage": "Si existe una cuenta con este correo, recibirás un enlace de restablecimiento en breve.",
+      "errorMessage": "No se pudo enviar el enlace de restablecimiento. Inténtalo de nuevo más tarde."
+    },
+    "resetPassword": {
+      "title": "Restablecer contraseña",
+      "subtitle": "Introduce tu nueva contraseña a continuación.",
+      "passwordLabel": "Nueva contraseña",
+      "passwordPlaceholder": "Introduce una nueva contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "confirmPasswordPlaceholder": "Confirma tu nueva contraseña",
+      "submit": "Restablecer contraseña",
+      "submitting": "Restableciendo...",
+      "rememberPassword": "¿Recuerdas tu contraseña?",
+      "signInLink": "Iniciar sesión",
+      "invalidLink": "Este enlace de restablecimiento no es válido o le falta un token.",
+      "requestNewLink": "Solicitar un nuevo enlace",
+      "successMessage": "Tu contraseña se ha restablecido correctamente.",
+      "errorMissingToken": "Token de restablecimiento inválido o ausente.",
+      "errorPasswordMismatch": "Las contraseñas no coinciden.",
+      "errorPasswordTooShort": "La contraseña debe tener al menos 8 caracteres.",
+      "errorDefault": "No se pudo restablecer tu contraseña."
     },
     "validation": {
       "emailRequired": "El correo electrónico es obligatorio",
@@ -122,7 +141,9 @@
       "FeedSection": {
         "emptyTitle": "No hay publicaciones aún",
         "emptyDescription": "Sé el primero en publicar algo o añade amigos para ver sus novedades.",
-        "defaultTimeAgo": "Hace un momento"
+        "defaultTimeAgo": "Hace un momento",
+        "deleteSuccess": "Publicación eliminada",
+        "deleteError": "No se pudo eliminar la publicación"
       },
       "MediaModal": {
 
@@ -170,6 +191,7 @@
       "FriendSuggestionItem": {
         "mutualFriend": "amigo en común",
         "mutualFriends": "amigos en común",
+        "requestedButton": "Enviada",
         "addButton": "Añadir"
       },
       "FriendSuggestionsCard": {
@@ -215,7 +237,25 @@
     "subtitle": "Mensajes directos y canales grupales.",
     "emptyTitle": "Tus mensajes",
     "emptyDescription": "Selecciona una conversación o inicia un nuevo chat con un amigo.",
-    "newMessage": "Nuevo mensaje"
+    "newMessage": "Nuevo mensaje",
+    "message": "Mensaje",
+    "sendMessage": "Enviar",
+    "cancel": "Cancelar",
+    "typeMessagePlaceholder": "Escribe un mensaje…",
+    "startConversationWith": "Enviar un mensaje a",
+    "newMessageTitle": "Nueva conversación",
+    "sending": "Enviando…",
+    "backToMessages": "Volver a mensajes",
+    "conversationWith": "Conversación con",
+    "noMessagesYet": "Aún no hay mensajes.",
+    "sayHello": "¡Saluda para comenzar la conversación!",
+    "sendError": "Error al enviar el mensaje. Inténtalo de nuevo.",
+    "online": "En línea",
+    "offline": "Desconectado",
+    "seen": "Visto",
+    "sent": "Enviado",
+    "close": "Cerrar",
+    "loadError": "No se pudo cargar la conversación."
   },
   "Settings": {
     "nav": {
@@ -265,7 +305,22 @@
       "comingSoon": "Próximamente",
       "password": {
         "title": "Contraseña",
-        "description": "Cambia la contraseña de tu cuenta."
+        "description": "Cambia la contraseña de tu cuenta.",
+        "subtitle": "Actualiza la contraseña de tu cuenta a continuación.",
+        "back": "Volver a seguridad",
+        "currentPasswordLabel": "Contraseña actual",
+        "currentPasswordPlaceholder": "Introduce tu contraseña actual",
+        "newPasswordLabel": "Nueva contraseña",
+        "newPasswordPlaceholder": "Introduce una nueva contraseña",
+        "confirmPasswordLabel": "Confirmar nueva contraseña",
+        "confirmPasswordPlaceholder": "Confirma tu nueva contraseña",
+        "submit": "Actualizar contraseña",
+        "submitting": "Actualizando...",
+        "successMessage": "Tu contraseña se ha actualizado.",
+        "errorTooShort": "La contraseña debe tener al menos 8 caracteres.",
+        "errorMismatch": "Las contraseñas no coinciden.",
+        "errorSameAsCurrent": "La nueva contraseña debe ser diferente de la actual.",
+        "errorDefault": "No se pudo actualizar tu contraseña. Inténtalo de nuevo."
       },
       "sessions": {
         "title": "Sesiones activas",
@@ -317,6 +372,10 @@
       "roleUser": "Usuario",
       "you": "tú",
       "empty": "No se encontraron usuarios.",
+
+      "roleModerator": "Moderador",
+      "promoteRole": "Ascender rol",
+      "demoteRole": "Degradar rol",
 
       "edit": "Editar usuario",
       "delete": "Eliminar usuario",

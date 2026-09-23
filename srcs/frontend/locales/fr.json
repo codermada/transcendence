@@ -73,15 +73,34 @@
     },
     "forgotPassword": {
       "title": "Réinitialiser le mot de passe",
-      "subtitle": "Entrez votre e-mail pour recevoir un lien de réinitialisation",
+      "subtitle": "Saisissez votre e-mail pour recevoir un lien de réinitialisation",
       "emailLabel": "E-mail",
       "emailPlaceholder": "vous@exemple.com",
       "submit": "Envoyer le lien",
-      "submitting": "Envoi en cours...",
+      "submitting": "Envoi du lien...",
       "rememberPassword": "Vous vous souvenez de votre mot de passe ?",
       "signInLink": "Se connecter",
-      "successMessage": "Si un compte existe avec cet e-mail, vous recevrez bientôt un lien de réinitialisation.",
+      "successMessage": "Si un compte existe avec cet e-mail, vous recevrez un lien de réinitialisation sous peu.",
       "errorMessage": "Impossible d'envoyer le lien de réinitialisation. Veuillez réessayer plus tard."
+    },
+    "resetPassword": {
+      "title": "Réinitialiser le mot de passe",
+      "subtitle": "Saisissez votre nouveau mot de passe ci-dessous.",
+      "passwordLabel": "Nouveau mot de passe",
+      "passwordPlaceholder": "Saisissez un nouveau mot de passe",
+      "confirmPasswordLabel": "Confirmer le mot de passe",
+      "confirmPasswordPlaceholder": "Confirmez votre nouveau mot de passe",
+      "submit": "Réinitialiser le mot de passe",
+      "submitting": "Réinitialisation...",
+      "rememberPassword": "Vous vous souvenez de votre mot de passe ?",
+      "signInLink": "Se connecter",
+      "invalidLink": "Ce lien de réinitialisation est invalide ou ne contient pas de jeton.",
+      "requestNewLink": "Demander un nouveau lien",
+      "successMessage": "Votre mot de passe a été réinitialisé avec succès.",
+      "errorMissingToken": "Jeton de réinitialisation invalide ou manquant.",
+      "errorPasswordMismatch": "Les mots de passe ne correspondent pas.",
+      "errorPasswordTooShort": "Le mot de passe doit contenir au moins 8 caractères.",
+      "errorDefault": "Impossible de réinitialiser votre mot de passe."
     },
     "validation": {
       "emailRequired": "L'e-mail est requis",
@@ -122,7 +141,9 @@
       "FeedSection": {
         "emptyTitle": "Aucun message pour le moment",
         "emptyDescription": "Soyez le premier à publier quelque chose ou ajoutez des amis pour voir leurs actualités.",
-        "defaultTimeAgo": "À l'instant"
+        "defaultTimeAgo": "À l'instant",
+        "deleteSuccess": "Publication supprimée",
+        "deleteError": "Échec de la suppression de la publication"
       },
       "MediaModal": {
 
@@ -170,6 +191,7 @@
       "FriendSuggestionItem": {
         "mutualFriend": "ami en commun",
         "mutualFriends": "amis en commun",
+        "requestedButton": "Envoyée",
         "addButton": "Ajouter"
       },
       "FriendSuggestionsCard": {
@@ -215,7 +237,25 @@
     "subtitle": "Messages privés et canaux de discussion.",
     "emptyTitle": "Vos messages",
     "emptyDescription": "Sélectionnez une conversation ou commencez une nouvelle discussion avec un ami.",
-    "newMessage": "Nouveau message"
+    "newMessage": "Nouveau message",
+    "message": "Message",
+    "sendMessage": "Envoyer",
+    "cancel": "Annuler",
+    "typeMessagePlaceholder": "Écrivez un message…",
+    "startConversationWith": "Envoyer un message à",
+    "newMessageTitle": "Nouvelle conversation",
+    "sending": "Envoi…",
+    "backToMessages": "Retour aux messages",
+    "conversationWith": "Discussion avec",
+    "noMessagesYet": "Aucun message pour le moment.",
+    "sayHello": "Dites bonjour pour démarrer la discussion !",
+    "sendError": "Impossible d'envoyer le message. Veuillez réessayer.",
+    "online": "En ligne",
+    "offline": "Hors ligne",
+    "seen": "Vu",
+    "sent": "Envoyé",
+    "close": "Fermer",
+    "loadError": "Impossible de charger la discussion."
   },
   "Settings": {
     "nav": {
@@ -265,7 +305,22 @@
       "comingSoon": "Bientôt disponible",
       "password": {
         "title": "Mot de passe",
-        "description": "Modifiez le mot de passe de votre compte."
+        "description": "Modifiez le mot de passe de votre compte.",
+        "subtitle": "Mettez à jour le mot de passe de votre compte ci-dessous.",
+        "back": "Retour à la sécurité",
+        "currentPasswordLabel": "Mot de passe actuel",
+        "currentPasswordPlaceholder": "Saisissez votre mot de passe actuel",
+        "newPasswordLabel": "Nouveau mot de passe",
+        "newPasswordPlaceholder": "Saisissez un nouveau mot de passe",
+        "confirmPasswordLabel": "Confirmer le nouveau mot de passe",
+        "confirmPasswordPlaceholder": "Confirmez votre nouveau mot de passe",
+        "submit": "Mettre à jour le mot de passe",
+        "submitting": "Mise à jour...",
+        "successMessage": "Votre mot de passe a été mis à jour.",
+        "errorTooShort": "Le mot de passe doit contenir au moins 8 caractères.",
+        "errorMismatch": "Les mots de passe ne correspondent pas.",
+        "errorSameAsCurrent": "Le nouveau mot de passe doit être différent de l'actuel.",
+        "errorDefault": "Impossible de mettre à jour votre mot de passe. Veuillez réessayer."
       },
       "sessions": {
         "title": "Sessions actives",
@@ -317,6 +372,10 @@
       "roleUser": "Utilisateur",
       "you": "vous",
       "empty": "Aucun utilisateur trouvé.",
+
+      "roleModerator": "Modérateur",
+      "promoteRole": "Promouvoir le rôle",
+      "demoteRole": "Rétrograder le rôle",
 
       "edit": "Modifier l'utilisateur",
       "delete": "Supprimer l'utilisateur",
