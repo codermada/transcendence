@@ -169,6 +169,33 @@
         "edit": "Modifier",
         "delete": "Supprimer"
       },
+      "CommentItem": {
+        "viewProfile": "Voir le profil de {name}",
+        "likeComment": "Aimer le commentaire",
+        "unlikeComment": "Retirer le j'aime",
+        "timeAgo": "{time}",
+        "deleteComment": "Supprimer le commentaire",
+        "removeComment": "Retirer le commentaire (modérateur)",
+        "commentAttachment": "Pièce jointe du commentaire"
+      },
+      "CommentsList": {
+        "loading": "Chargement des commentaires...",
+        "emptyTitle": "Aucun commentaire pour l'instant",
+        "emptyDescription": "Soyez le premier à commenter."
+      },
+      "CommentsModal": {
+        "toasts": {
+          "loadError": "Impossible de charger les commentaires.",
+          "invalidImageType": "Veuillez sélectionner une image.",
+          "imageTooLarge": "L'image ne doit pas dépasser 10 MB.",
+          "emptyComment": "Écrivez un commentaire ou ajoutez une image.",
+          "createSuccess": "Commentaire ajouté.",
+          "createError": "Impossible d'ajouter le commentaire.",
+          "likeError": "Impossible de mettre à jour le like.",
+          "deleteSuccess": "Commentaire supprimé.",
+          "deleteError": "Impossible de supprimer le commentaire."
+        }
+      },
       "PostMedia": {
 
       }

@@ -169,6 +169,33 @@
         "edit": "Editar",
         "delete": "Eliminar"
       },
+      "CommentItem": {
+        "viewProfile": "Ver el perfil de {name}",
+        "likeComment": "Me gusta el comentario",
+        "unlikeComment": "Quitar me gusta",
+        "timeAgo": "{time}",
+        "deleteComment": "Eliminar comentario",
+        "removeComment": "Retirar comentario (moderador)",
+        "commentAttachment": "Adjunto del comentario"
+      },
+      "CommentsList": {
+        "loading": "Cargando comentarios...",
+        "emptyTitle": "Aún no hay comentarios",
+        "emptyDescription": "Sé el primero en comentar."
+      },
+      "CommentsModal": {
+        "toasts": {
+          "loadError": "No se pudieron cargar los comentarios.",
+          "invalidImageType": "Selecciona una imagen.",
+          "imageTooLarge": "La imagen no debe superar los 10 MB.",
+          "emptyComment": "Escribe un comentario o añade una imagen.",
+          "createSuccess": "Comentario añadido.",
+          "createError": "No se pudo añadir el comentario.",
+          "likeError": "No se pudo actualizar el me gusta.",
+          "deleteSuccess": "Comentario eliminado.",
+          "deleteError": "No se pudo eliminar el comentario."
+        }
+      },
       "PostMedia": {
 
       }
