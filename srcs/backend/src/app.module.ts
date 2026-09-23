@@ -11,8 +11,9 @@ import { HealthCheckModule } from './health-check/health-check.module.js';
 import { PostLikeModule } from './post-like/post-like.module.js';
 import { PostModule } from './post/post.module';
 import { PresenceModule } from './presence/presence.module.js';
-import { HealthCheckModule } from './health-check/health-check.module.js';
-import { HealthModule } from './health/health.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { TestModule } from './test/test.module';
+import { UserModule } from './user/user.module';
 
 @Module({
 	imports: [
@@ -26,8 +27,8 @@ import { HealthModule } from './health/health.module';
 		PostModule,
 		PostLikeModule,
 		ProfileModule,
+		NetworkModule,
 		HealthCheckModule,
-		HealthModule
 	],
 	controllers: [AuthController],
 })
