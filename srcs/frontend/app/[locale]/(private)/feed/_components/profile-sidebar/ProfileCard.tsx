@@ -11,6 +11,7 @@ export function ProfileCard() {
     name: "Unknown",
     username: "unknown",
     initials: "U",
+    image: null,
     stats: {
       friendsCount: 0,
       postsCount: 0,
@@ -47,9 +48,11 @@ export function ProfileCard() {
   return (
     <div className="rounded-2xl border border-zinc-200/80 bg-white/80 p-5 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-900/50">
       <div className="flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-violet-500/30 bg-violet-600/20 font-semibold text-violet-500 dark:text-violet-400">
-          {userProfile.initials}
-        </div>
+        <img
+          src={userProfile.image ?? "/nest/uploads/default-avatar.png"}
+          alt=""
+          className="h-10 w-10 rounded-full object-cover"
+        />
         <div>
           <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
             {userProfile.name}
