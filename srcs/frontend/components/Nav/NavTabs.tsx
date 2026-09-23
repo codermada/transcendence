@@ -3,10 +3,12 @@
 import { usePathname, Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { Home, Users, MessageSquare } from "@/components/icons";
+import { useChatStore } from "@/stores/use-chat-store";
 
 export function NavTabs() {
   const pathname = usePathname();
   const t = useTranslations("Nav");
+  const totalUnread = useChatStore((state) => state.getTotalUnreadCount());
 
   const tabs = [
     {
@@ -51,7 +53,14 @@ export function NavTabs() {
               }
             `}
           >
-            <Icon className="h-5 w-5" />
+            <div className="relative">
+              <Icon className="h-5 w-5" />
+              {tab.href === "/chat" && totalUnread > 0 && (
+                <span className="absolute -top-1.5 -right-2.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-violet-600 px-1 text-[10px] font-bold text-white shadow-xs">
+                  {totalUnread > 99 ? "99+" : totalUnread}
+                </span>
+              )}
+            </div>
             <span className="sr-only">{tab.label}</span>
 
             {isActive && (

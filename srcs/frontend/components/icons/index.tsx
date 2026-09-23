@@ -328,6 +328,26 @@ export function Check(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function CheckCheck(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="m18 6-11 11-5-5m16 0-9.5 9.5-2.5-2.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+
 export function Copy(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
@@ -1495,4 +1515,41 @@ export function ArrowLeft(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function Send(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export { Loader as Loader2 };
+
+export function ChevronUp(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="m18 15-6-6-6 6" />
+    </svg>
+  );
+}
+

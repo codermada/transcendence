@@ -1,6 +1,5 @@
 import type { Comment, CreateCommentPayload} from "../_components/feed-section/feed-section.types";
 
-const API_URL = process.env.NEXT_PUBLIC_NEST_URL || "http://localhost:4000";
 
 interface CreateCommentDto {
   content: string;
@@ -11,6 +10,9 @@ interface ToggleLikeResult {
   liked: boolean;
   likesCount: number;
 }
+
+const API_URL = "/nest";
+
 
 export const commentService = {
   async getComments(postId: string): Promise<Comment[]> {
