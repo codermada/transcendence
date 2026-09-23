@@ -140,7 +140,10 @@
       "errors": {
         "CONTENT_EMPTY": "El contenido no puede estar vacío",
         "DEFAULT": "Algo salió mal. Inténtalo de nuevo."
-      }
+      },
+      "multiFile": "archivos",
+      "singleFile": "archivo",
+      "postCreatedSuccess": "¡Publicación creada con éxito!"
     },
       "FeedSection": {
         "emptyTitle": "No hay publicaciones aún",
@@ -596,5 +599,9 @@
     "en": "English",
     "fr": "Français",
     "es": "Español"
+  },
+  "UploadProgressToast": {
+    "notCompleted": "Subiendo archivos...",
+    "completed": "¡Publicación enviada!"
   }
 }
