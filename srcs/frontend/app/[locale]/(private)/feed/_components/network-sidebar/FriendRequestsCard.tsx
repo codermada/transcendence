@@ -41,6 +41,7 @@ export function FriendRequestsCard({
                     type="received"
                     requestId={req.id}
                     name={req.requester.name}
+                    image={req.requester.image}
                     initials={req.requester.initials}
                     onAccept={onAcceptRequest}
                     onDecline={onDeclineRequest}
@@ -62,6 +63,7 @@ export function FriendRequestsCard({
                     type="sent"
                     requestId={req.id}
                     name={req.addressee.name}
+                    image={req.addressee.image}
                     initials={req.addressee.initials}
                     onCancel={onCancelRequest}
                   />

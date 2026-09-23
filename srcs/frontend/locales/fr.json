@@ -242,6 +242,24 @@
         "posts": "Publications",
         "reactions": "Réactions"
       }
+    },
+    "toast-popup-message": {
+      "handleAcceptRequest": {
+        "successMessage": "Demande d'ami acceptée.",
+        "errorMessage": "Erreur lors de l'acceptation de la demande d'ami."
+      },
+      "handleDeclineRequest": {
+        "successMessage": "Demande d'ami refusée.",
+        "errorMessage": "Erreur lors du rejet de la demande d'ami."
+      },
+      "handleCancelRequest": {
+        "successMessage": "Demande d'ami annulée.",
+        "errorMessage": "Erreur lors de l'annulation de la demande d'ami."
+      },
+      "handleSendFriendRequest": {
+        "successMessage": "Demande d'ami envoyée.",
+        "errorMessage": "Erreur lors de l'envoi de la demande d'ami."
+      }
     }
   },
   "FeedPage": {

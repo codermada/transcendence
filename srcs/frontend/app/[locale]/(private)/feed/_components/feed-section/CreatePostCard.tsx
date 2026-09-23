@@ -2,8 +2,9 @@
 
 import { Send } from "@/components/icons";
 import { useTranslations } from "next-intl";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { profileService, UserProfileResponse } from "../../_services/feed/profile/ProfileService";
 import { postService } from "../../_services/PostService";
 import type { MediaPreview, Post } from "./feed-section.types";
 
@@ -15,11 +16,48 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
   const t = useTranslations("Feed.feed-section.CreatePostCard");
   
   const [content, setContent] = useState("");
+  const [userProfile, setUserProfile] = useState<UserProfileResponse>({
+    name: "Unknown",
+    username: "unknown",
+    initials: "U",
+    image: null,
+    stats: {
+      friendsCount: 0,
+      postsCount: 0,
+      reactionsCount: 0,
+    },
+  });
   const [selectedMedia, setSelectedMedia] = useState<MediaPreview[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function fetchUserProfile() {
+      try {
+        const fetchedUserProfile = await profileService.getUserProfile();
+        
+        if (isMounted) {
+          setUserProfile(fetchedUserProfile);
+        }
+      } catch (error) {
+        console.error("Error loading user profile :", error);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    fetchUserProfile();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -86,9 +124,11 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
   return (
     <div className="shadow-2xs rounded-2xl border border-zinc-200/80 bg-white p-4 dark:border-zinc-800/80 dark:bg-zinc-900/50">
       <div className="flex gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-violet-500/20 font-medium text-violet-600 dark:text-violet-400">
-          U
-        </div>
+        <img
+          src={userProfile.image ?? "/nest/uploads/default-avatar.png"}
+          alt=""
+          className="h-10 w-10 rounded-full object-cover"
+        />
         <textarea
           rows={2}
           value={content}
