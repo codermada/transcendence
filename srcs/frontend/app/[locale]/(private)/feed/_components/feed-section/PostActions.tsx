@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { postLikeService } from "../../_services/PostLikeService";
 import type { PostActionsProps } from "./feed-section.types";
+import { CommentsModal } from "./comments-modal/CommentsModal";
 
 export function PostActions({
   postId,
@@ -15,6 +16,7 @@ export function PostActions({
   const [isLiked, setIsLiked] = useState(initialIsLiked);
   const [likesCount, setLikesCount] = useState(initialLikesCount);
   const [isPending, setIsPending] = useState(false);
+  const [isCommentsOpen, setIsCommentsOpen] = useState(false);
 
   useEffect(() => {
     setIsLiked(initialIsLiked);
@@ -55,6 +57,7 @@ export function PostActions({
   };
 
   return (
+    <>
     <div className="flex items-center gap-6 border-t border-zinc-100 pt-3 text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
       <button
         type="button"
@@ -84,7 +87,9 @@ export function PostActions({
 
       <button
         type="button"
+        onClick={() => setIsCommentsOpen(true)}
         className="flex items-center gap-1.5 text-xs transition-colors hover:text-violet-600 dark:hover:text-violet-400"
+        aria-haspopup="dialog"
       >
         <svg
           className="h-4 w-4"
@@ -102,5 +107,13 @@ export function PostActions({
         <span>{commentsCount}</span>
       </button>
     </div>
+
+    <CommentsModal
+      postId={postId}
+      open={isCommentsOpen}
+      onOpenChange={setIsCommentsOpen}
+    />
+
+    </>
   );
 }

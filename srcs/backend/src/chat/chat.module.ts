@@ -8,6 +8,6 @@ import { ChatGateway } from "./chat.gateway";
 	imports: [PrismaModule],
 	controllers: [ChatController],
 	providers: [ChatService, ChatGateway],
-	exports: [ChatService, ChatGateway],
+	exports: [ChatService],
 })
 export class ChatModule {}

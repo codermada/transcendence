@@ -9,7 +9,6 @@ import { toast } from "sonner";
 
 import { Field } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
-import { getInitials } from "@/lib/utils/user-utils";
 
 // ============================================================
 // Schema — email is read-only, so only name is validated/submitted
@@ -416,4 +415,13 @@ function Avatar({
       {initials}
     </div>
   );
+}
+
+function getInitials(name: string) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((p) => p[0]?.toUpperCase() ?? "")
+    .join("");
 }

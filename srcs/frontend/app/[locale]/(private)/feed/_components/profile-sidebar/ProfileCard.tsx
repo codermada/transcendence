@@ -1,67 +1,29 @@
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import { profileService, UserProfileResponse } from "../../_services/feed/profile/ProfileService";
 import { ProfileStats } from "./ProfileStats";
+import type { ProfileCardProps } from "./profile-sidebar.types";
 
-export function ProfileCard() {
+export function ProfileCard({ user }: ProfileCardProps) {
   const t = useTranslations("Feed.profile-sidebar.ProfileCard");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [userProfile, setUserProfile] = useState<UserProfileResponse>({
-    name: "Unknown",
-    username: "unknown",
-    initials: "U",
-    stats: {
-      friendsCount: 0,
-      postsCount: 0,
-      reactionsCount: 0,
-    },
-  });
-
-  useEffect(() => {
-    let isMounted = true;
-
-    async function fetchUserProfile() {
-      try {
-        const fetchedUserProfile = await profileService.getUserProfile();
-        
-        if (isMounted) {
-          setUserProfile(fetchedUserProfile);
-        }
-      } catch (error) {
-        console.error("Error loading user profile :", error);
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
-      }
-    }
-
-    fetchUserProfile();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   return (
     <div className="rounded-2xl border border-zinc-200/80 bg-white/80 p-5 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-900/50">
       <div className="flex items-center gap-3">
         <div className="flex h-12 w-12 items-center justify-center rounded-full border border-violet-500/30 bg-violet-600/20 font-semibold text-violet-500 dark:text-violet-400">
-          {userProfile.initials}
+          {user.initials}
         </div>
         <div>
           <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-            {userProfile.name}
+            {user.name}
           </h3>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400">@{userProfile.username}</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">@{user.username}</p>
         </div>
       </div>
       <div className="mt-5 space-y-4 border-t border-zinc-100 pt-4 dark:border-zinc-800">
         <ProfileStats
-          friendsCount={userProfile.stats.friendsCount}
-          postsCount={userProfile.stats.postsCount}
-          reactionsCount={userProfile.stats.reactionsCount}
+          friendsCount={user.stats.friendsCount}
+          postsCount={user.stats.postsCount}
+          reactionsCount={user.stats.reactionsCount}
         />
         <Link
           href="/profile"

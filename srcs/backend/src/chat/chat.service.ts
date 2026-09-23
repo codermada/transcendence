@@ -145,43 +145,4 @@ export class ChatService {
 
 		return { conversationId, updatedCount: result.count, seenAt: now };
 	}
-
-	async getConversation(userOneId: string, userTwoId: string) {
-		return this.prismaService.messageTable.findUniqueOrThrow({
-			where: {
-				pairKey: buildPairKey(userOneId, userTwoId),
-			},
-			include: {
-				user1: { select: { id: true, name: true, image: true } },
-				user2: { select: { id: true, name: true, image: true } },
-			},
-		});
-	}
-
-	async getConversationById(conversationId: string, userId?: string) {
-		const conversation = await this.prismaService.messageTable.findUnique({
-			where: { id: conversationId },
-			include: {
-				user1: { select: { id: true, name: true, image: true } },
-				user2: { select: { id: true, name: true, image: true } },
-			},
-		});
-
-		if (!conversation) {
-			throw new NotFoundException('Conversation not found');
-		}
-
-		if (userId && conversation.user1Id !== userId && conversation.user2Id !== userId) {
-			throw new ForbiddenException('Access denied to this conversation');
-		}
-
-		const participant = userId
-			? (conversation.user1Id === userId ? conversation.user2 : conversation.user1)
-			: null;
-
-		return {
-			...conversation,
-			participant,
-		};
-	}
 }

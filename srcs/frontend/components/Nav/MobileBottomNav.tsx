@@ -8,12 +8,10 @@ import {
   MessageSquare,
   Settings,
 } from "@/components/icons";
-import { useChatStore } from "@/stores/use-chat-store";
 
 export function MobileBottomNav() {
   const pathname = usePathname();
   const t = useTranslations("Nav");
-  const totalUnread = useChatStore((state) => state.getTotalUnreadCount());
 
   const items = [
     {
@@ -81,11 +79,6 @@ export function MobileBottomNav() {
               `}
             >
               <Icon className="h-5 w-5" />
-              {item.href === "/chat" && totalUnread > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-violet-600 px-0.5 text-[9px] font-bold text-white shadow-xs">
-                  {totalUnread > 99 ? "99+" : totalUnread}
-                </span>
-              )}
             </div>
             <span className="text-[10px] leading-none tracking-tight">
               {item.label}
