@@ -31,7 +31,7 @@ export class ProfileService {
 			id: user.id,
 			name: authorName,
 			initials,
-			authorImage: user.image,
+			image: user.image,
 			stats: {
 				friendsCount: user.friendsCount,
 				postsCount: user.postsCount,
