@@ -7,6 +7,7 @@ import type { FriendSuggestionItemProps } from "./network-sidebar.types";
 export function FriendSuggestionItem({
   userId,
   name,
+  image,
   initials,
   mutualFriends,
   onSend,
@@ -28,9 +29,11 @@ export function FriendSuggestionItem({
   return (
     <li className="flex items-center justify-between gap-3">
       <div className="flex items-center gap-2.5">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-100 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-          {initials}
-        </div>
+          <img
+            src={image ?? "/nest/uploads/default-avatar.png"}
+            alt=""
+            className="h-10 w-10 rounded-full object-cover"
+          />
         <div>
           <p className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
             {name}
