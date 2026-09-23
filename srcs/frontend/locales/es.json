@@ -233,7 +233,8 @@
     "seen": "Visto",
     "sent": "Enviado",
     "close": "Cerrar",
-    "loadError": "No se pudo cargar la conversación."
+    "loadError": "No se pudo cargar la conversación.",
+    "download": "Haz clic para descargar"
   },
   "Settings": {
     "nav": {
