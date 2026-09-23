@@ -4,8 +4,10 @@ import type { FriendSuggestionsCardProps } from "./network-sidebar.types";
 
 export function FriendSuggestionsCard({
   suggestions = [],
+  onSendRequest,
 }: FriendSuggestionsCardProps) {
   const t = useTranslations("Feed.network-sidebar.FriendSuggestionsCard");
+
   return (
     <div className="rounded-2xl border border-zinc-200/80 bg-white/80 p-5 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-900/50">
       <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
@@ -25,10 +27,13 @@ export function FriendSuggestionsCard({
         <ul className="space-y-4">
           {suggestions.map((item) => (
             <FriendSuggestionItem
-              key={item.id}
+              key={item.userId}
+              userId={item.userId}
               name={item.name}
+              image={item.image}
               initials={item.initials}
               mutualFriends={item.mutualFriends}
+              onSend={onSendRequest}
             />
           ))}
         </ul>

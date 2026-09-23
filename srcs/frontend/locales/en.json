@@ -83,6 +83,25 @@
       "successMessage": "If an account exists with this email, you will receive a reset link shortly.",
       "errorMessage": "Unable to send reset link. Please try again later."
     },
+    "resetPassword": {
+      "title": "Reset password",
+      "subtitle": "Enter your new password below.",
+      "passwordLabel": "New password",
+      "passwordPlaceholder": "Enter a new password",
+      "confirmPasswordLabel": "Confirm password",
+      "confirmPasswordPlaceholder": "Confirm your new password",
+      "submit": "Reset password",
+      "submitting": "Resetting...",
+      "rememberPassword": "Remember your password?",
+      "signInLink": "Sign in",
+      "invalidLink": "This password reset link is invalid or missing a token.",
+      "requestNewLink": "Request a new reset link",
+      "successMessage": "Your password has been reset successfully.",
+      "errorMissingToken": "Invalid or missing password reset token.",
+      "errorPasswordMismatch": "Passwords do not match.",
+      "errorPasswordTooShort": "Password must be at least 8 characters.",
+      "errorDefault": "Unable to reset your password."
+    },
     "validation": {
       "emailRequired": "Email is required",
       "emailInvalid": "Please enter a valid email address",
@@ -114,15 +133,24 @@
     "feed-section": {
       "CreatePostCard": {
         "placeholder": "What's on your mind today?",
-        "plurialMedia": "Photos / Videos",
+        "pluralMedia": "Photos / Videos",
         "singularMedia": "Photo / Video",
         "publish": "Publish",
-        "isLoading": "Publishing..."
+        "isLoading": "Publishing...",
+        "errors": {
+          "CONTENT_EMPTY": "Content cannot be empty",
+          "DEFAULT": "Something went wrong. Please try again."
+        },
+        "multiFile": "files",
+        "singleFile": "file",
+        "postCreatedSuccess": "Post created successfully!"
       },
       "FeedSection": {
         "emptyTitle": "No posts yet",
         "emptyDescription": "Be the first to post something or add friends to see their updates.",
-        "defaultTimeAgo": "Just now"
+        "defaultTimeAgo": "Just now",
+        "deleteSuccess": "Post deleted",
+        "deleteError": "Failed to delete post"
       },
       "MediaModal": {
 
@@ -148,6 +176,33 @@
         "edit": "Edit",
         "delete": "Delete"
       },
+      "CommentItem": {
+        "viewProfile": "View {name}'s profile",
+        "likeComment": "Like comment",
+        "unlikeComment": "Unlike comment",
+        "timeAgo": "{time}",
+        "deleteComment": "Delete comment",
+        "removeComment": "Remove comment (moderator)",
+        "commentAttachment": "Comment attachment"
+      },
+      "CommentsList": {
+        "loading": "Loading comments...",
+        "emptyTitle": "No comments yet",
+        "emptyDescription": "Be the first to comment."
+      },
+      "CommentsModal": {
+        "toasts": {
+          "loadError": "Could not load comments.",
+          "invalidImageType": "Please select an image.",
+          "imageTooLarge": "The image must not exceed 10 MB.",
+          "emptyComment": "Write a comment or add an image.",
+          "createSuccess": "Comment added.",
+          "createError": "Could not add the comment.",
+          "likeError": "Could not update the like.",
+          "deleteSuccess": "Comment deleted.",
+          "deleteError": "Could not delete the comment."
+        }
+      },
       "PostMedia": {
 
       }
@@ -170,6 +225,7 @@
       "FriendSuggestionItem": {
         "mutualFriend": "mutual friend",
         "mutualFriends": "mutual friends",
+        "requestedButton": "Sent",
         "addButton": "Add"
       },
       "FriendSuggestionsCard": {
@@ -193,6 +249,41 @@
         "posts": "Posts",
         "reactions": "Reactions"
       }
+    },
+    "toast-popup-message": {
+      "handleAcceptRequest": {
+        "successMessage": "Friend request accepted.",
+        "errorMessage": "Error accepting friend request."
+      },
+      "handleDeclineRequest": {
+        "successMessage": "Friend request declined.",
+        "errorMessage": "Error declining friend request."
+      },
+      "handleCancelRequest": {
+        "successMessage": "Friend request canceled.",
+        "errorMessage": "Error canceling friend request."
+      },
+      "handleSendFriendRequest": {
+        "successMessage": "Friend request sent.",
+        "errorMessage": "Error sending friend request."
+      }
+    }
+  },
+  "FeedPage": {
+    "loading": "Loading your feed...",
+    "toasts": {
+      "acceptSuccess": "Friend request accepted.",
+      "acceptError": "Could not accept the request.",
+      "declineSuccess": "Friend request declined.",
+      "declineError": "Could not decline the request.",
+      "cancelSuccess": "Friend request cancelled.",
+      "cancelError": "Could not cancel the request.",
+      "sendSuccess": "Friend request sent.",
+      "sendError": "Could not send the friend request.",
+      "loadPostsError": "Could not load your feed.",
+      "loadReceivedRequestsError": "Could not load received requests.",
+      "loadSentRequestsError": "Could not load sent requests.",
+      "loadSuggestionsError": "Could not load friend suggestions."
     }
   },
   "Friends": {
@@ -284,7 +375,22 @@
       "comingSoon": "Coming soon",
       "password": {
         "title": "Password",
-        "description": "Change your account password."
+        "description": "Change your account password.",
+        "subtitle": "Update your account password below.",
+        "back": "Back to security",
+        "currentPasswordLabel": "Current password",
+        "currentPasswordPlaceholder": "Enter your current password",
+        "newPasswordLabel": "New password",
+        "newPasswordPlaceholder": "Enter a new password",
+        "confirmPasswordLabel": "Confirm new password",
+        "confirmPasswordPlaceholder": "Confirm your new password",
+        "submit": "Update password",
+        "submitting": "Updating...",
+        "successMessage": "Your password has been updated.",
+        "errorTooShort": "Password must be at least 8 characters.",
+        "errorMismatch": "Passwords do not match.",
+        "errorSameAsCurrent": "New password must be different from your current one.",
+        "errorDefault": "Unable to update your password. Please try again."
       },
       "sessions": {
         "title": "Active sessions",
@@ -336,6 +442,10 @@
       "roleUser": "User",
       "you": "you",
       "empty": "No users found.",
+
+      "roleModerator": "Moderator",
+      "promoteRole": "Promote role",
+      "demoteRole": "Demote role",
 
       "edit": "Edit user",
       "delete": "Delete user",
@@ -490,5 +600,9 @@
     "en": "English",
     "fr": "Français",
     "es": "Español"
+  },
+  "UploadProgressToast": {
+    "notCompleted": "Uploading files...",
+    "completed": "Post published!"
   }
 }

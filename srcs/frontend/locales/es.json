@@ -73,15 +73,34 @@
     },
     "forgotPassword": {
       "title": "Restablecer contraseña",
-      "subtitle": "Introduce tu correo para recibir un enlace de recuperación",
+      "subtitle": "Introduce tu correo electrónico para recibir un enlace de restablecimiento",
       "emailLabel": "Correo electrónico",
       "emailPlaceholder": "tu@ejemplo.com",
       "submit": "Enviar enlace",
       "submitting": "Enviando enlace...",
       "rememberPassword": "¿Recuerdas tu contraseña?",
       "signInLink": "Iniciar sesión",
-      "successMessage": "Si existe una cuenta con este correo, recibirás un enlace de recuperación pronto.",
-      "errorMessage": "No se pudo enviar el enlace de recuperación. Inténtalo más tarde."
+      "successMessage": "Si existe una cuenta con este correo, recibirás un enlace de restablecimiento en breve.",
+      "errorMessage": "No se pudo enviar el enlace de restablecimiento. Inténtalo de nuevo más tarde."
+    },
+    "resetPassword": {
+      "title": "Restablecer contraseña",
+      "subtitle": "Introduce tu nueva contraseña a continuación.",
+      "passwordLabel": "Nueva contraseña",
+      "passwordPlaceholder": "Introduce una nueva contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "confirmPasswordPlaceholder": "Confirma tu nueva contraseña",
+      "submit": "Restablecer contraseña",
+      "submitting": "Restableciendo...",
+      "rememberPassword": "¿Recuerdas tu contraseña?",
+      "signInLink": "Iniciar sesión",
+      "invalidLink": "Este enlace de restablecimiento no es válido o le falta un token.",
+      "requestNewLink": "Solicitar un nuevo enlace",
+      "successMessage": "Tu contraseña se ha restablecido correctamente.",
+      "errorMissingToken": "Token de restablecimiento inválido o ausente.",
+      "errorPasswordMismatch": "Las contraseñas no coinciden.",
+      "errorPasswordTooShort": "La contraseña debe tener al menos 8 caracteres.",
+      "errorDefault": "No se pudo restablecer tu contraseña."
     },
     "validation": {
       "emailRequired": "El correo electrónico es obligatorio",
@@ -113,16 +132,25 @@
     "activity": "Actividad reciente",
     "feed-section": {
       "CreatePostCard": {
-        "placeholder": "¿Qué hay de nuevo hoy?",
-        "plurialMedia": "Fotos / Videos",
-        "singularMedia": "Foto / Video",
-        "publish": "Publicar",
-        "isLoading": "Publicando..."
+      "placeholder": "¿Qué tienes en mente hoy?",
+      "pluralMedia": "Fotos / Vídeos",
+      "singularMedia": "Foto / Vídeo",
+      "publish": "Publicar",
+      "isLoading": "Publicando...",
+      "errors": {
+        "CONTENT_EMPTY": "El contenido no puede estar vacío",
+        "DEFAULT": "Algo salió mal. Inténtalo de nuevo."
       },
+      "multiFile": "archivos",
+      "singleFile": "archivo",
+      "postCreatedSuccess": "¡Publicación creada con éxito!"
+    },
       "FeedSection": {
         "emptyTitle": "No hay publicaciones aún",
         "emptyDescription": "Sé el primero en publicar algo o añade amigos para ver sus novedades.",
-        "defaultTimeAgo": "Hace un momento"
+        "defaultTimeAgo": "Hace un momento",
+        "deleteSuccess": "Publicación eliminada",
+        "deleteError": "No se pudo eliminar la publicación"
       },
       "MediaModal": {
 
@@ -148,6 +176,33 @@
         "edit": "Editar",
         "delete": "Eliminar"
       },
+      "CommentItem": {
+        "viewProfile": "Ver el perfil de {name}",
+        "likeComment": "Me gusta el comentario",
+        "unlikeComment": "Quitar me gusta",
+        "timeAgo": "{time}",
+        "deleteComment": "Eliminar comentario",
+        "removeComment": "Retirar comentario (moderador)",
+        "commentAttachment": "Adjunto del comentario"
+      },
+      "CommentsList": {
+        "loading": "Cargando comentarios...",
+        "emptyTitle": "Aún no hay comentarios",
+        "emptyDescription": "Sé el primero en comentar."
+      },
+      "CommentsModal": {
+        "toasts": {
+          "loadError": "No se pudieron cargar los comentarios.",
+          "invalidImageType": "Selecciona una imagen.",
+          "imageTooLarge": "La imagen no debe superar los 10 MB.",
+          "emptyComment": "Escribe un comentario o añade una imagen.",
+          "createSuccess": "Comentario añadido.",
+          "createError": "No se pudo añadir el comentario.",
+          "likeError": "No se pudo actualizar el me gusta.",
+          "deleteSuccess": "Comentario eliminado.",
+          "deleteError": "No se pudo eliminar el comentario."
+        }
+      },
       "PostMedia": {
 
       }
@@ -170,6 +225,7 @@
       "FriendSuggestionItem": {
         "mutualFriend": "amigo en común",
         "mutualFriends": "amigos en común",
+        "requestedButton": "Enviada",
         "addButton": "Añadir"
       },
       "FriendSuggestionsCard": {
@@ -193,6 +249,41 @@
         "posts": "Publicaciones",
         "reactions": "Reacciones"
       }
+    },
+    "toast-popup-message": {
+      "handleAcceptRequest": {
+        "successMessage": "Solicitud de amistad aceptada.",
+        "errorMessage": "Error al aceptar la solicitud de amistad."
+      },
+      "handleDeclineRequest": {
+        "successMessage": "Solicitud de amistad rechazada.",
+        "errorMessage": "Error al rechazar la solicitud de amistad."
+      },
+      "handleCancelRequest": {
+        "successMessage": "Solicitud de amistad cancelada.",
+        "errorMessage": "Error al cancelar la solicitud de amistad."
+      },
+      "handleSendFriendRequest": {
+        "successMessage": "Solicitud de amistad enviada.",
+        "errorMessage": "Error al enviar la solicitud de amistad."
+      }
+    }
+  },
+  "FeedPage": {
+    "loading": "Cargando tu feed...",
+    "toasts": {
+      "acceptSuccess": "Solicitud de amistad aceptada.",
+      "acceptError": "No se pudo aceptar la solicitud.",
+      "declineSuccess": "Solicitud de amistad rechazada.",
+      "declineError": "No se pudo rechazar la solicitud.",
+      "cancelSuccess": "Solicitud de amistad cancelada.",
+      "cancelError": "No se pudo cancelar la solicitud.",
+      "sendSuccess": "Solicitud de amistad enviada.",
+      "sendError": "No se pudo enviar la solicitud de amistad.",
+      "loadPostsError": "No se pudo cargar tu feed.",
+      "loadReceivedRequestsError": "No se pudieron cargar las solicitudes recibidas.",
+      "loadSentRequestsError": "No se pudieron cargar las solicitudes enviadas.",
+      "loadSuggestionsError": "No se pudieron cargar las sugerencias de amistad."
     }
   },
   "Friends": {
@@ -284,7 +375,22 @@
       "comingSoon": "Próximamente",
       "password": {
         "title": "Contraseña",
-        "description": "Cambia la contraseña de tu cuenta."
+        "description": "Cambia la contraseña de tu cuenta.",
+        "subtitle": "Actualiza la contraseña de tu cuenta a continuación.",
+        "back": "Volver a seguridad",
+        "currentPasswordLabel": "Contraseña actual",
+        "currentPasswordPlaceholder": "Introduce tu contraseña actual",
+        "newPasswordLabel": "Nueva contraseña",
+        "newPasswordPlaceholder": "Introduce una nueva contraseña",
+        "confirmPasswordLabel": "Confirmar nueva contraseña",
+        "confirmPasswordPlaceholder": "Confirma tu nueva contraseña",
+        "submit": "Actualizar contraseña",
+        "submitting": "Actualizando...",
+        "successMessage": "Tu contraseña se ha actualizado.",
+        "errorTooShort": "La contraseña debe tener al menos 8 caracteres.",
+        "errorMismatch": "Las contraseñas no coinciden.",
+        "errorSameAsCurrent": "La nueva contraseña debe ser diferente de la actual.",
+        "errorDefault": "No se pudo actualizar tu contraseña. Inténtalo de nuevo."
       },
       "sessions": {
         "title": "Sesiones activas",
@@ -336,6 +442,10 @@
       "roleUser": "Usuario",
       "you": "tú",
       "empty": "No se encontraron usuarios.",
+
+      "roleModerator": "Moderador",
+      "promoteRole": "Ascender rol",
+      "demoteRole": "Degradar rol",
 
       "edit": "Editar usuario",
       "delete": "Eliminar usuario",
@@ -490,5 +600,9 @@
     "en": "English",
     "fr": "Français",
     "es": "Español"
+  },
+  "UploadProgressToast": {
+    "notCompleted": "Subiendo archivos...",
+    "completed": "¡Publicación enviada!"
   }
 }

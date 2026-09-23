@@ -5,6 +5,9 @@ import type { FriendRequestsCardProps } from "./network-sidebar.types";
 export function FriendRequestsCard({
   receivedRequests = [],
   sentRequests = [],
+  onAcceptRequest,
+  onDeclineRequest,
+  onCancelRequest,
 }: FriendRequestsCardProps) {
   const t = useTranslations("Feed.network-sidebar.FriendRequestsCard");
   const hasRequests = receivedRequests.length > 0 || sentRequests.length > 0;
@@ -29,15 +32,19 @@ export function FriendRequestsCard({
           {receivedRequests.length > 0 && (
             <div className="space-y-2.5">
               <span className="text-[11px] font-medium text-violet-600 dark:text-violet-400">
-                {receivedRequests.length != 1 ? t("multiReceived") : t("received")} ({receivedRequests.length})
+                {receivedRequests.length !== 1 ? t("multiReceived") : t("received")} ({receivedRequests.length})
               </span>
               <ul className="space-y-3">
                 {receivedRequests.map((req) => (
                   <FriendRequestItem
                     key={req.id}
                     type="received"
-                    name={req.name}
-                    initials={req.initials}
+                    requestId={req.id}
+                    name={req.requester.name}
+                    image={req.requester.image}
+                    initials={req.requester.initials}
+                    onAccept={onAcceptRequest}
+                    onDecline={onDeclineRequest}
                   />
                 ))}
               </ul>
@@ -47,15 +54,18 @@ export function FriendRequestsCard({
           {sentRequests.length > 0 && (
             <div className="space-y-2.5 border-t border-zinc-100 pt-2 dark:border-zinc-800">
               <span className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400">
-                {sentRequests.length != 1 ? t("multiSent") : t("sent")} ({sentRequests.length})
+                {sentRequests.length !== 1 ? t("multiSent") : t("sent")} ({sentRequests.length})
               </span>
               <ul className="space-y-2">
                 {sentRequests.map((req) => (
                   <FriendRequestItem
                     key={req.id}
                     type="sent"
-                    name={req.name}
-                    initials={req.initials}
+                    requestId={req.id}
+                    name={req.addressee.name}
+                    image={req.addressee.image}
+                    initials={req.addressee.initials}
+                    onCancel={onCancelRequest}
                   />
                 ))}
               </ul>

@@ -73,15 +73,34 @@
     },
     "forgotPassword": {
       "title": "Réinitialiser le mot de passe",
-      "subtitle": "Entrez votre e-mail pour recevoir un lien de réinitialisation",
+      "subtitle": "Saisissez votre e-mail pour recevoir un lien de réinitialisation",
       "emailLabel": "E-mail",
       "emailPlaceholder": "vous@exemple.com",
       "submit": "Envoyer le lien",
-      "submitting": "Envoi en cours...",
+      "submitting": "Envoi du lien...",
       "rememberPassword": "Vous vous souvenez de votre mot de passe ?",
       "signInLink": "Se connecter",
-      "successMessage": "Si un compte existe avec cet e-mail, vous recevrez bientôt un lien de réinitialisation.",
+      "successMessage": "Si un compte existe avec cet e-mail, vous recevrez un lien de réinitialisation sous peu.",
       "errorMessage": "Impossible d'envoyer le lien de réinitialisation. Veuillez réessayer plus tard."
+    },
+    "resetPassword": {
+      "title": "Réinitialiser le mot de passe",
+      "subtitle": "Saisissez votre nouveau mot de passe ci-dessous.",
+      "passwordLabel": "Nouveau mot de passe",
+      "passwordPlaceholder": "Saisissez un nouveau mot de passe",
+      "confirmPasswordLabel": "Confirmer le mot de passe",
+      "confirmPasswordPlaceholder": "Confirmez votre nouveau mot de passe",
+      "submit": "Réinitialiser le mot de passe",
+      "submitting": "Réinitialisation...",
+      "rememberPassword": "Vous vous souvenez de votre mot de passe ?",
+      "signInLink": "Se connecter",
+      "invalidLink": "Ce lien de réinitialisation est invalide ou ne contient pas de jeton.",
+      "requestNewLink": "Demander un nouveau lien",
+      "successMessage": "Votre mot de passe a été réinitialisé avec succès.",
+      "errorMissingToken": "Jeton de réinitialisation invalide ou manquant.",
+      "errorPasswordMismatch": "Les mots de passe ne correspondent pas.",
+      "errorPasswordTooShort": "Le mot de passe doit contenir au moins 8 caractères.",
+      "errorDefault": "Impossible de réinitialiser votre mot de passe."
     },
     "validation": {
       "emailRequired": "L'e-mail est requis",
@@ -114,15 +133,24 @@
     "feed-section": {
       "CreatePostCard": {
         "placeholder": "Quoi de neuf aujourd'hui ?",
-        "plurialMedia": "Photos / Vidéos",
+        "pluralMedia": "Photos / Vidéos",
         "singularMedia": "Photo / Vidéo",
         "publish": "Publier",
-        "isLoading": "Publication..."
+        "isLoading": "Publication...",
+        "errors": {
+          "CONTENT_EMPTY": "Le contenu ne peut pas être vide",
+          "DEFAULT": "Une erreur est survenue. Veuillez réessayer."
+        },
+        "multiFile": "fichiers",
+        "singleFile": "fichier",
+        "postCreatedSuccess": "Publication créée avec succès !"
       },
       "FeedSection": {
         "emptyTitle": "Aucun message pour le moment",
         "emptyDescription": "Soyez le premier à publier quelque chose ou ajoutez des amis pour voir leurs actualités.",
-        "defaultTimeAgo": "À l'instant"
+        "defaultTimeAgo": "À l'instant",
+        "deleteSuccess": "Publication supprimée",
+        "deleteError": "Échec de la suppression de la publication"
       },
       "MediaModal": {
 
@@ -148,6 +176,33 @@
         "edit": "Modifier",
         "delete": "Supprimer"
       },
+      "CommentItem": {
+        "viewProfile": "Voir le profil de {name}",
+        "likeComment": "Aimer le commentaire",
+        "unlikeComment": "Retirer le j'aime",
+        "timeAgo": "{time}",
+        "deleteComment": "Supprimer le commentaire",
+        "removeComment": "Retirer le commentaire (modérateur)",
+        "commentAttachment": "Pièce jointe du commentaire"
+      },
+      "CommentsList": {
+        "loading": "Chargement des commentaires...",
+        "emptyTitle": "Aucun commentaire pour l'instant",
+        "emptyDescription": "Soyez le premier à commenter."
+      },
+      "CommentsModal": {
+        "toasts": {
+          "loadError": "Impossible de charger les commentaires.",
+          "invalidImageType": "Veuillez sélectionner une image.",
+          "imageTooLarge": "L'image ne doit pas dépasser 10 MB.",
+          "emptyComment": "Écrivez un commentaire ou ajoutez une image.",
+          "createSuccess": "Commentaire ajouté.",
+          "createError": "Impossible d'ajouter le commentaire.",
+          "likeError": "Impossible de mettre à jour le like.",
+          "deleteSuccess": "Commentaire supprimé.",
+          "deleteError": "Impossible de supprimer le commentaire."
+        }
+      },
       "PostMedia": {
 
       }
@@ -170,6 +225,7 @@
       "FriendSuggestionItem": {
         "mutualFriend": "ami en commun",
         "mutualFriends": "amis en commun",
+        "requestedButton": "Envoyée",
         "addButton": "Ajouter"
       },
       "FriendSuggestionsCard": {
@@ -193,6 +249,41 @@
         "posts": "Publications",
         "reactions": "Réactions"
       }
+    },
+    "toast-popup-message": {
+      "handleAcceptRequest": {
+        "successMessage": "Demande d'ami acceptée.",
+        "errorMessage": "Erreur lors de l'acceptation de la demande d'ami."
+      },
+      "handleDeclineRequest": {
+        "successMessage": "Demande d'ami refusée.",
+        "errorMessage": "Erreur lors du rejet de la demande d'ami."
+      },
+      "handleCancelRequest": {
+        "successMessage": "Demande d'ami annulée.",
+        "errorMessage": "Erreur lors de l'annulation de la demande d'ami."
+      },
+      "handleSendFriendRequest": {
+        "successMessage": "Demande d'ami envoyée.",
+        "errorMessage": "Erreur lors de l'envoi de la demande d'ami."
+      }
+    }
+  },
+  "FeedPage": {
+    "loading": "Chargement du fil d'actualité...",
+    "toasts": {
+      "acceptSuccess": "Demande d'ami acceptée.",
+      "acceptError": "Impossible d'accepter la demande.",
+      "declineSuccess": "Demande d'ami refusée.",
+      "declineError": "Impossible de refuser la demande.",
+      "cancelSuccess": "Demande d'ami annulée.",
+      "cancelError": "Impossible d'annuler la demande.",
+      "sendSuccess": "Demande d'ami envoyée.",
+      "sendError": "Impossible d'envoyer une demande d'ami.",
+      "loadPostsError": "Impossible de charger le fil d'actualité.",
+      "loadReceivedRequestsError": "Impossible de charger les demandes reçues.",
+      "loadSentRequestsError": "Impossible de charger les demandes envoyées.",
+      "loadSuggestionsError": "Impossible de charger les suggestions d'amis."
     }
   },
   "Friends": {
@@ -284,7 +375,22 @@
       "comingSoon": "Bientôt disponible",
       "password": {
         "title": "Mot de passe",
-        "description": "Modifiez le mot de passe de votre compte."
+        "description": "Modifiez le mot de passe de votre compte.",
+        "subtitle": "Mettez à jour le mot de passe de votre compte ci-dessous.",
+        "back": "Retour à la sécurité",
+        "currentPasswordLabel": "Mot de passe actuel",
+        "currentPasswordPlaceholder": "Saisissez votre mot de passe actuel",
+        "newPasswordLabel": "Nouveau mot de passe",
+        "newPasswordPlaceholder": "Saisissez un nouveau mot de passe",
+        "confirmPasswordLabel": "Confirmer le nouveau mot de passe",
+        "confirmPasswordPlaceholder": "Confirmez votre nouveau mot de passe",
+        "submit": "Mettre à jour le mot de passe",
+        "submitting": "Mise à jour...",
+        "successMessage": "Votre mot de passe a été mis à jour.",
+        "errorTooShort": "Le mot de passe doit contenir au moins 8 caractères.",
+        "errorMismatch": "Les mots de passe ne correspondent pas.",
+        "errorSameAsCurrent": "Le nouveau mot de passe doit être différent de l'actuel.",
+        "errorDefault": "Impossible de mettre à jour votre mot de passe. Veuillez réessayer."
       },
       "sessions": {
         "title": "Sessions actives",
@@ -336,6 +442,10 @@
       "roleUser": "Utilisateur",
       "you": "vous",
       "empty": "Aucun utilisateur trouvé.",
+
+      "roleModerator": "Modérateur",
+      "promoteRole": "Promouvoir le rôle",
+      "demoteRole": "Rétrograder le rôle",
 
       "edit": "Modifier l'utilisateur",
       "delete": "Supprimer l'utilisateur",
@@ -490,5 +600,9 @@
     "en": "English",
     "fr": "Français",
     "es": "Español"
+  },
+  "UploadProgressToast": {
+    "notCompleted": "Envoi des fichiers...",
+    "completed": "Publication envoyée !"
   }
 }
