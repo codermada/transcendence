@@ -230,8 +230,7 @@
     "searchError": "Something went wrong. Try again.",
     "add": "Add",
     "back": "Back",
-    "adding": "Adding…",
-    "requestSent": "Request sent"
+    "adding": "Adding…"
   },
   "Chat": {
     "title": "Messages",

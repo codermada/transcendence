@@ -35,10 +35,6 @@ export default function SearchFriendsPage() {
   const [modalReceiver, setModalReceiver] = useState<ReceiverUser | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Tracks users we've already sent a friend request to during this session.
-  // Keeps them in the list, but shows a disabled "Request sent" state.
-  const [sentRequests, setSentRequests] = useState<Set<string>>(new Set());
-
   // Fire the request whenever `query` changes.
   // (No debounce — fine for a small dataset. Add one later if needed.)
   useEffect(() => {
@@ -87,8 +83,8 @@ export default function SearchFriendsPage() {
       });
 
       if (res.ok) {
-        // Keep the user in the list — just mark the request as sent.
-        setSentRequests((prev) => new Set(prev).add(userId));
+        // Remove the user from results on success
+        setResults((prev) => prev.filter((u) => u.id !== userId));
       }
     } catch {
       // Optionally surface an error here
@@ -180,8 +176,6 @@ export default function SearchFriendsPage() {
           {results.map((u) => {
             const isPending = pendingAddId === u.id;
             const isChecking = checkingUserId === u.id;
-            const isSent = sentRequests.has(u.id);
-
             return (
               <li
                 key={u.id}
@@ -215,15 +209,11 @@ export default function SearchFriendsPage() {
                   <button
                     type="button"
                     onClick={() => handleAdd(u.id)}
-                    disabled={isPending || isSent}
+                    disabled={isPending}
                     className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
                   >
                     <UserPlus className="h-3.5 w-3.5" />
-                    {isPending
-                      ? t("adding")
-                      : isSent
-                        ? t("requestSent")
-                        : t("add")}
+                    {isPending ? t("adding") : t("add")}
                   </button>
                 </div>
               </li>

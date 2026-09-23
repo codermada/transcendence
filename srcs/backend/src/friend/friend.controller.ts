@@ -9,12 +9,14 @@ import {
 	Patch,
 	Post,
 	Query,
+	Req,
 	UseGuards,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam, ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
+import type { Request } from 'express';
 import { FriendService } from './friend.service';
 import { AuthGuard } from '../auth/AuthGuard';
-import { CurrentUserId } from '../auth/CurrentUserId';
+import { CurrentUser } from '../auth/CurrentUser';
 import { ApiKeyGuard } from '../auth/ApiKeyGuard';
 import { CreateFriendDto } from './dto/create-friend.dto';
 import { UpdateFriendDto } from './dto/update-friend.dto';
@@ -28,175 +30,175 @@ export class FriendController {
 	constructor(private readonly friendService: FriendService) {}
 
 	// ═════════════════════════════════════════════════════════════
-	// SESSION-AUTH ROUTES
+	// SESSION-AUTH ROUTES (unchanged)
 	// ═════════════════════════════════════════════════════════════
 	@UseGuards(AuthGuard)
 	@Post()
 	@ApiOperation({ summary: 'Send a friend request' })
 	@ApiResponse({ status: 201, type: FriendshipResponseDto })
-	create(@CurrentUserId() userId: string, @Body() dto: CreateFriendDto) {
-		return this.friendService.create(userId, dto);
+	create(@CurrentUser() user: { id: string }, @Body() dto: CreateFriendDto) {
+		return this.friendService.create(user.id, dto);
 	}
 
 	@UseGuards(AuthGuard)
 	@Get()
 	@ApiOperation({ summary: 'List my friendships (paginated, filterable)' })
-	findAll(@CurrentUserId() userId: string, @Query() query: ListFriendshipsQueryDto) {
-		return this.friendService.findAll(userId, query);
+	findAll(@CurrentUser() user: { id: string }, @Query() query: ListFriendshipsQueryDto) {
+		return this.friendService.findAll(user.id, query);
 	}
 
 	@UseGuards(AuthGuard)
 	@Get('friends')
 	@ApiOperation({ summary: 'List my accepted friends' })
-	listFriends(@CurrentUserId() userId: string, @Query() query: ListFriendshipsQueryDto) {
-		return this.friendService.listFriends(userId, query);
+	listFriends(@CurrentUser() user: { id: string }, @Query() query: ListFriendshipsQueryDto) {
+		return this.friendService.listFriends(user.id, query);
 	}
 
 	@UseGuards(AuthGuard)
 	@Get('requests/incoming')
 	@ApiOperation({ summary: 'List incoming friend requests (pending)' })
-	listIncoming(@CurrentUserId() userId: string, @Query() query: ListFriendshipsQueryDto) {
-		return this.friendService.listIncomingRequests(userId, query);
+	listIncoming(@CurrentUser() user: { id: string }, @Query() query: ListFriendshipsQueryDto) {
+		return this.friendService.listIncomingRequests(user.id, query);
 	}
 
 	@UseGuards(AuthGuard)
 	@Get('requests/outgoing')
 	@ApiOperation({ summary: 'List outgoing friend requests (pending)' })
-	listOutgoing(@CurrentUserId() userId: string, @Query() query: ListFriendshipsQueryDto) {
-		return this.friendService.listOutgoingRequests(userId, query);
+	listOutgoing(@CurrentUser() user: { id: string }, @Query() query: ListFriendshipsQueryDto) {
+		return this.friendService.listOutgoingRequests(user.id, query);
 	}
 
 	@UseGuards(AuthGuard)
 	@Get('blocked')
 	@ApiOperation({ summary: 'List blocked relationships' })
-	listBlocked(@CurrentUserId() userId: string, @Query() query: ListFriendshipsQueryDto) {
-		return this.friendService.listBlocked(userId, query);
+	listBlocked(@CurrentUser() user: { id: string }, @Query() query: ListFriendshipsQueryDto) {
+		return this.friendService.listBlocked(user.id, query);
 	}
 
 	@UseGuards(AuthGuard)
 	@Get('with/:userId')
 	@ApiOperation({ summary: 'Get the friendship between me and another user' })
 	@ApiParam({ name: 'userId', description: 'The other user id' })
-	findByUserId(@CurrentUserId() userId: string, @Param('userId') otherUserId: string) {
-		return this.friendService.findByUserId(userId, otherUserId);
+	findByUserId(@CurrentUser() user: { id: string }, @Param('userId') otherUserId: string) {
+		return this.friendService.findByUserId(user.id, otherUserId);
 	}
 
 	@UseGuards(AuthGuard)
 	@Get(':id')
 	@ApiOperation({ summary: 'Get a friendship by id (must be a participant)' })
 	@ApiParam({ name: 'id', description: 'Friendship id' })
-	findOne(@CurrentUserId() userId: string, @Param('id') id: string) {
-		return this.friendService.findOne(userId, id);
+	findOne(@CurrentUser() user: { id: string }, @Param('id') id: string) {
+		return this.friendService.findOne(user.id, id);
 	}
 
 	@UseGuards(AuthGuard)
 	@Patch(':id/accept')
 	@ApiOperation({ summary: 'Accept a pending friend request (addressee only)' })
-	accept(@CurrentUserId() userId: string, @Param('id') id: string) {
-		return this.friendService.accept(userId, id);
+	accept(@CurrentUser() user: { id: string }, @Param('id') id: string) {
+		return this.friendService.accept(user.id, id);
 	}
 
 	@UseGuards(AuthGuard)
 	@Patch(':id/reject')
 	@ApiOperation({ summary: 'Reject a pending friend request (addressee only)' })
-	reject(@CurrentUserId() userId: string, @Param('id') id: string) {
-		return this.friendService.reject(userId, id);
+	reject(@CurrentUser() user: { id: string }, @Param('id') id: string) {
+		return this.friendService.reject(user.id, id);
 	}
 
 	@UseGuards(AuthGuard)
 	@Patch(':id/cancel')
 	@ApiOperation({ summary: 'Cancel a pending friend request (requester only)' })
-	cancel(@CurrentUserId() userId: string, @Param('id') id: string) {
-		return this.friendService.cancel(userId, id);
+	cancel(@CurrentUser() user: { id: string }, @Param('id') id: string) {
+		return this.friendService.cancel(user.id, id);
 	}
 
 	@UseGuards(AuthGuard)
 	@Patch(':id/remove')
 	@ApiOperation({ summary: 'Remove an accepted friend (unfriend)' })
-	removeFriend(@CurrentUserId() userId: string, @Param('id') id: string) {
-		return this.friendService.removeFriend(userId, id);
+	removeFriend(@CurrentUser() user: { id: string }, @Param('id') id: string) {
+		return this.friendService.removeFriend(user.id, id);
 	}
 
 	@UseGuards(AuthGuard)
 	@Patch(':id')
 	@ApiOperation({ summary: 'Update a friendship (e.g. message)' })
-	update(@CurrentUserId() userId: string, @Param('id') id: string, @Body() dto: UpdateFriendDto) {
-		return this.friendService.update(userId, id, dto);
+	update(@CurrentUser() user: { id: string }, @Param('id') id: string, @Body() dto: UpdateFriendDto) {
+		return this.friendService.update(user.id, id, dto);
 	}
 
 	@UseGuards(AuthGuard)
 	@Post('block')
 	@ApiOperation({ summary: 'Block a user (creates or updates the relationship)' })
 	@ApiBody({ type: BlockUserDto })
-	block(@CurrentUserId() userId: string, @Body() dto: BlockUserDto) {
-		return this.friendService.block(userId, dto);
+	block(@CurrentUser() user: { id: string }, @Body() dto: BlockUserDto) {
+		return this.friendService.block(user.id, dto);
 	}
 
 	@UseGuards(AuthGuard)
 	@Patch(':id/unblock')
 	@ApiOperation({ summary: 'Unblock a user (blocker only)' })
-	unblock(@CurrentUserId() userId: string, @Param('id') id: string) {
-		return this.friendService.unblock(userId, id);
+	unblock(@CurrentUser() user: { id: string }, @Param('id') id: string) {
+		return this.friendService.unblock(user.id, id);
 	}
 
 	@UseGuards(AuthGuard)
 	@Delete(':id')
 	@HttpCode(HttpStatus.OK)
 	@ApiOperation({ summary: 'Hard-delete a friendship (cleanup)' })
-	remove(@CurrentUserId() userId: string, @Param('id') id: string) {
-		return this.friendService.remove(userId, id);
+	remove(@CurrentUser() user: { id: string }, @Param('id') id: string) {
+		return this.friendService.remove(user.id, id);
 	}
 
 	// ═════════════════════════════════════════════════════════════
-	// API-KEY ROUTES  —  /friend/api-key/...
+	// API-KEY ROUTES (duplicates)  —  /friend/api-key/...
 	// ═════════════════════════════════════════════════════════════
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Post('api-key')
 	@ApiOperation({ summary: '[API key] Send a friend request' })
 	@ApiResponse({ status: 201, type: FriendshipResponseDto })
-	createViaApiKey(@CurrentUserId() userId: string, @Body() dto: CreateFriendDto) {
-		return this.friendService.create(userId, dto);
+	createViaApiKey(@Req() req: Request, @Body() dto: CreateFriendDto) {
+		return this.friendService.create(req.apiKey!.referenceId, dto);
 	}
 
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Get('api-key')
 	@ApiOperation({ summary: '[API key] List my friendships (paginated, filterable)' })
-	findAllViaApiKey(@CurrentUserId() userId: string, @Query() query: ListFriendshipsQueryDto) {
-		return this.friendService.findAll(userId, query);
+	findAllViaApiKey(@Req() req: Request, @Query() query: ListFriendshipsQueryDto) {
+		return this.friendService.findAll(req.apiKey!.referenceId, query);
 	}
 
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Get('api-key/friends')
 	@ApiOperation({ summary: '[API key] List my accepted friends' })
-	listFriendsViaApiKey(@CurrentUserId() userId: string, @Query() query: ListFriendshipsQueryDto) {
-		return this.friendService.listFriends(userId, query);
+	listFriendsViaApiKey(@Req() req: Request, @Query() query: ListFriendshipsQueryDto) {
+		return this.friendService.listFriends(req.apiKey!.referenceId, query);
 	}
 
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Get('api-key/requests/incoming')
 	@ApiOperation({ summary: '[API key] List incoming friend requests (pending)' })
-	listIncomingViaApiKey(@CurrentUserId() userId: string, @Query() query: ListFriendshipsQueryDto) {
-		return this.friendService.listIncomingRequests(userId, query);
+	listIncomingViaApiKey(@Req() req: Request, @Query() query: ListFriendshipsQueryDto) {
+		return this.friendService.listIncomingRequests(req.apiKey!.referenceId, query);
 	}
 
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Get('api-key/requests/outgoing')
 	@ApiOperation({ summary: '[API key] List outgoing friend requests (pending)' })
-	listOutgoingViaApiKey(@CurrentUserId() userId: string, @Query() query: ListFriendshipsQueryDto) {
-		return this.friendService.listOutgoingRequests(userId, query);
+	listOutgoingViaApiKey(@Req() req: Request, @Query() query: ListFriendshipsQueryDto) {
+		return this.friendService.listOutgoingRequests(req.apiKey!.referenceId, query);
 	}
 
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Get('api-key/blocked')
 	@ApiOperation({ summary: '[API key] List blocked relationships' })
-	listBlockedViaApiKey(@CurrentUserId() userId: string, @Query() query: ListFriendshipsQueryDto) {
-		return this.friendService.listBlocked(userId, query);
+	listBlockedViaApiKey(@Req() req: Request, @Query() query: ListFriendshipsQueryDto) {
+		return this.friendService.listBlocked(req.apiKey!.referenceId, query);
 	}
 
 	@UseGuards(ApiKeyGuard)
@@ -204,8 +206,8 @@ export class FriendController {
 	@Get('api-key/with/:userId')
 	@ApiOperation({ summary: '[API key] Get the friendship between me and another user' })
 	@ApiParam({ name: 'userId', description: 'The other user id' })
-	findByUserIdViaApiKey(@CurrentUserId() userId: string, @Param('userId') otherUserId: string) {
-		return this.friendService.findByUserId(userId, otherUserId);
+	findByUserIdViaApiKey(@Req() req: Request, @Param('userId') otherUserId: string) {
+		return this.friendService.findByUserId(req.apiKey!.referenceId, otherUserId);
 	}
 
 	@UseGuards(ApiKeyGuard)
@@ -213,48 +215,48 @@ export class FriendController {
 	@Get('api-key/:id')
 	@ApiOperation({ summary: '[API key] Get a friendship by id (must be a participant)' })
 	@ApiParam({ name: 'id', description: 'Friendship id' })
-	findOneViaApiKey(@CurrentUserId() userId: string, @Param('id') id: string) {
-		return this.friendService.findOne(userId, id);
+	findOneViaApiKey(@Req() req: Request, @Param('id') id: string) {
+		return this.friendService.findOne(req.apiKey!.referenceId, id);
 	}
 
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Patch('api-key/:id/accept')
 	@ApiOperation({ summary: '[API key] Accept a pending friend request (addressee only)' })
-	acceptViaApiKey(@CurrentUserId() userId: string, @Param('id') id: string) {
-		return this.friendService.accept(userId, id);
+	acceptViaApiKey(@Req() req: Request, @Param('id') id: string) {
+		return this.friendService.accept(req.apiKey!.referenceId, id);
 	}
 
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Patch('api-key/:id/reject')
 	@ApiOperation({ summary: '[API key] Reject a pending friend request (addressee only)' })
-	rejectViaApiKey(@CurrentUserId() userId: string, @Param('id') id: string) {
-		return this.friendService.reject(userId, id);
+	rejectViaApiKey(@Req() req: Request, @Param('id') id: string) {
+		return this.friendService.reject(req.apiKey!.referenceId, id);
 	}
 
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Patch('api-key/:id/cancel')
 	@ApiOperation({ summary: '[API key] Cancel a pending friend request (requester only)' })
-	cancelViaApiKey(@CurrentUserId() userId: string, @Param('id') id: string) {
-		return this.friendService.cancel(userId, id);
+	cancelViaApiKey(@Req() req: Request, @Param('id') id: string) {
+		return this.friendService.cancel(req.apiKey!.referenceId, id);
 	}
 
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Patch('api-key/:id/remove')
 	@ApiOperation({ summary: '[API key] Remove an accepted friend (unfriend)' })
-	removeFriendViaApiKey(@CurrentUserId() userId: string, @Param('id') id: string) {
-		return this.friendService.removeFriend(userId, id);
+	removeFriendViaApiKey(@Req() req: Request, @Param('id') id: string) {
+		return this.friendService.removeFriend(req.apiKey!.referenceId, id);
 	}
 
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Patch('api-key/:id')
 	@ApiOperation({ summary: '[API key] Update a friendship (e.g. message)' })
-	updateViaApiKey(@CurrentUserId() userId: string, @Param('id') id: string, @Body() dto: UpdateFriendDto) {
-		return this.friendService.update(userId, id, dto);
+	updateViaApiKey(@Req() req: Request, @Param('id') id: string, @Body() dto: UpdateFriendDto) {
+		return this.friendService.update(req.apiKey!.referenceId, id, dto);
 	}
 
 	@UseGuards(ApiKeyGuard)
@@ -262,16 +264,16 @@ export class FriendController {
 	@Post('api-key/block')
 	@ApiOperation({ summary: '[API key] Block a user (creates or updates the relationship)' })
 	@ApiBody({ type: BlockUserDto })
-	blockViaApiKey(@CurrentUserId() userId: string, @Body() dto: BlockUserDto) {
-		return this.friendService.block(userId, dto);
+	blockViaApiKey(@Req() req: Request, @Body() dto: BlockUserDto) {
+		return this.friendService.block(req.apiKey!.referenceId, dto);
 	}
 
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Patch('api-key/:id/unblock')
 	@ApiOperation({ summary: '[API key] Unblock a user (blocker only)' })
-	unblockViaApiKey(@CurrentUserId() userId: string, @Param('id') id: string) {
-		return this.friendService.unblock(userId, id);
+	unblockViaApiKey(@Req() req: Request, @Param('id') id: string) {
+		return this.friendService.unblock(req.apiKey!.referenceId, id);
 	}
 
 	@UseGuards(ApiKeyGuard)
@@ -279,7 +281,7 @@ export class FriendController {
 	@Delete('api-key/:id')
 	@HttpCode(HttpStatus.OK)
 	@ApiOperation({ summary: '[API key] Hard-delete a friendship (cleanup)' })
-	removeViaApiKey(@CurrentUserId() userId: string, @Param('id') id: string) {
-		return this.friendService.remove(userId, id);
+	removeViaApiKey(@Req() req: Request, @Param('id') id: string) {
+		return this.friendService.remove(req.apiKey!.referenceId, id);
 	}
 }
