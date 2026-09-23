@@ -3,6 +3,7 @@ export interface ReceivedFriendRequest {
   requester: {
     id: string;
     name: string;
+    image: string | null;
     initials: string;
   };
 }
@@ -12,6 +13,7 @@ export interface SentFriendRequest {
   addressee: {
     id: string;
     name: string;
+    image: string | null;
     initials: string;
   };
 }
@@ -19,6 +21,7 @@ export interface SentFriendRequest {
 export interface FriendSuggestion {
   userId: string;
   name: string;
+  image: string | null;
   initials: string;
   mutualFriends: number;
 }
@@ -50,6 +53,7 @@ export interface ReceivedRequestProps {
   type: "received";
   requestId: string;
   name: string;
+  image: string | null;
   initials: string;
   onAccept?: (requestId: string) => Promise<void> | void;
   onDecline?: (requestId: string) => Promise<void> | void;
@@ -59,6 +63,7 @@ export interface SentRequestProps {
   type: "sent";
   requestId: string;
   name: string;
+  image: string | null;
   initials: string;
   onCancel?: (requestId: string) => Promise<void> | void;
 }
@@ -68,6 +73,7 @@ export type FriendRequestItemProps = ReceivedRequestProps | SentRequestProps;
 export interface FriendSuggestionItemProps {
   userId: string;
   name: string;
+  image: string | null;
   initials: string;
   mutualFriends: number;
   onSend?: (userId: string) => Promise<void> | void;
