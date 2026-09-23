@@ -169,6 +169,33 @@
         "edit": "Edit",
         "delete": "Delete"
       },
+      "CommentItem": {
+        "viewProfile": "View {name}'s profile",
+        "likeComment": "Like comment",
+        "unlikeComment": "Unlike comment",
+        "timeAgo": "{time}",
+        "deleteComment": "Delete comment",
+        "removeComment": "Remove comment (moderator)",
+        "commentAttachment": "Comment attachment"
+      },
+      "CommentsList": {
+        "loading": "Loading comments...",
+        "emptyTitle": "No comments yet",
+        "emptyDescription": "Be the first to comment."
+      },
+      "CommentsModal": {
+        "toasts": {
+          "loadError": "Could not load comments.",
+          "invalidImageType": "Please select an image.",
+          "imageTooLarge": "The image must not exceed 10 MB.",
+          "emptyComment": "Write a comment or add an image.",
+          "createSuccess": "Comment added.",
+          "createError": "Could not add the comment.",
+          "likeError": "Could not update the like.",
+          "deleteSuccess": "Comment deleted.",
+          "deleteError": "Could not delete the comment."
+        }
+      },
       "PostMedia": {
 
       }
