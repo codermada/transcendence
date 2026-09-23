@@ -73,15 +73,34 @@
     },
     "forgotPassword": {
       "title": "Restablecer contraseña",
-      "subtitle": "Introduce tu correo para recibir un enlace de recuperación",
+      "subtitle": "Introduce tu correo electrónico para recibir un enlace de restablecimiento",
       "emailLabel": "Correo electrónico",
       "emailPlaceholder": "tu@ejemplo.com",
       "submit": "Enviar enlace",
       "submitting": "Enviando enlace...",
       "rememberPassword": "¿Recuerdas tu contraseña?",
       "signInLink": "Iniciar sesión",
-      "successMessage": "Si existe una cuenta con este correo, recibirás un enlace de recuperación pronto.",
-      "errorMessage": "No se pudo enviar el enlace de recuperación. Inténtalo más tarde."
+      "successMessage": "Si existe una cuenta con este correo, recibirás un enlace de restablecimiento en breve.",
+      "errorMessage": "No se pudo enviar el enlace de restablecimiento. Inténtalo de nuevo más tarde."
+    },
+    "resetPassword": {
+      "title": "Restablecer contraseña",
+      "subtitle": "Introduce tu nueva contraseña a continuación.",
+      "passwordLabel": "Nueva contraseña",
+      "passwordPlaceholder": "Introduce una nueva contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "confirmPasswordPlaceholder": "Confirma tu nueva contraseña",
+      "submit": "Restablecer contraseña",
+      "submitting": "Restableciendo...",
+      "rememberPassword": "¿Recuerdas tu contraseña?",
+      "signInLink": "Iniciar sesión",
+      "invalidLink": "Este enlace de restablecimiento no es válido o le falta un token.",
+      "requestNewLink": "Solicitar un nuevo enlace",
+      "successMessage": "Tu contraseña se ha restablecido correctamente.",
+      "errorMissingToken": "Token de restablecimiento inválido o ausente.",
+      "errorPasswordMismatch": "Las contraseñas no coinciden.",
+      "errorPasswordTooShort": "La contraseña debe tener al menos 8 caracteres.",
+      "errorDefault": "No se pudo restablecer tu contraseña."
     },
     "validation": {
       "emailRequired": "El correo electrónico es obligatorio",
@@ -283,7 +302,22 @@
       "comingSoon": "Próximamente",
       "password": {
         "title": "Contraseña",
-        "description": "Cambia la contraseña de tu cuenta."
+        "description": "Cambia la contraseña de tu cuenta.",
+        "subtitle": "Actualiza la contraseña de tu cuenta a continuación.",
+        "back": "Volver a seguridad",
+        "currentPasswordLabel": "Contraseña actual",
+        "currentPasswordPlaceholder": "Introduce tu contraseña actual",
+        "newPasswordLabel": "Nueva contraseña",
+        "newPasswordPlaceholder": "Introduce una nueva contraseña",
+        "confirmPasswordLabel": "Confirmar nueva contraseña",
+        "confirmPasswordPlaceholder": "Confirma tu nueva contraseña",
+        "submit": "Actualizar contraseña",
+        "submitting": "Actualizando...",
+        "successMessage": "Tu contraseña se ha actualizado.",
+        "errorTooShort": "La contraseña debe tener al menos 8 caracteres.",
+        "errorMismatch": "Las contraseñas no coinciden.",
+        "errorSameAsCurrent": "La nueva contraseña debe ser diferente de la actual.",
+        "errorDefault": "No se pudo actualizar tu contraseña. Inténtalo de nuevo."
       },
       "sessions": {
         "title": "Sesiones activas",
