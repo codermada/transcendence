@@ -2,6 +2,7 @@ export interface UserProfileResponse {
 	name: string,
 	username: string,
 	initials: string,
+  image: string | null,
 	stats: {
 		friendsCount: number,
 		postsCount: number,
