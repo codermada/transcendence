@@ -119,6 +119,7 @@ export class NetworkRepository {
 					id: candidate.id,
 					userId: candidate.id,
 					name: candidate.name,
+					image: candidate.image,
 					initials,
 					mutualFriends: mutualFriendsCount,
 				};
