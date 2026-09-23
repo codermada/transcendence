@@ -247,8 +247,7 @@
     "searchError": "Une erreur est survenue. Réessayez.",
     "add": "Ajouter",
     "back": "Retour",
-    "adding": "Ajout…",
-    "requestSent": "Demande envoyée"
+    "adding": "Ajout…"
   },
   "Chat": {
     "title": "Messagerie",
