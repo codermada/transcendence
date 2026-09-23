@@ -1,16 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Post } from "./_components/feed-section/feed-section.types";
 import { FeedSection } from "./_components/feed-section/FeedSection";
-import { FriendSuggestion, ReceivedFriendRequest, SentFriendRequest } from "./_components/network-sidebar/network-sidebar.types";
+import {
+  FriendSuggestion,
+  ReceivedFriendRequest,
+  SentFriendRequest,
+} from "./_components/network-sidebar/network-sidebar.types";
 import { NetworkSidebar } from "./_components/network-sidebar/NetworkSidebar";
 import { ProfileSidebar } from "./_components/profile-sidebar/ProfileSidebar";
 import { networkService } from "./_services/feed/network/NetworkService";
 import { postService } from "./_services/PostService";
 
 export default function FeedPage() {
+  const t = useTranslations("FeedPage");
+
   const [posts, setPosts] = useState<Post[]>([]);
   const [receivedRequests, setReceivedRequests] = useState<ReceivedFriendRequest[]>([]);
   const [sentRequests, setSentRequests] = useState<SentFriendRequest[]>([]);
@@ -23,48 +30,38 @@ export default function FeedPage() {
     async function fetchPosts() {
       try {
         const fetchedPosts = await postService.getAllPosts();
-        if (isMounted) {
-          setPosts(fetchedPosts);
-        }
-      } catch (error) {
-        console.error("Erreur de chargement des posts :", error);
+        if (isMounted) setPosts(fetchedPosts);
+      } catch {
+        if (isMounted) toast.error(t("toasts.loadPostsError"));
       } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
+        if (isMounted) setIsLoading(false);
       }
     }
 
     async function fetchReceivedRequests() {
       try {
         const fetchedReceivedRequests = await networkService.getAllReceivedRequests();
-        if (isMounted) {
-          setReceivedRequests(fetchedReceivedRequests);
-        }
-      } catch (error) {
-        console.error("Erreur lors de la récupération des demandes reçues :", error);
+        if (isMounted) setReceivedRequests(fetchedReceivedRequests);
+      } catch {
+        if (isMounted) toast.error(t("toasts.loadReceivedRequestsError"));
       }
     }
 
     async function fetchSentRequests() {
       try {
         const fetchedSentRequests = await networkService.getAllSentRequests();
-        if (isMounted) {
-          setSentRequests(fetchedSentRequests);
-        }
-      } catch (error) {
-        console.error("Erreur lors de la récupération des demandes envoyées :", error);
+        if (isMounted) setSentRequests(fetchedSentRequests);
+      } catch {
+        if (isMounted) toast.error(t("toasts.loadSentRequestsError"));
       }
     }
 
     async function fetchFriendSuggestions() {
       try {
         const fetchedFriendSuggestions = await networkService.getFriendSuggestions();
-        if (isMounted) {
-          setFriendSuggestions(fetchedFriendSuggestions);
-        }
-      } catch (error) {
-        console.error("Erreur lors de la récupération des demandes envoyées :", error);
+        if (isMounted) setFriendSuggestions(fetchedFriendSuggestions);
+      } catch {
+        if (isMounted) toast.error(t("toasts.loadSuggestionsError"));
       }
     }
 
@@ -76,17 +73,15 @@ export default function FeedPage() {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [t]);
 
   const handleAcceptRequest = async (requestId: string) => {
     try {
       await networkService.acceptRequest(requestId);
       setReceivedRequests((prev) => prev.filter((req) => req.id !== requestId));
-      toast.success("Demande d'ami acceptée.");
-    } catch (error) {
-      console.error("Erreur lors de l'acceptation :", error);
-      toast.error("Impossible d'accepter la demande.");
-      throw error;
+      toast.success(t("toasts.acceptSuccess"));
+    } catch {
+      toast.error(t("toasts.acceptError"));
     }
   };
 
@@ -94,11 +89,9 @@ export default function FeedPage() {
     try {
       await networkService.declineRequest(requestId);
       setReceivedRequests((prev) => prev.filter((req) => req.id !== requestId));
-      toast.success("Demande d'ami refusée.");
-    } catch (error) {
-      console.error("Erreur lors du refus :", error);
-      toast.error("Impossible de refuser la demande.");
-      throw error;
+      toast.success(t("toasts.declineSuccess"));
+    } catch {
+      toast.error(t("toasts.declineError"));
     }
   };
 
@@ -106,22 +99,18 @@ export default function FeedPage() {
     try {
       await networkService.cancelRequest(requestId);
       setSentRequests((prev) => prev.filter((req) => req.id !== requestId));
-      toast.success("Demande d'ami annulée.");
-    } catch (error) {
-      console.error("Erreur lors de l'annulation :", error);
-      toast.error("Impossible d'annuler la demande.");
-      throw error;
+      toast.success(t("toasts.cancelSuccess"));
+    } catch {
+      toast.error(t("toasts.cancelError"));
     }
   };
 
   const handleSendFriendRequest = async (userId: string) => {
     try {
       await networkService.sendFriendRequest(userId);
-      toast.success("Demande d'ami envoyée.");
-    } catch (error) {
-      console.error("Erreur lors de l'envoi de la demande d'ami :", error);
-      toast.error("Impossible d'envoyer une demande d'ami.");
-      throw error;
+      toast.success(t("toasts.sendSuccess"));
+    } catch {
+      toast.error(t("toasts.sendError"));
     }
   };
 
@@ -132,7 +121,7 @@ export default function FeedPage() {
           <ProfileSidebar />
           {isLoading ? (
             <div className="col-span-1 flex items-center justify-center lg:col-span-6">
-              <p className="animate-pulse text-zinc-500">Chargement du fil d'actualité...</p>
+              <p className="animate-pulse text-zinc-500">{t("loading")}</p>
             </div>
           ) : (
             <FeedSection posts={posts} />
