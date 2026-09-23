@@ -8,11 +8,9 @@ import {
   useState,
 } from "react";
 import { toast } from "sonner";
-import type { Comment } from "../feed-section.types"
-import {
-  commentService,
-} from "../../../_services/PostCommentService";
 import { useTranslations } from "next-intl";
+import type { Comment } from "../feed-section.types";
+import { commentService } from "../../../_services/PostCommentService";
 
 import { CommentsHeader } from "./CommentsHeader";
 import { CommentsList } from "./CommentsList";
@@ -29,7 +27,8 @@ export function CommentsModal({
   open,
   onOpenChange,
 }: CommentsModalProps) {
-    const t = useTranslations("Feed.feed-section.PostHeader");
+  const t = useTranslations("Feed.feed-section.CommentsModal");
+
   const [comments, setComments] = useState<Comment[]>([]);
   const [content, setContent] = useState("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -43,7 +42,6 @@ export function CommentsModal({
 
   useEffect(() => {
     if (!open) return;
-
     loadComments();
   }, [open, postId]);
 
@@ -85,7 +83,7 @@ export function CommentsModal({
 
       setComments(data);
     } catch {
-      toast.error("Impossible de charger les commentaires.");
+      toast.error(t("toasts.loadError"));
     } finally {
       setIsLoading(false);
     }
@@ -97,14 +95,14 @@ export function CommentsModal({
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      toast.error("Veuillez sélectionner une image.");
+      toast.error(t("toasts.invalidImageType"));
       return;
     }
 
     const maxSize = 10 * 1024 * 1024;
 
     if (file.size > maxSize) {
-      toast.error("L'image ne doit pas dépasser 10 MB.");
+      toast.error(t("toasts.imageTooLarge"));
       return;
     }
 
@@ -123,17 +121,20 @@ export function CommentsModal({
     const trimmedContent = content.trim();
 
     if (!trimmedContent && !selectedImage) {
-      toast.error("Écrivez un commentaire ou ajoutez une image.");
+      toast.error(t("toasts.emptyComment"));
       return;
     }
 
     try {
       setIsSubmitting(true);
 
-      const newComment = await commentService.createComment({
-        content: trimmedContent,
-        image: selectedImage,
-      }, postId);
+      const newComment = await commentService.createComment(
+        {
+          content: trimmedContent,
+          image: selectedImage,
+        },
+        postId,
+      );
 
       setComments((current) => [...current, newComment]);
 
@@ -141,9 +142,9 @@ export function CommentsModal({
       setSelectedImage(null);
       setPreviewUrl(null);
 
-      toast.success("Commentaire ajouté.");
+      toast.success(t("toasts.createSuccess"));
     } catch {
-      toast.error("Impossible d'ajouter le commentaire.");
+      toast.error(t("toasts.createError"));
     } finally {
       setIsSubmitting(false);
     }
@@ -169,16 +170,31 @@ export function CommentsModal({
         ),
       );
     } catch {
-      toast.error("Impossible de mettre à jour le like.");
+      toast.error(t("toasts.likeError"));
     } finally {
       setLikingCommentId(null);
+    }
+  };
+
+  const handleDelete = async (comment: Comment) => {
+    try {
+      if (comment.isCommentByCurrentUser) {
+        await commentService.deleteOwn(comment.id);
+      } else {
+        await commentService.deleteAsModerator(comment.id);
+      }
+
+      setComments((current) => current.filter((item) => item.id !== comment.id));
+      toast.success(t("toasts.deleteSuccess"));
+    } catch {
+      toast.error(t("toasts.deleteError"));
     }
   };
 
   if (!open) {
     return null;
   }
-  
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-0 sm:items-center sm:p-4"
@@ -211,22 +227,14 @@ export function CommentsModal({
       >
         <CommentsHeader onClose={() => onOpenChange(false)} />
 
-        <div
-          className="
-            min-h-0
-            flex-1
-            overflow-y-auto
-            px-4
-            py-4
-          "
-        >
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
           <CommentsList
             comments={comments}
             isLoading={isLoading}
             likingCommentId={likingCommentId}
             onToggleLike={handleToggleLike}
+            onDelete={handleDelete}
           />
-          
         </div>
 
         <CommentComposer
@@ -244,4 +252,3 @@ export function CommentsModal({
     </div>
   );
 }
-
