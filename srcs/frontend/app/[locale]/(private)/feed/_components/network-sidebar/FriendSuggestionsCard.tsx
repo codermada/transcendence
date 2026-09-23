@@ -30,6 +30,7 @@ export function FriendSuggestionsCard({
               key={item.userId}
               userId={item.userId}
               name={item.name}
+              image={item.image}
               initials={item.initials}
               mutualFriends={item.mutualFriends}
               onSend={onSendRequest}

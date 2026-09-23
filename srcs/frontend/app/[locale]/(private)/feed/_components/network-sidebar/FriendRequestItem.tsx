@@ -35,9 +35,11 @@ export function FriendRequestItem(props: FriendRequestItemProps) {
     return (
       <li className="flex flex-col gap-2 rounded-xl border border-zinc-100 bg-zinc-50 p-2.5 dark:border-zinc-800 dark:bg-zinc-800/40">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-600/20 text-xs font-medium text-violet-600 dark:text-violet-400">
-            {props.initials}
-          </div>
+          <img
+            src={props.image ?? "/nest/uploads/default-avatar.png"}
+            alt=""
+            className="h-10 w-10 rounded-full object-cover"
+          />
           <div className="min-w-0 flex-1">
             <p className="truncate text-xs font-semibold text-zinc-900 dark:text-zinc-100">
               {props.name}
@@ -79,9 +81,11 @@ export function FriendRequestItem(props: FriendRequestItemProps) {
   return (
     <li className="flex items-center justify-between gap-2 rounded-xl bg-zinc-50/60 p-2 dark:bg-zinc-800/20">
       <div className="flex min-w-0 items-center gap-2">
-        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-zinc-200 text-[10px] font-medium text-zinc-700 dark:bg-zinc-700 dark:text-zinc-300">
-          {props.initials}
-        </div>
+        <img
+          src={props.image ?? "/nest/uploads/default-avatar.png"}
+          alt=""
+          className="h-10 w-10 rounded-full object-cover"
+        />
         <span className="truncate text-xs font-medium text-zinc-800 dark:text-zinc-200">
           {props.name}
         </span>
