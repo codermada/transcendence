@@ -107,12 +107,11 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
 
   const handleRemoveMedia = (idToRemove: string) => {
     setSelectedMedia((prev) => {
-      const filtered = prev.filter((item) => item.id !== idToRemove);
       const itemToRemove = prev.find((item) => item.id === idToRemove);
       if (itemToRemove) {
         URL.revokeObjectURL(itemToRemove.url);
       }
-      return filtered;
+      return prev.filter((item) => item.id !== idToRemove);
     });
   };
 
@@ -130,7 +129,7 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
         () => (
           <UploadProgressToast
             progress={0}
-            fileName={`${selectedMedia.length} fichier(s)`}
+            fileName={`${selectedMedia.length} ${selectedMedia.length !== 1 ? t("multiFile") : t("singleFile")}`}
           />
         ),
         { duration: Infinity }
@@ -148,7 +147,7 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
               () => (
                 <UploadProgressToast
                   progress={progress}
-                  fileName={`${selectedMedia.length} fichier(s)`}
+                  fileName={`${selectedMedia.length} ${selectedMedia.length !== 1 ? t("multiFile") : t("singleFile")}`}
                   isCompleted={progress >= 100}
                 />
               ),
@@ -222,6 +221,8 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
                   className="h-full w-full object-cover"
                   controls={false}
                   muted
+                  playsInline
+                  preload="metadata"
                 />
               )}
               <button
