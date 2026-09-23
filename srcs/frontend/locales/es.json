@@ -215,6 +215,24 @@
         "posts": "Publicaciones",
         "reactions": "Reacciones"
       }
+    },
+    "toast-popup-message": {
+      "handleAcceptRequest": {
+        "successMessage": "Solicitud de amistad aceptada.",
+        "errorMessage": "Error al aceptar la solicitud de amistad."
+      },
+      "handleDeclineRequest": {
+        "successMessage": "Solicitud de amistad rechazada.",
+        "errorMessage": "Error al rechazar la solicitud de amistad."
+      },
+      "handleCancelRequest": {
+        "successMessage": "Solicitud de amistad cancelada.",
+        "errorMessage": "Error al cancelar la solicitud de amistad."
+      },
+      "handleSendFriendRequest": {
+        "successMessage": "Solicitud de amistad enviada.",
+        "errorMessage": "Error al enviar la solicitud de amistad."
+      }
     }
   },
   "FeedPage": {

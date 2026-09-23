@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Post } from "./_components/feed-section/feed-section.types";
 import { FeedSection } from "./_components/feed-section/FeedSection";

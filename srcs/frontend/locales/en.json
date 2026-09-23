@@ -215,6 +215,24 @@
         "posts": "Posts",
         "reactions": "Reactions"
       }
+    },
+    "toast-popup-message": {
+      "handleAcceptRequest": {
+        "successMessage": "Friend request accepted.",
+        "errorMessage": "Error accepting friend request."
+      },
+      "handleDeclineRequest": {
+        "successMessage": "Friend request declined.",
+        "errorMessage": "Error declining friend request."
+      },
+      "handleCancelRequest": {
+        "successMessage": "Friend request canceled.",
+        "errorMessage": "Error canceling friend request."
+      },
+      "handleSendFriendRequest": {
+        "successMessage": "Friend request sent.",
+        "errorMessage": "Error sending friend request."
+      }
     }
   },
   "FeedPage": {
