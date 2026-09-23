@@ -14,7 +14,6 @@ import { PresenceModule } from './presence/presence.module.js';
 import { PrismaModule } from './prisma/prisma.module';
 import { TestModule } from './test/test.module';
 import { UserModule } from './user/user.module';
-import { PostCommentModule } from './post-comment/post-comment.module';
 
 @Module({
 	imports: [
@@ -30,7 +29,6 @@ import { PostCommentModule } from './post-comment/post-comment.module';
 		ProfileModule,
 		NetworkModule,
 		HealthCheckModule,
-		PostCommentModule,
 	],
 	controllers: [AuthController],
 })
