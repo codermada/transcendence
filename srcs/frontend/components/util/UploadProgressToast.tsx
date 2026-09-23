@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 interface UploadProgressToastProps {
   progress: number;
   fileName?: string;
@@ -11,13 +13,15 @@ export function UploadProgressToast({
   fileName,
   isCompleted,
 }: UploadProgressToastProps) {
+  const t = useTranslations('UploadProgressToast');
   return (
     <div className="flex w-80 flex-col gap-2 rounded-xl border border-zinc-200/80 bg-white p-3.5 shadow-lg dark:border-zinc-800/80 dark:bg-zinc-900">
       <div className="flex items-center justify-between text-xs">
         <span className="font-medium text-zinc-800 dark:text-zinc-200">
           {isCompleted
-            ? "Publication envoyée !"
-            : "Envoi des fichiers..."}
+            ? t('completed')
+            : t('notCompleted')
+          }
         </span>
         <span className="font-semibold text-violet-600 dark:text-violet-400">
           {Math.round(progress)}%
