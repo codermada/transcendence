@@ -1,7 +1,7 @@
 import {
     Controller,
     UseGuards,
-    Post, Get,
+    Post, Get, Delete,
     Body, Param,
     UseInterceptors,
     UploadedFile,
@@ -17,6 +17,7 @@ import {
 } from '@nestjs/swagger';
 
 import { AuthGuard } from '../auth/AuthGuard';
+import { ModeratorGuard } from '../auth/ModeratorGuard';
 import { CurrentUser } from '../auth/CurrentUser';
 import { PostCommentService } from './post-comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
@@ -36,9 +37,11 @@ export class PostCommentController {
         description: 'List of comments retrieved successfully.'
     })
     @ApiResponse({ status: 404, description: 'Post not found.' })
-    async getCommentsByPostId(@Param('postId') postId: string, @CurrentUser() user: any) {
-
-        return this.postCommentService.getCommentsByPostId(postId, user);
+    async getCommentsByPostId(
+        @Param('postId') postId: string,
+        @CurrentUser('id') userId: string,
+    ) {
+        return this.postCommentService.getCommentsByPostId(postId, userId);
     }
 
     @Post()
@@ -69,11 +72,11 @@ export class PostCommentController {
         }),
     )
     async createComment(
-        @CurrentUser('id') user: any,
+        @CurrentUser('id') userId: string,
         @Body() dto: CreateCommentDto,
         @UploadedFile() file?: Express.Multer.File,
     ) {
-        return this.postCommentService.createComment(user, dto, file);
+        return this.postCommentService.createComment(userId, dto, file);
     }
 
     @Post('like')
@@ -91,7 +94,34 @@ export class PostCommentController {
         },
     })
     @ApiResponse({ status: 404, description: 'comment not found.' })
-    async toggleLike(@CurrentUser('id') user: any, @Body() dto: ToggleCommentLikeDto) {
-        return this.postCommentService.toggleLike(user, dto.commentId);
+    async toggleLike(
+        @CurrentUser('id') userId: string,
+        @Body() dto: ToggleCommentLikeDto,
+    ) {
+        return this.postCommentService.toggleLike(userId, dto.commentId);
+    }
+
+    @Delete(':id')
+    @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: 'Delete your own comment' })
+    @ApiResponse({ status: 200, description: 'Comment deleted.' })
+    @ApiResponse({ status: 403, description: 'You can only delete your own comments.' })
+    @ApiResponse({ status: 404, description: 'Comment not found.' })
+    async deleteOwnComment(
+        @Param('id') id: string,
+        @CurrentUser('id') userId: string,
+    ) {
+        return this.postCommentService.deleteComment(id, userId);
+    }
+
+    @Delete(':id/moderate')
+    @UseGuards(ModeratorGuard)
+    @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: 'Moderator/Admin: delete any comment' })
+    @ApiResponse({ status: 200, description: 'Comment deleted by moderator.' })
+    @ApiResponse({ status: 403, description: 'Moderator or admin access required.' })
+    @ApiResponse({ status: 404, description: 'Comment not found.' })
+    async deleteCommentAsModerator(@Param('id') id: string) {
+        return this.postCommentService.deleteCommentAsModerator(id);
     }
 }
