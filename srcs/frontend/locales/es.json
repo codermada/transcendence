@@ -132,12 +132,16 @@
     "activity": "Actividad reciente",
     "feed-section": {
       "CreatePostCard": {
-        "placeholder": "¿Qué hay de nuevo hoy?",
-        "plurialMedia": "Fotos / Videos",
-        "singularMedia": "Foto / Video",
-        "publish": "Publicar",
-        "isLoading": "Publicando..."
-      },
+      "placeholder": "¿Qué tienes en mente hoy?",
+      "pluralMedia": "Fotos / Vídeos",
+      "singularMedia": "Foto / Vídeo",
+      "publish": "Publicar",
+      "isLoading": "Publicando...",
+      "errors": {
+        "CONTENT_EMPTY": "El contenido no puede estar vacío",
+        "DEFAULT": "Algo salió mal. Inténtalo de nuevo."
+      }
+    },
       "FeedSection": {
         "emptyTitle": "No hay publicaciones aún",
         "emptyDescription": "Sé el primero en publicar algo o añade amigos para ver sus novedades.",

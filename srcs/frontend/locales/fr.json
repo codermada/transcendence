@@ -133,10 +133,14 @@
     "feed-section": {
       "CreatePostCard": {
         "placeholder": "Quoi de neuf aujourd'hui ?",
-        "plurialMedia": "Photos / Vidéos",
+        "pluralMedia": "Photos / Vidéos",
         "singularMedia": "Photo / Vidéo",
         "publish": "Publier",
-        "isLoading": "Publication..."
+        "isLoading": "Publication...",
+        "errors": {
+          "CONTENT_EMPTY": "Le contenu ne peut pas être vide",
+          "DEFAULT": "Une erreur est survenue. Veuillez réessayer."
+        }
       },
       "FeedSection": {
         "emptyTitle": "Aucun message pour le moment",
