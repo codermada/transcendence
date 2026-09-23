@@ -80,8 +80,6 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
     const key = BACKEND_ERROR_MAP[rawMessage];
     if (key) return t(key);
 
-    // Optional: also try treating the raw message as a key directly
-    // in case the backend ever returns i18n keys like "errors.CONTENT_EMPTY".
     if (t.has(rawMessage)) return t(rawMessage);
 
     return rawMessage;
@@ -107,7 +105,7 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
 
   const handleRemoveMedia = (idToRemove: string) => {
     setSelectedMedia((prev) => {
-      const itemToRemove = prev.find((item) => item.id === idToRemove);
+      const itemToRemove = prev.find((item) => item.id !== idToRemove);
       if (itemToRemove) {
         URL.revokeObjectURL(itemToRemove.url);
       }
@@ -119,7 +117,6 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
     if (!content.trim() && selectedMedia.length === 0) return;
 
     setIsLoading(true);
-    setError(null);
 
     const hasFiles = selectedMedia.length > 0;
     let toastId: string | number | undefined;
@@ -170,6 +167,10 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
         onPostCreated(createdPost);
       }
     } catch (err: any) {
+      if (toastId) {
+        toast.dismiss(toastId);
+      }
+
       const translatedMessage = translateBackendError(err?.message);
 
       toast.error(translatedMessage, {
