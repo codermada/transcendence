@@ -28,9 +28,9 @@ export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
     try {
       await postService.deletePost(postId);
       setPosts((prev) => prev.filter((p) => p.id !== postId));
-      toast.success("Publication supprimée");
+      toast.success(t("deleteSuccess"));
     } catch (error) {
-      toast.error("Erreur lors de la suppression");
+      toast.error(t("deleteError"));
     }
   };
 

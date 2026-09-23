@@ -141,7 +141,9 @@
       "FeedSection": {
         "emptyTitle": "Aucun message pour le moment",
         "emptyDescription": "Soyez le premier à publier quelque chose ou ajoutez des amis pour voir leurs actualités.",
-        "defaultTimeAgo": "À l'instant"
+        "defaultTimeAgo": "À l'instant",
+        "deleteSuccess": "Publication supprimée",
+        "deleteError": "Échec de la suppression de la publication"
       },
       "MediaModal": {
 
