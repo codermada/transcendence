@@ -230,7 +230,8 @@
     "searchError": "Algo salió mal. Inténtalo de nuevo.",
     "add": "Agregar",
     "back": "Atrás",
-    "adding": "Añadiendo…"
+    "adding": "Añadiendo…",
+    "requestSent": "Solicitud enviada"
   },
   "Chat": {
     "title": "Mensajes",
