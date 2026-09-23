@@ -217,6 +217,23 @@
       }
     }
   },
+  "FeedPage": {
+    "loading": "Loading your feed...",
+    "toasts": {
+      "acceptSuccess": "Friend request accepted.",
+      "acceptError": "Could not accept the request.",
+      "declineSuccess": "Friend request declined.",
+      "declineError": "Could not decline the request.",
+      "cancelSuccess": "Friend request cancelled.",
+      "cancelError": "Could not cancel the request.",
+      "sendSuccess": "Friend request sent.",
+      "sendError": "Could not send the friend request.",
+      "loadPostsError": "Could not load your feed.",
+      "loadReceivedRequestsError": "Could not load received requests.",
+      "loadSentRequestsError": "Could not load sent requests.",
+      "loadSuggestionsError": "Could not load friend suggestions."
+    }
+  },
   "Friends": {
     "title": "Friends",
     "subtitle": "Manage your friends and community connections.",

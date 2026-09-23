@@ -217,6 +217,23 @@
       }
     }
   },
+  "FeedPage": {
+    "loading": "Cargando tu feed...",
+    "toasts": {
+      "acceptSuccess": "Solicitud de amistad aceptada.",
+      "acceptError": "No se pudo aceptar la solicitud.",
+      "declineSuccess": "Solicitud de amistad rechazada.",
+      "declineError": "No se pudo rechazar la solicitud.",
+      "cancelSuccess": "Solicitud de amistad cancelada.",
+      "cancelError": "No se pudo cancelar la solicitud.",
+      "sendSuccess": "Solicitud de amistad enviada.",
+      "sendError": "No se pudo enviar la solicitud de amistad.",
+      "loadPostsError": "No se pudo cargar tu feed.",
+      "loadReceivedRequestsError": "No se pudieron cargar las solicitudes recibidas.",
+      "loadSentRequestsError": "No se pudieron cargar las solicitudes enviadas.",
+      "loadSuggestionsError": "No se pudieron cargar las sugerencias de amistad."
+    }
+  },
   "Friends": {
     "title": "Amigos",
     "subtitle": "Gestiona tus amigos y conexiones con la comunidad.",
