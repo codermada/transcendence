@@ -217,6 +217,23 @@
       }
     }
   },
+  "FeedPage": {
+    "loading": "Chargement du fil d'actualité...",
+    "toasts": {
+      "acceptSuccess": "Demande d'ami acceptée.",
+      "acceptError": "Impossible d'accepter la demande.",
+      "declineSuccess": "Demande d'ami refusée.",
+      "declineError": "Impossible de refuser la demande.",
+      "cancelSuccess": "Demande d'ami annulée.",
+      "cancelError": "Impossible d'annuler la demande.",
+      "sendSuccess": "Demande d'ami envoyée.",
+      "sendError": "Impossible d'envoyer une demande d'ami.",
+      "loadPostsError": "Impossible de charger le fil d'actualité.",
+      "loadReceivedRequestsError": "Impossible de charger les demandes reçues.",
+      "loadSentRequestsError": "Impossible de charger les demandes envoyées.",
+      "loadSuggestionsError": "Impossible de charger les suggestions d'amis."
+    }
+  },
   "Friends": {
     "title": "Amis",
     "subtitle": "Gérez vos amis et vos connexions.",
