@@ -215,25 +215,7 @@
     "subtitle": "Messages privés et canaux de discussion.",
     "emptyTitle": "Vos messages",
     "emptyDescription": "Sélectionnez une conversation ou commencez une nouvelle discussion avec un ami.",
-    "newMessage": "Nouveau message",
-    "message": "Message",
-    "sendMessage": "Envoyer",
-    "cancel": "Annuler",
-    "typeMessagePlaceholder": "Écrivez un message…",
-    "startConversationWith": "Envoyer un message à",
-    "newMessageTitle": "Nouvelle conversation",
-    "sending": "Envoi…",
-    "backToMessages": "Retour aux messages",
-    "conversationWith": "Discussion avec",
-    "noMessagesYet": "Aucun message pour le moment.",
-    "sayHello": "Dites bonjour pour démarrer la discussion !",
-    "sendError": "Impossible d'envoyer le message. Veuillez réessayer.",
-    "online": "En ligne",
-    "offline": "Hors ligne",
-    "seen": "Vu",
-    "sent": "Envoyé",
-    "close": "Fermer",
-    "loadError": "Impossible de charger la discussion."
+    "newMessage": "Nouveau message"
   },
   "Settings": {
     "nav": {
@@ -335,10 +317,6 @@
       "roleUser": "Utilisateur",
       "you": "vous",
       "empty": "Aucun utilisateur trouvé.",
-
-      "roleModerator": "Modérateur",
-      "promoteRole": "Promouvoir le rôle",
-      "demoteRole": "Rétrograder le rôle",
 
       "edit": "Modifier l'utilisateur",
       "delete": "Supprimer l'utilisateur",

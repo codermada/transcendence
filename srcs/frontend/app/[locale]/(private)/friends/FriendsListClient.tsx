@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Search, Users, XCircle } from "@/components/icons";
-import { getInitials } from "@/lib/utils/user-utils";
 
 // ─────────────────────────────────────────────────────────────
 // Types
@@ -379,4 +378,13 @@ function SkeletonGrid() {
       ))}
     </ul>
   );
+}
+
+function getInitials(name: string) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((p) => p[0]?.toUpperCase() ?? "")
+    .join("");
 }

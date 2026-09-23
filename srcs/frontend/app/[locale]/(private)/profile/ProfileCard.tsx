@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { getInitials } from "@/lib/utils/user-utils";
 
 type CurrentUser = {
   id: string;
@@ -137,7 +136,7 @@ export function ProfileCard() {
     <div className="relative overflow-hidden rounded-2xl border border-zinc-200/80 bg-white/80 p-6 shadow-xl backdrop-blur-xl dark:border-zinc-800 dark:bg-zinc-900/40 dark:shadow-2xl dark:shadow-black/20">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-violet-500/50 to-transparent shadow-[0_0_14px_rgba(139,92,246,0.35)]"
+        className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent shadow-[0_0_14px_rgba(139,92,246,0.35)]"
       />
 
       <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
@@ -258,4 +257,13 @@ function MetaRow({
       </dd>
     </div>
   );
+}
+
+function getInitials(name: string) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((p) => p[0]?.toUpperCase() ?? "")
+    .join("");
 }

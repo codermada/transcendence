@@ -14,7 +14,6 @@ export interface Post {
   createdAt: string;
   content: string;
   mediaUrls: string[];
-  postCount: number;
   likesCount: number;
   commentsCount: number;
   isOwner: boolean;
@@ -53,4 +52,35 @@ export interface PostActionsProps {
 
 export interface CreatePostCardProps {
   onPostCreated?: (newPost: Post) => void;
+}
+
+// =========== comments modal ===========
+
+export interface CommentUser {
+  name: string;
+  pseudo: string;
+  image?: string | null;
+}
+
+export interface Comment {
+  id: string;
+  userId: string;
+  content: string;
+  mediaUrl?: string | null;
+
+  createdAt: string;
+  updatedAt: string;
+
+  likesCount: number;
+
+  isLikedByCurrentUser: boolean;
+  isCommentByCurrentUser: boolean;
+
+  user: CommentUser;
+}
+
+export interface CreateCommentPayload {
+  postId: string;
+  content: string;
+  image?: File | null;
 }

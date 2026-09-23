@@ -215,25 +215,7 @@
     "subtitle": "Mensajes directos y canales grupales.",
     "emptyTitle": "Tus mensajes",
     "emptyDescription": "Selecciona una conversación o inicia un nuevo chat con un amigo.",
-    "newMessage": "Nuevo mensaje",
-    "message": "Mensaje",
-    "sendMessage": "Enviar",
-    "cancel": "Cancelar",
-    "typeMessagePlaceholder": "Escribe un mensaje…",
-    "startConversationWith": "Enviar un mensaje a",
-    "newMessageTitle": "Nueva conversación",
-    "sending": "Enviando…",
-    "backToMessages": "Volver a mensajes",
-    "conversationWith": "Conversación con",
-    "noMessagesYet": "Aún no hay mensajes.",
-    "sayHello": "¡Saluda para comenzar la conversación!",
-    "sendError": "Error al enviar el mensaje. Inténtalo de nuevo.",
-    "online": "En línea",
-    "offline": "Desconectado",
-    "seen": "Visto",
-    "sent": "Enviado",
-    "close": "Cerrar",
-    "loadError": "No se pudo cargar la conversación."
+    "newMessage": "Nuevo mensaje"
   },
   "Settings": {
     "nav": {
@@ -335,10 +317,6 @@
       "roleUser": "Usuario",
       "you": "tú",
       "empty": "No se encontraron usuarios.",
-
-      "roleModerator": "Moderador",
-      "promoteRole": "Ascender rol",
-      "demoteRole": "Degradar rol",
 
       "edit": "Editar usuario",
       "delete": "Eliminar usuario",

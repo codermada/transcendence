@@ -6,7 +6,6 @@ import { useSession } from "@/lib/auth/use-session";
 import { AuthenticatedNavbar } from "@/components/Nav/AuthenticatedNavbar";
 import { MobileBottomNav } from "@/components/Nav/MobileBottomNav";
 import { usePresenceInit } from "@/hooks/use-presence";
-import { useChatSocketInit } from "@/hooks/use-chat-socket";
 
 export default function PrivateLayout({
   children,
@@ -17,7 +16,6 @@ export default function PrivateLayout({
   const { data: session, isPending } = useSession();
 
   usePresenceInit();
-  useChatSocketInit();
 
   useEffect(() => {
     if (!isPending && !session) {

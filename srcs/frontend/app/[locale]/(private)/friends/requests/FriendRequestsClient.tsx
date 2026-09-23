@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Search } from "@/components/icons";
-import { getInitials } from "@/lib/utils/user-utils";
 
 // ─────────────────────────────────────────────────────────────
 // Types
@@ -489,4 +488,13 @@ function SkeletonList() {
       ))}
     </ul>
   );
+}
+
+function getInitials(name: string) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((p) => p[0]?.toUpperCase() ?? "")
+    .join("");
 }
