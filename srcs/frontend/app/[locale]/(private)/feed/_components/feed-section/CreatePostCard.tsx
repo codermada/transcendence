@@ -1,6 +1,7 @@
 "use client";
 
 import { Send } from "@/components/icons";
+import { UploadProgressToast } from "@/components/util/UploadProgressToast";
 import { useTranslations } from "next-intl";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -119,13 +120,48 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
     if (!content.trim() && selectedMedia.length === 0) return;
 
     setIsLoading(true);
+    setError(null);
+
+    const hasFiles = selectedMedia.length > 0;
+    let toastId: string | number | undefined;
+
+    if (hasFiles) {
+      toastId = toast.custom(
+        () => (
+          <UploadProgressToast
+            progress={0}
+            fileName={`${selectedMedia.length} fichier(s)`}
+          />
+        ),
+        { duration: Infinity }
+      );
+    }
 
     try {
       const files = selectedMedia.map((m) => m.file);
-      const createdPost = await postService.createPost({
-        content,
-        files,
-      });
+
+      const createdPost = await postService.createPost(
+        { content, files },
+        (progress) => {
+          if (hasFiles && toastId) {
+            toast.custom(
+              () => (
+                <UploadProgressToast
+                  progress={progress}
+                  fileName={`${selectedMedia.length} fichier(s)`}
+                  isCompleted={progress >= 100}
+                />
+              ),
+              { id: toastId, duration: Infinity }
+            );
+          }
+        }
+      );
+
+      if (toastId) {
+        toast.dismiss(toastId);
+      }
+      toast.success(t("postCreatedSuccess") || "Publication publiée avec succès !");
 
       selectedMedia.forEach((m) => URL.revokeObjectURL(m.url));
       setSelectedMedia([]);
