@@ -140,7 +140,10 @@
         "errors": {
           "CONTENT_EMPTY": "Content cannot be empty",
           "DEFAULT": "Something went wrong. Please try again."
-        }
+        },
+        "multiFile": "files",
+        "singleFile": "file",
+        "postCreatedSuccess": "Post created successfully!"
       },
       "FeedSection": {
         "emptyTitle": "No posts yet",
@@ -596,5 +599,9 @@
     "en": "English",
     "fr": "Français",
     "es": "Español"
+  },
+  "UploadProgressToast": {
+    "notCompleted": "Uploading files...",
+    "completed": "Post published!"
   }
 }
