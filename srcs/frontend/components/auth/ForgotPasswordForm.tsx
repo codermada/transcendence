@@ -2,69 +2,64 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  createForgotPasswordSchema,
-  type ForgotPasswordFormData,
-} from "@/lib/validations/auth";
-import { InputField } from "@/components/ui/InputField";
-import { FormAlert } from "@/components/ui/FormAlert";
-import { SubmitButton } from "@/components/ui/SubmitButton";
+import { toast } from "sonner";
+import { authClient } from "@/lib/auth/auth-client";
 
-export function ForgotPasswordForm() {
+export default function ForgotPasswordForm() {
   const t = useTranslations("Auth.forgotPassword");
-  const tVal = useTranslations("Auth.validation");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [serverError, setServerError] = useState("");
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const schema = createForgotPasswordSchema({
-    emailRequired: tVal("emailRequired"),
-    emailInvalid: tVal("emailInvalid"),
-  });
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<ForgotPasswordFormData>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      email: "",
-    },
-  });
+    setLoading(true);
 
-  const onSubmit = async () => {
-    setServerError("");
-    setSuccessMessage("");
+    const { error } = await authClient.requestPasswordReset({
+      email,
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
 
-    try {
-      // Simulate/Trigger reset link (placeholder until backend email reset service is connected)
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      setSuccessMessage(t("successMessage"));
-    } catch {
-      setServerError(t("errorMessage"));
+    setLoading(false);
+
+    if (error) {
+      toast.error(error.message ?? t("errorMessage"));
+      return;
     }
-  };
+
+    toast.success(t("successMessage"));
+  }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
-      <InputField
-        id="email"
-        label={t("emailLabel")}
-        type="email"
-        placeholder={t("emailPlaceholder")}
-        autoComplete="email"
-        error={errors.email?.message}
-        {...register("email")}
-      />
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="space-y-2">
+        <label
+          htmlFor="email"
+          className="block text-sm font-medium text-subtle"
+        >
+          {t("emailLabel")}
+        </label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          autoComplete="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={loading}
+          placeholder={t("emailPlaceholder")}
+          className="w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-muted outline-none transition-colors focus:border-border-hover disabled:opacity-60"
+        />
+      </div>
 
-      <FormAlert message={serverError} type="error" />
-      <FormAlert message={successMessage} type="success" />
-
-      <SubmitButton isLoading={isSubmitting} loadingText={t("submitting")}>
-        {t("submit")}
-      </SubmitButton>
+      <button
+        type="submit"
+        disabled={loading}
+        className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {loading ? t("submitting") : t("submit")}
+      </button>
     </form>
   );
 }
