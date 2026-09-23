@@ -133,10 +133,14 @@
     "feed-section": {
       "CreatePostCard": {
         "placeholder": "What's on your mind today?",
-        "plurialMedia": "Photos / Videos",
+        "pluralMedia": "Photos / Videos",
         "singularMedia": "Photo / Video",
         "publish": "Publish",
-        "isLoading": "Publishing..."
+        "isLoading": "Publishing...",
+        "errors": {
+          "CONTENT_EMPTY": "Content cannot be empty",
+          "DEFAULT": "Something went wrong. Please try again."
+        }
       },
       "FeedSection": {
         "emptyTitle": "No posts yet",

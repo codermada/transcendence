@@ -12,9 +12,19 @@ interface CreatePostCardProps {
   onPostCreated?: (newPost: Post) => void;
 }
 
+/**
+ * Maps raw backend validation messages (currently French-only)
+ * to translation keys under `Feed.feed-section.CreatePostCard.errors`.
+ *
+ * Add new entries here whenever the backend introduces a new message.
+ */
+const BACKEND_ERROR_MAP: Record<string, string> = {
+  "Le contenu ne peut pas être vide": "errors.CONTENT_EMPTY",
+};
+
 export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
   const t = useTranslations("Feed.feed-section.CreatePostCard");
-  
+
   const [content, setContent] = useState("");
   const [userProfile, setUserProfile] = useState<UserProfileResponse>({
     name: "Unknown",
@@ -29,7 +39,6 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
   });
   const [selectedMedia, setSelectedMedia] = useState<MediaPreview[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -39,7 +48,7 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
     async function fetchUserProfile() {
       try {
         const fetchedUserProfile = await profileService.getUserProfile();
-        
+
         if (isMounted) {
           setUserProfile(fetchedUserProfile);
         }
@@ -58,6 +67,24 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
       isMounted = false;
     };
   }, []);
+
+  /**
+   * Resolve a backend error message to a translated string.
+   * Falls back to the raw message (or a generic translated message)
+   * if no mapping exists.
+   */
+  const translateBackendError = (rawMessage?: string): string => {
+    if (!rawMessage) return t("errors.DEFAULT");
+
+    const key = BACKEND_ERROR_MAP[rawMessage];
+    if (key) return t(key);
+
+    // Optional: also try treating the raw message as a key directly
+    // in case the backend ever returns i18n keys like "errors.CONTENT_EMPTY".
+    if (t.has(rawMessage)) return t(rawMessage);
+
+    return rawMessage;
+  };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -92,7 +119,6 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
     if (!content.trim() && selectedMedia.length === 0) return;
 
     setIsLoading(true);
-    setError(null);
 
     try {
       const files = selectedMedia.map((m) => m.file);
@@ -109,7 +135,9 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
         onPostCreated(createdPost);
       }
     } catch (err: any) {
-      toast.error(err.message, {
+      const translatedMessage = translateBackendError(err?.message);
+
+      toast.error(translatedMessage, {
         style: {
           backgroundColor: "#a60000d1",
           color: "#fec2c2",
@@ -139,20 +167,26 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
         />
       </div>
 
-      {error && (
-        <p className="mt-2 text-xs text-red-500 dark:text-red-400">
-          {error}
-        </p>
-      )}
-
       {selectedMedia.length > 0 && (
         <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
           {selectedMedia.map((media) => (
-            <div key={media.id} className="group relative aspect-video overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-800">
+            <div
+              key={media.id}
+              className="group relative aspect-video overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-800"
+            >
               {media.type === "image" ? (
-                <img src={media.url} alt={media.file.name} className="h-full w-full object-cover" />
+                <img
+                  src={media.url}
+                  alt={media.file.name}
+                  className="h-full w-full object-cover"
+                />
               ) : (
-                <video src={media.url} className="h-full w-full object-cover" controls={false} muted />
+                <video
+                  src={media.url}
+                  className="h-full w-full object-cover"
+                  controls={false}
+                  muted
+                />
               )}
               <button
                 type="button"
@@ -160,8 +194,18 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
                 onClick={() => handleRemoveMedia(media.id)}
                 className="absolute top-1.5 right-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white transition-opacity hover:bg-black/80 disabled:opacity-50"
               >
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="h-3.5 w-3.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
             </div>
@@ -185,12 +229,22 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
           onClick={() => fileInputRef.current?.click()}
           className="flex items-center gap-2 text-xs font-medium text-zinc-500 transition-colors hover:text-violet-600 disabled:opacity-50 dark:text-zinc-400 dark:hover:text-violet-400"
         >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+            />
           </svg>
           <span>
             {selectedMedia.length > 0
-              ? `${t("plurialMedia")} (${selectedMedia.length})`
+              ? `${t("pluralMedia")} (${selectedMedia.length})`
               : `${t("singularMedia")}`}
           </span>
         </button>
