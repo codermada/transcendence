@@ -1,6 +1,7 @@
 "use client";
 
 import { Send } from "@/components/icons";
+import { UploadProgressToast } from "@/components/util/UploadProgressToast";
 import { useTranslations } from "next-intl";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -79,8 +80,6 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
     const key = BACKEND_ERROR_MAP[rawMessage];
     if (key) return t(key);
 
-    // Optional: also try treating the raw message as a key directly
-    // in case the backend ever returns i18n keys like "errors.CONTENT_EMPTY".
     if (t.has(rawMessage)) return t(rawMessage);
 
     return rawMessage;
@@ -106,12 +105,11 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
 
   const handleRemoveMedia = (idToRemove: string) => {
     setSelectedMedia((prev) => {
-      const filtered = prev.filter((item) => item.id !== idToRemove);
-      const itemToRemove = prev.find((item) => item.id === idToRemove);
+      const itemToRemove = prev.find((item) => item.id !== idToRemove);
       if (itemToRemove) {
         URL.revokeObjectURL(itemToRemove.url);
       }
-      return filtered;
+      return prev.filter((item) => item.id !== idToRemove);
     });
   };
 
@@ -120,12 +118,46 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
 
     setIsLoading(true);
 
+    const hasFiles = selectedMedia.length > 0;
+    let toastId: string | number | undefined;
+
+    if (hasFiles) {
+      toastId = toast.custom(
+        () => (
+          <UploadProgressToast
+            progress={0}
+            fileName={`${selectedMedia.length} ${selectedMedia.length !== 1 ? t("multiFile") : t("singleFile")}`}
+          />
+        ),
+        { duration: Infinity }
+      );
+    }
+
     try {
       const files = selectedMedia.map((m) => m.file);
-      const createdPost = await postService.createPost({
-        content,
-        files,
-      });
+
+      const createdPost = await postService.createPost(
+        { content, files },
+        (progress) => {
+          if (hasFiles && toastId) {
+            toast.custom(
+              () => (
+                <UploadProgressToast
+                  progress={progress}
+                  fileName={`${selectedMedia.length} ${selectedMedia.length !== 1 ? t("multiFile") : t("singleFile")}`}
+                  isCompleted={progress >= 100}
+                />
+              ),
+              { id: toastId, duration: Infinity }
+            );
+          }
+        }
+      );
+
+      if (toastId) {
+        toast.dismiss(toastId);
+      }
+      toast.success(t("postCreatedSuccess") || "Publication publiée avec succès !");
 
       selectedMedia.forEach((m) => URL.revokeObjectURL(m.url));
       setSelectedMedia([]);
@@ -135,6 +167,10 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
         onPostCreated(createdPost);
       }
     } catch (err: any) {
+      if (toastId) {
+        toast.dismiss(toastId);
+      }
+
       const translatedMessage = translateBackendError(err?.message);
 
       toast.error(translatedMessage, {
@@ -186,6 +222,8 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
                   className="h-full w-full object-cover"
                   controls={false}
                   muted
+                  playsInline
+                  preload="metadata"
                 />
               )}
               <button
