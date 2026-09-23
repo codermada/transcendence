@@ -13,8 +13,8 @@ services:
       POSTGRES_DB: ${DB_NAME}
     networks:
       - net
-    ports:
-      - "5432:5432"
+    # ports:
+    #   - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -36,7 +36,7 @@ services:
     expose:
       - "3000"
     ports:
-      - "3000:3000"
+      # - "3000:3000"
       - "51212:51212"
     networks:
       - net
@@ -59,8 +59,8 @@ services:
       - /app/.next
     expose:
       - "3000"
-    ports:
-      - "3001:3000"
+    # ports:
+    #   - "3001:3000"
     networks:
       - net
     depends_on:
