@@ -13,6 +13,7 @@ import { PostLikeModule } from './post-like/post-like.module.js';
 import { PostModule } from './post/post.module';
 import { PresenceModule } from './presence/presence.module.js';
 import { HealthCheckModule } from './health-check/health-check.module.js';
+import { HealthModule } from './health/health.module';
 
 @Module({
 	imports: [
@@ -26,7 +27,8 @@ import { HealthCheckModule } from './health-check/health-check.module.js';
 		PostModule,
 		PostLikeModule,
 		ProfileModule,
-		HealthCheckModule
+		HealthCheckModule,
+		HealthModule
 	],
 	controllers: [AuthController],
 })
