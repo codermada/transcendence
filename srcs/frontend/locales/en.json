@@ -233,7 +233,8 @@
     "seen": "Seen",
     "sent": "Sent",
     "close": "Close",
-    "loadError": "Failed to load conversation."
+    "loadError": "Failed to load conversation.",
+    "download": "Click to download"
   },
   "Settings": {
     "nav": {

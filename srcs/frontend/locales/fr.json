@@ -233,7 +233,8 @@
     "seen": "Vu",
     "sent": "Envoyé",
     "close": "Fermer",
-    "loadError": "Impossible de charger la discussion."
+    "loadError": "Impossible de charger la discussion.",
+    "download": "Cliquer pour télécharger"
   },
   "Settings": {
     "nav": {
