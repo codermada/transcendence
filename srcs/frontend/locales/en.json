@@ -141,7 +141,9 @@
       "FeedSection": {
         "emptyTitle": "No posts yet",
         "emptyDescription": "Be the first to post something or add friends to see their updates.",
-        "defaultTimeAgo": "Just now"
+        "defaultTimeAgo": "Just now",
+        "deleteSuccess": "Post deleted",
+        "deleteError": "Failed to delete post"
       },
       "MediaModal": {
 

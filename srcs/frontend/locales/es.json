@@ -141,7 +141,9 @@
       "FeedSection": {
         "emptyTitle": "No hay publicaciones aún",
         "emptyDescription": "Sé el primero en publicar algo o añade amigos para ver sus novedades.",
-        "defaultTimeAgo": "Hace un momento"
+        "defaultTimeAgo": "Hace un momento",
+        "deleteSuccess": "Publicación eliminada",
+        "deleteError": "No se pudo eliminar la publicación"
       },
       "MediaModal": {
 
