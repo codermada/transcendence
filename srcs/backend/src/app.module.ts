@@ -34,4 +34,5 @@ import { PostCommentModule } from './post-comment/post-comment.module';
 	],
 	controllers: [AuthController],
 })
+
 export class AppModule {}

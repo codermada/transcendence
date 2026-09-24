@@ -83,6 +83,57 @@ export class PostRepository {
 		}));
 	}
 
+	async findAssociatedUserIdPosts(filters: GetPostsFilterDto, userId: string, currentUserId: string) {
+		const { search } = filters;
+
+		const baseWhere = {
+			userId,
+			...(search && {
+				content: {
+					contains: search,
+					mode: 'insensitive' as const,
+				},
+			}),
+		};
+
+		const posts = await this.prisma.post.findMany({
+			where: baseWhere,
+			orderBy: {
+				createdAt: 'desc',
+			},
+			include: {
+				user: {
+					select: {
+						id: true,
+						name: true,
+						pseudo: true,
+						image: true,
+					},
+				},
+				likes: {
+					where: {
+					userId: currentUserId,
+					},
+					select: {
+					userId: true,
+					},
+				},
+				_count: {
+					select: {
+						likes: true,
+						comments: true,
+					},
+				},
+			},
+		});
+
+		return posts.map((post) => ({
+			...post,
+			isOwner: post.user.id === currentUserId,
+			isLiked: post.likes.length > 0,
+		}));
+	}
+
 	async findById(id: string, currentUserId?: string) {
 		const post = await this.prisma.post.findUnique({
 			where: { id },

@@ -270,6 +270,29 @@
       }
     }
   },
+  "Comments": {
+    "title": "Comments",
+    "close": "Close comments",
+    "loading": "Loading comments...",
+    "emptyTitle": "No comments yet",
+    "emptyDescription": "Be the first to comment.",
+    "imagePreviewAlt": "Selected image preview",
+    "removeImage": "Remove selected image",
+    "placeholder": "Write a comment...",
+    "attachImage": "Attach image",
+    "send": "Send comment",
+    "viewProfile": "View {name}'s profile",
+    "like": "Like comment",
+    "unlike": "Unlike comment",
+    "attachmentAlt": "Comment attachment",
+    "loadError": "Couldn't load comments.",
+    "selectImage": "Please select an image.",
+    "imageTooLarge": "The image must not exceed 10 MB.",
+    "emptyComment": "Write a comment or add an image.",
+    "added": "Comment added.",
+    "addError": "Couldn't add the comment.",
+    "likeError": "Couldn't update the like."
+  },
   "FeedPage": {
     "loading": "Loading your feed...",
     "toasts": {
@@ -300,7 +323,8 @@
     "searchError": "Something went wrong. Try again.",
     "add": "Add",
     "back": "Back",
-    "adding": "Adding…"
+    "adding": "Adding…",
+    "pending": "Pending…"
   },
   "Chat": {
     "title": "Messages",
@@ -599,6 +623,30 @@
       "previous": "Previous",
       "next": "Next",
       "page": "Page {page} of {pages}"
+    }
+  },
+  "ProfilePage": {
+    "emptyTitle": "No posts yet",
+    "emptyDescription": "This user hasn't posted anything yet.",
+    "updateError": "Couldn't update the post. Please try again.",
+    "deleteSuccess": "Post deleted.",
+    "deleteError": "Couldn't delete the post. Please try again.",
+    "loadProfileError": "Couldn't load this profile.",
+    "toasts": { "loadPostsError": "Couldn't load posts." },
+    "header": {
+      "friendsCount": "{count} friends",
+      "actions": {
+        "addToStory": "Add to story",
+        "editProfile": "Edit profile",
+        "addFriend": "Add friend",
+        "requestSent": "Request sent",
+        "friends": "Friends",
+        "message": "Message",
+        "unblock": "Unblock",
+        "blocked": "Blocked",
+        "acceptRequest": "Accept",
+        "declineRequest": "Decline"
+      }
     }
   },
   "Language": {
