@@ -159,7 +159,7 @@
 
       },
       "PostActions": {
-
+        "postDeletedErrorMessage": "Cette publication n'existe plus"
       },
       "PostCard": {
         "cancel": "Annuler",
