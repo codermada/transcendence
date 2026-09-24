@@ -77,7 +77,7 @@ services:
       - "4566:4566"
     volumes:
       - "/var/lib/localstack"
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/var/run/docker.sock"
     networks:
       - net
     healthcheck:
