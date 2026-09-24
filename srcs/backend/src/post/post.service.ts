@@ -114,6 +114,12 @@ export class PostService {
 		return { message: 'Publication supprimée avec succès' };
 	}
 
+	async getAssociatedUserIdPosts(filters: GetPostsFilterDto, userId: string, currentUserId: string) {
+		const posts = await this.postRepository.findAssociatedUserIdPosts(filters, userId, currentUserId);
+
+		return posts.map((post) => this.formatPost(post));
+	}
+
 	private formatPost(post: any) {
 		const authorName = post.user.name || post.user.pseudo || 'Utilisateur';
 
