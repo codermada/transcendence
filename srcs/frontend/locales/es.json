@@ -487,7 +487,8 @@
     },
     "dashboard": {
       "title": "Panel",
-      "subtitle": "Resumen de tu instancia"
+      "subtitle": "Resumen de tu instancia",
+      "totalUsers": "Usuarios totales"
     },
     "nav": {
       "title": "Admin",
