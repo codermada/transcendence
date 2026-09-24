@@ -325,7 +325,11 @@
     "sent": "Sent",
     "close": "Close",
     "loadError": "Failed to load conversation.",
-    "download": "Click to download"
+    "download": "Click to download",
+    "file": "File",
+    "multiFile": "files",
+    "singleFile": "file",
+    "attachment": "Attach files"
   },
   "Settings": {
     "nav": {

@@ -7,7 +7,19 @@ import { useSession } from "@/lib/auth/use-session";
 import { usePresence } from "@/hooks/use-presence";
 import { useChatStore, Message } from "@/stores/use-chat-store";
 import { useConversationSocket } from "@/hooks/use-chat-socket";
-import { ArrowLeft, Check, CheckCheck, Loader2, MessageSquare, Send } from "@/components/icons";
+import {
+  ArrowLeft,
+  Check,
+  CheckCheck,
+  Close,
+  Loader2,
+  MessageSquare,
+  Paperclip,
+  Send,
+} from "@/components/icons";
+import { ChatMessageMedia } from "@/components/chat/ChatMessageMedia";
+import { toast } from "sonner";
+import { chatService } from "../_services/chat-service";
 
 interface Participant {
   id: string;
@@ -24,6 +36,13 @@ interface ConversationItem {
   user2Id?: string;
   unreadCount?: number;
   updatedAt?: string;
+}
+
+interface SelectedFile {
+  id: string;
+  file: File;
+  previewUrl: string;
+  isImage: boolean;
 }
 
 interface ConversationClientProps {
@@ -47,10 +66,12 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState("");
+  const [selectedFiles, setSelectedFiles] = useState<SelectedFile[]>([]);
   const [isSending, setIsSending] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const lastMarkedMsgIdRef = useRef<string | null>(null);
 
   const currentUserId = session?.user?.id;
@@ -173,39 +194,79 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
     }
   }, [activeMessages, currentUserId, markAsSeen]);
 
+  // Add multiple files directly
+  const handleAddFiles = (files: FileList | File[]) => {
+    const fileArray = Array.from(files);
+    if (fileArray.length === 0) return;
+
+    const newFiles: SelectedFile[] = fileArray.map((file) => ({
+      id: `${file.name}-${Date.now()}-${Math.random()}`,
+      file,
+      previewUrl: URL.createObjectURL(file),
+      isImage: file.type.startsWith("image/"),
+    }));
+
+    setSelectedFiles((prev) => [...prev, ...newFiles]);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      handleAddFiles(e.target.files);
+      e.target.value = "";
+    }
+  };
+
+  const handleRemoveFile = (idToRemove: string) => {
+    setSelectedFiles((prev) => {
+      const target = prev.find((item) => item.id === idToRemove);
+      if (target) {
+        URL.revokeObjectURL(target.previewUrl);
+      }
+      return prev.filter((item) => item.id !== idToRemove);
+    });
+  };
+
+  const selectedFilesRef = useRef(selectedFiles);
+
+  useEffect(() => {
+    selectedFilesRef.current = selectedFiles;
+  }, [selectedFiles]);
+
+  // Clean up object URLs on unmount
+  useEffect(() => {
+    return () => {
+      selectedFilesRef.current.forEach((f) => URL.revokeObjectURL(f.previewUrl));
+    };
+  }, []);
+
   const isParticipantOnline = participant ? checkIsOnline(participant.id) : false;
 
   async function handleSendMessage() {
     const content = inputValue.trim();
-    if (!content || !participant || isSending) return;
+    const hasFiles = selectedFiles.length > 0;
+    if ((!content && !hasFiles) || !participant || isSending) return;
 
-    setInputValue("");
     setIsSending(true);
 
     try {
-      const res = await fetch("/nest/chat/messages", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          receiverId: participant.id,
-          content,
-        }),
+      const files = selectedFiles.map((item) => item.file);
+
+      const createdMessage = await chatService.sendMessage({
+        receiverId: participant.id,
+        content: content || undefined,
+        files,
       });
 
-      if (!res.ok) {
-        throw new Error(t("sendError"));
-      }
-
-      const createdMessage = await res.json();
       addActiveMessage(createdMessage);
+
+      // Clean up local previews
+      selectedFiles.forEach((item) => URL.revokeObjectURL(item.previewUrl));
+      setSelectedFiles([]);
+      setInputValue("");
       scrollToBottom(true);
-    } catch (err) {
+    } catch (err: unknown) {
       console.error("Failed to send message:", err);
-      // Restore input on failure
-      setInputValue(content);
+      toast.error((err as Error)?.message || t("sendError"));
     } finally {
       setIsSending(false);
       inputRef.current?.focus();
@@ -315,13 +376,16 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
                 className={`flex flex-col ${isMe ? "items-end" : "items-start"}`}
               >
                 <div
-                  className={`max-w-[80%] sm:max-w-[70%] rounded-2xl px-4 py-2.5 text-sm shadow-xs break-words ${
+                  className={`max-w-[85%] sm:max-w-[70%] rounded-2xl px-4 py-2.5 text-sm shadow-xs break-words ${
                     isMe
                       ? "bg-violet-600 text-white rounded-br-xs"
                       : "bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-white rounded-bl-xs"
                   }`}
                 >
-                  <p>{msg.content}</p>
+                  {msg.content?.trim() ? (
+                    <p className="whitespace-pre-wrap">{msg.content}</p>
+                  ) : null}
+                  <ChatMessageMedia mediaUrls={msg.mediaUrls} isMe={isMe} />
                 </div>
                 <div className="flex items-center gap-1 mt-1 px-1">
                   <span className="text-[10px] text-zinc-400 dark:text-zinc-500">
@@ -349,7 +413,63 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
 
       {/* Input Bar */}
       <div className="border-t border-zinc-200/80 pt-3 dark:border-zinc-800">
+        {selectedFiles.length > 0 && (
+          <div className="mb-2 flex flex-wrap gap-2">
+            {selectedFiles.map((item) => (
+              <div
+                key={item.id}
+                className="relative flex items-center gap-2 rounded-xl border border-zinc-200 bg-zinc-50 p-1.5 pr-2 text-xs dark:border-zinc-800 dark:bg-zinc-800/60"
+              >
+                {item.isImage ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={item.previewUrl}
+                    alt={item.file.name}
+                    className="h-8 w-8 rounded-lg object-cover"
+                  />
+                ) : (
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-100 text-violet-600 dark:bg-violet-950 dark:text-violet-400">
+                    <Paperclip className="h-4 w-4" />
+                  </div>
+                )}
+                <span className="max-w-[120px] truncate font-medium text-zinc-700 dark:text-zinc-300">
+                  {item.file.name}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveFile(item.id)}
+                  disabled={isSending}
+                  className="rounded-full p-1 text-zinc-400 hover:bg-zinc-200 hover:text-zinc-700 disabled:opacity-40 dark:hover:bg-zinc-700 dark:hover:text-white cursor-pointer"
+                  aria-label="Supprimer"
+                >
+                  <Close className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Hidden multi-select file input */}
+        <input
+          ref={fileInputRef}
+          type="file"
+          multiple
+          onChange={handleFileChange}
+          className="hidden"
+        />
+
         <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={loading || isSending}
+            title={t("attachment", { defaultMessage: "Joindre un fichier" })}
+            aria-label={t("attachment", { defaultMessage: "Joindre un fichier" })}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-zinc-200 bg-white text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-800 disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-white cursor-pointer"
+          >
+            <Paperclip className="h-5 w-5" />
+          </button>
+
           <input
             ref={inputRef}
             type="text"
@@ -363,7 +483,12 @@ export function ConversationClient({ conversationId }: ConversationClientProps) 
           <button
             type="button"
             onClick={handleSendMessage}
-            disabled={!inputValue.trim() || isSending || loading || !participant}
+            disabled={
+              (!inputValue.trim() && selectedFiles.length === 0) ||
+              isSending ||
+              loading ||
+              !participant
+            }
             aria-label={t("sendMessage")}
             className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-600 text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
           >
