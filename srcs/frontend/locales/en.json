@@ -174,7 +174,8 @@
         "timeAgo": "{value, plural, =0 {Just now} =1 {1 {unit} ago} other {{value} {unit, select, minute {minutes} hour {hours} day {days} other {}} ago}}",
         "options": "Post options",
         "edit": "Edit",
-        "delete": "Delete"
+        "delete": "Delete",
+        "justNow": "just now"
       },
       "CommentItem": {
         "viewProfile": "View {name}'s profile",
