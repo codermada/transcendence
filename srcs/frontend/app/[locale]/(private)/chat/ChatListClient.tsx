@@ -30,8 +30,8 @@ export function ChatListClient() {
             setConversations(data);
           }
         }
-      } catch (err) {
-        console.error("Failed to load conversations:", err);
+      } catch {
+        // Ignore errors
       } finally {
         if (!cancelled) {
           setLoading(false);
@@ -155,7 +155,11 @@ export function ChatListClient() {
                       {displayName}
                     </p>
                     <p className="truncate text-xs text-zinc-500 dark:text-zinc-400">
-                      {conv.lastMessage?.content || t("sayHello")}
+                      {conv.lastMessage?.content?.trim()
+                        ? conv.lastMessage.content
+                        : conv.lastMessage?.mediaUrls && conv.lastMessage.mediaUrls.length > 0
+                        ? t("file")
+                        : t("sayHello")}
                     </p>
                   </div>
                 </div>

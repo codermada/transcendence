@@ -140,7 +140,10 @@
         "errors": {
           "CONTENT_EMPTY": "Le contenu ne peut pas être vide",
           "DEFAULT": "Une erreur est survenue. Veuillez réessayer."
-        }
+        },
+        "multiFile": "fichiers",
+        "singleFile": "fichier",
+        "postCreatedSuccess": "Publication créée avec succès !"
       },
       "FeedSection": {
         "emptyTitle": "Aucun message pour le moment",
@@ -321,7 +324,12 @@
     "seen": "Vu",
     "sent": "Envoyé",
     "close": "Fermer",
-    "loadError": "Impossible de charger la discussion."
+    "loadError": "Impossible de charger la discussion.",
+    "download": "Cliquer pour télécharger",
+    "file": "Fichier",
+    "multiFile": "fichiers",
+    "singleFile": "fichier",
+    "attachment": "Joindre un fichier"
   },
   "Settings": {
     "nav": {
@@ -596,5 +604,9 @@
     "en": "English",
     "fr": "Français",
     "es": "Español"
+  },
+  "UploadProgressToast": {
+    "notCompleted": "Envoi des fichiers...",
+    "completed": "Publication envoyée !"
   }
 }

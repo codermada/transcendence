@@ -140,7 +140,10 @@
         "errors": {
           "CONTENT_EMPTY": "Content cannot be empty",
           "DEFAULT": "Something went wrong. Please try again."
-        }
+        },
+        "multiFile": "files",
+        "singleFile": "file",
+        "postCreatedSuccess": "Post created successfully!"
       },
       "FeedSection": {
         "emptyTitle": "No posts yet",
@@ -321,7 +324,12 @@
     "seen": "Seen",
     "sent": "Sent",
     "close": "Close",
-    "loadError": "Failed to load conversation."
+    "loadError": "Failed to load conversation.",
+    "download": "Click to download",
+    "file": "File",
+    "multiFile": "files",
+    "singleFile": "file",
+    "attachment": "Attach files"
   },
   "Settings": {
     "nav": {
@@ -596,5 +604,9 @@
     "en": "English",
     "fr": "Français",
     "es": "Español"
+  },
+  "UploadProgressToast": {
+    "notCompleted": "Uploading files...",
+    "completed": "Post published!"
   }
 }

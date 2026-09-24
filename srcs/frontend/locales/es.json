@@ -140,7 +140,10 @@
       "errors": {
         "CONTENT_EMPTY": "El contenido no puede estar vacío",
         "DEFAULT": "Algo salió mal. Inténtalo de nuevo."
-      }
+      },
+      "multiFile": "archivos",
+      "singleFile": "archivo",
+      "postCreatedSuccess": "¡Publicación creada con éxito!"
     },
       "FeedSection": {
         "emptyTitle": "No hay publicaciones aún",
@@ -321,7 +324,12 @@
     "seen": "Visto",
     "sent": "Enviado",
     "close": "Cerrar",
-    "loadError": "No se pudo cargar la conversación."
+    "loadError": "No se pudo cargar la conversación.",
+    "download": "Haz clic para descargar",
+    "file": "Archivo",
+    "multiFile": "archivos",
+    "singleFile": "archivo",
+    "attachment": "Adjuntar archivo"
   },
   "Settings": {
     "nav": {
@@ -596,5 +604,9 @@
     "en": "English",
     "fr": "Français",
     "es": "Español"
+  },
+  "UploadProgressToast": {
+    "notCompleted": "Subiendo archivos...",
+    "completed": "¡Publicación enviada!"
   }
 }
