@@ -7,7 +7,6 @@ import { useChatStore, Message } from "@/stores/use-chat-store";
 
 /**
  * Global chat socket lifecycle hook.
- * Call this once in the root authenticated private layout.
  */
 export function useChatSocketInit() {
   const { data: session } = useSession();
