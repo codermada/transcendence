@@ -40,7 +40,7 @@ export default function PublicProfilePage({
 
         setId(id);
       })
-      .catch((error) => {
+      .catch(() => {
         if (!mounted) return;
 
         setId(null);
@@ -73,11 +73,11 @@ export default function PublicProfilePage({
         if (!mounted) return;
 
         setUserProfile(profile);
-      } catch (error) {
+      } catch {
         if (!mounted) return;
 
         setUserProfile(null);
-        toast.error(t("UpdateError"));
+        toast.error(t("loadProfileError"));
       } finally {
         if (mounted) {
           setIsProfileLoading(false);
@@ -111,8 +111,7 @@ export default function PublicProfilePage({
         if (!mounted) return;
 
         setPosts(fetchedPosts);
-      } catch (error) {
-
+      } catch {
         if (!mounted) return;
 
         setPosts([]);
@@ -147,7 +146,7 @@ export default function PublicProfilePage({
           post.id === postId ? updatedPost : post
         )
       );
-    } catch (error) {
+    } catch {
       toast.error(t("updateError"));
     }
   };
@@ -161,8 +160,7 @@ export default function PublicProfilePage({
       );
 
       toast.success(t("deleteSuccess"));
-    } catch (error) {
-
+    } catch {
       toast.error(t("deleteError"));
     }
   };
@@ -430,6 +428,8 @@ function EmptyPosts() {
 }
 
 function ProfileNotFound() {
+  const t = useTranslations("ProfilePage");
+
   return (
     <div className="flex min-h-[40vh] w-full items-center justify-center px-4">
       <div className="text-center">
@@ -464,7 +464,7 @@ function ProfileNotFound() {
         </div>
 
         <p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
-          Impossible de charger ce profil.
+          {t("loadProfileError")}
         </p>
       </div>
     </div>
