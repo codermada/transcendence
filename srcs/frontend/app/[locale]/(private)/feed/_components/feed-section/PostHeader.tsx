@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import type { PostHeaderProps } from "./feed-section.types";
+import { MoreVertical, Pencil, Trash2 } from "@/components/icons";
 
 interface ExtendedPostHeaderProps extends PostHeaderProps {
   isOwner?: boolean;
@@ -79,12 +80,34 @@ export function PostHeader({
             className="flex h-8 w-8 items-center justify-center rounded-full text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-200"
             aria-label={t("options")}
           >
-            {/* ...unchanged svg... */}
+            <MoreVertical className="h-5 w-5" />
           </button>
 
           {isMenuOpen && (
             <div className="absolute right-0 top-9 z-10 w-36 overflow-hidden rounded-xl border border-zinc-200/80 bg-white shadow-lg dark:border-zinc-800/80 dark:bg-zinc-900">
-              {/* ...unchanged edit / delete buttons... */}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  onEdit?.();
+                }}
+                className="flex w-full items-center gap-2 px-3 py-2 text-xs font-medium text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
+              >
+                <Pencil className="h-4 w-4" />
+                {t("edit")}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  onDelete?.();
+                }}
+                className="flex w-full items-center gap-2 px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30"
+              >
+                <Trash2 className="h-4 w-4" />
+                {t("delete")}
+              </button>
             </div>
           )}
         </div>
