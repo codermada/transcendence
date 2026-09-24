@@ -9,7 +9,7 @@ export class PostRepository {
 	constructor(private readonly prisma: PrismaService) {}
 
 	async findAll(filters: GetPostsFilterDto, currentUserId: string) {
-		const { search } = filters;
+		const { search, limit = 10, offset = 0 } = filters;
 
 		const friendships = await this.prisma.friendship.findMany({
 			where: {
@@ -70,38 +70,53 @@ export class PostRepository {
 			},
 		};
 
-		const recentPosts = await this.prisma.post.findMany({
-			where: baseWhere,
-			take: 3,
-			orderBy: {
-				createdAt: 'desc',
-			},
-			include: includeRelations,
-		});
+		let posts = [];
 
-		const recentIds = recentPosts.map((post) => post.id);
-
-		const olderPosts = await this.prisma.post.findMany({
-			where: {
-				...baseWhere,
-				id: {
-					notIn: recentIds,
+		if (offset === 0) {
+			const recentPosts = await this.prisma.post.findMany({
+				where: baseWhere,
+				take: 3,
+				orderBy: {
+					createdAt: 'desc',
 				},
-			},
-			take: 50,
-			include: includeRelations,
-		});
+				include: includeRelations,
+			});
 
-		const shuffledOlderPosts = [...olderPosts];
-		for (let i = shuffledOlderPosts.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[shuffledOlderPosts[i], shuffledOlderPosts[j]] = [shuffledOlderPosts[j], shuffledOlderPosts[i]];
+			const recentIds = recentPosts.map((post) => post.id);
+
+			const olderPosts = await this.prisma.post.findMany({
+				where: {
+					...baseWhere,
+					id: {
+						notIn: recentIds,
+					},
+				},
+				take: 50,
+				include: includeRelations,
+			});
+
+			const shuffledOlderPosts = [...olderPosts];
+			for (let i = shuffledOlderPosts.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[shuffledOlderPosts[i], shuffledOlderPosts[j]] = [shuffledOlderPosts[j], shuffledOlderPosts[i]];
+			}
+
+			const selectedOlderPosts = shuffledOlderPosts.slice(0, limit - recentPosts.length > 0 ? limit - recentPosts.length : 7);
+			posts = [...recentPosts, ...selectedOlderPosts];
+		} else {
+			// Cas 2 : Chargement des pages suivantes pour le scroll infini (pagination déterministe)
+			posts = await this.prisma.post.findMany({
+				where: baseWhere,
+				take: limit,
+				skip: offset,
+				orderBy: {
+					createdAt: 'desc',
+				},
+				include: includeRelations,
+			});
 		}
 
-		const selectedOlderPosts = shuffledOlderPosts.slice(0, 7);
-		const combinedPosts = [...recentPosts, ...selectedOlderPosts];
-
-		return combinedPosts.map((post) => ({
+		return posts.map((post) => ({
 			...post,
 			isOwner: post.user.id === currentUserId,
 			isLiked: post.likes.length > 0,
