@@ -10,15 +10,24 @@ import {
   ParseFilePipe,
   Patch,
   Query,
+  Req,
   UploadedFile,
   UseGuards,
   UseInterceptors,
   FileTypeValidator,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiSecurity,
+  ApiTags,
+} from '@nestjs/swagger';
+import type { Request } from 'express';
 import { AdminGuard } from '../auth/AdminGuard';
 import { AuthGuard } from '../auth/AuthGuard';
+import { ApiKeyGuard } from '../auth/ApiKeyGuard';
 import { CurrentUser } from '../auth/CurrentUser';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUserRoleDto } from './dto/update-user-role.dto';
@@ -176,6 +185,162 @@ export class UserController {
   @Get(':id')
   @UseGuards(AuthGuard)
   getPublicProfile(@Param('id') id: string) {
+    return this.userService.getPublicProfile(id);
+  }
+
+  // ═════════════════════════════════════════════════════════════
+  // API-KEY ROUTES (duplicates)  —  /user/api-key/...
+  //
+  // IMPORTANT: all literal `api-key/...` routes are declared before
+  // any `api-key/:id` route so that e.g. `api-key/me` is not
+  // captured by `api-key/:id`.
+  // ═════════════════════════════════════════════════════════════
+
+  // ── Admin: list + count (via API key) ──────────────────────
+
+  @UseGuards(ApiKeyGuard)
+  @ApiSecurity('x-api-key')
+  @Get('api-key')
+  @ApiOperation({ summary: '[API key] Admin: list all users' })
+  getAllUsersViaApiKey() {
+    return this.userService.getAllUsers();
+  }
+
+  @UseGuards(ApiKeyGuard)
+  @ApiSecurity('x-api-key')
+  @Get('api-key/count')
+  @ApiOperation({ summary: '[API key] Admin: count all users' })
+  countUsersViaApiKey() {
+    return this.userService.countUsers();
+  }
+
+  // ── Search (via API key) ───────────────────────────────────
+
+  @UseGuards(ApiKeyGuard)
+  @ApiSecurity('x-api-key')
+  @Get('api-key/search')
+  @ApiOperation({
+    summary:
+      '[API key] Search users to befriend (excludes self, existing friends, pending requests, and blocked)',
+  })
+  searchUsersViaApiKey(
+    @Req() req: Request,
+    @Query() query: SearchUsersQueryDto,
+  ) {
+    return this.userService.searchUsers(req.apiKey!.referenceId, query);
+  }
+
+  // ── Self (via API key) ─────────────────────────────────────
+
+  @UseGuards(ApiKeyGuard)
+  @ApiSecurity('x-api-key')
+  @Get('api-key/me')
+  @ApiOperation({ summary: '[API key] Get current user' })
+  getMeViaApiKey(@Req() req: Request) {
+    return this.userService.getMe(req.apiKey!.referenceId);
+  }
+
+  @UseGuards(ApiKeyGuard)
+  @ApiSecurity('x-api-key')
+  @Patch('api-key/me')
+  @ApiOperation({ summary: '[API key] Update current user' })
+  updateMeViaApiKey(@Req() req: Request, @Body() dto: UpdateUserDto) {
+    return this.userService.updateMe(req.apiKey!.referenceId, dto);
+  }
+
+  @UseGuards(ApiKeyGuard)
+  @ApiSecurity('x-api-key')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: { type: 'string', format: 'binary' },
+      },
+    },
+  })
+  @Patch('api-key/me/avatar')
+  @UseInterceptors(FileInterceptor('file'))
+  updateAvatarViaApiKey(
+    @Req() req: Request,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }), // 5 MB
+          new FileTypeValidator({ fileType: /^image\/(png|jpe?g|webp|gif)$/ }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
+    return this.userService.updateAvatar(req.apiKey!.referenceId, file);
+  }
+
+  @UseGuards(ApiKeyGuard)
+  @ApiSecurity('x-api-key')
+  @Delete('api-key/me/avatar')
+  @ApiOperation({ summary: '[API key] Delete current user avatar (reset to default)' })
+  deleteAvatarViaApiKey(@Req() req: Request) {
+    return this.userService.deleteAvatar(req.apiKey!.referenceId);
+  }
+
+  @UseGuards(ApiKeyGuard)
+  @ApiSecurity('x-api-key')
+  @Delete('api-key/me')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: '[API key] Delete current user account (self-deletion)' })
+  deleteMeViaApiKey(@Req() req: Request) {
+    return this.userService.deleteMe(req.apiKey!.referenceId);
+  }
+
+  // ── Admin — mutate a specific user (via API key) ───────────
+
+  @UseGuards(ApiKeyGuard)
+  @ApiSecurity('x-api-key')
+  @Patch('api-key/:id')
+  @ApiOperation({ summary: '[API key] Admin: update a user by id' })
+  updateUserByIdViaApiKey(
+    @Param('id') id: string,
+    @Body() dto: UpdateUserDto,
+  ) {
+    return this.userService.updateUserById(id, dto);
+  }
+
+  @UseGuards(ApiKeyGuard)
+  @ApiSecurity('x-api-key')
+  @Patch('api-key/:id/role')
+  @ApiOperation({ summary: '[API key] Admin: change a user role by id' })
+  updateUserRoleViaApiKey(
+    @Param('id') id: string,
+    @Body() dto: UpdateUserRoleDto,
+    @Req() req: Request,
+  ) {
+    return this.userService.updateUserRole(
+      id,
+      dto.role,
+      req.apiKey!.referenceId,
+    );
+  }
+
+  @UseGuards(ApiKeyGuard)
+  @ApiSecurity('x-api-key')
+  @Delete('api-key/:id')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: '[API key] Admin: delete a user by id' })
+  deleteUserViaApiKey(
+    @Param('id') id: string,
+    @Req() req: Request,
+  ) {
+    return this.userService.deleteUser(id, req.apiKey!.referenceId);
+  }
+
+  // ── Public profile (via API key) — MUST be last ────────────
+
+  @UseGuards(ApiKeyGuard)
+  @ApiSecurity('x-api-key')
+  @Get('api-key/:id')
+  @ApiOperation({ summary: '[API key] Get a user public profile by id' })
+  getPublicProfileViaApiKey(@Param('id') id: string) {
     return this.userService.getPublicProfile(id);
   }
 }
