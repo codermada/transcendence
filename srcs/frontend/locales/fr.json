@@ -217,6 +217,29 @@
       }
     }
   },
+  "Comments": {
+    "title": "Commentaires",
+    "close": "Fermer les commentaires",
+    "loading": "Chargement des commentaires...",
+    "emptyTitle": "Aucun commentaire pour le moment",
+    "emptyDescription": "Soyez le premier à commenter.",
+    "imagePreviewAlt": "Aperçu de l'image sélectionnée",
+    "removeImage": "Retirer l'image sélectionnée",
+    "placeholder": "Écrire un commentaire...",
+    "attachImage": "Joindre une image",
+    "send": "Envoyer le commentaire",
+    "viewProfile": "Voir le profil de {name}",
+    "like": "Aimer le commentaire",
+    "unlike": "Ne plus aimer le commentaire",
+    "attachmentAlt": "Pièce jointe du commentaire",
+    "loadError": "Impossible de charger les commentaires.",
+    "selectImage": "Veuillez sélectionner une image.",
+    "imageTooLarge": "L'image ne doit pas dépasser 10 Mo.",
+    "emptyComment": "Écrivez un commentaire ou ajoutez une image.",
+    "added": "Commentaire ajouté.",
+    "addError": "Impossible d'ajouter le commentaire.",
+    "likeError": "Impossible de mettre à jour le like."
+  },
   "FeedPage": {
     "loading": "Chargement du fil d'actualité...",
     "toasts": {
@@ -247,7 +270,8 @@
     "searchError": "Une erreur est survenue. Réessayez.",
     "add": "Ajouter",
     "back": "Retour",
-    "adding": "Ajout…"
+    "adding": "Ajout…",
+    "pending": "En attente…"
   },
   "Chat": {
     "title": "Messagerie",
@@ -540,6 +564,30 @@
       "previous": "Précédent",
       "next": "Suivant",
       "page": "Page {page} sur {pages}"
+    }
+  },
+  "ProfilePage": {
+    "emptyTitle": "Aucune publication",
+    "emptyDescription": "Cet utilisateur n'a encore rien publié.",
+    "updateError": "Impossible de modifier la publication. Veuillez réessayer.",
+    "deleteSuccess": "Publication supprimée.",
+    "deleteError": "Impossible de supprimer la publication. Veuillez réessayer.",
+    "loadProfileError": "Impossible de charger ce profil.",
+    "toasts": { "loadPostsError": "Impossible de charger les publications." },
+    "header": {
+      "friendsCount": "{count} amis",
+      "actions": {
+        "addToStory": "Ajouter à la story",
+        "editProfile": "Modifier le profil",
+        "addFriend": "Ajouter",
+        "requestSent": "Demande envoyée",
+        "friends": "Amis",
+        "message": "Message",
+        "unblock": "Débloquer",
+        "blocked": "Bloqué",
+        "acceptRequest": "Accepter",
+        "declineRequest": "Refuser"
+      }
     }
   },
   "Language": {

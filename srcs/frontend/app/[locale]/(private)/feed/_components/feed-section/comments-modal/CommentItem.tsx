@@ -18,6 +18,7 @@ export function CommentItem({
   timeAgo,
 }: CommentItemProps) {
   const t = useTranslations("Feed.feed-section.PostHeader");
+  const tc = useTranslations("Comments");
 
   const profileHref = `/profile/${comment.userId}`;
   
@@ -26,7 +27,7 @@ export function CommentItem({
       <Link
         href={profileHref}
         className="shrink-0"
-        aria-label={`Voir le profil de ${comment.user.name}`}
+        aria-label={tc("viewProfile", { name: comment.user.name })}
       >
         {comment.user.image ? (
           <img
@@ -85,7 +86,7 @@ export function CommentItem({
             {timeAgo && (
               <p className="text-xs text-zinc-400">
                 {t("timeAgo", {
-                  time: timeAgo.time,
+                  unit: timeAgo.time,
                   value: timeAgo.value,
                 })}
               </p>
@@ -96,7 +97,7 @@ export function CommentItem({
             type="button"
             disabled={isLiking}
             onClick={() => onToggleLike(comment)}
-            aria-label={comment.isLikedByCurrentUser ? "Unlike comment" : "Like comment"}
+            aria-label={comment.isLikedByCurrentUser ? tc("unlike") : tc("like")}
             className={`flex shrink-0 items-center gap-1 text-xs transition ${
               comment.isLikedByCurrentUser
                 ? "text-red-500"
