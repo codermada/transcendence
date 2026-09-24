@@ -9,6 +9,7 @@ export interface Participant {
 export interface LastMessage {
   id: string;
   content: string;
+  mediaUrls?: string[];
   createdAt: string;
 }
 
@@ -117,6 +118,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
           lastMessage: {
             id: message.id,
             content: message.content,
+            mediaUrls: message.mediaUrls,
             createdAt: message.createdAt,
           },
           updatedAt: message.createdAt,
@@ -133,6 +135,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
           lastMessage: {
             id: message.id,
             content: message.content,
+            mediaUrls: message.mediaUrls,
             createdAt: message.createdAt,
           },
           unreadCount: !isSentByMe && !isCurrentConvActive ? 1 : 0,
