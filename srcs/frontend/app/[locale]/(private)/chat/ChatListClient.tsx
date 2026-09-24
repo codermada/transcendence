@@ -30,8 +30,8 @@ export function ChatListClient() {
             setConversations(data);
           }
         }
-      } catch (err) {
-        console.error("Failed to load conversations:", err);
+      } catch {
+        // Ignore errors
       } finally {
         if (!cancelled) {
           setLoading(false);
