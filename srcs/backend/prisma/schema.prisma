@@ -31,12 +31,6 @@ enum FriendshipStatus {
   CANCELLED
 }
 
-model Task {
-  id        String  @id @default(cuid(2))
-  task      String
-  completed Boolean @default(false)
-}
-
 model User {
   id            String   @id @default(cuid(2))
   name          String
@@ -202,18 +196,9 @@ model Friendship {
   requesterId String
   addresseeId String
   status      FriendshipStatus @default(PENDING)
-
-  // Who initiated the block (only set when status = BLOCKED).
-  // If null while status = BLOCKED, treat the requester as the blocker.
   blockedById String?
-
-  // Optional message attached to the friend request.
   message String?
-
-  // Canonical "smallerId:largerId" key to prevent (A,B) and (B,A) duplicates.
   pairKey String @unique
-
-  // Timestamps for lifecycle events.
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   acceptedAt  DateTime?
@@ -238,7 +223,6 @@ model MessageTable {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Canonical "smallerId:largerId" key to prevent duplicate conversations.
   pairKey String @unique
 
   user1    User?     @relation("MessageTableUser1", fields: [user1Id], references: [id], onDelete: SetNull)
@@ -271,6 +255,11 @@ model Message {
   @@map("messages")
 }
 
+enum ChannelRole {
+  ADMIN
+  MEMBER
+}
+
 model Channel {
   id          String   @id @default(cuid(2))
   createdById String
@@ -291,7 +280,7 @@ model Channel {
 model UserInChannel {
   userId    String
   channelId String
-  isOwner   Boolean  @default(false)
+  role      ChannelRole @default(MEMBER)
   joinedAt  DateTime @default(now())
 
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
