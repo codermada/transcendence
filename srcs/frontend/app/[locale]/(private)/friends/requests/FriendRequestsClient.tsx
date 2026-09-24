@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Search } from "@/components/icons";
+import { StartMessageButton } from "@/components/chat/StartMessageButton";
 import { getInitials } from "@/lib/utils/user-utils";
 
 // ─────────────────────────────────────────────────────────────
@@ -312,6 +313,7 @@ export function FriendRequestsClient() {
                   </Link>
 
                   <div className="flex shrink-0 items-center gap-2 self-end sm:self-auto">
+                    <StartMessageButton user={other} disabled={isBusy} />
                     {tab === "incoming" ? (
                       <>
                         <button
