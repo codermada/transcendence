@@ -1,23 +1,29 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 interface CommentsHeaderProps {
   onClose: () => void;
 }
 
+
 export function CommentsHeader({ onClose }: CommentsHeaderProps) {
+
+  const t = useTranslations("Comments");
+
   return (
     <div className="flex shrink-0 items-center justify-between border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
       <h2
         id="comments-title"
         className="text-base font-semibold text-zinc-900 dark:text-zinc-100"
       >
-        Comments
+        {t("title")}
       </h2>
 
       <button
         type="button"
         onClick={onClose}
-        aria-label="Close comments"
+        aria-label={t("close")}
         className="
           rounded-full
           p-2
