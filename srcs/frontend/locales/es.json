@@ -143,17 +143,17 @@
       },
       "multiFile": "archivos",
       "singleFile": "archivo",
-      "postCreatedSuccess": "¡Publicación creada con éxito!",
-      "loadMoreError": "Error al cargar las publicaciones",
-      "loadingMore": "Cargando...",
-      "noMorePosts": "Se han cargado todas las publicaciones."
+      "postCreatedSuccess": "¡Publicación creada con éxito!"
     },
       "FeedSection": {
         "emptyTitle": "No hay publicaciones aún",
         "emptyDescription": "Sé el primero en publicar algo o añade amigos para ver sus novedades.",
         "defaultTimeAgo": "Hace un momento",
         "deleteSuccess": "Publicación eliminada",
-        "deleteError": "No se pudo eliminar la publicación"
+        "deleteError": "No se pudo eliminar la publicación",
+        "loadMoreError": "Error al cargar las publicaciones",
+        "loadingMore": "Cargando...",
+        "noMorePosts": "Se han cargado todas las publicaciones."
       },
       "MediaModal": {
 
