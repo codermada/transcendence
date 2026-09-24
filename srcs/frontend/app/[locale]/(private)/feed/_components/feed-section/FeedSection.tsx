@@ -24,33 +24,59 @@ export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
     setPage(1);
   }
 
+  const isLoadingRef = useRef(false);
+  const hasMoreRef = useRef(hasMore);
+  const pageRef = useRef(page);
+
+  useEffect(() => {
+    hasMoreRef.current = hasMore;
+  }, [hasMore]);
+
+  useEffect(() => {
+    pageRef.current = page;
+  }, [page]);
+
   const sectionRef = useRef<HTMLElement | null>(null);
   const observerRef = useRef<HTMLDivElement | null>(null);
 
   const fetchMorePosts = useCallback(async () => {
-    if (isLoadingMore || !hasMore) return;
+    if (isLoadingRef.current || !hasMoreRef.current) return;
 
+    isLoadingRef.current = true;
     setIsLoadingMore(true);
+
     try {
-      const nextPage = page + 1;
+      const nextPage = pageRef.current + 1;
       const newPosts = await postService.getAllPosts({ page: nextPage });
 
       if (!newPosts || newPosts.length === 0) {
         setHasMore(false);
+        hasMoreRef.current = false;
       } else {
-        setPosts((prev) => [...prev, ...newPosts]);
-        setPage(nextPage);
+        let uniqueCount = 0;
 
-        if (newPosts.length < 10) {
+        setPosts((prev) => {
+          const existingIds = new Set(prev.map((p) => p.id));
+          const uniqueNewPosts = newPosts.filter((p) => !existingIds.has(p.id));
+          uniqueCount = uniqueNewPosts.length;
+          return [...prev, ...uniqueNewPosts];
+        });
+
+        if (newPosts.length < 10 || uniqueCount === 0) {
           setHasMore(false);
+          hasMoreRef.current = false;
+        } else {
+          setPage(nextPage);
+          pageRef.current = nextPage;
         }
       }
     } catch {
       toast.error(t("loadMoreError") || "Erreur lors du chargement des publications");
     } finally {
+      isLoadingRef.current = false;
       setIsLoadingMore(false);
     }
-  }, [page, isLoadingMore, hasMore, t]);
+  }, [t]);
 
   useEffect(() => {
     const target = observerRef.current;
@@ -59,13 +85,13 @@ export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
+        if (entries[0].isIntersecting && hasMoreRef.current) {
           fetchMorePosts();
         }
       },
       {
         root: container,
-        rootMargin: "200px 0px",
+        rootMargin: "100px 0px",
         threshold: 0.1,
       }
     );
@@ -78,7 +104,10 @@ export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
   }, [fetchMorePosts, hasMore]);
 
   const handlePostCreated = (newPost: Post) => {
-    setPosts((prev) => [newPost, ...prev]);
+    setPosts((prev) => {
+      if (prev.some((p) => p.id === newPost.id)) return prev;
+      return [newPost, ...prev];
+    });
   };
 
   const handleUpdatePost = async (
