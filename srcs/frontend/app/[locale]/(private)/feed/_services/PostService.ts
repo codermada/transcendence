@@ -11,12 +11,6 @@ export interface UpdatePostDto {
   newFiles?: File[];
 }
 
-export interface UpdatePostDto {
-  content: string;
-  keptMediaUrls?: string[];
-  newFiles?: File[];
-}
-
 const API_URL = "/nest";
 
 export const postService = {
@@ -37,7 +31,10 @@ export const postService = {
     return response.json();
   },
 
-  async createPost(dto: CreatePostDto): Promise<Post> {
+  async createPost(
+    dto: CreatePostDto,
+    onProgress?: (progress: number) => void
+  ): Promise<Post> {
     const formData = new FormData();
     formData.append("content", dto.content);
 
@@ -47,18 +44,45 @@ export const postService = {
       });
     }
 
-    const response = await fetch(`${API_URL}/posts`, {
-      method: "POST",
-      credentials: "include",
-      body: formData,
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", `${API_URL}/posts`, true);
+      xhr.withCredentials = true;
+
+      if (xhr.upload && onProgress) {
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            const progress = Math.round((event.loaded / event.total) * 100);
+            onProgress(progress);
+          }
+        };
+      }
+
+      xhr.onload = () => {
+        let responseData: any = {};
+        try {
+          responseData = JSON.parse(xhr.responseText);
+        } catch {
+          responseData = {};
+        }
+
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(responseData as Post);
+        } else {
+          reject(
+            new Error(
+              responseData.message || "Erreur lors de la création du post"
+            )
+          );
+        }
+      };
+
+      xhr.onerror = () => {
+        reject(new Error("Erreur réseau lors de la création du post"));
+      };
+
+      xhr.send(formData);
     });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || "Erreur lors de la création du post");
-    }
-
-    return response.json();
   },
 
   async updatePost(postId: string, dto: UpdatePostDto): Promise<Post> {
