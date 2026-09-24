@@ -143,17 +143,17 @@
         },
         "multiFile": "files",
         "singleFile": "file",
-        "postCreatedSuccess": "Post created successfully!",
-        "loadMoreError": "Error loading posts",
-        "loadingMore": "Loading...",
-        "noMorePosts": "All posts have been loaded."
+        "postCreatedSuccess": "Post created successfully!"
       },
       "FeedSection": {
         "emptyTitle": "No posts yet",
         "emptyDescription": "Be the first to post something or add friends to see their updates.",
         "defaultTimeAgo": "Just now",
         "deleteSuccess": "Post deleted",
-        "deleteError": "Failed to delete post"
+        "deleteError": "Failed to delete post",
+        "loadMoreError": "Error loading posts",
+        "loadingMore": "Loading...",
+        "noMorePosts": "All posts have been loaded."
       },
       "MediaModal": {
 
