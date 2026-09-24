@@ -1,12 +1,12 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { buildPairKey } from '../friend/utils/pair-key.util';
 import { SendMessageDto } from './dto/send-message.dto';
-import { GetMessagesQueryDto } from './dto/get-message-query.dto';
+import { S3Service } from '../s3/s3.service';
 
 @Injectable()
 export class ChatService {
-	constructor(private readonly prismaService: PrismaService) {}
+	constructor(private readonly prismaService: PrismaService, private readonly s3Service: S3Service) {}
 
 	// Find or create conversation table between 2 user
 	private async getOrCreateConversation(userOneId: string, userTwoId: string) {
@@ -36,16 +36,33 @@ export class ChatService {
 		});
 	}
 
+	private async presaveMessage(dto: SendMessageDto, files?: Express.Multer.File[]) {
+		const content = (dto.content || '').trim();
+		const hasFiles = files && files.length > 0;
+
+		if (!content && !hasFiles) {
+			throw new BadRequestException('Message is empty or no file provided');
+		}
+
+		let mediaUrls: string[] = [];
+		if (hasFiles) {
+			mediaUrls = await Promise.all(files.map((file) => this.s3Service.uploadFile(file, 'chat')));
+		}
+
+		return { content, mediaUrls };
+	}
+
 	// Save message in database
-	async saveMessage(senderId: string, { receiverId, content, mediaUrls = [] }: SendMessageDto) {
-		const conversation = await this.getOrCreateConversation(senderId, receiverId);
+	async saveMessage(senderId: string, dto: SendMessageDto, files?: Express.Multer.File[]) {
+		const conversation = await this.getOrCreateConversation(senderId, dto.receiverId);
+		const { content, mediaUrls } = await this.presaveMessage(dto, files);
 
 		const [message] = await this.prismaService.$transaction([
 			this.prismaService.message.create({
 				data: {
 					messageTableId: conversation.id,
 					senderId,
-					receiverId,
+					receiverId: dto.receiverId,
 					content,
 					mediaUrls,
 				},
@@ -102,8 +119,8 @@ export class ChatService {
 		);
 	}
 
-	// Get messages start at cursor (last message id) with limit
-	async getConversationMessages(userId: string, conversationId: string, { cursor, limit }: GetMessagesQueryDto) {
+	// Get all messages for a conversation
+	async getConversationMessages(userId: string, conversationId: string) {
 		const conversation = await this.prismaService.messageTable.findUnique({
 			where: { id: conversationId },
 		});
@@ -114,8 +131,6 @@ export class ChatService {
 
 		const messages = await this.prismaService.message.findMany({
 			where: { messageTableId: conversationId },
-			take: limit,
-			...(cursor ? { skip: 1, cursor: { id: cursor } } : {}),
 			orderBy: { createdAt: 'desc' },
 			include: {
 				sender: { select: { id: true, name: true, image: true } },
@@ -125,7 +140,6 @@ export class ChatService {
 		return {
 			conversationId,
 			messages,
-			nextCursor: messages.length === limit ? messages[messages.length - 1].id : null,
 		};
 	}
 
@@ -175,9 +189,7 @@ export class ChatService {
 			throw new ForbiddenException('Access denied to this conversation');
 		}
 
-		const participant = userId
-			? (conversation.user1Id === userId ? conversation.user2 : conversation.user1)
-			: null;
+		const participant = userId ? (conversation.user1Id === userId ? conversation.user2 : conversation.user1) : null;
 
 		return {
 			...conversation,

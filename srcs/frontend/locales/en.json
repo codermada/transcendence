@@ -133,10 +133,17 @@
     "feed-section": {
       "CreatePostCard": {
         "placeholder": "What's on your mind today?",
-        "plurialMedia": "Photos / Videos",
+        "pluralMedia": "Photos / Videos",
         "singularMedia": "Photo / Video",
         "publish": "Publish",
-        "isLoading": "Publishing..."
+        "isLoading": "Publishing...",
+        "errors": {
+          "CONTENT_EMPTY": "Content cannot be empty",
+          "DEFAULT": "Something went wrong. Please try again."
+        },
+        "multiFile": "files",
+        "singleFile": "file",
+        "postCreatedSuccess": "Post created successfully!"
       },
       "FeedSection": {
         "emptyTitle": "No posts yet",
@@ -167,7 +174,35 @@
         "timeAgo": "{value, plural, =0 {Just now} =1 {1 {unit} ago} other {{value} {unit, select, minute {minutes} hour {hours} day {days} other {}} ago}}",
         "options": "Post options",
         "edit": "Edit",
-        "delete": "Delete"
+        "delete": "Delete",
+        "justNow": "just now"
+      },
+      "CommentItem": {
+        "viewProfile": "View {name}'s profile",
+        "likeComment": "Like comment",
+        "unlikeComment": "Unlike comment",
+        "timeAgo": "{time}",
+        "deleteComment": "Delete comment",
+        "removeComment": "Remove comment (moderator)",
+        "commentAttachment": "Comment attachment"
+      },
+      "CommentsList": {
+        "loading": "Loading comments...",
+        "emptyTitle": "No comments yet",
+        "emptyDescription": "Be the first to comment."
+      },
+      "CommentsModal": {
+        "toasts": {
+          "loadError": "Could not load comments.",
+          "invalidImageType": "Please select an image.",
+          "imageTooLarge": "The image must not exceed 10 MB.",
+          "emptyComment": "Write a comment or add an image.",
+          "createSuccess": "Comment added.",
+          "createError": "Could not add the comment.",
+          "likeError": "Could not update the like.",
+          "deleteSuccess": "Comment deleted.",
+          "deleteError": "Could not delete the comment."
+        }
       },
       "PostMedia": {
 
@@ -214,6 +249,24 @@
         "friends": "Friends",
         "posts": "Posts",
         "reactions": "Reactions"
+      }
+    },
+    "toast-popup-message": {
+      "handleAcceptRequest": {
+        "successMessage": "Friend request accepted.",
+        "errorMessage": "Error accepting friend request."
+      },
+      "handleDeclineRequest": {
+        "successMessage": "Friend request declined.",
+        "errorMessage": "Error declining friend request."
+      },
+      "handleCancelRequest": {
+        "successMessage": "Friend request canceled.",
+        "errorMessage": "Error canceling friend request."
+      },
+      "handleSendFriendRequest": {
+        "successMessage": "Friend request sent.",
+        "errorMessage": "Error sending friend request."
       }
     }
   },
@@ -296,7 +349,12 @@
     "seen": "Seen",
     "sent": "Sent",
     "close": "Close",
-    "loadError": "Failed to load conversation."
+    "loadError": "Failed to load conversation.",
+    "download": "Click to download",
+    "file": "File",
+    "multiFile": "files",
+    "singleFile": "file",
+    "attachment": "Attach files"
   },
   "Settings": {
     "nav": {
@@ -454,7 +512,8 @@
     },
     "dashboard": {
       "title": "Dashboard",
-      "subtitle": "Overview of your instance"
+      "subtitle": "Overview of your instance",
+      "totalUsers": "Total users"
     },
     "nav": {
       "title": "Admin",
@@ -595,5 +654,9 @@
     "en": "English",
     "fr": "Français",
     "es": "Español"
+  },
+  "UploadProgressToast": {
+    "notCompleted": "Uploading files...",
+    "completed": "Post published!"
   }
 }

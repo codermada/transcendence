@@ -467,4 +467,8 @@ export class UserService {
       deletedAt: new Date().toISOString(),
     };
   }
+  async countUsers() {
+    const count = await this.prisma.user.count();
+    return { count };
+  }
 }

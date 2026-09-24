@@ -1,14 +1,15 @@
 "use client";
 
+import { useFormatter, useTranslations } from "next-intl";
 import type { Comment } from "./feed-section.types";
 import { CommentItem } from "./CommentItem";
-import { convertTime } from "./utility/convertTime";
 
 interface CommentsListProps {
   comments: Comment[];
   isLoading: boolean;
   likingCommentId: string | null;
   onToggleLike: (comment: Comment) => void;
+  onDelete: (comment: Comment) => void;
 }
 
 export function CommentsList({
@@ -16,11 +17,15 @@ export function CommentsList({
   isLoading,
   likingCommentId,
   onToggleLike,
+  onDelete,
 }: CommentsListProps) {
+  const t = useTranslations("Feed.feed-section.CommentsList");
+  const format = useFormatter();
+
   if (isLoading) {
     return (
       <div className="flex h-full items-center justify-center">
-        <div className="text-sm text-zinc-500">Loading comments...</div>
+        <div className="text-sm text-zinc-500">{t("loading")}</div>
       </div>
     );
   }
@@ -30,12 +35,14 @@ export function CommentsList({
       <div className="flex h-full flex-col items-center justify-center text-center">
         <div className="mb-2 text-3xl">💬</div>
         <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-          No comments yet
+          {t("emptyTitle")}
         </p>
-        <p className="mt-1 text-xs text-zinc-500">Be the first to comment.</p>
+        <p className="mt-1 text-xs text-zinc-500">{t("emptyDescription")}</p>
       </div>
     );
   }
+
+  const now = new Date();
 
   return (
     <div className="space-y-5">
@@ -45,7 +52,12 @@ export function CommentsList({
           comment={comment}
           isLiking={likingCommentId === comment.id}
           onToggleLike={onToggleLike}
-          timeAgo={convertTime(comment.createdAt)}
+          onDelete={onDelete}
+          timeAgo={
+            comment.createdAt
+              ? format.relativeTime(new Date(comment.createdAt), now)
+              : undefined
+          }
         />
       ))}
     </div>

@@ -6,7 +6,7 @@ export class PostCommentRepository {
     constructor(private readonly prisma: PrismaService) {}
 
     async findCommentsByPostId(postId: string) {
-        const  comments = await this.prisma.comment.findMany({
+        const comments = await this.prisma.comment.findMany({
             where: { postId },
 
             orderBy: {
@@ -21,7 +21,7 @@ export class PostCommentRepository {
                 createdAt: true,
                 updatedAt: true,
 
-                post : {
+                post: {
                     select: {
                         userId: true,
                     },
@@ -68,7 +68,7 @@ export class PostCommentRepository {
                 createdAt: true,
                 updatedAt: true,
 
-                post : {
+                post: {
                     select: {
                         userId: true,
                     },
@@ -111,7 +111,7 @@ export class PostCommentRepository {
                 createdAt: true,
                 updatedAt: true,
 
-                post : {
+                post: {
                     select: {
                         userId: true,
                     },
@@ -139,43 +139,48 @@ export class PostCommentRepository {
                 },
             },
         });
-        
     }
 
     async findLike(user: any, commentId: string) {
-		return this.prisma.userCommentLike.findUnique({
-			where: {
-				userId_commentId: {
-					userId : user,
-					commentId,
-				},
-			},
-		});
-	}
+        return this.prisma.userCommentLike.findUnique({
+            where: {
+                userId_commentId: {
+                    userId: user,
+                    commentId,
+                },
+            },
+        });
+    }
 
-	async createLike(user: any, commentId: string) {
-		return this.prisma.userCommentLike.create({
-			data: {
-				userId: user,
-				commentId,
-			},
-		});
-	}
+    async createLike(user: any, commentId: string) {
+        return this.prisma.userCommentLike.create({
+            data: {
+                userId: user,
+                commentId,
+            },
+        });
+    }
 
     async deleteLike(user: any, commentId: string) {
-		return this.prisma.userCommentLike.delete({
-			where: {
-				userId_commentId: {
-					userId: user,
-					commentId,
-				},
-			},
-		});
-	}
+        return this.prisma.userCommentLike.delete({
+            where: {
+                userId_commentId: {
+                    userId: user,
+                    commentId,
+                },
+            },
+        });
+    }
 
     async countByCommentId(commentId: string): Promise<number> {
-		return this.prisma.userCommentLike.count({
-			where: { commentId },
-		});
-	}
+        return this.prisma.userCommentLike.count({
+            where: { commentId },
+        });
+    }
+
+    async delete(commentId: string) {
+        return this.prisma.comment.delete({
+            where: { id: commentId },
+        });
+    }
 }

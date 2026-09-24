@@ -85,6 +85,9 @@ export class PostController {
 	@UseInterceptors(
 		FilesInterceptor('files', 10, {
 			storage: memoryStorage(),
+			limits: {
+				fileSize: 300 * 1024 * 1024,
+			},
 		}),
 	)
 	async createPost(
