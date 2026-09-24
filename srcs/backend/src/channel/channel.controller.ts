@@ -122,7 +122,7 @@ export class ChannelController {
   @Post(':id/messages')
   @ApiOperation({ summary: 'Send a message in the channel with attachments' })
   @UseInterceptors(
-    FilesInterceptor('files', 10, {
+    FilesInterceptor('files', 50, {
       storage: memoryStorage(),
       limits: { fileSize: 25 * 1024 * 1024 },
     }),
