@@ -143,7 +143,10 @@
         },
         "multiFile": "fichiers",
         "singleFile": "fichier",
-        "postCreatedSuccess": "Publication créée avec succès !"
+        "postCreatedSuccess": "Publication créée avec succès !",
+        "loadMoreError": "Erreur lors du chargement des publications",
+        "loadingMore": "Chargement...",
+        "noMorePosts": "Toutes les publications ont été chargées."
       },
       "FeedSection": {
         "emptyTitle": "Aucun message pour le moment",
