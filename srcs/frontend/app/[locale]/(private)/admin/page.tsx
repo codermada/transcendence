@@ -1,4 +1,5 @@
 import { LayoutDashboard } from "@/components/icons";
+import { UserCountCard } from "@/components/admin/UserCountCard";
 import { getTranslations } from "next-intl/server";
 
 export default async function AdminDashboardPage() {
@@ -29,6 +30,7 @@ export default async function AdminDashboardPage() {
           <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
             {t("subtitle")}
           </p>
+          <UserCountCard />
         </div>
       </header>
     </>

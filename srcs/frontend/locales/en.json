@@ -487,7 +487,8 @@
     },
     "dashboard": {
       "title": "Dashboard",
-      "subtitle": "Overview of your instance"
+      "subtitle": "Overview of your instance",
+      "totalUsers": "Total users"
     },
     "nav": {
       "title": "Admin",

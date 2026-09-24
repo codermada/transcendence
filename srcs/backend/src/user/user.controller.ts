@@ -31,7 +31,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   // ─────────────────────────────────────────────────────────────
-  // Admin — list
+  // Admin — list + count
   // ─────────────────────────────────────────────────────────────
 
   @ApiOperation({ summary: 'Admin: list all users' })
@@ -39,6 +39,14 @@ export class UserController {
   @UseGuards(AdminGuard)
   getAllUsers() {
     return this.userService.getAllUsers();
+  }
+
+  // Literal route — MUST be declared before `@Get(':id')`.
+  @ApiOperation({ summary: 'Admin: count all users' })
+  @Get('count')
+  @UseGuards(AdminGuard)
+  countUsers() {
+    return this.userService.countUsers();
   }
 
   // ─────────────────────────────────────────────────────────────
@@ -169,13 +177,5 @@ export class UserController {
   @UseGuards(AuthGuard)
   getPublicProfile(@Param('id') id: string) {
     return this.userService.getPublicProfile(id);
-  }
-
-  // user.controller.ts
-  @ApiOperation({ summary: 'Admin: count all users' })
-  @Get('count')
-  @UseGuards(AdminGuard)
-  countUsers() {
-    return this.userService.countUsers();
   }
 }
