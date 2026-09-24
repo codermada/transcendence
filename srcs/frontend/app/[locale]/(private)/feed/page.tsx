@@ -29,7 +29,7 @@ export default function FeedPage() {
 
     async function fetchPosts() {
       try {
-        const fetchedPosts = await postService.getAllPosts();
+        const fetchedPosts = await postService.getAllPosts({ page: 1 });
         if (isMounted) setPosts(fetchedPosts);
       } catch {
         if (isMounted) toast.error(t("toasts.loadPostsError"));
