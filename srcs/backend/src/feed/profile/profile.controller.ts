@@ -1,5 +1,12 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+	Controller, Get, UseGuards,
+	Param,
+} from '@nestjs/common';
+
+import { 
+	ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, ApiParam,
+} from '@nestjs/swagger';
+
 import { AuthGuard } from '../../auth/AuthGuard';
 import { CurrentUser } from '../../auth/CurrentUser';
 import { ProfileService } from './profile.service';
@@ -18,4 +25,14 @@ export class ProfileController {
 	async getUserProfile(@CurrentUser('id') currentUserId: string) {
 		return this.profileService.getUserProfile(currentUserId);
 	}
+
+    @Get(':id')
+    @ApiOperation({ summary: 'Get user profile by ID' })
+    @ApiParam({ name: 'id', description: 'Unique identifier of the user', type: String })
+    @ApiResponse({ status: 200, description: 'User profile retrieved successfully.' })
+    @ApiResponse({ status: 404, description: 'User not found.' })
+    @ApiResponse({ status: 401, description: 'Unauthorized.' })
+    async getUserProfileById(@Param('id') id: string, @CurrentUser('id') currentUserId: string) {
+        return this.profileService.getUserProfileById(id, currentUserId);
+    }
 }
