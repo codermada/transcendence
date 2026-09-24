@@ -132,12 +132,19 @@
     "activity": "Actividad reciente",
     "feed-section": {
       "CreatePostCard": {
-        "placeholder": "¿Qué hay de nuevo hoy?",
-        "plurialMedia": "Fotos / Videos",
-        "singularMedia": "Foto / Video",
-        "publish": "Publicar",
-        "isLoading": "Publicando..."
+      "placeholder": "¿Qué tienes en mente hoy?",
+      "pluralMedia": "Fotos / Vídeos",
+      "singularMedia": "Foto / Vídeo",
+      "publish": "Publicar",
+      "isLoading": "Publicando...",
+      "errors": {
+        "CONTENT_EMPTY": "El contenido no puede estar vacío",
+        "DEFAULT": "Algo salió mal. Inténtalo de nuevo."
       },
+      "multiFile": "archivos",
+      "singleFile": "archivo",
+      "postCreatedSuccess": "¡Publicación creada con éxito!"
+    },
       "FeedSection": {
         "emptyTitle": "No hay publicaciones aún",
         "emptyDescription": "Sé el primero en publicar algo o añade amigos para ver sus novedades.",
@@ -167,7 +174,35 @@
         "timeAgo": "{value, plural, =0 {Hace un momento} =1 {Hace 1 {unit, select, minute {minuto} hour {hora} day {día} other {}}} other {Hace {value} {unit, select, minute {minutos} hour {horas} day {días} other {}}}}",
         "options": "Opciones de la publicación",
         "edit": "Editar",
-        "delete": "Eliminar"
+        "delete": "Eliminar",
+        "justNow": "ahora mismo"
+      },
+      "CommentItem": {
+        "viewProfile": "Ver el perfil de {name}",
+        "likeComment": "Me gusta el comentario",
+        "unlikeComment": "Quitar me gusta",
+        "timeAgo": "{time}",
+        "deleteComment": "Eliminar comentario",
+        "removeComment": "Retirar comentario (moderador)",
+        "commentAttachment": "Adjunto del comentario"
+      },
+      "CommentsList": {
+        "loading": "Cargando comentarios...",
+        "emptyTitle": "Aún no hay comentarios",
+        "emptyDescription": "Sé el primero en comentar."
+      },
+      "CommentsModal": {
+        "toasts": {
+          "loadError": "No se pudieron cargar los comentarios.",
+          "invalidImageType": "Selecciona una imagen.",
+          "imageTooLarge": "La imagen no debe superar los 10 MB.",
+          "emptyComment": "Escribe un comentario o añade una imagen.",
+          "createSuccess": "Comentario añadido.",
+          "createError": "No se pudo añadir el comentario.",
+          "likeError": "No se pudo actualizar el me gusta.",
+          "deleteSuccess": "Comentario eliminado.",
+          "deleteError": "No se pudo eliminar el comentario."
+        }
       },
       "PostMedia": {
 
@@ -214,6 +249,24 @@
         "friends": "Amigos",
         "posts": "Publicaciones",
         "reactions": "Reacciones"
+      }
+    },
+    "toast-popup-message": {
+      "handleAcceptRequest": {
+        "successMessage": "Solicitud de amistad aceptada.",
+        "errorMessage": "Error al aceptar la solicitud de amistad."
+      },
+      "handleDeclineRequest": {
+        "successMessage": "Solicitud de amistad rechazada.",
+        "errorMessage": "Error al rechazar la solicitud de amistad."
+      },
+      "handleCancelRequest": {
+        "successMessage": "Solicitud de amistad cancelada.",
+        "errorMessage": "Error al cancelar la solicitud de amistad."
+      },
+      "handleSendFriendRequest": {
+        "successMessage": "Solicitud de amistad enviada.",
+        "errorMessage": "Error al enviar la solicitud de amistad."
       }
     }
   },
@@ -296,7 +349,12 @@
     "seen": "Visto",
     "sent": "Enviado",
     "close": "Cerrar",
-    "loadError": "No se pudo cargar la conversación."
+    "loadError": "No se pudo cargar la conversación.",
+    "download": "Haz clic para descargar",
+    "file": "Archivo",
+    "multiFile": "archivos",
+    "singleFile": "archivo",
+    "attachment": "Adjuntar archivo"
   },
   "Settings": {
     "nav": {
@@ -454,7 +512,8 @@
     },
     "dashboard": {
       "title": "Panel",
-      "subtitle": "Resumen de tu instancia"
+      "subtitle": "Resumen de tu instancia",
+      "totalUsers": "Usuarios totales"
     },
     "nav": {
       "title": "Admin",
@@ -595,5 +654,9 @@
     "en": "English",
     "fr": "Français",
     "es": "Español"
+  },
+  "UploadProgressToast": {
+    "notCompleted": "Subiendo archivos...",
+    "completed": "¡Publicación enviada!"
   }
 }

@@ -133,10 +133,17 @@
     "feed-section": {
       "CreatePostCard": {
         "placeholder": "Quoi de neuf aujourd'hui ?",
-        "plurialMedia": "Photos / Vidéos",
+        "pluralMedia": "Photos / Vidéos",
         "singularMedia": "Photo / Vidéo",
         "publish": "Publier",
-        "isLoading": "Publication..."
+        "isLoading": "Publication...",
+        "errors": {
+          "CONTENT_EMPTY": "Le contenu ne peut pas être vide",
+          "DEFAULT": "Une erreur est survenue. Veuillez réessayer."
+        },
+        "multiFile": "fichiers",
+        "singleFile": "fichier",
+        "postCreatedSuccess": "Publication créée avec succès !"
       },
       "FeedSection": {
         "emptyTitle": "Aucun message pour le moment",
@@ -167,7 +174,35 @@
         "timeAgo": "{value, plural, =0 {À l'instant} =1 {Il y a une {unit}} other {Il y a {value} {unit, select, minute {minutes} hour {heures} day {jours} other {}}}}",
         "options": "Options de la publication",
         "edit": "Modifier",
-        "delete": "Supprimer"
+        "delete": "Supprimer",
+        "justNow": "à l'instant"
+      },
+      "CommentItem": {
+        "viewProfile": "Voir le profil de {name}",
+        "likeComment": "Aimer le commentaire",
+        "unlikeComment": "Retirer le j'aime",
+        "timeAgo": "{time}",
+        "deleteComment": "Supprimer le commentaire",
+        "removeComment": "Retirer le commentaire (modérateur)",
+        "commentAttachment": "Pièce jointe du commentaire"
+      },
+      "CommentsList": {
+        "loading": "Chargement des commentaires...",
+        "emptyTitle": "Aucun commentaire pour l'instant",
+        "emptyDescription": "Soyez le premier à commenter."
+      },
+      "CommentsModal": {
+        "toasts": {
+          "loadError": "Impossible de charger les commentaires.",
+          "invalidImageType": "Veuillez sélectionner une image.",
+          "imageTooLarge": "L'image ne doit pas dépasser 10 MB.",
+          "emptyComment": "Écrivez un commentaire ou ajoutez une image.",
+          "createSuccess": "Commentaire ajouté.",
+          "createError": "Impossible d'ajouter le commentaire.",
+          "likeError": "Impossible de mettre à jour le like.",
+          "deleteSuccess": "Commentaire supprimé.",
+          "deleteError": "Impossible de supprimer le commentaire."
+        }
       },
       "PostMedia": {
 
@@ -214,6 +249,24 @@
         "friends": "Amis",
         "posts": "Publications",
         "reactions": "Réactions"
+      }
+    },
+    "toast-popup-message": {
+      "handleAcceptRequest": {
+        "successMessage": "Demande d'ami acceptée.",
+        "errorMessage": "Erreur lors de l'acceptation de la demande d'ami."
+      },
+      "handleDeclineRequest": {
+        "successMessage": "Demande d'ami refusée.",
+        "errorMessage": "Erreur lors du rejet de la demande d'ami."
+      },
+      "handleCancelRequest": {
+        "successMessage": "Demande d'ami annulée.",
+        "errorMessage": "Erreur lors de l'annulation de la demande d'ami."
+      },
+      "handleSendFriendRequest": {
+        "successMessage": "Demande d'ami envoyée.",
+        "errorMessage": "Erreur lors de l'envoi de la demande d'ami."
       }
     }
   },
@@ -296,7 +349,12 @@
     "seen": "Vu",
     "sent": "Envoyé",
     "close": "Fermer",
-    "loadError": "Impossible de charger la discussion."
+    "loadError": "Impossible de charger la discussion.",
+    "download": "Cliquer pour télécharger",
+    "file": "Fichier",
+    "multiFile": "fichiers",
+    "singleFile": "fichier",
+    "attachment": "Joindre un fichier"
   },
   "Settings": {
     "nav": {
@@ -454,7 +512,8 @@
     },
     "dashboard": {
       "title": "Tableau de bord",
-      "subtitle": "Aperçu de votre instance"
+      "subtitle": "Aperçu de votre instance",
+      "totalUsers": "Utilisateurs au total"
     },
     "nav": {
       "title": "Admin",
@@ -595,5 +654,9 @@
     "en": "English",
     "fr": "Français",
     "es": "Español"
+  },
+  "UploadProgressToast": {
+    "notCompleted": "Envoi des fichiers...",
+    "completed": "Publication envoyée !"
   }
 }
