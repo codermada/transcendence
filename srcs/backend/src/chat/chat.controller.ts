@@ -4,7 +4,6 @@ import {
 	Get,
 	Post,
 	Param,
-	Query,
 	UseGuards,
 	NotFoundException,
 	UseInterceptors,
@@ -14,7 +13,6 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/AuthGuard';
 import { CurrentUser } from '../auth/CurrentUser';
 import { ChatService } from './chat.service';
-import { GetMessagesQueryDto } from './dto/get-message-query.dto';
 import { SendMessageDto } from './dto/send-message.dto';
 import { ChatGateway } from './chat.gateway';
 import { FilesInterceptor } from '@nestjs/platform-express';
@@ -43,13 +41,12 @@ export class ChatController {
 	}
 
 	@Get('conversations/:id/messages')
-	@ApiOperation({ summary: 'Get cursor-paginated messages for a conversation' })
+	@ApiOperation({ summary: 'Get all messages for a conversation' })
 	getConversationMessages(
 		@CurrentUser() user: { id: string },
 		@Param('id') conversationId: string,
-		@Query() query: GetMessagesQueryDto,
 	) {
-		return this.chatService.getConversationMessages(user.id, conversationId, query);
+		return this.chatService.getConversationMessages(user.id, conversationId);
 	}
 
 	@Post('conversations/:id/seen')

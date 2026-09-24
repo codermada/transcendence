@@ -2,7 +2,6 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { PrismaService } from '../prisma/prisma.service';
 import { buildPairKey } from '../friend/utils/pair-key.util';
 import { SendMessageDto } from './dto/send-message.dto';
-import { GetMessagesQueryDto } from './dto/get-message-query.dto';
 import { S3Service } from '../s3/s3.service';
 
 @Injectable()
@@ -120,8 +119,8 @@ export class ChatService {
 		);
 	}
 
-	// Get messages start at cursor (last message id) with limit
-	async getConversationMessages(userId: string, conversationId: string, { cursor, limit }: GetMessagesQueryDto) {
+	// Get all messages for a conversation
+	async getConversationMessages(userId: string, conversationId: string) {
 		const conversation = await this.prismaService.messageTable.findUnique({
 			where: { id: conversationId },
 		});
@@ -132,8 +131,6 @@ export class ChatService {
 
 		const messages = await this.prismaService.message.findMany({
 			where: { messageTableId: conversationId },
-			take: limit,
-			...(cursor ? { skip: 1, cursor: { id: cursor } } : {}),
 			orderBy: { createdAt: 'desc' },
 			include: {
 				sender: { select: { id: true, name: true, image: true } },
@@ -143,7 +140,6 @@ export class ChatService {
 		return {
 			conversationId,
 			messages,
-			nextCursor: messages.length === limit ? messages[messages.length - 1].id : null,
 		};
 	}
 
