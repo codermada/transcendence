@@ -143,7 +143,10 @@
       },
       "multiFile": "archivos",
       "singleFile": "archivo",
-      "postCreatedSuccess": "¡Publicación creada con éxito!"
+      "postCreatedSuccess": "¡Publicación creada con éxito!",
+      "loadMoreError": "Error al cargar las publicaciones",
+      "loadingMore": "Cargando...",
+      "noMorePosts": "Se han cargado todas las publicaciones."
     },
       "FeedSection": {
         "emptyTitle": "No hay publicaciones aún",
