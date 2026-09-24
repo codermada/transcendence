@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { signOut } from "@/lib/auth/sign-out";
-import { authClient } from "@/lib/auth/auth-client";
 import { usePresence } from "@/hooks/use-presence";
 import {
   User,
@@ -17,35 +16,68 @@ import {
   Loader,
 } from "@/components/icons";
 
-interface UserDropdownProps {
-  user?: {
-    name?: string | null;
-    email?: string | null;
-    image?: string | null;
-    role?: string | null;
-  } | null;
-}
+type MeUser = {
+  id: string;
+  name: string | null;
+  email: string;
+  image: string | null;
+  role: string;
+};
 
-export function UserDropdown({ user: initialUser }: UserDropdownProps) {
+export function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [user, setUser] = useState<MeUser | null>(null);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
   const menuRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const t = useTranslations("Nav");
   const { isOnline } = usePresence();
 
-  const { data: session } = authClient.useSession();
-  const user = initialUser ?? session?.user;
+  // ── Fetch current user from the backend ────────────────────────
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadUser() {
+      try {
+        const res = await fetch("/nest/user/me", {
+          credentials: "include",
+          cache: "no-store",
+        });
+
+        if (!res.ok) {
+          if (!cancelled) setUser(null);
+          return;
+        }
+
+        const data = (await res.json()) as MeUser;
+        if (!cancelled) setUser(data);
+      } catch {
+        if (!cancelled) setUser(null);
+      } finally {
+        if (!cancelled) setIsLoadingUser(false);
+      }
+    }
+
+    loadUser();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const isAdmin = user?.role === "admin";
 
-  const displayName = user?.name?.trim() || user?.email?.split("@")[0] || t("user");
-  const initials = displayName
-    .split(" ")
-    .map((n) => n[0])
-    .filter(Boolean)
-    .slice(0, 2)
-    .join("")
-    .toUpperCase() || "U";
+  const displayName =
+    user?.name?.trim() || user?.email?.split("@")[0] || t("user");
+
+  const initials =
+    displayName
+      .split(" ")
+      .map((n) => n[0])
+      .filter(Boolean)
+      .slice(0, 2)
+      .join("")
+      .toUpperCase() || "U";
 
   // Click outside to close
   useEffect(() => {
@@ -119,7 +151,9 @@ export function UserDropdown({ user: initialUser }: UserDropdownProps) {
         "
       >
         <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-indigo-600 text-xs font-semibold text-white shadow-md ring-1 ring-black/5 dark:ring-white/10">
-          {user?.image ? (
+          {isLoadingUser ? (
+            <Loader className="h-4 w-4 animate-spin" />
+          ) : user?.image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={user.image}
