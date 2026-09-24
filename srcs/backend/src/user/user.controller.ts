@@ -170,4 +170,12 @@ export class UserController {
   getPublicProfile(@Param('id') id: string) {
     return this.userService.getPublicProfile(id);
   }
+
+  // user.controller.ts
+  @ApiOperation({ summary: 'Admin: count all users' })
+  @Get('count')
+  @UseGuards(AdminGuard)
+  countUsers() {
+    return this.userService.countUsers();
+  }
 }
