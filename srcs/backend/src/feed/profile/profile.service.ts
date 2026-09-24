@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+	Injectable,
+	NotFoundException,
+} from '@nestjs/common';
+
 import { S3Service } from '../../s3/s3.service';
 import { ProfileRepository } from './profile.repository';
 
@@ -39,4 +43,38 @@ export class ProfileService {
 			},
 		};
 	}
+
+    async getUserProfileById(id: string, currentUserId: string) {
+    
+        const userProfile = await this.profileRepository.findById(id);
+
+        if (!userProfile) {
+            throw new NotFoundException(`User not found with ID: ${id}`);
+        }
+
+		const isOwnProfile = (id === currentUserId);
+		const friendshipStatus = await this.profileRepository.getFriendshipStatus(currentUserId, id);
+		const isFriend = (friendshipStatus === 'FRIENDS');
+		const hasPendingOutgoing = (friendshipStatus === 'PENDING_OUTGOING');
+		const hasPendingIncoming = (friendshipStatus === 'PENDING_INCOMING');
+		const hasRejected = (friendshipStatus === 'REJECTED');
+		const hasCancelled = (friendshipStatus === 'CANCELLED');
+		const hasBlockedByMe = (friendshipStatus === 'BLOCKED_BY_ME');
+		const hasBlockedMe = (friendshipStatus === 'BLOCKED_ME');
+
+		return {
+			id: userProfile.id,
+			name: userProfile.name,
+			avatarUrl: userProfile.image,
+			friendsCount: userProfile.friendsCount,
+			isOwnProfile,
+			isFriend,
+			hasPendingOutgoing,
+			hasPendingIncoming,
+			hasRejected,
+			hasCancelled,
+			hasBlockedByMe,
+			hasBlockedMe,
+		};
+    }	
 }

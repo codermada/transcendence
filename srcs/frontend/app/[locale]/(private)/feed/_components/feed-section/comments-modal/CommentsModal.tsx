@@ -29,7 +29,7 @@ export function CommentsModal({
   open,
   onOpenChange,
 }: CommentsModalProps) {
-    const t = useTranslations("Feed.feed-section.PostHeader");
+  const t = useTranslations("Comments");
   const [comments, setComments] = useState<Comment[]>([]);
   const [content, setContent] = useState("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -85,7 +85,7 @@ export function CommentsModal({
 
       setComments(data);
     } catch {
-      toast.error("Impossible de charger les commentaires.");
+      toast.error(t("loadError"));
     } finally {
       setIsLoading(false);
     }
@@ -97,14 +97,14 @@ export function CommentsModal({
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      toast.error("Veuillez sélectionner une image.");
+      toast.error(t("selectImage"));
       return;
     }
 
     const maxSize = 10 * 1024 * 1024;
 
     if (file.size > maxSize) {
-      toast.error("L'image ne doit pas dépasser 10 MB.");
+      toast.error(t("imageTooLarge"));
       return;
     }
 
@@ -123,7 +123,7 @@ export function CommentsModal({
     const trimmedContent = content.trim();
 
     if (!trimmedContent && !selectedImage) {
-      toast.error("Écrivez un commentaire ou ajoutez une image.");
+      toast.error(t("emptyComment"));
       return;
     }
 
@@ -141,9 +141,9 @@ export function CommentsModal({
       setSelectedImage(null);
       setPreviewUrl(null);
 
-      toast.success("Commentaire ajouté.");
+      toast.success(t("added"));
     } catch {
-      toast.error("Impossible d'ajouter le commentaire.");
+      toast.error(t("addError"));
     } finally {
       setIsSubmitting(false);
     }
@@ -169,7 +169,7 @@ export function CommentsModal({
         ),
       );
     } catch {
-      toast.error("Impossible de mettre à jour le like.");
+      toast.error(t("likeError"));
     } finally {
       setLikingCommentId(null);
     }

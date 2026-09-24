@@ -15,6 +15,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { TestModule } from './test/test.module';
 import { UserModule } from './user/user.module';
 import { PostCommentModule } from './post-comment/post-comment.module';
+// import { ProfileModule } from './profile/profile.module';
 
 @Module({
 	imports: [
@@ -34,4 +35,5 @@ import { PostCommentModule } from './post-comment/post-comment.module';
 	],
 	controllers: [AuthController],
 })
+
 export class AppModule {}
