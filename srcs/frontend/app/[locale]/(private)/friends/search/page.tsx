@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Link, useRouter } from "@/i18n/routing";
+import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { Search, ArrowLeft, Loader2, UserPlus, MessageSquare } from "@/components/icons";
-import { NewMessageModal, type ReceiverUser } from "@/components/chat/NewMessageModal";
+import { Search, ArrowLeft, Loader2, UserPlus } from "@/components/icons";
+import { StartMessageButton } from "@/components/chat/StartMessageButton";
 
 type SearchUser = {
   id: string;
@@ -23,17 +23,12 @@ type SearchResponse = {
 
 export default function SearchFriendsPage() {
   const t = useTranslations("Friends");
-  const tChat = useTranslations("Chat");
-  const router = useRouter();
 
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchUser[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pendingAddId, setPendingAddId] = useState<string | null>(null);
-  const [checkingUserId, setCheckingUserId] = useState<string | null>(null);
-  const [modalReceiver, setModalReceiver] = useState<ReceiverUser | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Fire the request whenever `query` changes.
   // (No debounce — fine for a small dataset. Add one later if needed.)
@@ -93,33 +88,6 @@ export default function SearchFriendsPage() {
     }
   }
 
-  async function handleMessageClick(user: SearchUser) {
-    setCheckingUserId(user.id);
-
-    try {
-      const res = await fetch(`/nest/chat/conversation/${user.id}`, {
-        credentials: "include",
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        if (data && data.id) {
-          router.push(`/chat/${data.id}`);
-          return;
-        }
-      }
-
-      setModalReceiver(user);
-      setIsModalOpen(true);
-    } catch (err) {
-      console.error("Failed to check conversation:", err);
-      setModalReceiver(user);
-      setIsModalOpen(true);
-    } finally {
-      setCheckingUserId(null);
-    }
-  }
-
   return (
     <div className="mx-auto max-w-3xl p-6">
       {/* Header */}
@@ -175,7 +143,6 @@ export default function SearchFriendsPage() {
         <ul className="divide-y divide-zinc-100 overflow-hidden rounded-2xl border border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
           {results.map((u) => {
             const isPending = pendingAddId === u.id;
-            const isChecking = checkingUserId === u.id;
             return (
               <li
                 key={u.id}
@@ -193,19 +160,7 @@ export default function SearchFriendsPage() {
                 </div>
 
                 <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => handleMessageClick(u)}
-                    disabled={isPending || isChecking}
-                    className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
-                  >
-                    {isChecking ? (
-                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                    ) : (
-                      <MessageSquare className="h-3.5 w-3.5" />
-                    )}
-                    {tChat("message")}
-                  </button>
+                  <StartMessageButton user={u} disabled={isPending} />
                   <button
                     type="button"
                     onClick={() => handleAdd(u.id)}
@@ -221,12 +176,6 @@ export default function SearchFriendsPage() {
           })}
         </ul>
       )}
-
-      <NewMessageModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        receiver={modalReceiver}
-      />
     </div>
   );
 }
