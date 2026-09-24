@@ -53,14 +53,14 @@ export const chatService = {
         } else {
           reject(
             new Error(
-              responseData.message || "Message not sended"
+              responseData.message || "Failed to send message"
             )
           );
         }
       };
 
       xhr.onerror = () => {
-        reject(new Error("Network error on message sending"));
+        reject(new Error("Network error while sending message"));
       };
 
       xhr.send(formData);
