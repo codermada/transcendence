@@ -143,7 +143,10 @@
         },
         "multiFile": "files",
         "singleFile": "file",
-        "postCreatedSuccess": "Post created successfully!"
+        "postCreatedSuccess": "Post created successfully!",
+        "loadMoreError": "Error loading posts",
+        "loadingMore": "Loading...",
+        "noMorePosts": "All posts have been loaded."
       },
       "FeedSection": {
         "emptyTitle": "No posts yet",
