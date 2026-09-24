@@ -325,7 +325,11 @@
     "sent": "Envoyé",
     "close": "Fermer",
     "loadError": "Impossible de charger la discussion.",
-    "download": "Cliquer pour télécharger"
+    "download": "Cliquer pour télécharger",
+    "file": "Fichier",
+    "multiFile": "fichiers",
+    "singleFile": "fichier",
+    "attachment": "Joindre un fichier"
   },
   "Settings": {
     "nav": {

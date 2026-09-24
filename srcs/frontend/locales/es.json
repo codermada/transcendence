@@ -325,7 +325,11 @@
     "sent": "Enviado",
     "close": "Cerrar",
     "loadError": "No se pudo cargar la conversación.",
-    "download": "Haz clic para descargar"
+    "download": "Haz clic para descargar",
+    "file": "Archivo",
+    "multiFile": "archivos",
+    "singleFile": "archivo",
+    "attachment": "Adjuntar archivo"
   },
   "Settings": {
     "nav": {
