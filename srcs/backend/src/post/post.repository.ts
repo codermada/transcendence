@@ -11,14 +11,39 @@ export class PostRepository {
 	async findAll(filters: GetPostsFilterDto, currentUserId: string) {
 		const { search } = filters;
 
-		const baseWhere = search
-			? {
+		const friendships = await this.prisma.friendship.findMany({
+			where: {
+				acceptedAt: { not: null },
+				OR: [
+					{ requesterId: currentUserId },
+					{ addresseeId: currentUserId },
+				],
+			},
+			select: {
+				requesterId: true,
+				addresseeId: true,
+			},
+		});
+
+		const friendIds = friendships.map((f) =>
+			f.requesterId === currentUserId ? f.addresseeId : f.requesterId,
+		);
+
+		const allowedUserIds = [currentUserId, ...friendIds];
+
+		const baseWhere = {
+			userId: {
+				in: allowedUserIds,
+			},
+			...(search
+				? {
 					content: {
 						contains: search,
 						mode: 'insensitive' as const,
 					},
 				}
-			: {};
+			: {}),
+		};
 
 		const includeRelations = {
 			user: {
