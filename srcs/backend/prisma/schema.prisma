@@ -296,6 +296,7 @@ model UserChannelMessage {
   channelId String
   content   String
   mediaUrls String[] @default([])
+  seenBy    String[] @default([])
   createdAt DateTime @default(now())
   updatedat DateTime @updatedAt
 
