@@ -33,7 +33,8 @@
     "online": "En línea",
     "offline": "Desconectado",
     "preferences": "Preferencias",
-    "user": "Usuario"
+    "user": "Usuario",
+    "signOutError": "No se pudo cerrar sesión. Inténtalo de nuevo."
   },
   "Auth": {
     "signIn": {
@@ -139,7 +140,8 @@
       "isLoading": "Publicando...",
       "errors": {
         "CONTENT_EMPTY": "El contenido no puede estar vacío",
-        "DEFAULT": "Algo salió mal. Inténtalo de nuevo."
+        "DEFAULT": "Algo salió mal. Inténtalo de nuevo.",
+        "profileLoad": "No se pudo cargar tu perfil."
       },
       "multiFile": "archivos",
       "singleFile": "archivo",
@@ -245,7 +247,8 @@
     },
     "profile-sidebar": {
       "ProfileCard": {
-        "myProfileButton": "Mi Perfil"
+        "myProfileButton": "Mi Perfil",
+        "errorProfileLoad": "No se pudo cargar tu perfil."
       },
       "ProfileSidebar": {
 
@@ -436,26 +439,30 @@
       }
     },
     "apiKeys": {
-      "title": "Crear clave API",
-      "subtitle": "Genera una clave para autenticar tus aplicaciones.",
+      "title": "Crear clave de API",
+      "subtitle": "Genera una clave para autenticar tus aplicaciones contra la API.",
       "nameLabel": "Nombre",
-      "namePlaceholder": "ej. CI Pipeline",
-      "nameHelp": "Una etiqueta para reconocer esta clave más tarde.",
+      "namePlaceholder": "p. ej. Canalización CI",
+      "nameHelp": "Una etiqueta para reconocer esta clave más adelante.",
       "expiresLabel": "Expira en (días)",
-      "expiresHelp": "Establece 0 para una clave que nunca expire.",
-      "submit": "Crear clave API",
+      "expiresHelp": "Establece 0 para una clave que nunca expira.",
+      "submit": "Crear clave de API",
+      "create": "Crear",
       "submitting": "Creando…",
       "cancel": "Cancelar",
-      "createdTitle": "Clave API creada",
-      "copyWarning": "⚠️ Copia esta clave ahora. No podrás volver a verla.",
+      "createdTitle": "Clave de API creada",
+      "copyWarning": "⚠️ Copia esta clave ahora. No podrás verla de nuevo.",
       "copy": "Copiar",
       "copied": "¡Copiado!",
+      "keyLabel": "Clave de API",
+      "secretBadge": "Secreta",
       "name": "Nombre",
-      "expires": "Expira el",
+      "expires": "Expira",
+      "expiresIn": "{days, plural, =0 {Nunca expira} =1 {Expira en 1 día} other {Expira en # días}}",
       "never": "Nunca",
       "done": "Hecho",
       "createAnother": "Crear otra",
-      "errorFailed": "Error al crear la clave API",
+      "errorFailed": "No se pudo crear la clave de API",
       "errorNoKey": "El servidor no devolvió ninguna clave",
       "errorUnexpected": "Error inesperado"
     }
@@ -575,6 +582,7 @@
     "idLabel": "ID",
     "joinedLabel": "Se unió",
     "actionError": "Algo salió mal. Inténtalo de nuevo.",
+    "friendshipLoadError": "No se pudo cargar el estado de amistad.",
     "friendStatus": {
       "friends": "Amigos",
       "requestSent": "Solicitud enviada",

@@ -33,7 +33,8 @@
     "online": "Online",
     "offline": "Offline",
     "preferences": "Preferences",
-    "user": "User"
+    "user": "User",
+    "signOutError": "Couldn't sign out. Please try again."
   },
   "Auth": {
     "signIn": {
@@ -139,7 +140,8 @@
         "isLoading": "Publishing...",
         "errors": {
           "CONTENT_EMPTY": "Content cannot be empty",
-          "DEFAULT": "Something went wrong. Please try again."
+          "DEFAULT": "Something went wrong. Please try again.",
+          "profileLoad": "Couldn't load your profile."
         },
         "multiFile": "files",
         "singleFile": "file",
@@ -245,7 +247,8 @@
     },
     "profile-sidebar": {
       "ProfileCard": {
-        "myProfileButton": "My Profile"
+        "myProfileButton": "My Profile",
+        "errorProfileLoad": "Couldn't load your profile."
       },
       "ProfileSidebar": {
 
@@ -444,14 +447,18 @@
       "expiresLabel": "Expires in (days)",
       "expiresHelp": "Set to 0 for a key that never expires.",
       "submit": "Create API Key",
+      "create": "Create",
       "submitting": "Creating…",
       "cancel": "Cancel",
       "createdTitle": "API Key Created",
       "copyWarning": "⚠️ Copy this key now. You will not be able to see it again.",
       "copy": "Copy",
       "copied": "Copied!",
+      "keyLabel": "API Key",
+      "secretBadge": "Secret",
       "name": "Name",
       "expires": "Expires",
+      "expiresIn": "{days, plural, =0 {Never expires} =1 {Expires in 1 day} other {Expires in # days}}",
       "never": "Never",
       "done": "Done",
       "createAnother": "Create another",
@@ -576,6 +583,7 @@
     "idLabel": "ID",
     "joinedLabel": "Joined",
     "actionError": "Something went wrong. Please try again.",
+    "friendshipLoadError": "Couldn't load friendship status.",
     "friendStatus": {
       "friends": "Friends",
       "requestSent": "Request sent",
