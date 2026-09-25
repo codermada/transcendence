@@ -33,6 +33,7 @@ services:
       - /app/node_modules
     expose:
       - "3000"
+      - "51212"
     ports:
       - "51212:51212"
     networks:
@@ -76,8 +77,8 @@ services:
     ports:
       - "4566:4566"
     volumes:
-      - "/var/lib/localstack"
-      - "/var/run/docker.sock"
+      - "localstack_data:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
     networks:
       - net
     healthcheck:
