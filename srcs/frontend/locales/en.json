@@ -461,6 +461,7 @@
     }
   },
   "Admin": {
+    
     "users": {
       "title": "Users",
       "subtitle": "Manage user accounts and roles.",
@@ -496,6 +497,25 @@
       "toastDeleted": "User deleted.",
 
       "toastRoleUpdated": "Role updated",
+
+      "createUser": "Create user",
+      "createModal": {
+        "title": "Create user",
+        "subtitle": "Add a new user to the platform.",
+        "nameLabel": "Name",
+        "emailLabel": "Email",
+        "passwordLabel": "Password",
+        "passwordHint": "Must be at least 8 characters.",
+        "roleLabel": "Role",
+        "roleUser": "User",
+        "roleModerator": "Moderator",
+        "roleAdmin": "Admin",
+        "cancel": "Cancel",
+        "create": "Create user",
+        "creating": "Creating…",
+        "error": "Failed to create user.",
+        "toastCreated": "User created."
+      },
 
       "editModal": {
         "title": "Edit user",
