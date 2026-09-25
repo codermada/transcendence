@@ -1,15 +1,17 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useFriendRequests } from "@/components/friend-requests/useFriendRequests";
-import { FriendRequestTabs } from "@/components/friend-requests/FriendRequestTabs";
-import { FriendRequestSearch } from "@/components/friend-requests/FriendRequestSearch";
-import { FriendRequestList } from "@/components/friend-requests/FriendRequestList";
-import { FriendRequestEmpty } from "@/components/friend-requests/FriendRequestEmpty";
-import { FriendRequestSkeleton } from "@/components/friend-requests/FriendRequestSkeleton";
-import { pickOther, type Tab } from "@/components/friend-requests/types";
+import { useTranslations } from "next-intl";
+import { useFriendRequests } from "./useFriendRequests";
+import { FriendRequestTabs } from "./FriendRequestTabs";
+import { FriendRequestSearch } from "./FriendRequestSearch";
+import { FriendRequestList } from "./FriendRequestList";
+import { FriendRequestEmpty } from "./FriendRequestEmpty";
+import { FriendRequestSkeleton } from "./FriendRequestSkeleton";
+import { pickOther, type Tab } from "./types";
 
 export function FriendRequestsClient() {
+  const t = useTranslations("FriendRequests");
   const {
     incoming,
     outgoing,
@@ -43,7 +45,6 @@ export function FriendRequestsClient() {
 
   return (
     <div className="mt-8">
-      {/* Tabs + search */}
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <FriendRequestTabs
           value={tab}

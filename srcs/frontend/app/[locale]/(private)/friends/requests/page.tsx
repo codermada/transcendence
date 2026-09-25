@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { Inbox } from "@/components/icons"; // use whatever icon lib you already have
+import { Inbox } from "@/components/icons";
 import { FriendRequestsClient } from "./FriendRequestsClient";
 
 export default async function FriendRequestsPage() {
@@ -7,7 +7,6 @@ export default async function FriendRequestsPage() {
 
   return (
     <div className="mx-auto max-w-5xl p-6">
-      {/* Header — same pattern as FriendsPage */}
       <div className="flex items-center justify-between border-b border-zinc-200/80 pb-5 dark:border-zinc-800">
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-100 text-violet-600 dark:bg-violet-500/15 dark:text-violet-400">
@@ -24,7 +23,6 @@ export default async function FriendRequestsPage() {
         </div>
       </div>
 
-      {/* Client-rendered tabs + lists */}
       <FriendRequestsClient />
     </div>
   );
