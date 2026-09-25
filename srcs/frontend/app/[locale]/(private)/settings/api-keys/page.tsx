@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
 
-import { authClient } from "@/lib/auth/auth-client";
 import { PageShell } from "@/components/layout/PageShell";
 import { Field } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
 import { NumberInput } from "@/components/ui/NumberInput";
+import { createApiKey } from "@/lib/auth/create-api-key";
 
 type GeneratedKey = {
   id: string;
@@ -24,57 +24,29 @@ export default function CreateApiKeyPage() {
   const [name, setName] = useState("My Frontend App Key");
   const [expiresInDays, setExpiresInDays] = useState(7);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [generatedKey, setGeneratedKey] =
-    useState<GeneratedKey | null>(null);
+  const [generatedKey, setGeneratedKey] = useState<GeneratedKey | null>(null);
   const [copied, setCopied] = useState(false);
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const trimmedName = name.trim();
-
     if (!trimmedName) return;
 
     setIsLoading(true);
-    setError(null);
 
-    try {
-      const days = Math.max(0, Math.floor(expiresInDays));
+    const key = await createApiKey(t, trimmedName, expiresInDays);
 
-      const { data, error } = await authClient.apiKey.create({
-        name: trimmedName,
-        expiresIn: days > 0 ? days * 24 * 60 * 60 : undefined,
-        metadata: {
-          environment: process.env.NODE_ENV ?? "development",
-        },
-      });
-
-      if (error) {
-        setError(error.message ?? t("errorFailed"));
-        return;
-      }
-
-      if (!data) {
-        setError(t("errorNoKey"));
-        return;
-      }
-
+    if (key) {
       setGeneratedKey({
-        id: data.id,
-        name: data.name ?? trimmedName,
-        key: data.key,
-        expiresAt: data.expiresAt ?? null,
+        id: key.id,
+        name: key.name ?? trimmedName,
+        key: key.key,
+        expiresAt: key.expiresAt ?? null,
       });
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : t("errorUnexpected")
-      );
-    } finally {
-      setIsLoading(false);
     }
+
+    setIsLoading(false);
   };
 
   const handleCopy = async () => {
@@ -88,7 +60,7 @@ export default function CreateApiKeyPage() {
         setCopied(false);
       }, 2000);
     } catch {
-      setError(t("errorFailed"));
+      // Optional: surface a toast, or silently ignore.
     }
   };
 
@@ -257,9 +229,7 @@ export default function CreateApiKeyPage() {
 
               <dd className="text-right text-sm font-medium text-zinc-900 dark:text-zinc-200">
                 {generatedKey.expiresAt
-                  ? new Date(
-                      generatedKey.expiresAt
-                    ).toLocaleString()
+                  ? new Date(generatedKey.expiresAt).toLocaleString()
                   : t("never")}
               </dd>
             </div>
@@ -272,7 +242,6 @@ export default function CreateApiKeyPage() {
               onClick={() => {
                 setGeneratedKey(null);
                 setCopied(false);
-                setError(null);
               }}
               className="
                 flex-1 rounded-xl bg-zinc-100 px-5 py-2.5 text-sm font-medium text-zinc-700 transition hover:bg-zinc-200
@@ -355,10 +324,7 @@ export default function CreateApiKeyPage() {
             )}
           </Field>
 
-          <Field
-            label={t("expiresLabel")}
-            help={t("expiresHelp")}
-          >
+          <Field label={t("expiresLabel")} help={t("expiresHelp")}>
             {({ id, ...aria }) => (
               <NumberInput
                 id={id}
@@ -370,37 +336,6 @@ export default function CreateApiKeyPage() {
             )}
           </Field>
         </div>
-
-        {/* Error */}
-        {error && (
-          <div
-            role="alert"
-            className="
-              flex items-start gap-3
-              rounded-xl
-              border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700
-              dark:border-rose-500/30 dark:bg-rose-950/20 dark:text-rose-400
-              shadow-xs
-            "
-          >
-            <svg
-              aria-hidden
-              viewBox="0 0 24 24"
-              className="mt-0.5 h-4 w-4 shrink-0"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <circle cx="12" cy="12" r="9" />
-              <path
-                strokeLinecap="round"
-                d="M12 8v4m0 4h.01"
-              />
-            </svg>
-
-            <span>{error}</span>
-          </div>
-        )}
 
         {/* Actions */}
         <div className="flex flex-col-reverse gap-3 sm:flex-row">

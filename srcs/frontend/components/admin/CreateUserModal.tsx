@@ -44,8 +44,7 @@ export function CreateUserModal({
     });
 
     if (error) {
-      console.error("Failed to create user:", error);
-      toast.error(error.message ?? t("error"));
+      toast.error(t("error"));
       setIsBusy(false);
       return;
     }
