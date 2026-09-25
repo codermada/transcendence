@@ -2,7 +2,7 @@
 
 # Description
 
-This is a social network permitting users to add friends, chat to friends, post pictures/videos. That's basically it, its name is **Heartbeat**. 
+This is a social network permitting users to add friends, chat to friends, post pictures/videos. That's basically it, its name is **Heartbeat**.
 
 # Instructions
 
@@ -21,7 +21,7 @@ Make sure the following tools are installed on your machine before running the p
 | **Docker Compose** | latest | Orchestrating the multi-container setup |
 | **Git** | latest | Cloning the repository |
 
-> Node.js, PostgreSQL, MinIO, and Nginx do **not** need to be installed locally — they all run inside Docker containers.
+> Node.js, PostgreSQL, LocalStack, and Nginx do **not** need to be installed locally — they all run inside Docker containers.
 
 ---
 
@@ -30,10 +30,10 @@ Make sure the following tools are installed on your machine before running the p
 ```
 .
 ├── srcs/
-│   ├── backend/       # NestJS API + Prisma + Better Auth + MinIO client
+│   ├── backend/       # NestJS API + Prisma + Better Auth + S3 client
 │   ├── frontend/      # Next.js + Tailwind CSS
 │   ├── database/      # PostgreSQL 17
-│   ├── minio/         # MinIO S3-compatible storage
+│   ├── localstack/    # LocalStack (S3-compatible storage)
 │   └── nginx/         # Nginx reverse proxy
 ├── docker-compose.yml
 └── .env
@@ -72,20 +72,19 @@ REDIRECT_URI=https://localhost:9000/nest/auth/callback/google
 INITIAL_ADMIN_EMAIL=
 INITIAL_ADMIN_PASSWORD=
 
-# MinIO Root Credentials
-MINIO_ROOT_USER=
-MINIO_ROOT_PASSWORD=!
+# LocalStack
+LOCALSTACK_AUTH_TOKEN=
 
-# MinIO S3 Settings
-S3_ENDPOINT=http://minio:9000
-S3_PUBLIC_URL=http://localhost:9002
+# S3 Settings (served by LocalStack)
+S3_ENDPOINT=http://localstack:4566
+S3_PUBLIC_URL=http://localhost:4566
 S3_REGION=us-east-1
-S3_ACCESS_KEY=${MINIO_ROOT_USER}
-S3_SECRET_KEY=${MINIO_ROOT_PASSWORD}
+S3_ACCESS_KEY=test
+S3_SECRET_KEY=test
 S3_BUCKET_NAME=uploads
 ```
 
-> **Note**: Inside the Docker network, services reach each other by their **service name** (e.g., `postgres`, `minio`, `backend`, `frontend`), not `localhost`.
+> **Note**: Inside the Docker network, services reach each other by their **service name** (e.g., `postgres`, `localstack`, `backend`, `frontend`), not `localhost`.
 
 ---
 
@@ -108,12 +107,12 @@ This will build and start the following containers:
 | Container | Service | Port(s) |
 |-----------|---------|---------|
 | `postgres-db` | PostgreSQL 17 | `5432` |
-| `minio-s3` | MinIO | `9002` (API), `9001` (console) |
+| `localstack-s3` | LocalStack (S3) | `4566` |
 | `nest-backend` | NestJS API | `3000`, `51212` |
 | `next-frontend` | Next.js | `3001` |
 | `nginx-server` | Nginx reverse proxy | `9000` → `443` |
 
-The `backend` service waits for both `postgres` and `minio` to pass their healthchecks before starting. Similarly, `frontend` waits for `postgres`.
+The `backend` service waits for both `postgres` and `localstack` to pass their healthchecks before starting. Similarly, `frontend` waits for `postgres`.
 
 ---
 
@@ -147,21 +146,48 @@ exit
 
 ---
 
-### 5. Access the Application
+### 5. S3 Bucket Setup (LocalStack)
+
+LocalStack starts empty — you need to create the `uploads` bucket once the container is healthy.
+
+From the host (requires the AWS CLI, or use the container itself):
+
+```bash
+# Using the LocalStack container's bundled awslocal
+docker compose exec localstack awslocal s3 mb s3://uploads
+
+# List buckets to confirm
+docker compose exec localstack awslocal s3 ls
+```
+
+Or via the Makefile helpers:
+
+```bash
+make ls-s3-create BUCKET=uploads
+make ls-s3-buckets
+```
+
+> LocalStack accepts any credentials — the standard `test` / `test` pair works. This is why `S3_ACCESS_KEY` and `S3_SECRET_KEY` are hardcoded to `test` in `.env`.
+
+---
+
+### 6. Access the Application
 
 Once all services are healthy, open your browser at:
 
 - **Application (via Nginx, HTTPS)**: https://localhost:9000
 - **Frontend (direct)**: http://localhost:3001
 - **Backend API (direct)**: http://localhost:3000
-- **MinIO Console**: http://localhost:9001
+- **LocalStack S3 endpoint**: http://localhost:4566
 - **PostgreSQL**: `localhost:5432`
 
 > ⚠️ Nginx serves over HTTPS on port `9000`. You may need to accept a self-signed certificate warning in your browser.
 
+> ℹ️ LocalStack has no web console — inspect S3 via the `aws` CLI or `make ls-*` targets. The LocalStack health dashboard is available at http://localhost:4566/_localstack/health.
+
 ---
 
-### 6. Useful Commands
+### 7. Useful Commands
 
 | Command | Description |
 |---------|-------------|
@@ -172,13 +198,14 @@ Once all services are healthy, open your browser at:
 | `docker compose exec backend sh` | Open a shell in the backend container |
 | `docker compose exec frontend sh` | Open a shell in the frontend container |
 | `docker compose exec postgres psql -U $DB_USER -d $DB_NAME` | Open a psql session |
+| `docker compose exec localstack awslocal s3 ls` | List S3 buckets in LocalStack |
 | `docker compose down` | Stop and remove containers |
-| `docker compose down -v` | Stop and remove containers **and volumes** (⚠️ wipes DB and MinIO data) |
+| `docker compose down -v` | Stop and remove containers **and volumes** (⚠️ wipes DB and S3 data) |
 | `docker compose build --no-cache` | Rebuild all images from scratch |
 
 ---
 
-### 7. Rebuilding After Code Changes
+### 8. Rebuilding After Code Changes
 
 Since `backend` and `frontend` mount their source directories as volumes, code changes are reflected automatically (hot reload in dev mode). However, if you change **dependencies** (`package.json`) or **Dockerfiles**, rebuild:
 
@@ -188,13 +215,13 @@ docker compose up --build -d
 
 ---
 
-### 8. Stopping the Project
+### 9. Stopping the Project
 
 ```bash
 docker compose down
 ```
 
-To also remove volumes (⚠️ deletes PostgreSQL and MinIO data):
+To also remove volumes (⚠️ deletes PostgreSQL and LocalStack S3 data):
 
 ```bash
 docker compose down -v
@@ -204,12 +231,12 @@ docker compose down -v
 
 ## Official Documentation
 
-- **NestJS**: https://docs.nestjs.com/ — Framework for building efficient, scalable Node.js server-side applications .
-- **Prisma**: https://www.prisma.io/docs — Next-generation ORM for Node.js and TypeScript with type-safe database access .
-- **Tailwind CSS**: https://tailwindcss.com/docs — Utility-first CSS framework for rapidly building custom user interfaces .
-- **Next.js**: https://nextjs.org/docs — React framework for building full-stack web applications .
-- **Better Auth**: https://better-auth.com/docs — Authentication framework with built-in support for email/password, social providers, and plugins (Oauth 2.0, 2fa, apiKey).
-- **MinIO**: https://docs.min.io/ — S3-compatible object storage solution deployable anywhere .
+- **NestJS**: https://docs.nestjs.com/ — Framework for building efficient, scalable Node.js server-side applications.
+- **Prisma**: https://www.prisma.io/docs — Next-generation ORM for Node.js and TypeScript with type-safe database access.
+- **Tailwind CSS**: https://tailwindcss.com/docs — Utility-first CSS framework for rapidly building custom user interfaces.
+- **Next.js**: https://nextjs.org/docs — React framework for building full-stack web applications.
+- **Better Auth**: https://better-auth.com/docs — Authentication framework with built-in support for email/password, social providers, and plugins (OAuth 2.0, 2FA, API keys).
+- **LocalStack**: https://docs.localstack.cloud/ — Fully functional local AWS cloud stack, used here for S3-compatible object storage.
 
 ## AI usage
 AI helped generating long tedious tasks of creating endpoints in the backend and matching the look of the newly added feature with the general design. It helped too to generate relevant solutions to specific problems if they occured wich is added to the project if tested correct.
@@ -221,7 +248,7 @@ AI helped generating long tedious tasks of creating endpoints in the backend and
 | Login | Role(s) | Responsibilities |
 |-------|---------|------------------|
 | `toloandr` | **PO** (Product Owner) + Developer | Defines the product vision, prioritizes the backlog, validates features against requirements, acts as the voice of the end user, and implements assigned features and modules. |
-| `as-rakot` | **PM** (Project Manager) + Developer | Organizes the team’s workflow, tracks progress, coordinates meetings, ensures deadlines are met, and implements assigned features and modules. |
+| `as-rakot` | **PM** (Project Manager) + Developer | Organizes the team's workflow, tracks progress, coordinates meetings, ensures deadlines are met, and implements assigned features and modules. |
 | `mfidimal` | **Tech Lead** + Developer | Oversees technical architecture, reviews code, makes key technical decisions, mentors developers, and implements assigned features and modules. |
 | `aravelom` | **Main Developer** | Implements the core features and modules, writes tests, participates in code reviews, and supports other developers. |
 
@@ -275,14 +302,14 @@ The team followed an agile-inspired workflow compressed into a tight **14-day ti
 - **Socket.IO** — WebSocket gateway for real-time features.
 - **Multer + Sharp** — File uploads and image processing.
 - **Nodemailer** — Email sending.
-- **AWS SDK S3 Client** — Interfacing with MinIO.
+- **AWS SDK S3 Client** — Interfacing with LocalStack's S3 API.
 - **class-validator / class-transformer** — DTO validation and transformation.
 - **Swagger** — API documentation.
 
 ### Database
 
 - **PostgreSQL 17** — Chosen for its robustness, ACID compliance, strong support for relational data, and first-class integration with Prisma.
-- **MinIO** — S3-compatible object storage for files and media assets.
+- **LocalStack (S3)** — S3-compatible object storage for files and media assets, running fully locally.
 
 ### Other Significant Technologies
 
@@ -301,7 +328,7 @@ Next.js was chosen over plain React to gain full-stack capabilities out of the b
 
 PostgreSQL was chosen over MongoDB because the project requires strong data consistency and structured relational queries. PostgreSQL is a strictly ACID-compliant relational database that enforces data integrity and reliability through foreign keys and transactions — essential for business scenarios involving clearly related entities such as users, sessions, and accounts. While MongoDB offers more schema flexibility, that same flexibility can lead to data inconsistency and long-term maintenance issues. PostgreSQL's mature ecosystem, advanced querying capabilities (joins, aggregations, window functions), and first-class integration with Prisma made it the better fit for this project.
 
-MinIO was chosen over direct disk storage because it provides an S3-compatible object storage interface, decoupling file storage from the application server. Writing files directly to the local disk ties data to a single container or machine, which breaks as soon as the app scales horizontally or is redeployed. MinIO solves this by exposing a standard S3 API, allowing the backend to store and retrieve files (images, uploads, assets) in a scalable, portable way. It also runs fully in Docker alongside the rest of the stack, requires no cloud provider, and lets the team migrate to AWS S3 or any S3-compatible service later without changing application code.
+LocalStack was chosen over direct disk storage because it provides an S3-compatible object storage interface, decoupling file storage from the application server. Writing files directly to the local disk ties data to a single container or machine, which breaks as soon as the app scales horizontally or is redeployed. LocalStack solves this by exposing a standard S3 API locally, allowing the backend to store and retrieve files (images, uploads, assets) in a scalable, portable way. It runs fully in Docker alongside the rest of the stack, requires no cloud provider or account, and lets the team migrate to real AWS S3 or any S3-compatible service later without changing application code. Compared to MinIO, LocalStack offers a broader set of AWS services in a single container, which is useful if the project later needs to mock other AWS primitives (SQS, Lambda, etc.).
 
 ---
 
@@ -347,7 +374,7 @@ MinIO was chosen over direct disk storage because it provides an S3-compatible o
 | `language` | `Language` (enum) | `FR`, `EN`, `ES` — defaults to `FR`. |
 | `status` | `FriendshipStatus` (enum) | `PENDING`, `ACCEPTED`, `REJECTED`, `BLOCKED`, `CANCELLED`. |
 | `pairKey` | `String` (`@unique`) | Canonical `"smallerId:largerId"` key preventing duplicate conversations and friendships. |
-| `mediaUrls` | `String[]` | Array of S3/MinIO URLs attached to a message or post. |
+| `mediaUrls` | `String[]` | Array of S3/LocalStack URLs attached to a message or post. |
 | `isSeen` / `seenAt` | `Boolean` / `DateTime?` | Message read receipts. |
 | `role` | `String?` | User role (e.g., `admin`, `user`). |
 | `banned` / `banReason` / `banExpires` | `Boolean?` / `String?` / `DateTime?` | Moderation fields for user bans. |
@@ -362,10 +389,7 @@ MinIO was chosen over direct disk storage because it provides an S3-compatible o
 > - **Composite primary keys** on like/membership tables prevent duplicate likes and duplicate channel joins.
 > - **Indexes** are added on foreign keys and frequently sorted fields (`createdAt(sort: Desc)`) for query performance.
 
-
 ---
-
-## Features List
 
 ## Features List
 
@@ -381,9 +405,9 @@ MinIO was chosen over direct disk storage because it provides an S3-compatible o
 | 8 | **Direct Messaging (Chat)** | One-to-one real-time chat between users. Conversations are stored in `message_tables`, individual messages in `messages`, with media attachments and read receipts (`isSeen`, `seenAt`). | `mfidimal` |
 | 9 | **Social Feed (Posts)** | Users can publish posts with text and media. Posts appear in a feed sorted by creation date (indexed `createdAt DESC`). | `as-rakot, aravelom` |
 | 10 | **Comments and Likes** | Users can comment on posts and like both posts and comments. Likes use composite PKs (`user_post_likes`, `user_comment_likes`) to prevent duplicates. | `as-rakot, aravelom` |
-| 11 | **Advanced Permissions System** | Role-based access control with two roles: `admin` and `user`. Admins can view, edit, and delete users, and access moderation views. Admins have access to admin platform | `toloandr` |
+| 11 | **Advanced Permissions System** | Role-based access control with two roles: `admin` and `user`. Admins can view, edit, and delete users, and access moderation views. Admins have access to admin platform. | `toloandr` |
 | 12 | **Public API with API Keys** | Secured REST API with API key authentication, per-key rate limiting (`rateLimitMax`, `rateLimitTimeWindow`), and Swagger documentation. Exposes 5+ endpoints across GET/POST/PUT/DELETE. | `toloandr` |
-| 13 | **File Upload & Management** | Multi-type upload (images, documents) with client + server validation, Sharp processing, MinIO storage, access control, progress indicators, preview, and deletion. | `as-rakot` |
+| 13 | **File Upload & Management** | Multi-type upload (images, documents) with client + server validation, Sharp processing, LocalStack S3 storage, access control, progress indicators, preview, and deletion. | `as-rakot` |
 | 14 | **Internationalization (i18n)** | Full translation support for **French**, **English**, and **Spanish** via `next-intl`, with a UI language switcher and per-user language preference stored in `user_settings.language`. | `mfidimal` |
 | 15 | **Theme Switching** | Users can toggle between light, dark, and system themes. Preference stored in `user_settings.theme`. | `toloandr, as-rakot` |
 | 16 | **Real-time WebSocket Layer** | Socket.IO gateway handles connections, disconnections, authentication, and event broadcasting (new messages, notifications, presence). | `mfidimal` |
@@ -476,7 +500,7 @@ MinIO was chosen over direct disk storage because it provides an S3-compatible o
 #### File Upload and Management System — Minor (1 pt)
 
 - **Justification**: A social network is media-heavy — avatars, post images, chat attachments, and channel banners all require robust file handling with security and previews.
-- **Implementation**: Files are uploaded via Multer, validated on the client (type, size, format) and server, processed with Sharp (resizing/optimization), and stored in **MinIO** (S3-compatible). Access control is enforced per resource, uploads show progress indicators on the frontend, and users can delete their uploaded files.
+- **Implementation**: Files are uploaded via Multer, validated on the client (type, size, format) and server, processed with Sharp (resizing/optimization), and stored in **LocalStack S3** (S3-compatible). Access control is enforced per resource, uploads show progress indicators on the frontend, and users can delete their uploaded files.
 - **Team Member(s)**: `as-rakot`
 
 #### Real-time Features using WebSockets — Major (2 pts)
