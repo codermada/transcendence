@@ -13,12 +13,6 @@ interface CreatePostCardProps {
   onPostCreated?: (newPost: Post) => void;
 }
 
-/**
- * Maps raw backend validation messages (currently French-only)
- * to translation keys under `Feed.feed-section.CreatePostCard.errors`.
- *
- * Add new entries here whenever the backend introduces a new message.
- */
 const BACKEND_ERROR_MAP: Record<string, string> = {
   "Le contenu ne peut pas être vide": "errors.CONTENT_EMPTY",
 };
@@ -69,11 +63,6 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
     };
   }, []);
 
-  /**
-   * Resolve a backend error message to a translated string.
-   * Falls back to the raw message (or a generic translated message)
-   * if no mapping exists.
-   */
   const translateBackendError = (rawMessage?: string): string => {
     if (!rawMessage) return t("errors.DEFAULT");
 
@@ -89,12 +78,17 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    const newMedia: MediaPreview[] = Array.from(files).map((file) => ({
-      id: `${file.name}-${Date.now()}-${Math.random()}`,
-      file,
-      url: URL.createObjectURL(file),
-      type: file.type.startsWith("video/") ? "video" : "image",
-    }));
+    const newMedia: MediaPreview[] = Array.from(files).map((file) => {
+      const isVideo = file.type.startsWith("video/");
+      const rawUrl = URL.createObjectURL(file);
+
+      return {
+        id: `${file.name}-${Date.now()}-${Math.random()}`,
+        file,
+        url: isVideo ? `${rawUrl}#t=0.001` : rawUrl,
+        type: isVideo ? "video" : "image",
+      };
+    });
 
     setSelectedMedia((prev) => [...prev, ...newMedia]);
 
@@ -107,7 +101,8 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
     setSelectedMedia((prev) => {
       const itemToRemove = prev.find((item) => item.id !== idToRemove);
       if (itemToRemove) {
-        URL.revokeObjectURL(itemToRemove.url);
+        const cleanUrl = itemToRemove.url.split("#")[0];
+        URL.revokeObjectURL(cleanUrl);
       }
       return prev.filter((item) => item.id !== idToRemove);
     });
@@ -126,7 +121,7 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
         () => (
           <UploadProgressToast
             progress={0}
-            fileName={`${selectedMedia.length} ${selectedMedia.length !== 1 ? t("multiFile") : t("singleFile")}`}
+            fileName={`${selectedMedia.length}${selectedMedia.length !== 1 ? t("multiFile") : t("singleFile")}`}
           />
         ),
         { duration: Infinity }
@@ -144,7 +139,7 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
               () => (
                 <UploadProgressToast
                   progress={progress}
-                  fileName={`${selectedMedia.length} ${selectedMedia.length !== 1 ? t("multiFile") : t("singleFile")}`}
+                  fileName={`${selectedMedia.length}${selectedMedia.length !== 1 ? t("multiFile") : t("singleFile")}`}
                   isCompleted={progress >= 100}
                 />
               ),
@@ -159,7 +154,10 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
       }
       toast.success(t("postCreatedSuccess") || "Publication publiée avec succès !");
 
-      selectedMedia.forEach((m) => URL.revokeObjectURL(m.url));
+      selectedMedia.forEach((m) => {
+        const cleanUrl = m.url.split("#")[0];
+        URL.revokeObjectURL(cleanUrl);
+      });
       setSelectedMedia([]);
       setContent("");
 
@@ -224,6 +222,9 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
                   muted
                   playsInline
                   preload="metadata"
+                  onLoadedMetadata={(e) => {
+                    e.currentTarget.currentTime = 0.001;
+                  }}
                 />
               )}
               <button
