@@ -1,17 +1,19 @@
 "use client";
 
+import { MoreVertical, Pencil, Trash2 } from "@/components/icons";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { PostHeaderProps } from "./feed-section.types";
-import { MoreVertical, Pencil, Trash2 } from "@/components/icons";
 
 interface ExtendedPostHeaderProps extends PostHeaderProps {
+  authorId: string;
   isOwner?: boolean;
   onEdit?: () => void;
   onDelete?: () => void;
 }
 
-function formatTimeAgo(createdAt: string): string {
+function formatTimeAgo(createdAt: string | Date): string {
   const seconds = Math.floor(
     (Date.now() - new Date(createdAt).getTime()) / 1000
   );
@@ -31,6 +33,8 @@ function formatTimeAgo(createdAt: string): string {
 export function PostHeader({
   author,
   initials,
+  authorId,
+  authorImage,
   createdAt,
   isOwner = false,
   onEdit,
@@ -40,6 +44,7 @@ export function PostHeader({
   const [timeAgo, setTimeAgo] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const profileHref = `/profile/${authorId}`;
 
   useEffect(() => {
     if (!createdAt) return;
@@ -59,13 +64,42 @@ export function PostHeader({
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-100 font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-          {initials}
-        </div>
+        <Link
+          href={profileHref}
+          className="shrink-0"
+          aria-label={t("viewProfile", { name: author })}
+          title={isOwner ? t("viewMyProfile") : t("viewProfile", { name: author })}
+        >
+          {authorImage ? (
+            <img
+              src={authorImage}
+              alt={author}
+              className="h-10 w-10 rounded-full object-cover"
+            />
+          ) : (
+            <img
+              src="/nest/uploads/default-avatar.png"
+              alt={author}
+              className="h-10 w-10 rounded-full object-cover"
+            />
+          )}
+        </Link>
         <div>
-          <h4 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-            {author}
-          </h4>
+          <Link
+                href={profileHref}
+                className="
+                  text-sm
+                  font-semibold
+                  text-zinc-900
+                  transition
+                  hover:underline
+                  dark:text-zinc-100"
+                title={isOwner ? t("viewMyProfile") : t("viewProfile", { name: author })}
+          >
+            <h4 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+              {author}
+            </h4>
+          </Link>
           <p className="text-xs text-zinc-500 dark:text-zinc-400">
             {timeAgo}
           </p>

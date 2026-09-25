@@ -178,7 +178,9 @@
         "options": "Post options",
         "edit": "Edit",
         "delete": "Delete",
-        "justNow": "just now"
+        "justNow": "just now",
+        "viewProfile": "View {name}'s profile",
+        "viewMyProfile": "View my profile"
       },
       "CommentItem": {
         "viewProfile": "View {name}'s profile",
