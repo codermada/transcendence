@@ -44,22 +44,55 @@ export class ChannelService {
 
 	// Fetch all channels for a one user
 	async getUserChannels(userId: string) {
-		return this.prismaService.channel.findMany({
+		const channels = await this.prismaService.channel.findMany({
 			where: {
 				members: { some: { userId } }
 			},
 			include: {
-				_count: { select: { messages: true } },
+				_count: { select: { messages: true, members: true } },
 				members: {
 					where: { userId },
 					select: {
 						role: true,
 						joinedAt: true
 					}
-				}
+				},
+				messages: {
+					take: 1,
+					orderBy: { createdAt: 'desc' },
+					select: {
+						id: true,
+						content: true,
+						mediaUrls: true,
+						createdAt: true,
+						userId: true,
+					},
+				},
 			},
 			orderBy: { updatedat: 'desc' }
-		})
+		});
+
+		return Promise.all(
+			channels.map(async (channel) => {
+				const unreadCount = await this.prismaService.userChannelMessage.count({
+					where: {
+						channelId: channel.id,
+						userId: { not: userId },
+						NOT: {
+							seenBy: {
+								has: userId,
+							},
+						},
+					},
+				});
+
+				return {
+					...channel,
+					lastMessage: channel.messages[0] || null,
+					unreadCount,
+				};
+			})
+		);
 	}
 
 	// Create channel
@@ -264,6 +297,7 @@ export class ChannelService {
 					userId,
 					content,
 					mediaUrls,
+					seenBy: [userId],
 				},
 				include: {
 					user: { select: { id: true, name: true, image: true, email: true } },
@@ -275,8 +309,33 @@ export class ChannelService {
 				data: { updatedat: new Date() },
 			});
 
-			return message;
-		})
+			const members = await prisma.userInChannel.findMany({
+				where: { channelId },
+				select: { userId: true },
+			});
+
+			return {
+				message,
+				memberIds: members.map((m) => m.userId),
+			};
+		});
+	}
+
+	// Mark all channel messages as seen for a user
+	async markAsSeen(userId: string, channelId: string) {
+		const member = await this.findUserInChannel(userId, channelId);
+		if (!member) {
+			throw new ForbiddenException('You are not a member of this channel.');
+		}
+
+		await this.prismaService.$executeRaw`
+			UPDATE "user_channel_messages"
+			SET "seenBy" = array_append(COALESCE("seenBy", ARRAY[]::text[]), ${userId}::text)
+			WHERE "channelId" = ${channelId}
+			  AND NOT (${userId}::text = ANY(COALESCE("seenBy", ARRAY[]::text[])))
+		`;
+
+		return { channelId, userId, success: true };
 	}
 
 	private async findUserInChannel(userId: string, channelId: string) {

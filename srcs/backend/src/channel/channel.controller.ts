@@ -135,8 +135,19 @@ export class ChannelController {
     @Body() dto: SendChannelMessageDto,
     @UploadedFiles() files?: Express.Multer.File[],
   ) {
-    const message = await this.channelService.saveChannelMessage(user.id, channelId, dto, files);
-    this.channelGateway.broadcastNewMessage(channelId, message);
+    const { message, memberIds } = await this.channelService.saveChannelMessage(user.id, channelId, dto, files);
+    this.channelGateway.broadcastNewMessage(channelId, message, memberIds);
     return message;
+  }
+
+  @Post(':id/seen')
+  @ApiOperation({ summary: 'Mark all messages in channel as seen for current user' })
+  async markAsSeen(
+    @CurrentUser() user: { id: string },
+    @Param('id') channelId: string,
+  ) {
+    const result = await this.channelService.markAsSeen(user.id, channelId);
+    this.channelGateway.broadcastMessagesSeen(channelId, user.id);
+    return result;
   }
 }
