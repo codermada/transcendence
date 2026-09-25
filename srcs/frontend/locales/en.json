@@ -34,7 +34,8 @@
     "online": "Online",
     "offline": "Offline",
     "preferences": "Preferences",
-    "user": "User"
+    "user": "User",
+    "signOutError": "Couldn't sign out. Please try again."
   },
   "Auth": {
     "signIn": {
@@ -140,7 +141,8 @@
         "isLoading": "Publishing...",
         "errors": {
           "CONTENT_EMPTY": "Content cannot be empty",
-          "DEFAULT": "Something went wrong. Please try again."
+          "DEFAULT": "Something went wrong. Please try again.",
+          "profileLoad": "Couldn't load your profile."
         },
         "multiFile": "files",
         "singleFile": "file",
@@ -179,7 +181,9 @@
         "options": "Post options",
         "edit": "Edit",
         "delete": "Delete",
-        "justNow": "just now"
+        "justNow": "just now",
+        "viewProfile": "View {name}'s profile",
+        "viewMyProfile": "View my profile"
       },
       "CommentItem": {
         "viewProfile": "View {name}'s profile",
@@ -244,7 +248,8 @@
     },
     "profile-sidebar": {
       "ProfileCard": {
-        "myProfileButton": "My Profile"
+        "myProfileButton": "My Profile",
+        "errorProfileLoad": "Couldn't load your profile."
       },
       "ProfileSidebar": {
 
@@ -316,19 +321,36 @@
   },
   "Friends": {
     "title": "Friends",
-    "subtitle": "Manage your friends and community connections.",
-    "findFriends": "Find Friends",
-    "requests": "Friend Requests",
+    "subtitle": "Manage your friends and connections.",
+    "findFriends": "Find friends",
+    "requests": "Friend requests",
     "emptyTitle": "No friends yet",
-    "emptyDescription": "Search and add friends to see their updates and messages here.",
+    "emptyDescription": "Search and add friends to see their posts and messages here.",
     "searchPlaceholder": "Search by name…",
     "startTyping": "Start typing to search for people.",
     "noResults": "No users found.",
-    "searchError": "Something went wrong. Try again.",
+    "searchError": "An error occurred. Please try again.",
     "add": "Add",
     "back": "Back",
     "adding": "Adding…",
-    "pending": "Pending…"
+    "pending": "Pending…",
+    "friends": "Friends",
+    "accept": "Accept",
+    "decline": "Decline",
+    "cancel": "Cancel",
+    "removeFriend": "Remove friend",
+    "toasts": {
+      "addSuccess": "Friend request sent",
+      "addError": "Failed to send request",
+      "acceptSuccess": "Friend request accepted",
+      "acceptError": "Failed to accept request",
+      "declineSuccess": "Friend request declined",
+      "declineError": "Failed to decline request",
+      "cancelSuccess": "Request canceled",
+      "cancelError": "Failed to cancel request",
+      "removeSuccess": "Friend removed",
+      "removeError": "Failed to remove friend"
+    }
   },
   "Chat": {
     "title": "Messages",
@@ -479,14 +501,18 @@
       "expiresLabel": "Expires in (days)",
       "expiresHelp": "Set to 0 for a key that never expires.",
       "submit": "Create API Key",
+      "create": "Create",
       "submitting": "Creating…",
       "cancel": "Cancel",
       "createdTitle": "API Key Created",
       "copyWarning": "⚠️ Copy this key now. You will not be able to see it again.",
       "copy": "Copy",
       "copied": "Copied!",
+      "keyLabel": "API Key",
+      "secretBadge": "Secret",
       "name": "Name",
       "expires": "Expires",
+      "expiresIn": "{days, plural, =0 {Never expires} =1 {Expires in 1 day} other {Expires in # days}}",
       "never": "Never",
       "done": "Done",
       "createAnother": "Create another",
@@ -496,6 +522,7 @@
     }
   },
   "Admin": {
+    
     "users": {
       "title": "Users",
       "subtitle": "Manage user accounts and roles.",
@@ -531,6 +558,25 @@
       "toastDeleted": "User deleted.",
 
       "toastRoleUpdated": "Role updated",
+
+      "createUser": "Create user",
+      "createModal": {
+        "title": "Create user",
+        "subtitle": "Add a new user to the platform.",
+        "nameLabel": "Name",
+        "emailLabel": "Email",
+        "passwordLabel": "Password",
+        "passwordHint": "Must be at least 8 characters.",
+        "roleLabel": "Role",
+        "roleUser": "User",
+        "roleModerator": "Moderator",
+        "roleAdmin": "Admin",
+        "cancel": "Cancel",
+        "create": "Create user",
+        "creating": "Creating…",
+        "error": "Failed to create user.",
+        "toastCreated": "User created."
+      },
 
       "editModal": {
         "title": "Edit user",
@@ -591,6 +637,7 @@
     "idLabel": "ID",
     "joinedLabel": "Joined",
     "actionError": "Something went wrong. Please try again.",
+    "friendshipLoadError": "Couldn't load friendship status.",
     "friendStatus": {
       "friends": "Friends",
       "requestSent": "Request sent",
@@ -676,6 +723,7 @@
     "header": {
       "friendsCount": "{count} friends",
       "actions": {
+        "loading": "Loading…",
         "addToStory": "Add to story",
         "editProfile": "Edit profile",
         "addFriend": "Add friend",
@@ -685,8 +733,14 @@
         "unblock": "Unblock",
         "blocked": "Blocked",
         "acceptRequest": "Accept",
-        "declineRequest": "Decline"
-      }
+        "declineRequest": "Decline",
+        "accept": "Accept",
+        "accepting": "Accepting…",
+        "reject": "Reject",
+        "rejecting": "Rejecting…",
+        "cancel": "Cancel request",
+        "cancelling": "Cancelling…"
+    }
     }
   },
   "Language": {

@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { profileService, UserProfileResponse } from "../../_services/feed/profile/ProfileService";
 import { ProfileStats } from "./ProfileStats";
+import { toast } from "sonner";
 
 export function ProfileCard() {
   const t = useTranslations("Feed.profile-sidebar.ProfileCard");
@@ -30,7 +31,7 @@ export function ProfileCard() {
           setUserProfile(fetchedUserProfile);
         }
       } catch (error) {
-        console.error("Error loading user profile :", error);
+        toast.error(t("errorProfileLoad"));
       } finally {
         if (isMounted) {
           setIsLoading(false);

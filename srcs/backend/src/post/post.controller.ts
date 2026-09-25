@@ -7,13 +7,25 @@ import {
 	Patch,
 	Post,
 	Query,
+	Req,
 	UploadedFiles,
 	UseGuards,
 	UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+	ApiBearerAuth,
+	ApiBody,
+	ApiConsumes,
+	ApiOperation,
+	ApiParam,
+	ApiResponse,
+	ApiSecurity,
+	ApiTags,
+} from '@nestjs/swagger';
+import type { Request } from 'express';
 import { memoryStorage } from 'multer';
+import { ApiKeyGuard } from '../auth/ApiKeyGuard';
 import { AuthGuard } from '../auth/AuthGuard';
 import { CurrentUser } from '../auth/CurrentUser';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -145,5 +157,67 @@ export class PostController {
 	@ApiResponse({ status: 404, description: 'Post not found.' })
 	async deletePost(@Param('id') id: string, @CurrentUser('id') userId: string) {
 		return this.postService.deletePost(id, userId);
+	}
+
+	// ═════════════════════════════════════════════════════════════
+	// API-KEY ROUTE —  POST /posts/api-key
+	//
+	// Same create-post behavior as `POST /posts`, but authenticated
+	// via the `x-api-key` header instead of a session cookie. The
+	// key's `referenceId` is used as the author id.
+	// ═════════════════════════════════════════════════════════════
+
+	/**
+	 * Create a post via API key with optional media attachments.
+	 *
+	 * curl -i -X POST "https://localhost:9000/nest/posts/api-key" \
+	 *   -H "x-api-key: YOUR_API_KEY_HERE" \
+	 *   -H "accept: application/json" \
+	 *   -F "content=Hello from the API" \
+	 *   -F "files=@./media1.png" \
+	 *   -F "files=@./media2.png" \
+	 *   --insecure
+	 */
+	@Post('api-key')
+	@UseGuards(ApiKeyGuard)
+	@ApiSecurity('x-api-key')
+	@ApiOperation({ summary: '[API key] Create a new post with optional media attachments' })
+	@ApiConsumes('multipart/form-data')
+	@ApiBody({
+		schema: {
+			type: 'object',
+			properties: {
+				content: {
+					type: 'string',
+					description: 'Text content of the post',
+					example: 'Check out these recent updates!',
+				},
+				files: {
+					type: 'array',
+					items: {
+						type: 'string',
+						format: 'binary',
+					},
+					description: 'Media files (images/videos, max 10)',
+				},
+			},
+		},
+	})
+	@ApiResponse({ status: 201, description: 'Post created successfully.' })
+	@ApiResponse({ status: 401, description: 'Missing or invalid API key.' })
+	@UseInterceptors(
+		FilesInterceptor('files', 10, {
+			storage: memoryStorage(),
+			limits: {
+				fileSize: 300 * 1024 * 1024,
+			},
+		}),
+	)
+	async createPostViaApiKey(
+		@Req() req: Request,
+		@Body() dto: CreatePostDto,
+		@UploadedFiles() files?: Express.Multer.File[],
+	) {
+		return this.postService.createPost(req.apiKey!.referenceId, dto, files);
 	}
 }

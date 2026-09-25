@@ -70,6 +70,7 @@ services:
     environment:
       - LOCALSTACK_AUTH_TOKEN=${LOCALSTACK_AUTH_TOKEN}
       - SERVICES=s3
+      - PERSISTENCE=1
       - DEBUG=1
       - DEFAULT_REGION=us-east-1
     ports:
@@ -80,7 +81,11 @@ services:
     networks:
       - net
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:4566/_localstack/health || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "curl -f http://localhost:4566/_localstack/health || exit 1",
+        ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -106,3 +111,4 @@ networks:
 
 volumes:
   postgres_data:
+  localstack_data:

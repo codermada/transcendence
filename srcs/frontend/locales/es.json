@@ -34,7 +34,8 @@
     "online": "En línea",
     "offline": "Desconectado",
     "preferences": "Preferencias",
-    "user": "Usuario"
+    "user": "Usuario",
+    "signOutError": "No se pudo cerrar sesión. Inténtalo de nuevo."
   },
   "Auth": {
     "signIn": {
@@ -140,7 +141,8 @@
       "isLoading": "Publicando...",
       "errors": {
         "CONTENT_EMPTY": "El contenido no puede estar vacío",
-        "DEFAULT": "Algo salió mal. Inténtalo de nuevo."
+        "DEFAULT": "Algo salió mal. Inténtalo de nuevo.",
+        "profileLoad": "No se pudo cargar tu perfil."
       },
       "multiFile": "archivos",
       "singleFile": "archivo",
@@ -179,7 +181,9 @@
         "options": "Opciones de la publicación",
         "edit": "Editar",
         "delete": "Eliminar",
-        "justNow": "ahora mismo"
+        "justNow": "ahora mismo",
+        "viewProfile": "Ver el perfil de {name}",
+        "viewMyProfile": "Ver mi perfil"
       },
       "CommentItem": {
         "viewProfile": "Ver el perfil de {name}",
@@ -244,7 +248,8 @@
     },
     "profile-sidebar": {
       "ProfileCard": {
-        "myProfileButton": "Mi Perfil"
+        "myProfileButton": "Mi Perfil",
+        "errorProfileLoad": "No se pudo cargar tu perfil."
       },
       "ProfileSidebar": {
 
@@ -316,19 +321,36 @@
   },
   "Friends": {
     "title": "Amigos",
-    "subtitle": "Gestiona tus amigos y conexiones con la comunidad.",
+    "subtitle": "Gestiona tus amigos y conexiones.",
     "findFriends": "Buscar amigos",
     "requests": "Solicitudes de amistad",
     "emptyTitle": "Aún no tienes amigos",
-    "emptyDescription": "Busca y agrega amigos para ver sus publicaciones y mensajes aquí.",
+    "emptyDescription": "Busca y añade amigos para ver sus publicaciones y mensajes aquí.",
     "searchPlaceholder": "Buscar por nombre…",
     "startTyping": "Empieza a escribir para buscar personas.",
     "noResults": "No se encontraron usuarios.",
-    "searchError": "Algo salió mal. Inténtalo de nuevo.",
-    "add": "Agregar",
-    "back": "Atrás",
+    "searchError": "Ocurrió un error. Inténtalo de nuevo.",
+    "add": "Añadir",
+    "back": "Volver",
     "adding": "Añadiendo…",
-    "pending": "Pendiente…"
+    "pending": "Pendiente…",
+    "friends": "Amigos",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "cancel": "Cancelar",
+    "removeFriend": "Eliminar de amigos",
+    "toasts": {
+      "addSuccess": "Solicitud de amistad enviada",
+      "addError": "Error al enviar la solicitud",
+      "acceptSuccess": "Solicitud de amistad aceptada",
+      "acceptError": "No se pudo aceptar la solicitud",
+      "declineSuccess": "Solicitud de amistad rechazada",
+      "declineError": "No se pudo rechazar la solicitud",
+      "cancelSuccess": "Solicitud cancelada",
+      "cancelError": "Error al cancelar la solicitud",
+      "removeSuccess": "Amigo eliminado",
+      "removeError": "No se pudo eliminar al amigo"
+    }
   },
   "Chat": {
     "title": "Mensajes",
@@ -471,26 +493,30 @@
       }
     },
     "apiKeys": {
-      "title": "Crear clave API",
-      "subtitle": "Genera una clave para autenticar tus aplicaciones.",
+      "title": "Crear clave de API",
+      "subtitle": "Genera una clave para autenticar tus aplicaciones contra la API.",
       "nameLabel": "Nombre",
-      "namePlaceholder": "ej. CI Pipeline",
-      "nameHelp": "Una etiqueta para reconocer esta clave más tarde.",
+      "namePlaceholder": "p. ej. Canalización CI",
+      "nameHelp": "Una etiqueta para reconocer esta clave más adelante.",
       "expiresLabel": "Expira en (días)",
-      "expiresHelp": "Establece 0 para una clave que nunca expire.",
-      "submit": "Crear clave API",
+      "expiresHelp": "Establece 0 para una clave que nunca expira.",
+      "submit": "Crear clave de API",
+      "create": "Crear",
       "submitting": "Creando…",
       "cancel": "Cancelar",
-      "createdTitle": "Clave API creada",
-      "copyWarning": "⚠️ Copia esta clave ahora. No podrás volver a verla.",
+      "createdTitle": "Clave de API creada",
+      "copyWarning": "⚠️ Copia esta clave ahora. No podrás verla de nuevo.",
       "copy": "Copiar",
       "copied": "¡Copiado!",
+      "keyLabel": "Clave de API",
+      "secretBadge": "Secreta",
       "name": "Nombre",
-      "expires": "Expira el",
+      "expires": "Expira",
+      "expiresIn": "{days, plural, =0 {Nunca expira} =1 {Expira en 1 día} other {Expira en # días}}",
       "never": "Nunca",
       "done": "Hecho",
       "createAnother": "Crear otra",
-      "errorFailed": "Error al crear la clave API",
+      "errorFailed": "No se pudo crear la clave de API",
       "errorNoKey": "El servidor no devolvió ninguna clave",
       "errorUnexpected": "Error inesperado"
     }
@@ -531,6 +557,25 @@
       "toastDeleted": "Usuario eliminado.",
 
       "toastRoleUpdated": "Rol actualizado",
+
+      "createUser": "Crear usuario",
+      "createModal": {
+        "title": "Crear usuario",
+        "subtitle": "Añade un nuevo usuario a la plataforma.",
+        "nameLabel": "Nombre",
+        "emailLabel": "Correo electrónico",
+        "passwordLabel": "Contraseña",
+        "passwordHint": "Debe tener al menos 8 caracteres.",
+        "roleLabel": "Rol",
+        "roleUser": "Usuario",
+        "roleModerator": "Moderador",
+        "roleAdmin": "Administrador",
+        "cancel": "Cancelar",
+        "create": "Crear usuario",
+        "creating": "Creando…",
+        "error": "No se pudo crear el usuario.",
+        "toastCreated": "Usuario creado."
+      },
 
       "editModal": {
         "title": "Editar usuario",
@@ -591,6 +636,7 @@
     "idLabel": "ID",
     "joinedLabel": "Se unió",
     "actionError": "Algo salió mal. Inténtalo de nuevo.",
+    "friendshipLoadError": "No se pudo cargar el estado de amistad.",
     "friendStatus": {
       "friends": "Amigos",
       "requestSent": "Solicitud enviada",
@@ -685,7 +731,13 @@
         "unblock": "Desbloquear",
         "blocked": "Bloqueado",
         "acceptRequest": "Aceptar",
-        "declineRequest": "Rechazar"
+        "declineRequest": "Rechazar",
+        "accept": "Aceptar",
+        "accepting": "Aceptando…",
+        "reject": "Rechazar",
+        "rejecting": "Rechazando…",
+        "cancel": "Cancelar solicitud",
+        "cancelling": "Cancelando…"
       }
     }
   },
