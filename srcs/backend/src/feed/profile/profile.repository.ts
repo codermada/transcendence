@@ -67,4 +67,72 @@ export class ProfileRepository {
 			reactionsCount,
 		};
 	}
+
+    async findById(id: string) {
+
+		const userInfo = await this.prisma.user.findUnique({
+			where: { id },
+		});
+
+		if (!userInfo) {
+			return null;
+		}
+
+		const friendsCount = await this.countUserFriends(id);
+
+		return {
+			...userInfo,
+			friendsCount,
+		};
+	}
+
+	async getFriendshipStatus(currentUserId: string, otherUserId: string) {
+		if (currentUserId === otherUserId) {
+			return 'SELF';
+		}
+
+		const pairKey = [currentUserId, otherUserId].sort().join(':');
+
+		const friendship = await this.prisma.friendship.findUnique({
+			where: { pairKey },
+			select: {
+			id: true,
+			status: true,
+			requesterId: true,
+			addresseeId: true,
+			blockedById: true,
+			},
+		});
+
+		if (!friendship) {
+			return 'none';
+		}
+
+		switch (friendship.status) {
+			case 'PENDING': {
+			return friendship.requesterId === currentUserId
+				? 'PENDING_OUTGOING'
+				: 'PENDING_INCOMING';
+			}
+
+			case 'ACCEPTED':
+				return 'FRIENDS';
+
+			case 'BLOCKED': {
+			const blockerId = friendship.blockedById ?? friendship.requesterId;
+			return blockerId === currentUserId
+				? 'BLOCKED_BY_ME'
+				: 'BLOCKED_ME';
+			}
+
+			case 'REJECTED':
+			return 'REJECTED';
+
+			case 'CANCELLED':
+			return 'CANCELLED';
+
+			default:
+			return 'NONE';
+		}
+	}
 }

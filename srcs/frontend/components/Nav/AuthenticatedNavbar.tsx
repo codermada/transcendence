@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
-import { useSession } from "@/lib/auth/use-session";
 import { Logo, Search } from "@/components/icons";
 import { LanguageSwitcher } from "@/components/common/LanguageSwitcher";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
@@ -12,7 +11,6 @@ import { UserDropdown } from "./UserDropdown";
 
 export function AuthenticatedNavbar() {
   const t = useTranslations("Nav");
-  const { data: session } = useSession();
 
   return (
     <header
@@ -79,7 +77,7 @@ export function AuthenticatedNavbar() {
           <LanguageSwitcher />
           <ThemeToggle />
           <NotificationsDropdown />
-          <UserDropdown user={session?.user} />
+          <UserDropdown />
         </div>
       </div>
     </header>

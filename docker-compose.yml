@@ -13,8 +13,6 @@ services:
       POSTGRES_DB: ${DB_NAME}
     networks:
       - net
-    # ports:
-    #   - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -36,14 +34,13 @@ services:
     expose:
       - "3000"
     ports:
-      # - "3000:3000"
       - "51212:51212"
     networks:
       - net
     depends_on:
       postgres:
         condition: service_healthy
-      minio:
+      localstack:
         condition: service_healthy
 
   frontend:
@@ -59,37 +56,36 @@ services:
       - /app/.next
     expose:
       - "3000"
-    # ports:
-    #   - "3001:3000"
     networks:
       - net
     depends_on:
       postgres:
         condition: service_healthy
 
-  minio:
-    build:
-      context: ./srcs/minio
-    container_name: minio-s3
+  localstack:
+    container_name: localstack-s3
+    image: localstack/localstack:latest
     restart: unless-stopped
     env_file:
       - .env
     environment:
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      - LOCALSTACK_AUTH_TOKEN=${LOCALSTACK_AUTH_TOKEN}
+      - SERVICES=s3
+      - DEBUG=1
+      - DEFAULT_REGION=us-east-1
     ports:
-      - "9002:9000"
-      - "9001:9001"
+      - "4566:4566"
     volumes:
-      - minio_data:/data
+      - "/var/lib/localstack"
+      - "/var/run/docker.sock"
     networks:
       - net
     healthcheck:
-      test: ["CMD", "mc", "ready", "local"]
-      interval: 5s
+      test: ["CMD-SHELL", "curl -f http://localhost:4566/_localstack/health || exit 1"]
+      interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 10s
+      start_period: 15s
 
   nginx:
     build:
@@ -111,4 +107,3 @@ networks:
 
 volumes:
   postgres_data:
-  minio_data:

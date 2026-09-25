@@ -36,6 +36,15 @@ export class PostController {
 		return this.postService.getAllPosts(filters, currentUserId);
 	}
 
+	@Get('user/:id')
+	@ApiOperation({ summary: 'Get details of a specific user post by ID' })
+	@ApiParam({ name: 'id', description: 'Unique identifier of the user', type: String })
+	@ApiResponse({ status: 200, description: 'User post details retrieved successfully.' })
+	@ApiResponse({ status: 401, description: 'Unauthorized.' })
+	async getAssociatedUserIdPosts(@Query() filters: GetPostsFilterDto, @Param('id') id: string, @CurrentUser('id') currentUserId: string) {
+		return this.postService.getAssociatedUserIdPosts(filters, id, currentUserId);
+	}	
+
 	@Get(':id')
 	@ApiOperation({ summary: 'Get details of a specific post by ID' })
 	@ApiParam({ name: 'id', description: 'Unique identifier of the post', type: String })
@@ -45,6 +54,8 @@ export class PostController {
 	async getPostById(@Param('id') id: string) {
 		return this.postService.getPostById(id);
 	}
+
+
 
 	@Post()
 	@ApiOperation({ summary: 'Create a new post with optional media attachments' })
