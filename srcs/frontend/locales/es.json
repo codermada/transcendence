@@ -648,7 +648,13 @@
         "unblock": "Desbloquear",
         "blocked": "Bloqueado",
         "acceptRequest": "Aceptar",
-        "declineRequest": "Rechazar"
+        "declineRequest": "Rechazar",
+        "accept": "Aceptar",
+        "accepting": "Aceptando…",
+        "reject": "Rechazar",
+        "rejecting": "Rechazando…",
+        "cancel": "Cancelar solicitud",
+        "cancelling": "Cancelando…"
       }
     }
   },
