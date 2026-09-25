@@ -41,7 +41,7 @@ export function AuthenticatedNavbar() {
           </Link>
 
           {/* Search Pill Input */}
-          <div className="relative flex items-center">
+          {/* <div className="relative flex items-center">
             <Search className="pointer-events-none absolute left-3 h-4 w-4 text-zinc-400 dark:text-zinc-500" />
             <input
               type="text"
@@ -60,7 +60,7 @@ export function AuthenticatedNavbar() {
             <kbd className="pointer-events-none absolute right-2.5 hidden items-center rounded border border-zinc-200 bg-zinc-200/50 px-1.5 font-mono text-[10px] text-zinc-500 dark:border-zinc-700 dark:bg-zinc-800/80 dark:text-zinc-400 sm:inline-flex">
               ⌘K
             </kbd>
-          </div>
+          </div> */}
         </div>
 
         {/* ============================================================ */}
@@ -76,7 +76,7 @@ export function AuthenticatedNavbar() {
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2.5">
           <LanguageSwitcher />
           <ThemeToggle />
-          <NotificationsDropdown />
+          {/* <NotificationsDropdown /> */}
           <UserDropdown />
         </div>
       </div>
