@@ -16,6 +16,7 @@ import { memoryStorage } from 'multer';
 import { AuthGuard } from '../auth/AuthGuard';
 import { CurrentUser } from '../auth/CurrentUser';
 import { ChannelService } from './channel.service';
+import { ChannelGateway } from './channel.gateway';
 import { CreateChannelDto } from './dto/create-channel.dto';
 import { AddMemberDto } from './dto/add-member.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
@@ -27,6 +28,7 @@ import { SendChannelMessageDto } from './dto/send-message-channel.dto';
 export class ChannelController {
   constructor(
     private readonly channelService: ChannelService,
+    private readonly channelGateway: ChannelGateway,
   ) {}
 
   @Get('available-users')
@@ -45,7 +47,7 @@ export class ChannelController {
   @ApiOperation({ summary: 'Create a new channel with initial members' })
   async createChannel(@CurrentUser() user: { id: string }, @Body() dto: CreateChannelDto) {
     const channel = await this.channelService.createChannel(user.id, dto);
-    // TODO: Broadcast channel created
+    this.channelGateway.broadcastChannelCreated(channel);
     return channel;
   }
 
@@ -59,7 +61,7 @@ export class ChannelController {
   @ApiOperation({ summary: 'Delete channel (Admin)' })
   async deleteChannel(@CurrentUser() user: { id: string }, @Param('id') channelId: string) {
     const result = await this.channelService.deleteChannel(user.id, channelId);
-    // TODO: Broadcast channel deletion
+    this.channelGateway.broadcastChannelDeleted(channelId);
     return result;
   }
 
@@ -71,7 +73,7 @@ export class ChannelController {
     @Body() dto: AddMemberDto,
   ) {
     const newMember = await this.channelService.addMember(user.id, channelId, dto.memberId);
-		// TODO: Broadcast member joined
+    this.channelGateway.broadcastMemberJoined(channelId, newMember);
     return newMember;
   }
 
@@ -83,7 +85,7 @@ export class ChannelController {
     @Param('targetUserId') targetUserId: string,
   ) {
     const result = await this.channelService.kickMember(user.id, channelId, targetUserId);
-    // TODO: Broadcast member left
+    this.channelGateway.broadcastMemberLeft(channelId, targetUserId, 'kicked');
     return result;
   }
 
@@ -101,7 +103,7 @@ export class ChannelController {
       targetUserId,
       dto.role,
     );
-    // TODO: Broadcast role updated
+    this.channelGateway.broadcastRoleUpdated(channelId, targetUserId, dto.role);
     return updated;
   }
 
@@ -109,7 +111,7 @@ export class ChannelController {
   @ApiOperation({ summary: 'Quit channel' })
   async leaveChannel(@CurrentUser() user: { id: string }, @Param('id') channelId: string) {
     const result = await this.channelService.leaveChannel(user.id, channelId);
-    // TODO: Broadcast member left
+    this.channelGateway.broadcastMemberLeft(channelId, user.id, 'left');
     return result;
   }
 
@@ -134,7 +136,7 @@ export class ChannelController {
     @UploadedFiles() files?: Express.Multer.File[],
   ) {
     const message = await this.channelService.saveChannelMessage(user.id, channelId, dto, files);
-    // TODO: Broadcast new message
+    this.channelGateway.broadcastNewMessage(channelId, message);
     return message;
   }
 }
