@@ -2,13 +2,15 @@
 
 import { usePathname, Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { Home, Users, MessageSquare } from "@/components/icons";
+import { Home, Users, MessageSquare, Hash } from "@/components/icons";
 import { useChatStore } from "@/stores/use-chat-store";
+import { useChannelStore } from "@/stores/use-channel-store";
 
 export function NavTabs() {
   const pathname = usePathname();
   const t = useTranslations("Nav");
-  const totalUnread = useChatStore((state) => state.getTotalUnreadCount());
+  const totalChatUnread = useChatStore((state) => state.getTotalUnreadCount());
+  const totalChannelUnread = useChannelStore((state) => state.getTotalUnreadCount());
 
   const tabs = [
     {
@@ -25,6 +27,11 @@ export function NavTabs() {
       href: "/chat",
       label: t("chat"),
       icon: MessageSquare,
+    },
+    {
+      href: "/channels",
+      label: t("channels"),
+      icon: Hash,
     },
   ];
 
@@ -55,9 +62,14 @@ export function NavTabs() {
           >
             <div className="relative">
               <Icon className="h-5 w-5" />
-              {tab.href === "/chat" && totalUnread > 0 && (
+              {tab.href === "/chat" && totalChatUnread > 0 && (
                 <span className="absolute -top-1.5 -right-2.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-violet-600 px-1 text-[10px] font-bold text-white shadow-xs">
-                  {totalUnread > 99 ? "99+" : totalUnread}
+                  {totalChatUnread > 99 ? "99+" : totalChatUnread}
+                </span>
+              )}
+              {tab.href === "/channels" && totalChannelUnread > 0 && (
+                <span className="absolute -top-1.5 -right-2.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-violet-600 px-1 text-[10px] font-bold text-white shadow-xs">
+                  {totalChannelUnread > 99 ? "99+" : totalChannelUnread}
                 </span>
               )}
             </div>
