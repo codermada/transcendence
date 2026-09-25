@@ -15,6 +15,7 @@ import {
   kickMemberFromChannel,
   updateMemberRole,
   addMemberToChannel,
+  markChannelAsSeen,
 } from "../_services/channel-service";
 import { ChannelHeader } from "./_components/ChannelHeader";
 import { ChannelMessages } from "./_components/ChannelMessages";
@@ -51,10 +52,18 @@ export function ChannelConversationClient({ channelId }: ChannelConversationClie
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const selectedFilesRef = useRef(selectedFiles);
+  const lastMarkedMsgIdRef = useRef<string | null>(null);
 
   const scrollToBottom = useCallback((smooth = true) => {
     messagesEndRef.current?.scrollIntoView({ behavior: smooth ? "smooth" : "auto" });
   }, []);
+
+  const markAsSeen = useCallback(async () => {
+    if (!channelId) return;
+    try {
+      await markChannelAsSeen(channelId);
+    } catch {}
+  }, [channelId]);
 
   useEffect(() => {
     setActiveChannelId(channelId);
@@ -82,6 +91,8 @@ export function ChannelConversationClient({ channelId }: ChannelConversationClie
           setLoading(false);
           setTimeout(() => scrollToBottom(false), 50);
         }
+
+        await markAsSeen();
       } catch (err: unknown) {
         if (!cancelled) {
           setError((err as Error).message || "Erreur de chargement du canal.");
@@ -95,13 +106,28 @@ export function ChannelConversationClient({ channelId }: ChannelConversationClie
     return () => {
       cancelled = true;
     };
-  }, [channelId, setActiveChannel, setActiveMessages, scrollToBottom]);
+  }, [channelId, setActiveChannel, setActiveMessages, scrollToBottom, markAsSeen]);
 
   useEffect(() => {
     if (!loading && activeMessages.length > 0) {
       scrollToBottom(true);
     }
   }, [activeMessages.length, loading, scrollToBottom]);
+
+  // Mark as seen when receiving incoming messages from other members
+  useEffect(() => {
+    if (!currentUserId || activeMessages.length === 0) return;
+
+    const lastMsg = activeMessages[activeMessages.length - 1];
+    if (
+      lastMsg.userId !== currentUserId &&
+      !lastMsg.seenBy?.includes(currentUserId) &&
+      lastMarkedMsgIdRef.current !== lastMsg.id
+    ) {
+      lastMarkedMsgIdRef.current = lastMsg.id;
+      markAsSeen();
+    }
+  }, [activeMessages, currentUserId, markAsSeen]);
 
   useEffect(() => {
     selectedFilesRef.current = selectedFiles;

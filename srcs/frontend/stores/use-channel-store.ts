@@ -24,6 +24,13 @@ export interface ChannelListItem {
   createdAt: string;
   updatedat: string;
   unreadCount?: number;
+  lastMessage?: {
+    id: string;
+    content: string;
+    mediaUrls?: string[];
+    createdAt: string;
+    userId?: string;
+  } | null;
   _count?: {
     messages?: number;
     members?: number;
@@ -51,6 +58,7 @@ export interface ChannelMessage {
   channelId: string;
   content: string;
   mediaUrls: string[];
+  seenBy: string[];
   createdAt: string;
   updatedat: string;
   user: ChannelParticipant;
@@ -71,6 +79,7 @@ export interface ChannelState {
   addActiveMessage: (message: ChannelMessage) => void;
 
   handleNewMessage: (message: ChannelMessage, currentUserId?: string) => void;
+  handleMessagesSeen: (channelId: string, seenByUserId: string, currentUserId?: string) => void;
   handleChannelCreated: (channel: ChannelDetail | ChannelListItem) => void;
   handleMemberJoined: (channelId: string, member: ChannelMemberItem) => void;
   handleMemberLeft: (channelId: string, userId: string, currentUserId?: string) => void;
@@ -124,7 +133,11 @@ export const useChannelStore = create<ChannelState>((set, get) => ({
       let nextActiveMessages = state.activeMessages;
       if (isCurrentChannelActive) {
         if (!state.activeMessages.some((m) => m.id === message.id)) {
-          nextActiveMessages = [...state.activeMessages, message];
+          const msgWithSeen =
+            currentUserId && !message.seenBy?.includes(currentUserId)
+              ? { ...message, seenBy: [...(message.seenBy || []), currentUserId] }
+              : message;
+          nextActiveMessages = [...state.activeMessages, msgWithSeen];
         }
       }
 
@@ -144,6 +157,13 @@ export const useChannelStore = create<ChannelState>((set, get) => ({
           ...current,
           updatedat: message.createdAt,
           unreadCount: newUnreadCount,
+          lastMessage: {
+            id: message.id,
+            content: message.content,
+            mediaUrls: message.mediaUrls,
+            createdAt: message.createdAt,
+            userId: message.userId,
+          },
           _count: {
             messages: (current._count?.messages || 0) + 1,
             members: current._count?.members,
@@ -152,6 +172,35 @@ export const useChannelStore = create<ChannelState>((set, get) => ({
 
         nextChannels.splice(existingIndex, 1);
         nextChannels.unshift(updatedChannel);
+      }
+
+      return {
+        activeMessages: nextActiveMessages,
+        channels: nextChannels,
+      };
+    });
+  },
+
+  handleMessagesSeen: (channelId: string, seenByUserId: string, currentUserId?: string) => {
+    set((state) => {
+      let nextActiveMessages = state.activeMessages;
+      if (state.activeChannelId === channelId) {
+        nextActiveMessages = state.activeMessages.map((m) => {
+          if (!m.seenBy?.includes(seenByUserId)) {
+            return {
+              ...m,
+              seenBy: [...(m.seenBy || []), seenByUserId],
+            };
+          }
+          return m;
+        });
+      }
+
+      let nextChannels = state.channels;
+      if (currentUserId && seenByUserId === currentUserId) {
+        nextChannels = state.channels.map((c) =>
+          c.id === channelId ? { ...c, unreadCount: 0 } : c,
+        );
       }
 
       return {

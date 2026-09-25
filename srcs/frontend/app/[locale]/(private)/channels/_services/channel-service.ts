@@ -150,3 +150,10 @@ export async function deleteChannel(channelId: string): Promise<void> {
     throw new Error(err.message || "Failed to delete channel.");
   }
 }
+
+export async function markChannelAsSeen(channelId: string): Promise<void> {
+  await fetch(`/nest/channels/${channelId}/seen`, {
+    method: "POST",
+    credentials: "include",
+  });
+}

@@ -3,7 +3,7 @@
 import type { RefObject } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
-import { Loader2, MessageSquare, ShieldCheck } from "@/components/icons";
+import { Check, CheckCheck, Loader2, MessageSquare, ShieldCheck } from "@/components/icons";
 import { ChatMessageMedia } from "@/components/chat/ChatMessageMedia";
 import type { ChannelMemberItem, ChannelMessage } from "./channel.types";
 
@@ -125,6 +125,22 @@ export function ChannelMessages({
                 <span className="text-[10px] text-zinc-400 dark:text-zinc-500">
                   {time}
                 </span>
+                {isMe && (
+                  <span
+                    title={
+                      (msg.seenBy || []).some((id) => id !== currentUserId)
+                        ? t("seen")
+                        : t("sent")
+                    }
+                    className="inline-flex items-center"
+                  >
+                    {(msg.seenBy || []).some((id) => id !== currentUserId) ? (
+                      <CheckCheck className="h-3.5 w-3.5 text-violet-600 dark:text-violet-400" />
+                    ) : (
+                      <Check className="h-3.5 w-3.5 text-zinc-400 dark:text-zinc-500" />
+                    )}
+                  </span>
+                )}
               </div>
             </div>
           );
