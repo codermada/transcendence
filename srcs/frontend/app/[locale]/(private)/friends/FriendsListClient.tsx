@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Search, Users, XCircle } from "@/components/icons";
+import { StartMessageButton } from "@/components/chat/StartMessageButton";
 import { getInitials } from "@/lib/utils/user-utils";
 
 // ─────────────────────────────────────────────────────────────
@@ -254,6 +255,12 @@ export function FriendsListClient() {
                       )}
                     </div>
                   </Link>
+
+                  <StartMessageButton
+                    user={primary}
+                    variant="icon"
+                    disabled={isBusy}
+                  />
 
                   <button
                     type="button"

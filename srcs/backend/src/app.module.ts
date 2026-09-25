@@ -36,4 +36,5 @@ import { ChannelModule } from './channel/channel.module';
 	],
 	controllers: [AuthController],
 })
+
 export class AppModule {}

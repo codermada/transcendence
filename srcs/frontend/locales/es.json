@@ -174,7 +174,8 @@
         "timeAgo": "{value, plural, =0 {Hace un momento} =1 {Hace 1 {unit, select, minute {minuto} hour {hora} day {día} other {}}} other {Hace {value} {unit, select, minute {minutos} hour {horas} day {días} other {}}}}",
         "options": "Opciones de la publicación",
         "edit": "Editar",
-        "delete": "Eliminar"
+        "delete": "Eliminar",
+        "justNow": "ahora mismo"
       },
       "CommentItem": {
         "viewProfile": "Ver el perfil de {name}",
@@ -269,6 +270,29 @@
       }
     }
   },
+  "Comments": {
+    "title": "Comentarios",
+    "close": "Cerrar comentarios",
+    "loading": "Cargando comentarios...",
+    "emptyTitle": "Aún no hay comentarios",
+    "emptyDescription": "Sé el primero en comentar.",
+    "imagePreviewAlt": "Vista previa de la imagen seleccionada",
+    "removeImage": "Quitar la imagen seleccionada",
+    "placeholder": "Escribe un comentario...",
+    "attachImage": "Adjuntar imagen",
+    "send": "Enviar comentario",
+    "viewProfile": "Ver el perfil de {name}",
+    "like": "Me gusta el comentario",
+    "unlike": "Quitar me gusta del comentario",
+    "attachmentAlt": "Archivo adjunto del comentario",
+    "loadError": "No se pudieron cargar los comentarios.",
+    "selectImage": "Por favor, selecciona una imagen.",
+    "imageTooLarge": "La imagen no debe superar los 10 MB.",
+    "emptyComment": "Escribe un comentario o añade una imagen.",
+    "added": "Comentario añadido.",
+    "addError": "No se pudo añadir el comentario.",
+    "likeError": "No se pudo actualizar el me gusta."
+  },
   "FeedPage": {
     "loading": "Cargando tu feed...",
     "toasts": {
@@ -299,7 +323,8 @@
     "searchError": "Algo salió mal. Inténtalo de nuevo.",
     "add": "Agregar",
     "back": "Atrás",
-    "adding": "Añadiendo…"
+    "adding": "Añadiendo…",
+    "pending": "Pendiente…"
   },
   "Chat": {
     "title": "Mensajes",
@@ -487,7 +512,8 @@
     },
     "dashboard": {
       "title": "Panel",
-      "subtitle": "Resumen de tu instancia"
+      "subtitle": "Resumen de tu instancia",
+      "totalUsers": "Usuarios totales"
     },
     "nav": {
       "title": "Admin",
@@ -597,6 +623,30 @@
       "previous": "Anterior",
       "next": "Siguiente",
       "page": "Página {page} de {pages}"
+    }
+  },
+  "ProfilePage": {
+    "emptyTitle": "Aún no hay publicaciones",
+    "emptyDescription": "Este usuario todavía no ha publicado nada.",
+    "updateError": "No se pudo actualizar la publicación. Inténtalo de nuevo.",
+    "deleteSuccess": "Publicación eliminada.",
+    "deleteError": "No se pudo eliminar la publicación. Inténtalo de nuevo.",
+    "loadProfileError": "No se pudo cargar este perfil.",
+    "toasts": { "loadPostsError": "No se pudieron cargar las publicaciones." },
+    "header": {
+      "friendsCount": "{count} amigos",
+      "actions": {
+        "addToStory": "Añadir a la historia",
+        "editProfile": "Editar perfil",
+        "addFriend": "Añadir amigo",
+        "requestSent": "Solicitud enviada",
+        "friends": "Amigos",
+        "message": "Mensaje",
+        "unblock": "Desbloquear",
+        "blocked": "Bloqueado",
+        "acceptRequest": "Aceptar",
+        "declineRequest": "Rechazar"
+      }
     }
   },
   "Language": {
