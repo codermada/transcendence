@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { useTranslations } from "next-intl";
+import { FRIEND_API } from "@/components/friend-requests/types";
 
 interface RejectFriendButtonProps {
   friendshipId: string;
@@ -14,49 +15,53 @@ export function RejectFriendButton({
 }: RejectFriendButtonProps) {
   const t = useTranslations("FriendRequests");
   const [isBusy, setIsBusy] = useState(false);
-
-    const FRIEND_API = {
-    me: () => `/nest/user/me`,
-    incoming: (page = 1, limit = 50) =>
-        `/nest/friend/requests/incoming?page=${page}&limit=${limit}`,
-    outgoing: (page = 1, limit = 50) =>
-        `/nest/friend/requests/outgoing?page=${page}&limit=${limit}`,
-    accept: (id: string) => `/nest/friend/${id}/accept`,
-    reject: (id: string) => `/nest/friend/${id}/reject`,
-    cancel: (id: string) => `/nest/friend/${id}/cancel`,
-    } as const;
+  const [error, setError] = useState<string | null>(null);
 
   const handleReject = useCallback(async () => {
     if (isBusy) return;
 
-    try {
-      setIsBusy(true);
+    setIsBusy(true);
+    setError(null);
 
-      const response = await fetch(FRIEND_API.reject(friendshipId), {
+    const url = FRIEND_API.reject(friendshipId);
+
+    try {
+      const response = await fetch(url, {
         method: "PATCH",
         credentials: "include",
       });
 
       if (!response.ok) {
-        throw new Error("Failed to reject friendship");
+        const body = await response.text();
+        console.error("Reject failed", {
+          url,
+          friendshipId,
+          status: response.status,
+          body,
+        });
+        throw new Error(`Failed to reject friendship (${response.status})`);
       }
 
       onSuccess?.();
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      setError(t("actionError"));
+      console.error(err);
     } finally {
       setIsBusy(false);
     }
-  }, [friendshipId, isBusy, onSuccess]);
+  }, [friendshipId, isBusy, onSuccess, t]);
 
   return (
-    <button
-      type="button"
-      onClick={handleReject}
-      disabled={isBusy}
-      className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-200 dark:hover:bg-zinc-800/70"
-    >
-      {isBusy ? t("actions.rejecting") : t("actions.reject")}
-    </button>
+    <div className="flex flex-col items-end gap-1">
+      <button
+        type="button"
+        onClick={handleReject}
+        disabled={isBusy}
+        className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-200 dark:hover:bg-zinc-800/70"
+      >
+        {isBusy ? t("actions.rejecting") : t("actions.reject")}
+      </button>
+      {error && <p className="text-xs text-red-500">{error}</p>}
+    </div>
   );
 }
