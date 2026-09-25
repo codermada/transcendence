@@ -21,7 +21,6 @@ export class PresenceGateway implements OnGatewayConnection, OnGatewayDisconnect
 
 		const userId = session.user.id;
 		client.data.user = session.user;
-		client.join(`user:${userId}`);
 
 		const toOnline = this.presenceService.addConnection(userId, client.id);
 
