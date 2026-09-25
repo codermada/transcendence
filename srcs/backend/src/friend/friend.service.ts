@@ -283,13 +283,6 @@ export class FriendService {
 		const friendship = await this.loadOrThrow(id);
 		this.assertParticipant(currentUserId, friendship);
 
-		if (friendship.status !== FriendshipStatus.PENDING) {
-			throw new BadRequestException('Only pending requests can be rejected');
-		}
-		if (friendship.addresseeId !== currentUserId) {
-			throw new ForbiddenException('Only the addressee can reject this request');
-		}
-
 		return this.prisma.friendship.delete({
 			where: { id },
 		});

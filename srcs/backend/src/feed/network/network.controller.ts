@@ -56,6 +56,14 @@ export class NetworkController {
 		return await this.friendService.reject(currentUserId, friendRequestId);
 	}
 
+	@Delete('delete/:id')
+	@ApiOperation({ summary: 'Remove friend' })
+	@ApiResponse({ status: 200, description: 'Friend removed successfully.' })
+	@ApiResponse({ status: 401, description: 'Unauthorized.' })
+	async removeFriend(@Param('id') friendRequestId: string, @CurrentUser('id') currentUserId: string) {
+		return await this.friendService.reject(currentUserId, friendRequestId);
+	}
+
 	@Delete('cancel/:id')
 	@ApiOperation({ summary: 'Cancel current user friend request' })
 	@ApiResponse({ status: 200, description: 'Friend request cancelled successfully.' })

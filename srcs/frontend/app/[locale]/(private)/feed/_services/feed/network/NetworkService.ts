@@ -116,4 +116,19 @@ export const networkService = {
 
     return response.json();
   },
+
+  async removeFriend(requestId: string): Promise<void> {
+    const response = await fetch(`${API_URL}/feed-friends/delete/${requestId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || "Impossible de refuser la demande");
+    }
+  },
 };
