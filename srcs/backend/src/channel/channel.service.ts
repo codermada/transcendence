@@ -128,7 +128,7 @@ export class ChannelService {
 			include: {
 				members: {
 					include: {
-						user: { select: { id: true, name: true, image: true } },
+						user: { select: { id: true, name: true, image: true, email: true } },
 					},
 					orderBy: [{ role: 'asc' }, { joinedAt: 'asc' }],
 				},

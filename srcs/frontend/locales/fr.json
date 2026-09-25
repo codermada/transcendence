@@ -416,7 +416,14 @@
     "sayHello": "Soyez le premier à envoyer un message dans ce canal !",
     "noMessagesYet": "Aucun message dans ce canal.",
     "typeMessagePlaceholder": "Écrivez un message dans le canal…",
-    "backToChannels": "Retour aux canaux"
+    "backToChannels": "Retour aux canaux",
+    "seen": "Vu",
+    "sent": "Envoyé",
+    "searchMember": "Rechercher un membre…",
+    "noMembersFound": "Aucun membre trouvé.",
+    "noMembers": "Aucun membre dans ce canal.",
+    "close": "Fermer",
+    "add": "Ajouter"
   },
   "Settings": {
     "nav": {

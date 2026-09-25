@@ -9,7 +9,6 @@ import {
   ChannelMemberItem,
   ChannelMessage,
 } from "@/stores/use-channel-store";
-import type { Socket } from "socket.io-client";
 
 export function useChannelSocketInit() {
   const { data: session } = useSession();
@@ -17,6 +16,7 @@ export function useChannelSocketInit() {
 
   const setChannels = useChannelStore((s) => s.setChannels);
   const handleNewMessage = useChannelStore((s) => s.handleNewMessage);
+  const handleMessagesSeen = useChannelStore((s) => s.handleMessagesSeen);
   const handleChannelCreated = useChannelStore((s) => s.handleChannelCreated);
   const handleMemberJoined = useChannelStore((s) => s.handleMemberJoined);
   const handleMemberLeft = useChannelStore((s) => s.handleMemberLeft);
@@ -116,9 +116,16 @@ export function useChannelSocketInit() {
       }
     };
 
+    const onMessagesSeen = (data: { channelId: string; userId: string }) => {
+      if (data?.channelId && data?.userId) {
+        handleMessagesSeen(data.channelId, data.userId, userId);
+      }
+    };
+
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
     socket.on("new_channel_message", onNewMessage);
+    socket.on("channel_messages_seen", onMessagesSeen);
     socket.on("channel_created", onChannelCreated);
     socket.on("channel_member_joined", onMemberJoined);
     socket.on("channel_member_left", onMemberLeft);
@@ -137,6 +144,7 @@ export function useChannelSocketInit() {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
       socket.off("new_channel_message", onNewMessage);
+      socket.off("channel_messages_seen", onMessagesSeen);
       socket.off("channel_created", onChannelCreated);
       socket.off("channel_member_joined", onMemberJoined);
       socket.off("channel_member_left", onMemberLeft);
@@ -151,6 +159,7 @@ export function useChannelSocketInit() {
     userId,
     setChannels,
     handleNewMessage,
+    handleMessagesSeen,
     handleChannelCreated,
     handleMemberJoined,
     handleMemberLeft,
@@ -184,8 +193,4 @@ export function useChannelRoomSocket(channelId: string) {
       }
     };
   }, [socket, channelId]);
-}
-
-export function useChannelSocket(): Socket {
-  return getNamespaceSocket("/channels");
 }

@@ -139,7 +139,9 @@ export function ChannelListClient() {
                   </h3>
 
                   <p className="mt-1 line-clamp-2 text-xs text-zinc-500 dark:text-zinc-400">
-                    {channel.description}
+                    {channel.lastMessage?.content
+                      ? channel.lastMessage.content
+                      : channel.description}
                   </p>
                 </div>
 
