@@ -2,11 +2,9 @@
 
 import { useTranslations } from "next-intl";
 
-import type {
-  ProfileHeaderUser,
-} from "./profile-header.types";
-
-import { ProfileHeaderActions } from "./ProfileHeaderActions";
+import { StartMessageButton } from "@/components/chat/StartMessageButton";
+import { authClient } from "@/lib/auth/auth-client";
+import type { ProfileHeaderUser } from "./profile-header.types";
 
 export function ProfileHeader({
   user,
@@ -14,6 +12,14 @@ export function ProfileHeader({
   user: ProfileHeaderUser;
 }) {
   const t = useTranslations("ProfilePage.header");
+  const { data: session, isPending } = authClient.useSession();
+
+  const isMe =
+    session?.user?.id != null &&
+    String(session.user.id) === String(user.id);
+
+  // Hide while loading, hide if no session, hide if it's me.
+  const showMessageButton = !isPending && session != null && !isMe;
 
   return (
     <header className="w-full border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
@@ -135,9 +141,19 @@ export function ProfileHeader({
           )}
         </div>
 
-        <div className="w-full shrink-0 sm:w-auto">
-          <ProfileHeaderActions user={user} />
-        </div>
+        {showMessageButton && (
+          <div className="flex shrink-0 items-center gap-2 sm:self-end sm:pb-1 lg:pb-2">
+            <StartMessageButton
+              user={{
+                id: user.id,
+                name: user.name,
+                avatarUrl: user.avatarUrl,
+              }}
+              disabled={user.isSelf}
+              conversationId={user.conversationId}
+            />
+          </div>
+        )}
       </div>
     </header>
   );
