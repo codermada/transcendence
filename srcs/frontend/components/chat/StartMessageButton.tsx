@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
-import { Loader2, MessageSquare } from "@/components/icons";
+import { MessageSquare } from "@/components/icons";
 import { NewMessageModal, type ReceiverUser } from "@/components/chat/NewMessageModal";
 
 type StartMessageButtonProps = {
@@ -15,9 +14,8 @@ type StartMessageButtonProps = {
   "aria-label"?: string;
   /**
    * Known conversation id.
-   * - string  → navigate straight to it (no fetch)
-   * - null    → we know there's no conversation, open modal (no fetch)
-   * - undefined → unknown, probe the backend
+   * - string  → navigate straight to it
+   * - null / undefined → open the modal
    */
   conversationId?: string | null;
 };
@@ -32,44 +30,17 @@ export function StartMessageButton({
 }: StartMessageButtonProps) {
   const tChat = useTranslations("Chat");
   const router = useRouter();
-  const [checking, setChecking] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  async function handleClick() {
-    // 1. Known conversation → navigate immediately.
+  function handleClick() {
+    // Known conversation → go straight there.
     if (typeof conversationId === "string") {
       router.push(`/chat/${conversationId}`);
       return;
     }
 
-    // 2. Known to NOT exist → open the modal, no fetch.
-    if (conversationId === null) {
-      setIsModalOpen(true);
-      return;
-    }
-
-    // 3. Unknown → probe the backend as before.
-    setChecking(true);
-    try {
-      const res = await fetch(`/nest/chat/conversation/${user.id}`, {
-        credentials: "include",
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        if (data && data.id) {
-          router.push(`/chat/${data.id}`);
-          return;
-        }
-      }
-
-      setIsModalOpen(true);
-    } catch (err) {
-      toast.error(tChat("errorCheckConversation"));
-      setIsModalOpen(true);
-    } finally {
-      setChecking(false);
-    }
+    // Otherwise → just open the modal. No fetch.
+    setIsModalOpen(true);
   }
 
   const label = tChat("message");
@@ -86,16 +57,16 @@ export function StartMessageButton({
       <button
         type="button"
         onClick={handleClick}
-        disabled={disabled || checking}
-        aria-label={isIconOnly ? ariaLabel ?? label : undefined}
-        title={isIconOnly ? ariaLabel ?? label : undefined}
-        className={className ?? `${baseClasses} ${variantClasses}`}
+        disabled={disabled}
+        aria-label={isIconOnly ? (ariaLabel ?? label) : undefined}
+        title={isIconOnly ? (ariaLabel ?? label) : undefined}
+        className={
+          className
+            ? `${baseClasses} ${variantClasses} ${className}`
+            : `${baseClasses} ${variantClasses}`
+        }
       >
-        {checking ? (
-          <Loader2 className={`${iconClasses} animate-spin`} />
-        ) : (
-          <MessageSquare className={iconClasses} />
-        )}
+        <MessageSquare className={iconClasses} />
         {!isIconOnly && label}
       </button>
 

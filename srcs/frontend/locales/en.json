@@ -641,6 +641,7 @@
     "header": {
       "friendsCount": "{count} friends",
       "actions": {
+        "loading": "Loading…",
         "addToStory": "Add to story",
         "editProfile": "Edit profile",
         "addFriend": "Add friend",
@@ -650,8 +651,14 @@
         "unblock": "Unblock",
         "blocked": "Blocked",
         "acceptRequest": "Accept",
-        "declineRequest": "Decline"
-      }
+        "declineRequest": "Decline",
+        "accept": "Accept",
+        "accepting": "Accepting…",
+        "reject": "Reject",
+        "rejecting": "Rejecting…",
+        "cancel": "Cancel request",
+        "cancelling": "Cancelling…"
+    }
     }
   },
   "Language": {
