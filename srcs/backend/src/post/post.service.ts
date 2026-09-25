@@ -13,7 +13,19 @@ export class PostService {
 	) {}
 
 	async getAllPosts(filters: GetPostsFilterDto, currentUserId: string) {
-		const posts = await this.postRepository.findAll(filters, currentUserId);
+		const limit = filters.limit ?? 10;
+		const page = filters.page ?? 1;
+
+		const computedOffset = filters.offset ?? (page - 1) * limit;
+
+		const posts = await this.postRepository.findAll(
+			{
+				...filters,
+				limit,
+				offset: computedOffset,
+			},
+			currentUserId,
+		);
 
 		return posts.map((post) => this.formatPost(post));
 	}
