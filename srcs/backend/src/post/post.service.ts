@@ -146,6 +146,7 @@ export class PostService {
 
 		return {
 			id: post.id,
+			authorId: post.user.id,
 			author: authorName,
 			initials,
 			authorImage: post.user.image,

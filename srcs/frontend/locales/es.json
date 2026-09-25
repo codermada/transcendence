@@ -178,7 +178,9 @@
         "options": "Opciones de la publicación",
         "edit": "Editar",
         "delete": "Eliminar",
-        "justNow": "ahora mismo"
+        "justNow": "ahora mismo",
+        "viewProfile": "Ver el perfil de {name}",
+        "viewMyProfile": "Ver mi perfil"
       },
       "CommentItem": {
         "viewProfile": "Ver el perfil de {name}",
