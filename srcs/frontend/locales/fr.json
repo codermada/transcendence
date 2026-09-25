@@ -497,6 +497,25 @@
 
       "toastRoleUpdated": "Rôle mis à jour",
 
+      "createUser": "Créer un utilisateur",
+      "createModal": {
+        "title": "Créer un utilisateur",
+        "subtitle": "Ajoutez un nouvel utilisateur à la plateforme.",
+        "nameLabel": "Nom",
+        "emailLabel": "E-mail",
+        "passwordLabel": "Mot de passe",
+        "passwordHint": "Doit contenir au moins 8 caractères.",
+        "roleLabel": "Rôle",
+        "roleUser": "Utilisateur",
+        "roleModerator": "Modérateur",
+        "roleAdmin": "Administrateur",
+        "cancel": "Annuler",
+        "create": "Créer l'utilisateur",
+        "creating": "Création…",
+        "error": "Échec de la création de l'utilisateur.",
+        "toastCreated": "Utilisateur créé."
+      },
+
       "editModal": {
         "title": "Modifier l'utilisateur",
         "subtitle": "Mettez à jour les informations de profil de {name}.",
