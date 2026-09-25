@@ -8,6 +8,7 @@ export interface MediaPreview {
 
 export interface Post {
   id: string;
+  authorId: string;
   author: string;
   initials: string;
   authorImage?: string;
@@ -40,6 +41,7 @@ export interface PostCardProps {
 export interface PostHeaderProps {
   author: string;
   initials: string;
+  authorImage?: string | null;
   createdAt?: string | Date;
 }
 
