@@ -11,11 +11,28 @@ export interface UpdatePostDto {
   newFiles?: File[];
 }
 
+export interface GetPostsFilterDto {
+  page?: number;
+  search?: string;
+}
+
 const API_URL = "/nest";
 
 export const postService = {
-  async getAllPosts(): Promise<Post[]> {
-    const response = await fetch(`${API_URL}/posts`, {
+  async getAllPosts(filters?: GetPostsFilterDto): Promise<Post[]> {
+    const queryParams = new URLSearchParams();
+
+    if (filters?.page) {
+      queryParams.append("page", filters.page.toString());
+    }
+    if (filters?.search) {
+      queryParams.append("search", filters.search);
+    }
+
+    const queryString = queryParams.toString();
+    const url = queryString ? `${API_URL}/posts?${queryString}` : `${API_URL}/posts`;
+
+    const response = await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

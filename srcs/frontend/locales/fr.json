@@ -150,13 +150,16 @@
         "emptyDescription": "Soyez le premier à publier quelque chose ou ajoutez des amis pour voir leurs actualités.",
         "defaultTimeAgo": "À l'instant",
         "deleteSuccess": "Publication supprimée",
-        "deleteError": "Échec de la suppression de la publication"
+        "deleteError": "Échec de la suppression de la publication",
+        "loadMoreError": "Erreur lors du chargement des publications",
+        "loadingMore": "Chargement...",
+        "noMorePosts": "Toutes les publications ont été chargées."
       },
       "MediaModal": {
 
       },
       "PostActions": {
-
+        "postDeletedErrorMessage": "Cette publication n'existe plus"
       },
       "PostCard": {
         "cancel": "Annuler",
