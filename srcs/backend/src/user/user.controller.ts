@@ -9,6 +9,7 @@ import {
 	Param,
 	ParseFilePipe,
 	Patch,
+  Put,
 	Query,
 	Req,
 	UploadedFile,
@@ -274,7 +275,7 @@ export class UserController {
 	 * Upload an avatar for the user associated with the API key.
 	 * Max 5 MB. Allowed types: png, jpg/jpeg, webp, gif.
 	 *
-	 * curl -i -X PATCH "https://localhost:9000/nest/user/api-key/me/avatar" \
+	 * curl -i -X PUT "https://localhost:9000/nest/user/api-key/me/avatar" \
 	 *   -H "x-api-key: YOUR_API_KEY_HERE" \
 	 *   -H "accept: application/json" \
 	 *   -F "file=@./avatar.png" \
@@ -291,7 +292,7 @@ export class UserController {
 			},
 		},
 	})
-	@Patch('api-key/me/avatar')
+	@Put('api-key/me/avatar')
 	@UseInterceptors(FileInterceptor('file'))
 	updateAvatarViaApiKey(
 		@Req() req: Request,
