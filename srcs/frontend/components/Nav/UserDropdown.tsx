@@ -248,7 +248,7 @@ export function UserDropdown() {
           {/* Navigation Links */}
           <div className="flex flex-col gap-0.5">
             <Link
-              href="/profile"
+              href={`/profile/${user?.id || ""}`}
               onClick={() => setIsOpen(false)}
               role="menuitem"
               className="
