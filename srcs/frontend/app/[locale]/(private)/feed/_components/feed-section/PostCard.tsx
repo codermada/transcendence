@@ -10,6 +10,8 @@ import type { PostCardProps } from "./feed-section.types";
 
 interface ExtendedPostCardProps extends PostCardProps {
   postId: string;
+  authorId: string;
+  authorImage?: string | null;
   isOwner?: boolean;
   isLiked?: boolean;
   children?: ReactNode;
@@ -25,10 +27,25 @@ interface ExtendedPostCardProps extends PostCardProps {
   onToggleLike?: (postId: string) => Promise<void>;
 }
 
+const isVideoMedia = (source: string | File): boolean => {
+  if (source instanceof File) {
+    return source.type.startsWith("video/");
+  }
+  const cleanUrl = source.split("?")[0].toLowerCase();
+  return (
+    cleanUrl.endsWith(".mp4") ||
+    cleanUrl.endsWith(".webm") ||
+    cleanUrl.endsWith(".ogg") ||
+    cleanUrl.endsWith(".mov")
+  );
+};
+
 export function PostCard({
   postId,
+  authorId,
   author,
   initials,
+  authorImage,
   createdAt,
   content,
   likesCount,
@@ -60,6 +77,10 @@ export function PostCard({
   };
 
   const handleCancel = () => {
+    newFilePreviews.forEach((previewUrl) => {
+      const cleanUrl = previewUrl.split("#")[0];
+      URL.revokeObjectURL(cleanUrl);
+    });
     setEditedContent(content || "");
     setKeptMediaUrls(mediaUrls);
     setNewFiles([]);
@@ -84,14 +105,19 @@ export function PostCard({
 
     setNewFiles((prev) => [...prev, ...filesArray]);
 
-    const newPreviews = filesArray.map((file) => URL.createObjectURL(file));
+    const newPreviews = filesArray.map((file) => {
+      const rawUrl = URL.createObjectURL(file);
+      return isVideoMedia(file) ? `${rawUrl}#t=0.001` : rawUrl;
+    });
+
     setNewFilePreviews((prev) => [...prev, ...newPreviews]);
   };
 
   const handleRemoveNewFile = (index: number) => {
     setNewFiles((prev) => prev.filter((_, i) => i !== index));
     setNewFilePreviews((prev) => {
-      URL.revokeObjectURL(prev[index]);
+      const cleanUrl = prev[index].split("#")[0];
+      URL.revokeObjectURL(cleanUrl);
       return prev.filter((_, i) => i !== index);
     });
   };
@@ -111,6 +137,10 @@ export function PostCard({
           newFiles,
         });
       }
+      newFilePreviews.forEach((previewUrl) => {
+        const cleanUrl = previewUrl.split("#")[0];
+        URL.revokeObjectURL(cleanUrl);
+      });
       setIsEditing(false);
       toast.success(t("updateSuccess"));
     } catch (error) {
@@ -123,8 +153,10 @@ export function PostCard({
   return (
     <article className="shadow-2xs space-y-4 rounded-2xl border border-zinc-200/80 bg-white p-5 dark:border-zinc-800/80 dark:bg-zinc-900/50">
       <PostHeader
+        authorId={authorId}
         author={author}
         initials={initials}
+        authorImage={authorImage}
         createdAt={createdAt}
         isOwner={isOwner}
         onEdit={handleStartEdit}
@@ -148,31 +180,82 @@ export function PostCard({
             </label>
 
             <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
-              {keptMediaUrls.map((url) => (
-                <div key={url} className="group relative aspect-square overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-700">
-                  <img src={url} alt="Media" className="h-full w-full object-cover" />
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveExistingMedia(url)}
-                    className="absolute top-1 right-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white transition-colors hover:bg-red-600"
-                  >
-                    ✕
-                  </button>
-                </div>
-              ))}
+              {keptMediaUrls.map((url) => {
+                const isVideo = isVideoMedia(url);
+                const videoSrc = isVideo ? (url.includes("#") ? url : `${url}#t=0.001`) : url;
 
-              {newFilePreviews.map((previewUrl, index) => (
-                <div key={previewUrl} className="group relative aspect-square overflow-hidden rounded-lg border border-violet-300 dark:border-violet-700">
-                  <img src={previewUrl} alt="New media preview" className="h-full w-full object-cover" />
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveNewFile(index)}
-                    className="absolute top-1 right-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white transition-colors hover:bg-red-600"
+                return (
+                  <div
+                    key={url}
+                    className="group relative aspect-square overflow-hidden rounded-lg border border-zinc-200 bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800"
                   >
-                    ✕
-                  </button>
-                </div>
-              ))}
+                    {isVideo ? (
+                      <video
+                        src={videoSrc}
+                        className="h-full w-full object-cover"
+                        controls={false}
+                        muted
+                        playsInline
+                        preload="metadata"
+                        onLoadedMetadata={(e) => {
+                          e.currentTarget.currentTime = 0.001;
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src={url}
+                        alt="Media"
+                        className="h-full w-full object-cover"
+                      />
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveExistingMedia(url)}
+                      className="absolute top-1 right-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white transition-colors hover:bg-red-600"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                );
+              })}
+
+              {newFilePreviews.map((previewUrl, index) => {
+                const file = newFiles[index];
+                const isVideo = file ? isVideoMedia(file) : false;
+                return (
+                  <div
+                    key={previewUrl}
+                    className="group relative aspect-square overflow-hidden rounded-lg border border-violet-300 bg-zinc-100 dark:border-violet-700 dark:bg-zinc-800"
+                  >
+                    {isVideo ? (
+                      <video
+                        src={previewUrl}
+                        className="h-full w-full object-cover"
+                        controls={false}
+                        muted
+                        playsInline
+                        preload="metadata"
+                        onLoadedMetadata={(e) => {
+                          e.currentTarget.currentTime = 0.001;
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src={previewUrl}
+                        alt="New media preview"
+                        className="h-full w-full object-cover"
+                      />
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveNewFile(index)}
+                      className="absolute top-1 right-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white transition-colors hover:bg-red-600"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                );
+              })}
 
               {keptMediaUrls.length + newFiles.length < 10 && (
                 <button
@@ -180,8 +263,18 @@ export function PostCard({
                   onClick={() => fileInputRef.current?.click()}
                   className="flex aspect-square flex-col items-center justify-center rounded-lg border-2 border-dashed border-zinc-300 bg-zinc-50 text-zinc-500 hover:border-violet-500 hover:bg-violet-50/50 hover:text-violet-600 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-zinc-400 dark:hover:border-violet-500 dark:hover:bg-violet-950/20"
                 >
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 4.5v15m7.5-7.5h-15"
+                    />
                   </svg>
                   <span className="mt-1 text-[10px] font-medium">{t("addMedia")}</span>
                 </button>
