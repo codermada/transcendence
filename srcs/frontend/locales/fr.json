@@ -332,7 +332,24 @@
     "add": "Ajouter",
     "back": "Retour",
     "adding": "Ajout…",
-    "pending": "En attente…"
+    "pending": "En attente…",
+    "friends": "Amis",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "cancel": "Annuler",
+    "removeFriend": "Retirer des amis",
+    "toasts": {
+      "addSuccess": "Demande d'ami envoyée",
+      "addError": "Erreur lors de l'envoi de la demande",
+      "acceptSuccess": "Demande d'ami acceptée",
+      "acceptError": "Impossible d'accepter la demande",
+      "declineSuccess": "Demande d'ami refusée",
+      "declineError": "Impossible de refuser la demande",
+      "cancelSuccess": "Demande annulée",
+      "cancelError": "Erreur lors de l'annulation",
+      "removeSuccess": "Ami supprimé",
+      "removeError": "Impossible de supprimer l'ami"
+    }
   },
   "Chat": {
     "title": "Messagerie",
