@@ -48,7 +48,7 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
           setUserProfile(fetchedUserProfile);
         }
       } catch (error) {
-        console.error("Error loading user profile :", error);
+        toast.error(t("errors.profileLoad"));
       } finally {
         if (isMounted) {
           setIsLoading(false);
