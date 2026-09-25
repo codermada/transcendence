@@ -75,7 +75,6 @@ export default function SearchFriendsPage() {
     return () => controller.abort();
   }, [query, t]);
 
-  // Envoyer une demande d'ami
   async function handleAdd(userId: string) {
     setPendingActionId(userId);
 
@@ -113,7 +112,6 @@ export default function SearchFriendsPage() {
     }
   }
 
-  // Accepter une demande d'ami reçue via networkService
   async function handleAcceptRequest(user: SearchUser) {
     const reqId = user.requestId || user.friendshipId;
     if (!reqId) return;
@@ -132,7 +130,6 @@ export default function SearchFriendsPage() {
     }
   }
 
-  // Refuser une demande d'ami reçue via networkService
   async function handleDeclineRequest(user: SearchUser) {
     const reqId = user.requestId;
     if (!reqId) return;
@@ -155,8 +152,6 @@ export default function SearchFriendsPage() {
     }
   }
 
-  // Supprimer un ami
-// Supprimer un ami via networkService
   async function handleRemoveFriend(user: SearchUser) {
     const reqId = user.requestId || user.friendshipId;
     if (!reqId) return;
@@ -178,7 +173,7 @@ export default function SearchFriendsPage() {
       setPendingActionId(null);
     }
   }
-  // Annuler une demande d'ami envoyée
+
   async function handleCancel(user: SearchUser) {
     const reqId = user.requestId || user.friendshipId;
     setPendingActionId(user.id);
@@ -214,7 +209,6 @@ export default function SearchFriendsPage() {
 
   return (
     <div className="mx-auto max-w-3xl p-6">
-      {/* Header */}
       <div className="mb-6 flex items-center gap-3 border-b border-zinc-200/80 pb-5 dark:border-zinc-800">
         <Link
           href="/friends"
@@ -233,7 +227,6 @@ export default function SearchFriendsPage() {
         </div>
       </div>
 
-      {/* Search input */}
       <div className="relative mb-6">
         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
         <input
@@ -246,7 +239,6 @@ export default function SearchFriendsPage() {
         />
       </div>
 
-      {/* Results */}
       {loading && (
         <div className="flex items-center justify-center py-12 text-zinc-500">
           <Loader2 className="h-5 w-5 animate-spin" />
@@ -293,8 +285,6 @@ export default function SearchFriendsPage() {
 
                 <div className="flex gap-2 items-center">
                   <StartMessageButton user={u} disabled={isLoading} />
-
-                  {/* CAS 1: Déjà amis -> Badge + Bouton Supprimer */}
                   {u.status === "FRIEND" && (
                     <>
                       <span className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400">
@@ -318,7 +308,6 @@ export default function SearchFriendsPage() {
                     </>
                   )}
 
-                  {/* CAS 2: Demande envoyée -> Annuler */}
                   {u.status === "FRIEND_REQUEST_SENT" && (
                     <button
                       type="button"
@@ -335,7 +324,6 @@ export default function SearchFriendsPage() {
                     </button>
                   )}
 
-                  {/* CAS 3: Demande reçue -> Accepter / Refuser */}
                   {u.status === "FRIEND_REQUEST_RECEIVED" && (
                     <>
                       <button
@@ -363,7 +351,6 @@ export default function SearchFriendsPage() {
                     </>
                   )}
 
-                  {/* CAS 4: Pas encore ami -> Ajouter */}
                   {u.status === "NOT_FRIEND" && (
                     <button
                       type="button"
