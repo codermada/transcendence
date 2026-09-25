@@ -155,8 +155,10 @@ export function FeedSection({ posts: initialPosts = [] }: FeedSectionProps) {
             <PostCard
               key={post.id}
               postId={post.id}
+              authorId={post.authorId}
               author={post.author}
               initials={post.initials}
+              authorImage={post.authorImage}
               createdAt={post.createdAt}
               content={post.content}
               likesCount={post.likesCount}
