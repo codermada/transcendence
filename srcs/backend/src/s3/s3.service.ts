@@ -2,6 +2,7 @@ import {
 	CreateBucketCommand,
 	DeleteObjectCommand,
 	HeadBucketCommand,
+	PutBucketCorsCommand,
 	PutBucketPolicyCommand,
 	PutObjectCommand,
 	S3Client,
@@ -44,27 +45,44 @@ export class S3Service implements OnModuleInit {
 					ObjectOwnership: 'ObjectWriter',
 				}),
 			);
-
-			const policy = {
-				Version: '2012-10-17',
-				Statement: [
-					{
-						Sid: 'PublicRead',
-						Effect: 'Allow',
-						Principal: '*',
-						Action: ['s3:GetObject'],
-						Resource: [`arn:aws:s3:::${this.bucketName}/*`],
-					},
-				],
-			};
-
-			await this.s3Client.send(
-				new PutBucketPolicyCommand({
-					Bucket: this.bucketName,
-					Policy: JSON.stringify(policy),
-				}),
-			);
 		}
+
+		const policy = {
+			Version: '2012-10-17',
+			Statement: [
+				{
+					Sid: 'PublicRead',
+					Effect: 'Allow',
+					Principal: '*',
+					Action: ['s3:GetObject'],
+					Resource: [`arn:aws:s3:::${this.bucketName}/*`],
+				},
+			],
+		};
+
+		await this.s3Client.send(
+			new PutBucketPolicyCommand({
+				Bucket: this.bucketName,
+				Policy: JSON.stringify(policy),
+			}),
+		);
+
+		await this.s3Client.send(
+			new PutBucketCorsCommand({
+				Bucket: this.bucketName,
+				CORSConfiguration: {
+					CORSRules: [
+						{
+							AllowedOrigins: ['*'],
+							AllowedMethods: ['GET', 'HEAD'],
+							AllowedHeaders: ['*'],
+							ExposeHeaders: ['ETag', 'Content-Length', 'Content-Range', 'Accept-Ranges'],
+							MaxAgeSeconds: 3000,
+						},
+					],
+				},
+			}),
+		);
 	}
 
 	async uploadFile(file: Express.Multer.File, folder = 'posts'): Promise<string> {
@@ -85,9 +103,6 @@ export class S3Service implements OnModuleInit {
 		return `${this.publicUrl}/${this.bucketName}/${key}`;
 	}
 
-	/**
-	 * Extraire la clé S3 d'une URL et supprimer le fichier
-	 */
 	async deleteFile(fileUrl: string): Promise<void> {
 		if (!fileUrl) return;
 
