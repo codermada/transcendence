@@ -7,6 +7,7 @@ import { AuthenticatedNavbar } from "@/components/Nav/AuthenticatedNavbar";
 import { MobileBottomNav } from "@/components/Nav/MobileBottomNav";
 import { usePresenceInit } from "@/hooks/use-presence";
 import { useChatSocketInit } from "@/hooks/use-chat-socket";
+import { useChannelSocketInit } from "@/hooks/use-channel-socket";
 
 export default function PrivateLayout({
   children,
@@ -18,6 +19,7 @@ export default function PrivateLayout({
 
   usePresenceInit();
   useChatSocketInit();
+  useChannelSocketInit();
 
   useEffect(() => {
     if (!isPending && !session) {
