@@ -151,13 +151,16 @@
         "emptyDescription": "Sé el primero en publicar algo o añade amigos para ver sus novedades.",
         "defaultTimeAgo": "Hace un momento",
         "deleteSuccess": "Publicación eliminada",
-        "deleteError": "No se pudo eliminar la publicación"
+        "deleteError": "No se pudo eliminar la publicación",
+        "loadMoreError": "Error al cargar las publicaciones",
+        "loadingMore": "Cargando...",
+        "noMorePosts": "Se han cargado todas las publicaciones."
       },
       "MediaModal": {
 
       },
       "PostActions": {
-
+        "postDeletedErrorMessage": "Esta publicación ya no existe."
       },
       "PostCard": {
         "cancel": "Cancelar",
