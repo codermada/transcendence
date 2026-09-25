@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getInitials } from "@/lib/utils/user-utils";
@@ -170,10 +171,12 @@ export function PublicProfileCard({
           const data: Friendship = await res.json();
           setFriendship(data);
         } else if (res.status !== 404) {
-          console.warn("Failed to load friendship", res.status);
+          toast.error(t("friendshipLoadError"));
         }
       } catch {
-        /* leave null */
+        if (!cancelled) {
+          toast.error(t("friendshipLoadError"));
+        }
       }
     })();
 

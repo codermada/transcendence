@@ -34,7 +34,8 @@
     "online": "En ligne",
     "offline": "Hors ligne",
     "preferences": "Préférences",
-    "user": "Utilisateur"
+    "user": "Utilisateur",
+    "signOutError": "Impossible de se déconnecter. Veuillez réessayer."
   },
   "Auth": {
     "signIn": {
@@ -140,7 +141,8 @@
         "isLoading": "Publication...",
         "errors": {
           "CONTENT_EMPTY": "Le contenu ne peut pas être vide",
-          "DEFAULT": "Une erreur est survenue. Veuillez réessayer."
+          "DEFAULT": "Une erreur est survenue. Veuillez réessayer.",
+          "profileLoad": "Impossible de charger votre profil."
         },
         "multiFile": "fichiers",
         "singleFile": "fichier",
@@ -179,7 +181,9 @@
         "options": "Options de la publication",
         "edit": "Modifier",
         "delete": "Supprimer",
-        "justNow": "à l'instant"
+        "justNow": "à l'instant",
+        "viewProfile": "Voir le profil de {name}",
+        "viewMyProfile": "Voir mon profil"
       },
       "CommentItem": {
         "viewProfile": "Voir le profil de {name}",
@@ -244,7 +248,8 @@
     },
     "profile-sidebar": {
       "ProfileCard": {
-        "myProfileButton": "Mon Profil"
+        "myProfileButton": "Mon Profil",
+        "errorProfileLoad": "Impossible de charger votre profil."
       },
       "ProfileSidebar": {
 
@@ -328,7 +333,24 @@
     "add": "Ajouter",
     "back": "Retour",
     "adding": "Ajout…",
-    "pending": "En attente…"
+    "pending": "En attente…",
+    "friends": "Amis",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "cancel": "Annuler",
+    "removeFriend": "Retirer des amis",
+    "toasts": {
+      "addSuccess": "Demande d'ami envoyée",
+      "addError": "Erreur lors de l'envoi de la demande",
+      "acceptSuccess": "Demande d'ami acceptée",
+      "acceptError": "Impossible d'accepter la demande",
+      "declineSuccess": "Demande d'ami refusée",
+      "declineError": "Impossible de refuser la demande",
+      "cancelSuccess": "Demande annulée",
+      "cancelError": "Erreur lors de l'annulation",
+      "removeSuccess": "Ami supprimé",
+      "removeError": "Impossible de supprimer l'ami"
+    }
   },
   "Chat": {
     "title": "Messagerie",
@@ -475,21 +497,25 @@
       "subtitle": "Générez une clé pour authentifier vos applications auprès de l'API.",
       "nameLabel": "Nom",
       "namePlaceholder": "ex. Pipeline CI",
-      "nameHelp": "Un libellé pour vous aider à reconnaître cette clé ultérieurement.",
+      "nameHelp": "Un libellé pour reconnaître cette clé plus tard.",
       "expiresLabel": "Expire dans (jours)",
-      "expiresHelp": "Définissez à 0 pour une clé qui n'expire jamais.",
-      "submit": "Créer la clé API",
-      "submitting": "Création en cours…",
+      "expiresHelp": "Définissez 0 pour une clé qui n'expire jamais.",
+      "submit": "Créer une clé API",
+      "create": "Créer",
+      "submitting": "Création…",
       "cancel": "Annuler",
       "createdTitle": "Clé API créée",
-      "copyWarning": "⚠️ Copiez cette clé maintenant. Vous ne pourrez plus la revoir.",
+      "copyWarning": "⚠️ Copiez cette clé maintenant. Vous ne pourrez plus la voir.",
       "copy": "Copier",
       "copied": "Copié !",
+      "keyLabel": "Clé API",
+      "secretBadge": "Secrète",
       "name": "Nom",
-      "expires": "Expire le",
+      "expires": "Expire",
+      "expiresIn": "{days, plural, =0 {N'expire jamais} =1 {Expire dans 1 jour} other {Expire dans # jours}}",
       "never": "Jamais",
       "done": "Terminé",
-      "createAnother": "En créer une autre",
+      "createAnother": "Créer une autre",
       "errorFailed": "Échec de la création de la clé API",
       "errorNoKey": "Aucune clé renvoyée par le serveur",
       "errorUnexpected": "Erreur inattendue"
@@ -531,6 +557,25 @@
       "toastDeleted": "Utilisateur supprimé.",
 
       "toastRoleUpdated": "Rôle mis à jour",
+
+      "createUser": "Créer un utilisateur",
+      "createModal": {
+        "title": "Créer un utilisateur",
+        "subtitle": "Ajoutez un nouvel utilisateur à la plateforme.",
+        "nameLabel": "Nom",
+        "emailLabel": "E-mail",
+        "passwordLabel": "Mot de passe",
+        "passwordHint": "Doit contenir au moins 8 caractères.",
+        "roleLabel": "Rôle",
+        "roleUser": "Utilisateur",
+        "roleModerator": "Modérateur",
+        "roleAdmin": "Administrateur",
+        "cancel": "Annuler",
+        "create": "Créer l'utilisateur",
+        "creating": "Création…",
+        "error": "Échec de la création de l'utilisateur.",
+        "toastCreated": "Utilisateur créé."
+      },
 
       "editModal": {
         "title": "Modifier l'utilisateur",
@@ -591,6 +636,7 @@
     "idLabel": "Identifiant",
     "joinedLabel": "Inscrit le",
     "actionError": "Une erreur est survenue. Veuillez réessayer.",
+    "friendshipLoadError": "Impossible de charger le statut d'amitié.",
     "friendStatus": {
       "friends": "Amis",
       "requestSent": "Demande envoyée",
@@ -685,7 +731,13 @@
         "unblock": "Débloquer",
         "blocked": "Bloqué",
         "acceptRequest": "Accepter",
-        "declineRequest": "Refuser"
+        "declineRequest": "Refuser",
+        "accept": "Accepter",
+        "accepting": "Acceptation…",
+        "reject": "Refuser",
+        "rejecting": "Refus…",
+        "cancel": "Annuler la demande",
+        "cancelling": "Annulation…"
       }
     }
   },

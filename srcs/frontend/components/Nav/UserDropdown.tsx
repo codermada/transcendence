@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
@@ -122,13 +123,13 @@ export function UserDropdown() {
     try {
       const result = await signOut();
       if (result?.error) {
-        console.error("Sign out error:", result.error);
+        toast.error(t("signOutError"));
         return;
       }
       setIsOpen(false);
       window.location.href = "/sign-in";
     } catch (err) {
-      console.error("Failed to sign out:", err);
+      toast.error(t("signOutError"));
     } finally {
       setIsSigningOut(false);
     }

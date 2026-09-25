@@ -14,10 +14,7 @@ export class PostRepository {
 		const friendships = await this.prisma.friendship.findMany({
 			where: {
 				acceptedAt: { not: null },
-				OR: [
-					{ requesterId: currentUserId },
-					{ addresseeId: currentUserId },
-				],
+				OR: [{ requesterId: currentUserId }, { addresseeId: currentUserId }],
 			},
 			select: {
 				requesterId: true,
@@ -25,9 +22,7 @@ export class PostRepository {
 			},
 		});
 
-		const friendIds = friendships.map((f) =>
-			f.requesterId === currentUserId ? f.addresseeId : f.requesterId,
-		);
+		const friendIds = friendships.map((f) => (f.requesterId === currentUserId ? f.addresseeId : f.requesterId));
 
 		const allowedUserIds = [currentUserId, ...friendIds];
 
@@ -37,12 +32,12 @@ export class PostRepository {
 			},
 			...(search
 				? {
-					content: {
-						contains: search,
-						mode: 'insensitive' as const,
-					},
-				}
-			: {}),
+						content: {
+							contains: search,
+							mode: 'insensitive' as const,
+						},
+					}
+				: {}),
 		};
 
 		const includeRelations = {
@@ -101,10 +96,12 @@ export class PostRepository {
 				[shuffledOlderPosts[i], shuffledOlderPosts[j]] = [shuffledOlderPosts[j], shuffledOlderPosts[i]];
 			}
 
-			const selectedOlderPosts = shuffledOlderPosts.slice(0, limit - recentPosts.length > 0 ? limit - recentPosts.length : 7);
+			const selectedOlderPosts = shuffledOlderPosts.slice(
+				0,
+				limit - recentPosts.length > 0 ? limit - recentPosts.length : 7,
+			);
 			posts = [...recentPosts, ...selectedOlderPosts];
 		} else {
-			// Cas 2 : Chargement des pages suivantes pour le scroll infini (pagination déterministe)
 			posts = await this.prisma.post.findMany({
 				where: baseWhere,
 				take: limit,
@@ -152,10 +149,10 @@ export class PostRepository {
 				},
 				likes: {
 					where: {
-					userId: currentUserId,
+						userId: currentUserId,
 					},
 					select: {
-					userId: true,
+						userId: true,
 					},
 				},
 				_count: {
