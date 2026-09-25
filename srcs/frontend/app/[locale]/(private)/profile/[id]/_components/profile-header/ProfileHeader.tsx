@@ -2,11 +2,8 @@
 
 import { useTranslations } from "next-intl";
 
-import type {
-  ProfileHeaderUser,
-} from "./profile-header.types";
-
-import { ProfileHeaderActions } from "./ProfileHeaderActions";
+import { StartMessageButton } from "@/components/chat/StartMessageButton";
+import type { ProfileHeaderUser } from "./profile-header.types";
 
 export function ProfileHeader({
   user,
@@ -135,8 +132,16 @@ export function ProfileHeader({
           )}
         </div>
 
-        <div className="w-full shrink-0 sm:w-auto">
-          <ProfileHeaderActions user={user} />
+        <div className="flex shrink-0 items-center gap-2 sm:self-end sm:pb-1 lg:pb-2">
+          <StartMessageButton
+            user={{
+              id: user.id,
+              name: user.name,
+              avatarUrl: user.avatarUrl,
+            }}
+            disabled={user.isSelf}
+            conversationId={user.conversationId}
+          />
         </div>
       </div>
     </header>
