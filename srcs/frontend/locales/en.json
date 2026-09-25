@@ -150,13 +150,16 @@
         "emptyDescription": "Be the first to post something or add friends to see their updates.",
         "defaultTimeAgo": "Just now",
         "deleteSuccess": "Post deleted",
-        "deleteError": "Failed to delete post"
+        "deleteError": "Failed to delete post",
+        "loadMoreError": "Error loading posts",
+        "loadingMore": "Loading...",
+        "noMorePosts": "All posts have been loaded."
       },
       "MediaModal": {
 
       },
       "PostActions": {
-
+        "postDeletedErrorMessage": "This post doesn't exist anymore"
       },
       "PostCard": {
         "cancel": "Cancel",

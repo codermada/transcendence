@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { postLikeService } from "../../_services/PostLikeService";
 import type { PostActionsProps } from "./feed-section.types";
@@ -13,6 +14,7 @@ export function PostActions({
   isLiked: initialIsLiked = false,
   onToggleLike,
 }: PostActionsProps) {
+  const t = useTranslations("Feed.feed-section.PostActions");
   const [isLiked, setIsLiked] = useState(initialIsLiked);
   const [likesCount, setLikesCount] = useState(initialLikesCount);
   const [isPending, setIsPending] = useState(false);
@@ -50,7 +52,7 @@ export function PostActions({
     } catch (error) {
       setIsLiked(previousIsLiked);
       setLikesCount(previousLikesCount);
-      toast.error("Impossible de mettre à jour la réaction.");
+      toast.error(t('postDeletedErrorMessage'));
     } finally {
       setIsPending(false);
     }
