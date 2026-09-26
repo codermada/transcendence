@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 import type { Comment } from "./feed-section.types";
 import { useRole } from "@/hooks/useRole";
 
