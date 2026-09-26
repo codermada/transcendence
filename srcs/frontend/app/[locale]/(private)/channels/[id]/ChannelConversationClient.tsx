@@ -1,8 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
-import { useTranslations } from "next-intl";
+import { useChannelRoomSocket } from "@/hooks/use-channel-socket";
 import { useRouter } from "@/i18n/routing";
 import { useSession } from "@/lib/auth/use-session";
 import { useChannelStore } from "@/stores/use-channel-store";
@@ -32,7 +30,6 @@ interface ChannelConversationClientProps {
 
 export function ChannelConversationClient({ channelId }: ChannelConversationClientProps) {
   const router = useRouter();
-  const t = useTranslations("Channels");
   const { data: session } = useSession();
 
   useChannelRoomSocket(channelId);
@@ -187,7 +184,7 @@ export function ChannelConversationClient({ channelId }: ChannelConversationClie
       setInputValue("");
       scrollToBottom(true);
     } catch (err: unknown) {
-      toast.error((err as Error)?.message || t("errors.sendMessage"));
+      toast.error((err as Error)?.message || t("error.sendingMessage"));
     } finally {
       setIsSending(false);
       inputRef.current?.focus();
@@ -197,27 +194,27 @@ export function ChannelConversationClient({ channelId }: ChannelConversationClie
   const handleLeaveChannel = async () => {
     try {
       await leaveChannel(channelId);
-      toast.success(t("toasts.leftChannel"));
+      toast.success(t("success.youLeftChannel"));
       router.push("/channels");
     } catch (err: unknown) {
-      toast.error((err as Error).message || t("errors.leaveChannel"));
+      toast.error((err as Error).message || t("error.leavingChannel"));
     }
   };
 
   const handleDeleteChannel = async () => {
     try {
       await deleteChannel(channelId);
-      toast.success(t("toasts.channelDeleted"));
+      toast.success(t("success.channelRemoved"));
       router.push("/channels");
     } catch (err: unknown) {
-      toast.error((err as Error).message || t("errors.deleteChannel"));
+      toast.error((err as Error).message || t("error.deletingChannel"));
     }
   };
 
   const handleKickMember = async (targetUserId: string) => {
     try {
       await kickMemberFromChannel(channelId, targetUserId);
-      toast.success(t("toasts.memberKicked"));
+      toast.success(t("success.memberFired"));
       if (activeChannel) {
         setActiveChannel({
           ...activeChannel,
@@ -225,14 +222,14 @@ export function ChannelConversationClient({ channelId }: ChannelConversationClie
         });
       }
     } catch (err: unknown) {
-      toast.error((err as Error).message || t("errors.kickMember"));
+      toast.error((err as Error).message || t("error.firingMember"));
     }
   };
 
   const handleUpdateRole = async (targetUserId: string, role: "ADMIN" | "MEMBER") => {
     try {
       await updateMemberRole(channelId, targetUserId, role);
-      toast.success(t("toasts.roleUpdated"));
+      toast.success(t("success.roleUpdated"));
       if (activeChannel) {
         setActiveChannel({
           ...activeChannel,
@@ -242,18 +239,18 @@ export function ChannelConversationClient({ channelId }: ChannelConversationClie
         });
       }
     } catch (err: unknown) {
-      toast.error((err as Error).message || t("errors.updateRole"));
+      toast.error((err as Error).message || t("error.updatingRole"));
     }
   };
 
   const handleAddMember = async (memberId: string) => {
     try {
       await addMemberToChannel(channelId, memberId);
-      toast.success(t("toasts.memberAdded"));
+      toast.success(t("success.memberAdded"));
       const refreshed = await fetchChannelDetails(channelId);
       setActiveChannel(refreshed);
     } catch (err: unknown) {
-      toast.error((err as Error).message || t("errors.addMember"));
+      toast.error((err as Error).message || t("error.addingNewMember"));
     }
   };
 
