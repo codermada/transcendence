@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getInitials } from "@/lib/utils/user-utils";
 
-// Types
 type PublicUser = {
   id: string;
   name: string | null;
@@ -82,7 +81,6 @@ export function PublicProfileCard({
   const isSelf = !!viewerId && viewerId === userId;
   const canInteract = !!viewerId && !isSelf;
 
-  // EFFECT 1 — resolve viewer from /me
   useEffect(() => {
     if (currentUserIdProp !== undefined) {
       setViewerId(currentUserIdProp ?? null);
@@ -118,7 +116,6 @@ export function PublicProfileCard({
     };
   }, [currentUserIdProp]);
 
-  // EFFECT 2 — load target user
   useEffect(() => {
     let cancelled = false;
     setNotFound(false);
@@ -149,7 +146,6 @@ export function PublicProfileCard({
     };
   }, [userId]);
 
-  // EFFECT 3 — load friendship
   useEffect(() => {
     setActionError(null);
     setFriendship(null);
@@ -203,7 +199,6 @@ export function PublicProfileCard({
             if (body?.message)
               message = Array.isArray(body.message) ? body.message[0] : body.message;
           } catch {
-            /* ignore */
           }
           rollback();
           setActionError(message);
@@ -214,7 +209,6 @@ export function PublicProfileCard({
           const updated: Friendship = await res.json();
           if (updated?.id) setFriendship(updated);
         } catch {
-          /* empty body is fine */
         }
       } catch {
         rollback();
@@ -534,7 +528,6 @@ function Avatar({ src, initials, alt }: { src: string | null; initials: string; 
 
   if (src && !failed) {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={src}
         alt={alt}
