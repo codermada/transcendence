@@ -77,7 +77,7 @@ export const networkService = {
 
   async removeFriend(friendshipId: string): Promise<void> {
     const response = await fetch(
-      `${API_URL}/friend/${friendshipId}/remove`,
+      `${API_URL}/feed-friends/delete/${friendshipId}`,
       {
         method: "DELETE",
         headers: {
