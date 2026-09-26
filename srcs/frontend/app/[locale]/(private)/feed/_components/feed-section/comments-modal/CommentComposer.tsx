@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useRef } from "react";
+import { ChangeEvent, FormEvent } from "react";
 
 interface CommentComposerProps {
   content: string;

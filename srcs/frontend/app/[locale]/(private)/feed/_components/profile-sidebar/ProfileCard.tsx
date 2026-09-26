@@ -7,7 +7,6 @@ import { toast } from "sonner";
 
 export function ProfileCard() {
   const t = useTranslations("Feed.profile-sidebar.ProfileCard");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [userProfile, setUserProfile] = useState<UserProfileResponse>({
     name: "Unknown",
     username: "unknown",
@@ -30,12 +29,8 @@ export function ProfileCard() {
         if (isMounted) {
           setUserProfile(fetchedUserProfile);
         }
-      } catch (error) {
+      } catch {
         toast.error(t("errorProfileLoad"));
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
       }
     }
 

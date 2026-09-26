@@ -159,25 +159,7 @@ export class PostController {
 		return this.postService.deletePost(id, userId);
 	}
 
-	// ═════════════════════════════════════════════════════════════
-	// API-KEY ROUTE —  POST /posts/api-key
-	//
-	// Same create-post behavior as `POST /posts`, but authenticated
-	// via the `x-api-key` header instead of a session cookie. The
-	// key's `referenceId` is used as the author id.
-	// ═════════════════════════════════════════════════════════════
-
-	/**
-	 * Create a post via API key with optional media attachments.
-	 *
-	 * curl -i -X POST "https://localhost:9000/nest/posts/api-key" \
-	 *   -H "x-api-key: YOUR_API_KEY_HERE" \
-	 *   -H "accept: application/json" \
-	 *   -F "content=Hello from the API" \
-	 *   -F "files=@./media1.png" \
-	 *   -F "files=@./media2.png" \
-	 *   --insecure
-	 */
+	// Create post via API key
 	@Post('api-key')
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')

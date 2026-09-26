@@ -34,10 +34,7 @@ import { UserService } from './user.service';
 export class UserController {
 	constructor(private readonly userService: UserService) {}
 
-	// ─────────────────────────────────────────────────────────────
-	// Admin — list + count
-	// ─────────────────────────────────────────────────────────────
-
+	// Admin: list and count
 	@ApiOperation({ summary: 'Admin: list all users' })
 	@Get()
 	@UseGuards(AdminGuard)
@@ -45,7 +42,7 @@ export class UserController {
 		return this.userService.getAllUsers();
 	}
 
-	// Literal route — MUST be declared before `@Get(':id')`.
+	// Literal route — MUST be declared before `@Get(':id')`
 	@ApiOperation({ summary: 'Admin: count all users' })
 	@Get('count')
 	@UseGuards(AdminGuard)
@@ -53,12 +50,7 @@ export class UserController {
 		return this.userService.countUsers();
 	}
 
-	// ─────────────────────────────────────────────────────────────
-	// Search — discover users to befriend
-	// MUST be declared before `@Get(':id')` so `search` isn't
-	// captured by the `:id` param route.
-	// ─────────────────────────────────────────────────────────────
-
+	// Search users
 	@ApiOperation({
 		summary: 'Search users to befriend (excludes self, existing friends, pending requests, and blocked)',
 	})
@@ -68,10 +60,7 @@ export class UserController {
 		return this.userService.searchUsers(user.id, query);
 	}
 
-	// ─────────────────────────────────────────────────────────────
-	// Self
-	// ─────────────────────────────────────────────────────────────
-
+	// Current user
 	@ApiOperation({ summary: 'Get current user (requires session cookie)' })
 	@Get('me')
 	@UseGuards(AuthGuard)
@@ -129,10 +118,7 @@ export class UserController {
 		return this.userService.deleteMe(user.id);
 	}
 
-	// ─────────────────────────────────────────────────────────────
-	// Admin — mutate a specific user
-	// ─────────────────────────────────────────────────────────────
-
+	// Admin: mutate user
 	@ApiOperation({ summary: 'Admin: update a user by id' })
 	@Patch(':id')
 	@UseGuards(AdminGuard)
@@ -155,10 +141,7 @@ export class UserController {
 		return this.userService.deleteUser(id, admin.id);
 	}
 
-	// ─────────────────────────────────────────────────────────────
-	// Public profile — must come after all literal `:id` siblings
-	// ─────────────────────────────────────────────────────────────
-
+	// Public profile
 	@ApiOperation({ summary: 'Get a user public profile by id' })
 	@Get(':id')
 	@UseGuards(AuthGuard)
@@ -166,29 +149,8 @@ export class UserController {
 		return this.userService.getPublicProfile(id);
 	}
 
-	// ═════════════════════════════════════════════════════════════
-	// API-KEY ROUTES (duplicates)  —  /user/api-key/...
-	//
-	// IMPORTANT: all literal `api-key/...` routes are declared before
-	// any `api-key/:id` route so that e.g. `api-key/me` is not
-	// captured by `api-key/:id`.
-	//
-	// All routes below require the header:
-	//   x-api-key: YOUR_API_KEY_HERE
-	// The key's `referenceId` is used as the acting user id
-	// (accessible as `req.apiKey.referenceId`).
-	// ═════════════════════════════════════════════════════════════
-
-	// ── Admin: list + count (via API key) ──────────────────────
-
-	/**
-	 * List all users.
-	 *
-	 * curl -i -X GET "https://localhost:9000/nest/user/api-key" \
-	 *   -H "x-api-key: YOUR_API_KEY_HERE" \
-	 *   -H "accept: application/json" \
-	 *   --insecure
-	 */
+	// API key routes
+	// List all users via API key
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Get('api-key')
@@ -197,14 +159,7 @@ export class UserController {
 		return this.userService.getAllUsers();
 	}
 
-	/**
-	 * Count all users.
-	 *
-	 * curl -i -X GET "https://localhost:9000/nest/user/api-key/count" \
-	 *   -H "x-api-key: YOUR_API_KEY_HERE" \
-	 *   -H "accept: application/json" \
-	 *   --insecure
-	 */
+	// Count all users via API key
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Get('api-key/count')
@@ -213,18 +168,7 @@ export class UserController {
 		return this.userService.countUsers();
 	}
 
-	// ── Search (via API key) ───────────────────────────────────
-
-	/**
-	 * Search users to befriend. Excludes self, existing friends,
-	 * pending requests, and blocked users. "Self" is derived from
-	 * the API key's `referenceId`.
-	 *
-	 * curl -i -X GET "https://localhost:9000/nest/user/api-key/search?q=alice" \
-	 *   -H "x-api-key: YOUR_API_KEY_HERE" \
-	 *   -H "accept: application/json" \
-	 *   --insecure
-	 */
+	// Search users via API key
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Get('api-key/search')
@@ -235,16 +179,7 @@ export class UserController {
 		return this.userService.searchUsers(req.apiKey!.referenceId, query);
 	}
 
-	// ── Self (via API key) ─────────────────────────────────────
-
-	/**
-	 * Get the user associated with the API key.
-	 *
-	 * curl -i -X GET "https://localhost:9000/nest/user/api-key/me" \
-	 *   -H "x-api-key: YOUR_API_KEY_HERE" \
-	 *   -H "accept: application/json" \
-	 *   --insecure
-	 */
+	// Get current user via API key
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Get('api-key/me')
@@ -253,16 +188,7 @@ export class UserController {
 		return this.userService.getMe(req.apiKey!.referenceId);
 	}
 
-	/**
-	 * Update the user associated with the API key.
-	 *
-	 * curl -i -X PATCH "https://localhost:9000/nest/user/api-key/me" \
-	 *   -H "x-api-key: YOUR_API_KEY_HERE" \
-	 *   -H "content-type: application/json" \
-	 *   -H "accept: application/json" \
-	 *   -d '{"name":"New Name"}' \
-	 *   --insecure
-	 */
+	// Update current user via API key
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Patch('api-key/me')
@@ -271,16 +197,7 @@ export class UserController {
 		return this.userService.updateMe(req.apiKey!.referenceId, dto);
 	}
 
-	/**
-	 * Upload an avatar for the user associated with the API key.
-	 * Max 5 MB. Allowed types: png, jpg/jpeg, webp, gif.
-	 *
-	 * curl -i -X PUT "https://localhost:9000/nest/user/api-key/me/avatar" \
-	 *   -H "x-api-key: YOUR_API_KEY_HERE" \
-	 *   -H "accept: application/json" \
-	 *   -F "file=@./avatar.png" \
-	 *   --insecure
-	 */
+	// Upload avatar via API key
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@ApiConsumes('multipart/form-data')
@@ -309,15 +226,7 @@ export class UserController {
 		return this.userService.updateAvatar(req.apiKey!.referenceId, file);
 	}
 
-	/**
-	 * Delete the avatar of the user associated with the API key
-	 * (resets to default).
-	 *
-	 * curl -i -X DELETE "https://localhost:9000/nest/user/api-key/me/avatar" \
-	 *   -H "x-api-key: YOUR_API_KEY_HERE" \
-	 *   -H "accept: application/json" \
-	 *   --insecure
-	 */
+	// Delete avatar via API key
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Delete('api-key/me/avatar')
@@ -326,15 +235,7 @@ export class UserController {
 		return this.userService.deleteAvatar(req.apiKey!.referenceId);
 	}
 
-	/**
-	 * Delete the account of the user associated with the API key
-	 * (self-deletion).
-	 *
-	 * curl -i -X DELETE "https://localhost:9000/nest/user/api-key/me" \
-	 *   -H "x-api-key: YOUR_API_KEY_HERE" \
-	 *   -H "accept: application/json" \
-	 *   --insecure
-	 */
+	// Delete current user account via API key
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Delete('api-key/me')
@@ -344,18 +245,7 @@ export class UserController {
 		return this.userService.deleteMe(req.apiKey!.referenceId);
 	}
 
-	// ── Admin — mutate a specific user (via API key) ───────────
-
-	/**
-	 * Update a user by id. The API key acts as the admin.
-	 *
-	 * curl -i -X PATCH "https://localhost:9000/nest/user/api-key/USER_ID" \
-	 *   -H "x-api-key: YOUR_API_KEY_HERE" \
-	 *   -H "content-type: application/json" \
-	 *   -H "accept: application/json" \
-	 *   -d '{"name":"New Name"}' \
-	 *   --insecure
-	 */
+	// Admin: update user by id via API key
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Patch('api-key/:id')
@@ -364,17 +254,7 @@ export class UserController {
 		return this.userService.updateUserById(id, dto);
 	}
 
-	/**
-	 * Change a user's role by id. The API key's `referenceId` is
-	 * recorded as the acting admin.
-	 *
-	 * curl -i -X PATCH "https://localhost:9000/nest/user/api-key/USER_ID/role" \
-	 *   -H "x-api-key: YOUR_API_KEY_HERE" \
-	 *   -H "content-type: application/json" \
-	 *   -H "accept: application/json" \
-	 *   -d '{"role":"admin"}' \
-	 *   --insecure
-	 */
+	// Admin: change user role via API key
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Patch('api-key/:id/role')
@@ -383,15 +263,7 @@ export class UserController {
 		return this.userService.updateUserRole(id, dto.role, req.apiKey!.referenceId);
 	}
 
-	/**
-	 * Delete a user by id. The API key's `referenceId` is recorded
-	 * as the acting admin.
-	 *
-	 * curl -i -X DELETE "https://localhost:9000/nest/user/api-key/USER_ID" \
-	 *   -H "x-api-key: YOUR_API_KEY_HERE" \
-	 *   -H "accept: application/json" \
-	 *   --insecure
-	 */
+	// Admin: delete user by id via API key
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Delete('api-key/:id')
@@ -401,16 +273,7 @@ export class UserController {
 		return this.userService.deleteUser(id, req.apiKey!.referenceId);
 	}
 
-	// ── Public profile (via API key) — MUST be last ────────────
-
-	/**
-	 * Get a user's public profile by id.
-	 *
-	 * curl -i -X GET "https://localhost:9000/nest/user/api-key/USER_ID" \
-	 *   -H "x-api-key: YOUR_API_KEY_HERE" \
-	 *   -H "accept: application/json" \
-	 *   --insecure
-	 */
+	// Public profile via API key
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Get('api-key/:id')

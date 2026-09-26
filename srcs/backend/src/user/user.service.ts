@@ -62,10 +62,7 @@ const SEARCH_USER_SELECT = {
 export class UserService {
 	constructor(private readonly prisma: PrismaService) {}
 
-	// ─────────────────────────────────────────────────────────────
 	// Read
-	// ─────────────────────────────────────────────────────────────
-
 	async getMe(userId: string) {
 		const user = await this.prisma.user.findUnique({
 			where: { id: userId },
@@ -79,9 +76,7 @@ export class UserService {
 		return user;
 	}
 
-	/**
-	 * Public profile of any user — no email or other private fields.
-	 */
+	// Public profile of any user
 	async getPublicProfile(userId: string) {
 		const user = await this.prisma.user.findUnique({
 			where: { id: userId },
@@ -106,18 +101,7 @@ export class UserService {
 		return users;
 	}
 
-	// ─────────────────────────────────────────────────────────────
-	// Search — discover users to befriend
-	// ─────────────────────────────────────────────────────────────
-
-	/**
-	 * Search users by name, excluding:
-	 *  - the current user,
-	 *  - users who already have a friendship row with the current user
-	 *    (any status: pending, accepted, or blocked, in either direction).
-	 *
-	 * Returns a paginated list of lightweight user records.
-	 */
+	// Search users by name (excluding existing relationships)
 	async searchUsers(currentUserId: string, query: { q?: string; page?: number; limit?: number }) {
 		const page = Math.max(1, query.page ?? 1);
 		const limit = Math.min(50, Math.max(1, query.limit ?? 20));
@@ -194,38 +178,19 @@ export class UserService {
 		};
 	}
 
-	// ─────────────────────────────────────────────────────────────
-	// Update — profile
-	// ─────────────────────────────────────────────────────────────
-
+	// Update profile
 	async updateMe(userId: string, dto: UpdateUserDto) {
 		await this.assertUserExists(userId);
 		return this.applyUserUpdate(userId, dto);
 	}
 
-	/**
-	 * Admin-only: update another user's name and/or email.
-	 * Shares the same validation + conflict logic as `updateMe`.
-	 */
+	// Admin: update another user's name and/or email
 	async updateUserById(targetUserId: string, dto: UpdateUserDto) {
 		await this.assertUserExists(targetUserId);
 		return this.applyUserUpdate(targetUserId, dto);
 	}
 
-	// ─────────────────────────────────────────────────────────────
-	// Update — role
-	// ─────────────────────────────────────────────────────────────
-
-	/**
-	 * Admin-only: change another user's role.
-	 *
-	 * Guards:
-	 *  - Role must be in the allow-list (DTO-enforced, re-checked here
-	 *    as defence-in-depth for direct service calls).
-	 *  - Target must exist.
-	 *  - The requesting admin cannot change their own role — prevents
-	 *    accidental lock-out and keeps the audit trail clean.
-	 */
+	// Admin: change another user's role
 	async updateUserRole(targetUserId: string, role: string, requestingUserId: string) {
 		if (!ALLOWED_ROLES.includes(role as AllowedRole)) {
 			throw new BadRequestException('Invalid role');
@@ -244,8 +209,7 @@ export class UserService {
 			throw new NotFoundException('User not found');
 		}
 
-		// No-op short-circuit: avoids a pointless write and a misleading
-		// "updated" response when nothing actually changes.
+		// Prevent write if role is unchanged
 		if (target.role === role) {
 			return this.getAdminUserView(targetUserId);
 		}
@@ -258,9 +222,7 @@ export class UserService {
 		return this.getAdminUserView(targetUserId);
 	}
 
-	// ─────────────────────────────────────────────────────────────
-	// Update — avatar
-	// ─────────────────────────────────────────────────────────────
+	// Update avatar
 
 	async updateAvatar(userId: string, file: Express.Multer.File) {
 		const existing = await this.prisma.user.findUnique({
@@ -347,14 +309,7 @@ export class UserService {
 		return user;
 	}
 
-	// ─────────────────────────────────────────────────────────────
-	// Delete
-	// ─────────────────────────────────────────────────────────────
-
-	/**
-	 * Delete the currently authenticated user (self-deletion).
-	 * Uses a transaction to ensure atomicity.
-	 */
+	// Delete current user account (self-deletion)
 	async deleteMe(userId: string) {
 		const user = await this.prisma.user.findUnique({
 			where: { id: userId },
@@ -368,10 +323,7 @@ export class UserService {
 		return this.performUserDeletion(user.id, user.image);
 	}
 
-	/**
-	 * Admin-only: delete any user by ID.
-	 * Guarded at the controller level with a role check.
-	 */
+	// Admin: delete user by id
 	async deleteUser(targetUserId: string, requestingUserId: string) {
 		if (targetUserId === requestingUserId) {
 			throw new ForbiddenException('Use deleteMe to delete your own account');
@@ -389,18 +341,10 @@ export class UserService {
 		return this.performUserDeletion(user.id, user.image);
 	}
 
-	// ─────────────────────────────────────────────────────────────
 	// Internal helpers
-	// ─────────────────────────────────────────────────────────────
-
-	/**
-	 * Shared update path for self-service and admin edits.
-	 * Validates uniqueness of the new email and returns the
-	 * admin-facing user shape.
-	 */
+	// Updates user with email conflict check
 	private async applyUserUpdate(userId: string, dto: UpdateUserDto) {
-		// Only check email uniqueness if the email is actually changing.
-		// (Avoids a false conflict when the client re-sends the current email.)
+		// Only check email uniqueness if changed
 		if (dto.email) {
 			const conflict = await this.prisma.user.findUnique({
 				where: { email: dto.email },
@@ -435,10 +379,7 @@ export class UserService {
 		}
 	}
 
-	/**
-	 * Shape returned to the admin UI. Must match the `User` type used
-	 * by `UsersTable` on the frontend.
-	 */
+	// Formats user object for admin view
 	private async getAdminUserView(userId: string) {
 		const user = await this.prisma.user.findUnique({
 			where: { id: userId },
@@ -452,15 +393,9 @@ export class UserService {
 		return user;
 	}
 
-	/**
-	 * Shared deletion logic.
-	 * - Deletes the avatar file (best-effort, skipped if default).
-	 * - Deletes the user row; Prisma cascades handle related records
-	 *   per the onDelete rules in the schema.
-	 */
+	// Deletes user record and clears avatar file
 	private async performUserDeletion(userId: string, image: string) {
-		// 1. Best-effort file cleanup BEFORE the DB row goes away,
-		//    so we can still reference the filename if deletion fails.
+		// Best-effort avatar file cleanup
 		if (image && image !== DEFAULT_AVATAR) {
 			const oldName = image.split('/').pop();
 			if (oldName) {
@@ -468,9 +403,6 @@ export class UserService {
 			}
 		}
 
-		// 2. Delete the user. Relations with onDelete: Cascade are removed
-		//    automatically; relations with onDelete: SetNull have their
-		//    FK nulled. MessageTable rows keep their pairKey uniqueness.
 		await this.prisma.user.delete({
 			where: { id: userId },
 		});

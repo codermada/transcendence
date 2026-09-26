@@ -35,7 +35,7 @@ export function UserDropdown() {
   const t = useTranslations("Nav");
   const { isOnline } = usePresence();
 
-  // ── Fetch current user from the backend ────────────────────────
+  // Fetch current user
   useEffect(() => {
     let cancelled = false;
 
@@ -128,7 +128,7 @@ export function UserDropdown() {
       }
       setIsOpen(false);
       window.location.href = "/sign-in";
-    } catch (err) {
+    } catch {
       toast.error(t("signOutError"));
     } finally {
       setIsSigningOut(false);

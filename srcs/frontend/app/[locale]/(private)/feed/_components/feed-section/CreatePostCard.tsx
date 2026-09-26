@@ -47,7 +47,7 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
         if (isMounted) {
           setUserProfile(fetchedUserProfile);
         }
-      } catch (error) {
+      } catch {
         toast.error(t("errors.profileLoad"));
       } finally {
         if (isMounted) {

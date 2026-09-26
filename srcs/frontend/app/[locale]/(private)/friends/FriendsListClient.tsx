@@ -7,9 +7,7 @@ import { Search, Users, XCircle } from "@/components/icons";
 import { StartMessageButton } from "@/components/chat/StartMessageButton";
 import { getInitials } from "@/lib/utils/user-utils";
 
-// ─────────────────────────────────────────────────────────────
 // Types
-// ─────────────────────────────────────────────────────────────
 type FriendUser = {
   id: string;
   name: string | null;
@@ -27,7 +25,6 @@ type Friendship = {
   acceptedAt: string | null;
   requester: FriendUser;
   addressee: FriendUser;
-  /** Optional — present if the API decorates the row with the "other" side. */
   friend?: FriendUser;
 };
 
@@ -308,14 +305,7 @@ export function FriendsListClient() {
   );
 }
 
-// ─────────────────────────────────────────────────────────────
-// Helpers
-// ─────────────────────────────────────────────────────────────
-/**
- * Picks the "other" side of a friendship — the user who is NOT me.
- * Prefers the API-provided `friend` field if present, otherwise
- * derives it from `viewerId`, otherwise falls back to `requester`.
- */
+// Returns the other participant in the friendship
 function pickOther(friendship: Friendship, viewerId: string | null): FriendUser {
   if (friendship.friend) return friendship.friend;
   if (viewerId) {
@@ -325,9 +315,7 @@ function pickOther(friendship: Friendship, viewerId: string | null): FriendUser 
   return friendship.requester;
 }
 
-// ─────────────────────────────────────────────────────────────
 // Subcomponents
-// ─────────────────────────────────────────────────────────────
 function Avatar({ user, fallback }: { user: FriendUser; fallback: string }) {
   const [failed, setFailed] = useState(false);
 
