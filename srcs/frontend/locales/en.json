@@ -245,9 +245,14 @@
         "options": "Post options",
         "edit": "Edit",
         "delete": "Delete",
+        "cancel": "Cancel",
         "justNow": "just now",
         "viewProfile": "View {name}'s profile",
-        "viewMyProfile": "View my profile"
+        "viewMyProfile": "View my profile",
+        "adminDelete": "Delete post (moderator)",
+        "adminDeleteConfirm": "Delete this post as a moderator?",
+        "adminDeleteSuccess": "Post deleted",
+        "adminDeleteError": "Could not delete post"
       },
       "CommentItem": {
         "viewProfile": "View {name}'s profile",

@@ -24,6 +24,7 @@ interface ExtendedPostCardProps extends PostCardProps {
     }
   ) => Promise<void>;
   onDeletePost?: (postId: string) => Promise<void>;
+  onAdminDeletePost?: (postId: string) => Promise<void>;
   onToggleLike?: (postId: string) => Promise<void>;
 }
 
@@ -55,6 +56,7 @@ export function PostCard({
   isLiked = false,
   onUpdatePost,
   onDeletePost,
+  onAdminDeletePost,
   onToggleLike,
   children,
 }: ExtendedPostCardProps) {
@@ -153,6 +155,7 @@ export function PostCard({
   return (
     <article className="shadow-2xs space-y-4 rounded-2xl border border-zinc-200/80 bg-white p-5 dark:border-zinc-800/80 dark:bg-zinc-900/50">
       <PostHeader
+        postId={postId}
         authorId={authorId}
         author={author}
         initials={initials}
@@ -161,6 +164,7 @@ export function PostCard({
         isOwner={isOwner}
         onEdit={handleStartEdit}
         onDelete={() => onDeletePost?.(postId)}
+        onDeleted={() => onAdminDeletePost?.(postId)}
       />
 
       {isEditing ? (
