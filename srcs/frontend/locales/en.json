@@ -7,6 +7,66 @@
     "success": "Success",
     "or": "or"
   },
+  "PrivacyPolicy": {
+    "badge": "Privacy Policy",
+    "title": "Privacy Policy",
+    "subtitle": "This Privacy Policy explains how Heartbeat (\"we,\" \"us,\" or \"our\") collects, uses, and protects your information when you use our application (the \"Service\"). By using the Service, you agree to the practices described in this policy.",
+    "section1": {
+      "title": "1. Our Guarantees to You",
+      "body": "We are committed to protecting your privacy. We explicitly guarantee the following:\n\n• Secure Authentication — Your account authentication is secure. We do not know your password. All passwords are encrypted (hashed) in our database before storage. We cannot retrieve or view your plain-text password at any time.\n\n• Secure File Storage — All files you upload to the Service are stored in a secure S3 (cloud storage) service. The only exception is your profile picture, which is stored separately to allow for faster display and public access within the app.\n\n• Message Storage and Access — All messages, including direct messages and channel messages, are stored in our database. These messages are not end-to-end encrypted. Access to this database is strictly limited to a handful of authorized personnel (the developers of the website). We do not read your messages unless required for security, moderation, or legal compliance.\n\n• No Sharing of User Details — We will not share your personal user details with third parties. We do not sell, rent, or trade your personal information to advertisers or other external companies."
+    },
+    "section2": {
+      "title": "2. Information We Collect and How We Use It",
+      "body": "We collect the following information: Account Information (username, email address, encrypted password), Profile Information (profile picture and optional details), User Content (files you upload and messages you send), and Technical Data (IP address, device type, browser type, and usage logs).\n\nWe use this information only to: create and manage your account; provide, operate, and maintain the Service; store your files and messages; ensure the security and integrity of the Service; and comply with legal obligations."
+    },
+    "section3": {
+      "title": "3. Data Storage, Security, and Sharing",
+      "body": "Passwords are encrypted (hashed) in our database. Files are stored in a secure S3 service (except profile pictures). Messages are stored in our database and are accessible only to authorized developers. Profile pictures are stored separately and may be publicly visible within the Service.\n\nWhile we take reasonable measures to protect your data, no method of transmission or storage is 100% secure. Because messages are not encrypted, we cannot guarantee absolute confidentiality of message content against unauthorized access.\n\nWe do not share your user details with third parties, except: (a) if required by law, subpoena, or court order; (b) to protect the rights, property, or safety of our users, the public, or us; (c) with trusted service providers (such as the S3 storage service) who process data on our behalf under strict confidentiality agreements."
+    },
+    "section4": {
+      "title": "4. Data Retention and Your Rights",
+      "body": "We retain your information for as long as your account is active or as needed to provide the Service. If you delete your account, we will delete or anonymize your data within a reasonable timeframe, unless we are required to retain it for legal reasons.\n\nDepending on your location, you may have the right to: access a copy of the data we hold about you; request correction of inaccurate data; request deletion of your account and associated data; and object to certain processing of your data. To exercise these rights, contact us at tolotra025@gmail.com."
+    },
+    "section5": {
+      "title": "5. Children's Privacy and Changes to This Policy",
+      "body": "The Service is not intended for children under the age of 18. We do not knowingly collect personal information from children. If we learn we have done so, we will delete it promptly.\n\nWe may update this Privacy Policy from time to time. We will notify you of any material changes by posting the new policy in the app or via email. Your continued use of the Service after changes constitutes acceptance of the updated policy."
+    },
+    "contact": {
+      "title": "6. Contact Us",
+      "body": "If you have questions about this Privacy Policy, please contact us at:\n\ntolotra025@gmail.com"
+    },
+    "lastUpdated": "Last Updated: Sep 26 12:03"
+  },
+  "TermsOfService": {
+    "badge": "Terms of Service",
+    "title": "Terms of Service",
+    "subtitle": "Welcome to Heartbeat (\"we,\" \"us,\" or \"our\"). These Terms of Service (\"Terms\") govern your access to and use of our application, website, and services (collectively, the \"Service\"). By creating an account or using the Service, you agree to be bound by these Terms. If you do not agree, do not use the Service.",
+    "section1": {
+      "title": "1. Eligibility and Your Account",
+      "body": "You must be at least 18 years old to use the Service. If you are under 18, you represent that you have permission from a parent or legal guardian. You must not be barred from using the Service under any applicable law, and you must provide accurate and complete information when creating your account.\n\nYou are responsible for maintaining the confidentiality of your password and for all activity that occurs under your account. You must notify us immediately at tolotra025@gmail.com if you suspect unauthorized access to your account. We reserve the right to suspend or terminate your account at any time for violations of these Terms."
+    },
+    "section2": {
+      "title": "2. Acceptable Use",
+      "body": "You agree not to:\n\n• Post, upload, or share content that is illegal, hateful, harassing, threatening, defamatory, obscene, or otherwise objectionable.\n• Impersonate any person or entity, or misrepresent your affiliation with anyone.\n• Use the Service to spam, phish, or distribute malware.\n• Attempt to hack, reverse-engineer, or disrupt the Service or its servers.\n• Scrape, harvest, or collect data about other users without their consent.\n• Use the Service for any commercial purpose without our written permission.\n• Violate any applicable law or regulation."
+    },
+    "section3": {
+      "title": "3. User Content, Friends, and Profiles",
+      "body": "You retain ownership of the content you create and upload (posts, messages, files, profile pictures, etc.). We do not claim ownership of your content. By posting content, you grant us a non-exclusive, worldwide, royalty-free license to store, display, and distribute your content solely for the purpose of operating and improving the Service. This license ends when you delete your content or your account, except where we are required to retain it by law.\n\nYou are solely responsible for the content you post. We do not endorse and are not responsible for any user content. We reserve the right (but have no obligation) to review, remove, or refuse any content that violates these Terms, and we may remove content upon valid legal request.\n\nYou control who can see your profile and posts through your privacy settings. Adding a friend requires mutual consent. You must not use friend requests or profile features to harass, spam, or deceive others. Profile pictures may be visible to other users — do not upload images you do not have the right to share."
+    },
+    "section4": {
+      "title": "4. Messaging, Channels, File Uploads, and Privacy",
+      "body": "Messages (including channel messages) are stored on our servers and are not end-to-end encrypted. Authorized developers may access messages only for security, moderation, or legal compliance, as described in our Privacy Policy. Do not use messaging to send illegal content, threats, or spam. Discussion channels are public or semi-public spaces — do not share private information you do not want others to see.\n\nYou may upload files to the Service, which are stored in a secure S3 service (except profile pictures). You must not upload files that contain malware, illegal content, or content you do not have the right to distribute. We are not responsible for any loss of files — please keep your own backups.\n\nYour use of the Service is also governed by our Privacy Policy, which explains how we collect, use, and protect your data. By using the Service, you consent to our data practices as described in the Privacy Policy."
+    },
+    "section5": {
+      "title": "5. Intellectual Property and Termination",
+      "body": "All software, design, logos, and trademarks associated with the Service are owned by us or our licensors. You may not copy, modify, distribute, or reverse-engineer any part of the Service without our written permission. You retain ownership of your own content, as stated in Section 3.\n\nYou may delete your account at any time. We may suspend or terminate your account if you violate these Terms or if we are required to by law. Upon termination, your right to use the Service ends immediately. We may delete your data in accordance with our Privacy Policy."
+    },
+    "contact": {
+      "title": "6. Contact Us",
+      "body": "If you have questions about these Terms, contact us at:\n\ntolotra025@gmail.com"
+    },
+    "lastUpdated": "Last Updated: Sep 26 12:03"
+  },
   "Nav": {
     "brand": "Heart",
     "brandAccent": "beat",
