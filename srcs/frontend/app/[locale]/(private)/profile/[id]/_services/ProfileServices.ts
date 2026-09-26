@@ -1,4 +1,4 @@
-import type { 
+import type {
   ProfileHeaderUser
 } from "../_components/profile-header/profile-header.types";
 
