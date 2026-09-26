@@ -23,13 +23,25 @@ export interface Friendship {
 }
 
 export interface ProfileHeaderUser {
-	id: string;
-	name: string;
-	avatarUrl: string | null;
-	friendsCount: number;
-	isOwnProfile: boolean;
-	friendshipData?: {
-		status: "FRIENDS" | "PENDING_OUTGOING" | "PENDING_INCOMING" | "REJECTED" | "CANCELLED" | "BLOCKED_BY_ME" | "BLOCKED_ME" | null;
-		friendship : Friendship | null;
-	};
+			id: string;
+			conversationId: string;
+			name: string;
+			image: string | null
+			avatarUrl: string | null;
+			friendsCount: number;
+			isOwnProfile: boolean;
+			isFriend: boolean;
+			hasPendingOutgoing: boolean;
+			hasPendingIncoming: boolean;
+			hasRejected: boolean;
+			hasCancelled: boolean;
+			hasBlockedByMe: boolean;
+			hasBlockedMe: boolean;
+			isSelf: boolean;
+			city: string;
+			friendshipData?: {
+				status: "FRIENDS" | "PENDING_OUTGOING" | "PENDING_INCOMING" | "REJECTED" | "CANCELLED" | "BLOCKED_BY_ME" | "BLOCKED_ME" | null;
+				friendship : Friendship | null;
+			};
+
 }
