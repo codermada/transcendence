@@ -32,8 +32,8 @@ Make sure the following tools are installed on your machine before running the p
 ├── srcs/
 │   ├── backend/       # NestJS API + Prisma + Better Auth + S3 client
 │   ├── frontend/      # Next.js + Tailwind CSS
-│   ├── database/      # PostgreSQL 17
-│   ├── localstack/    # LocalStack (S3-compatible storage)
+│   ├──                # PostgreSQL 17
+│   ├──                # LocalStack (S3-compatible storage)
 │   └── nginx/         # Nginx reverse proxy
 ├── docker-compose.yml
 └── .env
@@ -537,39 +537,3 @@ LocalStack was chosen over direct disk storage because it provides an S3-compati
   - **View organizations**: users can browse organizations and see their members, with member-only views exposing the discussion thread.
   - **Actions within an organization** (minimum create, read, update): ownership and role checks enforce who can edit the organization, invite members, or remove them. All membership and CRUD actions emit notifications and are broadcast in real time.
 - **Team Member(s)**: `as-rakot, mfidimal`
-
----
-
-<!-- ## Individual Contributions
-
-### `toloandr` (`PO`)
-
-- **Contributions**:
-  - setting up tech stack (Dockerization: Nest+prisma+better-auth in the backend, Next+better-auth-client in the frontend)
-  - completing better-auth setup
-- **Challenges faced**: linking and making sense of each service. 
-- **How it was overcome**: learning to link and learning to make sense of each service.
-
-### `<login2>` — `<Full Name>` (`<Role>`)
-
-- **Contributions**:
-  - `<Feature/module/component 1>`
-  - `<Feature/module/component 2>`
-- **Challenges faced**: `<Description.>`
-- **How it was overcome**: `<Description.>`
-
-### `<login3>` — `<Full Name>` (`<Role>`)
-
-- **Contributions**:
-  - `<Feature/module/component 1>`
-  - `<Feature/module/component 2>`
-- **Challenges faced**: `<Description.>`
-- **How it was overcome**: `<Description.>`
-
-### `<loginN>` — `<Full Name>` (`<Role>`)
-
-- **Contributions**:
-  - `<Feature/module/component 1>`
-  - `<Feature/module/component 2>`
-- **Challenges faced**: `<Description.>`
-- **How it was overcome**: `<Description.>` -->
