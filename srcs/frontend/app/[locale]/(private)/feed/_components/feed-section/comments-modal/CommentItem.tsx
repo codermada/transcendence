@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { useTranslations } from "next-intl";
-import type { Comment } from "./feed-section.types";
 import { useRole } from "@/hooks/useRole";
+import { useTranslations } from "next-intl";
+import Link from "next/link";
+import type { Comment } from "../feed-section.types";
 
 interface CommentItemProps {
   comment: Comment;
