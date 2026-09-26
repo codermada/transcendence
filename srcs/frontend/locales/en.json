@@ -423,7 +423,24 @@
     "noMembersFound": "No members found.",
     "noMembers": "No members in this channel.",
     "close": "Close",
-    "add": "Add"
+    "add": "Add",
+    "success": {
+      "youLeftChannel": "You left channel",
+      "channelRemoved": "Channel removed",
+      "memberFired": "Member fired from channel",
+      "roleUpdated": "Role updated",
+      "memberAdded": "New member added"
+
+    },
+    "error": {
+      "channelLoading": "Error loading channel",
+      "sendingMessage": "Error sending message",
+      "leavingChannel": "Error leaving channel",
+      "deletingChannel": "Error deleting channel",
+      "firingMember": "Error firing member",
+      "updatingRole": "Error updating role",
+      "addingNewMember": ""
+    }
   },
   "Settings": {
     "nav": {
