@@ -1703,7 +1703,7 @@ export function Save(props: SVGProps<SVGSVGElement>) {
 }
 
 export function X(props: SVGProps<SVGSVGElement>) {
-  // You have Close — this is just a reminder that X = Close. Skip unless you want the alias.
+  // Alias for Close icon
   return <Close {...props} />;
 }
 
@@ -1797,6 +1797,26 @@ export function Compass(props: SVGProps<SVGSVGElement>) {
       <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
       <path d="m16 8-2.5 5.5L8 16l2.5-5.5L16 8Z"
         stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function Hash(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <line x1="4" y1="9" x2="20" y2="9" />
+      <line x1="4" y1="15" x2="20" y2="15" />
+      <line x1="10" y1="3" x2="8" y2="21" />
+      <line x1="16" y1="3" x2="14" y2="21" />
     </svg>
   );
 }

@@ -29,9 +29,7 @@ import { FriendshipResponseDto } from './dto/friendship-response.dto';
 export class FriendController {
 	constructor(private readonly friendService: FriendService) {}
 
-	// ═════════════════════════════════════════════════════════════
-	// SESSION-AUTH ROUTES (unchanged)
-	// ═════════════════════════════════════════════════════════════
+	// Session-auth routes
 	@UseGuards(AuthGuard)
 	@Post()
 	@ApiOperation({ summary: 'Send a friend request' })
@@ -149,9 +147,7 @@ export class FriendController {
 		return this.friendService.remove(user.id, id);
 	}
 
-	// ═════════════════════════════════════════════════════════════
-	// API-KEY ROUTES (duplicates)  —  /friend/api-key/...
-	// ═════════════════════════════════════════════════════════════
+	// API key routes
 	@UseGuards(ApiKeyGuard)
 	@ApiSecurity('x-api-key')
 	@Post('api-key')

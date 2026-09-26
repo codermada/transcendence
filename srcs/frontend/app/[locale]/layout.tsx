@@ -34,7 +34,10 @@ export default async function LocaleLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col bg-white text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-zinc-100">
+      <body
+        suppressHydrationWarning
+        className="flex min-h-full flex-col bg-white text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-zinc-100"
+      >
         <Providers>
           <NextIntlClientProvider messages={messages}>
             {children}

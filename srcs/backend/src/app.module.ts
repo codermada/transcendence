@@ -15,6 +15,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { TestModule } from './test/test.module';
 import { UserModule } from './user/user.module';
 import { PostCommentModule } from './post-comment/post-comment.module';
+import { ChannelModule } from './channel/channel.module';
 
 @Module({
 	imports: [
@@ -31,6 +32,7 @@ import { PostCommentModule } from './post-comment/post-comment.module';
 		NetworkModule,
 		HealthCheckModule,
 		PostCommentModule,
+		ChannelModule
 	],
 	controllers: [AuthController],
 })

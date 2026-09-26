@@ -8,4 +8,6 @@ RUN npm ci
 
 COPY . .
 
-CMD ["npm", "run", "dev"]
+RUN chmod +x ./docker-entrypoint.sh
+
+ENTRYPOINT ["./docker-entrypoint.sh"]
