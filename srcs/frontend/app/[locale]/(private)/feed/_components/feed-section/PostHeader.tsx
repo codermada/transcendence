@@ -18,12 +18,12 @@ interface ExtendedPostHeaderProps extends PostHeaderProps {
   onDeleted?: () => void;
 }
 
-function formatTimeAgo(createdAt: string | Date): string {
+function formatTimeAgo(createdAt: string | Date, t: ReturnType<typeof useTranslations>): string {
   const seconds = Math.floor(
     (Date.now() - new Date(createdAt).getTime()) / 1000
   );
 
-  if (seconds < 60) return "just now";
+  if (seconds < 60) return  t("justNow");
 
   const minutes = Math.floor(seconds / 60);
   if (minutes < 60) return `${minutes}m`;
@@ -63,7 +63,7 @@ export function PostHeader({
 
   useEffect(() => {
     if (!createdAt) return;
-    setTimeAgo(formatTimeAgo(createdAt));
+    setTimeAgo(formatTimeAgo(createdAt, t));
   }, [createdAt]);
 
   useEffect(() => {
