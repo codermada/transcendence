@@ -3,9 +3,10 @@
 import { useTranslations } from "next-intl";
 import { ProfileHeaderUser } from "./profile-header.types";
 import { StartMessageButton } from "@/components/chat/StartMessageButton";
+import Link from "next/link";
+import { Pencil } from "@/components/icons";
 
 import {
-  SendFriendRequestButton,
   FriendRequestActionButtons,
   RemoveFriendButton,
   SendCancelFriendRequestButton,
@@ -43,7 +44,15 @@ export function ProfileHeaderActions({
   `;
 
   if (user.isOwnProfile) {
-    return <div className={containerClass} />;
+    return (
+      <Link
+        href="/settings/profile"
+        className={`${containerClass} inline-flex items-center justify-center gap-2`}
+      >
+        <Pencil className="h-4 w-4" />
+        {t("editProfile")}
+      </Link>
+    );
   }
 
   const status = user.friendshipData?.status;
