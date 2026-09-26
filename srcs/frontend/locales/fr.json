@@ -660,6 +660,37 @@
       }
     }
   },
+  "FriendsComponents": {
+    "add": "Ajouter",
+    "adding": "Ajout en cours...",
+    "pending": "Demande en attente",
+    "requestSent": "Demande d'ami envoyée",
+    "requestSendError": {
+      "request": {
+        "sendError": "Impossible d'envoyer la demande d'ami"
+      }
+    },
+    "accept": "Accepter",
+    "accepting": "Acceptation en cours...",
+    "accepted": "Acceptée",
+    "requestAccepted": "Demande d'ami acceptée",
+    "requestAcceptError": "Impossible d'accepter la demande d'ami",
+    "decline": "Refuser",
+    "declining": "Refus en cours...",
+    "declined": "Refusée",
+    "requestDeclined": "Demande d'ami refusée",
+    "requestDeclineError": "Impossible de refuser la demande d'ami",
+    "cancel": "Annuler",
+    "cancelling": "Annulation en cours...",
+    "cancelled": "Annulée",
+    "requestCancelled": "Demande d'ami annulée",
+    "requestCancelError": "Impossible d'annuler la demande d'ami",
+    "removeFriend": "Retirer",
+    "removing": "Suppression en cours...",
+    "removed": "Retiré",
+    "friendRemoved": "Ami retiré",
+    "friendRemoveError": "Impossible de retirer cet ami"
+  },
   "Language": {
     "switchLanguage": "Langue",
     "en": "English",
