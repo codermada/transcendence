@@ -764,6 +764,37 @@
       }
     }
   },
+  "FriendsComponents": {
+   "add": "Agregar",
+    "adding": "Agregando...",
+    "pending": "Solicitud pendiente",
+    "requestSent": "Solicitud de amistad enviada",
+    "requestSendError": {
+      "request": {
+        "sendError": "No se pudo enviar la solicitud de amistad"
+      }
+    },
+    "accept": "Aceptar",
+    "accepting": "Aceptando...",
+    "accepted": "Aceptada",
+    "requestAccepted": "Solicitud de amistad aceptada",
+    "requestAcceptError": "No se pudo aceptar la solicitud de amistad",
+    "decline": "Rechazar",
+    "declining": "Rechazando...",
+    "declined": "Rechazada",
+    "requestDeclined": "Solicitud de amistad rechazada",
+    "requestDeclineError": "No se pudo rechazar la solicitud de amistad",
+    "cancel": "Cancelar",
+    "cancelling": "Cancelando...",
+    "cancelled": "Cancelada",
+    "requestCancelled": "Solicitud de amistad cancelada",
+    "requestCancelError": "No se pudo cancelar la solicitud de amistad",
+    "removeFriend": "Eliminar",
+    "removing": "Eliminando...",
+    "removed": "Eliminado",
+    "friendRemoved": "Amigo eliminado",
+    "friendRemoveError": "No se pudo eliminar al amigo"
+  },
   "Language": {
     "switchLanguage": "Idioma",
     "en": "English",

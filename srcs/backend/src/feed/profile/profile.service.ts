@@ -53,14 +53,9 @@ export class ProfileService {
         }
 
 		const isOwnProfile = (id === currentUserId);
-		const friendshipStatus = await this.profileRepository.getFriendshipStatus(currentUserId, id);
-		const isFriend = (friendshipStatus === 'FRIENDS');
-		const hasPendingOutgoing = (friendshipStatus === 'PENDING_OUTGOING');
-		const hasPendingIncoming = (friendshipStatus === 'PENDING_INCOMING');
-		const hasRejected = (friendshipStatus === 'REJECTED');
-		const hasCancelled = (friendshipStatus === 'CANCELLED');
-		const hasBlockedByMe = (friendshipStatus === 'BLOCKED_BY_ME');
-		const hasBlockedMe = (friendshipStatus === 'BLOCKED_ME');
+		const friendshipData = await this.profileRepository.getFriendshipStatus(currentUserId, id);
+
+		console.log(friendshipData);
 
 		return {
 			id: userProfile.id,
@@ -68,13 +63,7 @@ export class ProfileService {
 			avatarUrl: userProfile.image,
 			friendsCount: userProfile.friendsCount,
 			isOwnProfile,
-			isFriend,
-			hasPendingOutgoing,
-			hasPendingIncoming,
-			hasRejected,
-			hasCancelled,
-			hasBlockedByMe,
-			hasBlockedMe,
+			friendshipData,
 		};
     }	
 }
