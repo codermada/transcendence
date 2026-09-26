@@ -241,13 +241,18 @@
         "emptyPostError": "Una publicación no puede estar vacía."
       },
       "PostHeader": {
-        "timeAgo": "{value, plural, =0 {Hace un momento} =1 {Hace 1 {unit, select, minute {minuto} hour {hora} day {día} other {}}} other {Hace {value} {unit, select, minute {minutos} hour {horas} day {días} other {}}}}",
+        "timeAgo": "{value, plural, =0 {Justo ahora} =1 {Hace 1 {unit}} other {Hace {value} {unit, select, minute {minutos} hour {horas} day {días} other {}}}}",
         "options": "Opciones de la publicación",
         "edit": "Editar",
         "delete": "Eliminar",
-        "justNow": "ahora mismo",
+        "cancel": "Cancelar",
+        "justNow": "justo ahora",
         "viewProfile": "Ver el perfil de {name}",
-        "viewMyProfile": "Ver mi perfil"
+        "viewMyProfile": "Ver mi perfil",
+        "adminDelete": "Eliminar publicación (moderador)",
+        "adminDeleteConfirm": "¿Eliminar esta publicación como moderador?",
+        "adminDeleteSuccess": "Publicación eliminada",
+        "adminDeleteError": "No se pudo eliminar la publicación"
       },
       "CommentItem": {
         "viewProfile": "Ver el perfil de {name}",
