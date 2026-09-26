@@ -424,21 +424,21 @@
     "noMembers": "Aucun membre dans ce canal.",
     "close": "Fermer",
     "add": "Ajouter",
-    "toasts": {
-      "leftChannel": "Vous avez quitté le canal.",
-      "channelDeleted": "Canal supprimé avec succès.",
-      "memberKicked": "Membre expulsé du canal.",
-      "roleUpdated": "Rôle mis à jour.",
-      "memberAdded": "Membre ajouté au canal."
+    "success": {
+      "youLeftChannel": "Vous avez quitté le canal",
+      "channelRemoved": "Canal supprimé",
+      "memberFired": "Membre retiré du canal",
+      "roleUpdated": "Rôle mis à jour",
+      "memberAdded": "Nouveau membre ajouté"
     },
-    "errors": {
-      "loadChannel": "Erreur de chargement du canal.",
-      "sendMessage": "Erreur lors de l'envoi du message.",
-      "leaveChannel": "Erreur pour quitter le canal.",
-      "deleteChannel": "Erreur lors de la suppression.",
-      "kickMember": "Erreur lors de l'expulsion.",
-      "updateRole": "Erreur de mise à jour du rôle.",
-      "addMember": "Erreur lors de l'ajout du membre."
+    "error": {
+      "channelLoading": "Erreur lors du chargement du canal",
+      "sendingMessage": "Erreur lors de l'envoi du message",
+      "leavingChannel": "Erreur lors de la sortie du canal",
+      "deletingChannel": "Erreur lors de la suppression du canal",
+      "firingMember": "Erreur lors du retrait du membre",
+      "updatingRole": "Erreur lors de la mise à jour du rôle",
+      "addingNewMember": "Erreur lors de l'ajout du nouveau membre"
     }
   },
   "Settings": {
