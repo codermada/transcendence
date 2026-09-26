@@ -8,7 +8,7 @@ interface CommentComposerProps {
   selectedImage: File | null;
   previewUrl: string | null;
   isSubmitting: boolean;
-  inputRef: React.RefObject<HTMLInputElement>;
+  inputRef: React.RefObject<HTMLInputElement | null>;
   onImageChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onRemoveImage: () => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;

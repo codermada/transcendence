@@ -1,11 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { StartMessageButton } from "@/components/chat/StartMessageButton";
+import { Search, Users, XCircle } from "@/components/icons";
+import { getInitials } from "@/lib/utils/user-utils";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { Search, Users, XCircle } from "@/components/icons";
-import { StartMessageButton } from "@/components/chat/StartMessageButton";
-import { getInitials } from "@/lib/utils/user-utils";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 // Types
 type FriendUser = {
