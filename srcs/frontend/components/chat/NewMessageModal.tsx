@@ -1,15 +1,15 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/routing";
-import { usePresence } from "@/hooks/use-presence";
 import { Close, Loader2, Send } from "@/components/icons";
+import { usePresence } from "@/hooks/use-presence";
+import { useRouter } from "@/i18n/routing";
 import { getInitials } from "@/lib/utils/user-utils";
+import { useTranslations } from "next-intl";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export type ReceiverUser = {
   id: string;
-  name: string;
+  name: string | null;
   image?: string | null;
   pseudo?: string | null;
   email?: string | null;
