@@ -28,6 +28,11 @@ export class S3Service implements OnModuleInit {
 				secretAccessKey: process.env.S3_SECRET_KEY || 'test',
 			},
 			forcePathStyle: true,
+			requestHandler: {
+				...new (require('@smithy/node-http-handler').NodeHttpHandler)({
+					socketTimeout: 3600,
+				}),
+			},
 		});
 	}
 
@@ -49,7 +54,12 @@ export class S3Service implements OnModuleInit {
 					}),
 				);
 			} catch (err: unknown) {
-				const error = err as { name?: string; Code?: string; $metadata?: { httpStatusCode?: number }; message?: string };
+				const error = err as {
+					name?: string;
+					Code?: string;
+					$metadata?: { httpStatusCode?: number };
+					message?: string;
+				};
 				if (
 					error?.name !== 'BucketAlreadyExists' &&
 					error?.name !== 'BucketAlreadyOwnedByYou' &&
@@ -95,10 +105,10 @@ export class S3Service implements OnModuleInit {
 						CORSRules: [
 							{
 								AllowedOrigins: ['*'],
-								AllowedMethods: ['GET', 'HEAD'],
+								AllowedMethods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE'],
 								AllowedHeaders: ['*'],
 								ExposeHeaders: ['ETag', 'Content-Length', 'Content-Range', 'Accept-Ranges'],
-								MaxAgeSeconds: 3000,
+								MaxAgeSeconds: 3600,
 							},
 						],
 					},

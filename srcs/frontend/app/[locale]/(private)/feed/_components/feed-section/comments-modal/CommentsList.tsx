@@ -1,8 +1,9 @@
 "use client";
 
 import { useFormatter, useTranslations } from "next-intl";
-import type { Comment } from "./feed-section.types";
+import type { Comment } from "../feed-section.types";
 import { CommentItem } from "./CommentItem";
+import { convertTime } from "./utility/convertTime";
 
 interface CommentsListProps {
   comments: Comment[];
@@ -53,11 +54,7 @@ export function CommentsList({
           isLiking={likingCommentId === comment.id}
           onToggleLike={onToggleLike}
           onDelete={onDelete}
-          timeAgo={
-            comment.createdAt
-              ? format.relativeTime(new Date(comment.createdAt), now)
-              : undefined
-          }
+          timeAgo={convertTime(comment.createdAt)}
         />
       ))}
     </div>
