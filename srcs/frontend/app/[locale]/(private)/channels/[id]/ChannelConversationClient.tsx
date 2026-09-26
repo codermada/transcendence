@@ -5,23 +5,25 @@ import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
 import { useSession } from "@/lib/auth/use-session";
-import { useChannelRoomSocket } from "@/hooks/use-channel-socket";
 import { useChannelStore } from "@/stores/use-channel-store";
+import { useTranslations } from "next-intl";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import {
+  addMemberToChannel,
+  deleteChannel,
   fetchChannelDetails,
   fetchChannelMessages,
-  sendChannelMessage,
-  leaveChannel,
-  deleteChannel,
   kickMemberFromChannel,
-  updateMemberRole,
-  addMemberToChannel,
+  leaveChannel,
   markChannelAsSeen,
+  sendChannelMessage,
+  updateMemberRole,
 } from "../_services/channel-service";
 import { ChannelHeader } from "./_components/ChannelHeader";
-import { ChannelMessages } from "./_components/ChannelMessages";
 import { ChannelInput } from "./_components/ChannelInput";
 import { ChannelMembersModal } from "./_components/ChannelMembersModal";
+import { ChannelMessages } from "./_components/ChannelMessages";
 import type { SelectedFile } from "./_components/channel.types";
 
 interface ChannelConversationClientProps {
@@ -35,6 +37,7 @@ export function ChannelConversationClient({ channelId }: ChannelConversationClie
 
   useChannelRoomSocket(channelId);
 
+  const t = useTranslations("Channels");
   const activeMessages = useChannelStore((state) => state.activeMessages);
   const setActiveMessages = useChannelStore((state) => state.setActiveMessages);
   const setActiveChannelId = useChannelStore((state) => state.setActiveChannelId);
@@ -98,7 +101,7 @@ export function ChannelConversationClient({ channelId }: ChannelConversationClie
         await markAsSeen();
       } catch (err: unknown) {
         if (!cancelled) {
-          setError((err as Error).message || "Erreur de chargement du canal.");
+          setError((err as Error).message || t("error.channelLoding"));
           setLoading(false);
         }
       }
