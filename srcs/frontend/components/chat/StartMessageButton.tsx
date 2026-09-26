@@ -12,11 +12,6 @@ type StartMessageButtonProps = {
   className?: string;
   variant?: "button" | "icon";
   "aria-label"?: string;
-  /**
-   * Known conversation id.
-   * - string  → navigate straight to it
-   * - null / undefined → open the modal
-   */
   conversationId?: string | null;
 };
 

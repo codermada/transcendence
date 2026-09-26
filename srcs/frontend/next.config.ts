@@ -4,11 +4,12 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {
+	reactStrictMode: false,
 	experimental: {
 		serverActions: {
 			bodySizeLimit: '300mb'
 		}
-	}
+	},
 };
 
 export default withNextIntl(nextConfig);

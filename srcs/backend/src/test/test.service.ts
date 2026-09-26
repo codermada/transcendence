@@ -4,7 +4,7 @@ import { UpdateTestDto } from './dto/update-test.dto';
 
 @Injectable()
 export class TestService {
-  create(createTestDto: CreateTestDto) {
+  create(_createTestDto: CreateTestDto) {
     return 'This action adds a new test';
   }
 
@@ -16,7 +16,7 @@ export class TestService {
     return `This action returns a #${id} test`;
   }
 
-  update(id: number, updateTestDto: UpdateTestDto) {
+  update(id: number, _updateTestDto: UpdateTestDto) {
     return `This action updates a #${id} test`;
   }
 

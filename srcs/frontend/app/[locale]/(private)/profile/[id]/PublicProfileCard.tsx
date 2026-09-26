@@ -5,9 +5,7 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getInitials } from "@/lib/utils/user-utils";
 
-// ─────────────────────────────────────────────────────────────
 // Types
-// ─────────────────────────────────────────────────────────────
 type PublicUser = {
   id: string;
   name: string | null;
@@ -331,7 +329,7 @@ export function PublicProfileCard({
     }
   }, [friendship, isSelf, viewerId, t]);
 
-  // ── Loading ─────────────────────────────────────────────────
+  // Loading
   if (isLoading) {
     return (
       <div className="relative overflow-hidden rounded-2xl border border-zinc-200/80 bg-white/80 p-6 shadow-xs backdrop-blur-xl dark:border-zinc-800 dark:bg-zinc-900/40 dark:shadow-none">
@@ -346,7 +344,7 @@ export function PublicProfileCard({
     );
   }
 
-  // ── Not found ───────────────────────────────────────────────
+  // Not found
   if (notFound || !user) {
     return (
       <div className="rounded-2xl border border-zinc-200/80 bg-white/80 p-10 text-center backdrop-blur-xl dark:border-zinc-800 dark:bg-zinc-900/40">
@@ -421,9 +419,7 @@ export function PublicProfileCard({
   );
 }
 
-// ─────────────────────────────────────────────────────────────
-// Friend badge — explicit light/dark colors, no CSS tokens
-// ─────────────────────────────────────────────────────────────
+// Friend badge
 function FriendBadge({
   tone,
   label,
@@ -449,9 +445,7 @@ function FriendBadge({
   );
 }
 
-// ─────────────────────────────────────────────────────────────
-// FriendActions — violet / zinc, works in both themes
-// ─────────────────────────────────────────────────────────────
+// Friend actions
 function FriendActions({
   t,
   friendship,
@@ -534,9 +528,7 @@ function FriendActions({
   );
 }
 
-// ─────────────────────────────────────────────────────────────
 // Avatar
-// ─────────────────────────────────────────────────────────────
 function Avatar({ src, initials, alt }: { src: string | null; initials: string; alt: string }) {
   const [failed, setFailed] = useState(false);
 
@@ -559,9 +551,7 @@ function Avatar({ src, initials, alt }: { src: string | null; initials: string; 
   );
 }
 
-// ─────────────────────────────────────────────────────────────
 // MetaRow
-// ─────────────────────────────────────────────────────────────
 function MetaRow({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
   return (
     <div className="min-w-0">
