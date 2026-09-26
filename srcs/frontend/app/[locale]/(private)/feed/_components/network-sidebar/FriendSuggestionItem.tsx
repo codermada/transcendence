@@ -1,9 +1,9 @@
 "use client";
 
+import { StartMessageButton } from "@/components/chat/StartMessageButton";
+import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Link } from "@/i18n/routing";
-import { StartMessageButton } from "@/components/chat/StartMessageButton";
 import type { FriendSuggestionItemProps } from "./network-sidebar.types";
 
 export function FriendSuggestionItem({
@@ -52,7 +52,7 @@ export function FriendSuggestionItem({
       <div className="flex shrink-0 items-center gap-1.5">
         <StartMessageButton
           variant="icon"
-          user={{ id: userId, name, image, initials }}
+          user={{ id: userId, name, image }}
         />
 
         {isSent ? (
