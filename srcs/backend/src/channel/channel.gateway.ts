@@ -83,16 +83,19 @@ export class ChannelGateway implements OnGatewayConnection<Socket>, OnGatewayDis
 		}
 	}
 
-	broadcastMessagesSeen(channelId: string, userId: string) {
+	broadcastMessagesSeen(channelId: string, userId: string, memberIds?: string[]) {
 		if (this.server) {
-			this.server
-				.to(`channel:${channelId}`)
-				.to(`user:${userId}`)
-				.emit('channel_messages_seen', {
-					channelId,
-					userId,
-					seenAt: new Date(),
-				});
+			let target = this.server.to(`channel:${channelId}`).to(`user:${userId}`);
+			if (memberIds && memberIds.length > 0) {
+				for (const mId of memberIds) {
+					target = target.to(`user:${mId}`);
+				}
+			}
+			target.emit('channel_messages_seen', {
+				channelId,
+				userId,
+				seenAt: new Date(),
+			});
 		}
 	}
 

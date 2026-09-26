@@ -133,11 +133,7 @@ export const useChannelStore = create<ChannelState>((set, get) => ({
       let nextActiveMessages = state.activeMessages;
       if (isCurrentChannelActive) {
         if (!state.activeMessages.some((m) => m.id === message.id)) {
-          const msgWithSeen =
-            currentUserId && !message.seenBy?.includes(currentUserId)
-              ? { ...message, seenBy: [...(message.seenBy || []), currentUserId] }
-              : message;
-          nextActiveMessages = [...state.activeMessages, msgWithSeen];
+          nextActiveMessages = [...state.activeMessages, message];
         }
       }
 
