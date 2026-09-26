@@ -423,7 +423,23 @@
     "noMembersFound": "No se encontraron miembros.",
     "noMembers": "No hay miembros en este canal.",
     "close": "Cerrar",
-    "add": "Añadir"
+    "add": "Añadir",
+    "success": {
+      "youLeftChannel": "Has abandonado el canal",
+      "channelRemoved": "Canal eliminado",
+      "memberFired": "Miembro expulsado del canal",
+      "roleUpdated": "Rol actualizado",
+      "memberAdded": "Nuevo miembro añadido"
+    },
+    "error": {
+      "channelLoading": "Error al cargar el canal",
+      "sendingMessage": "Error al enviar el mensaje",
+      "leavingChannel": "Error al abandonar el canal",
+      "deletingChannel": "Error al eliminar el canal",
+      "firingMember": "Error al expulsar al miembro",
+      "updatingRole": "Error al actualizar el rol",
+      "addingNewMember": "Error al añadir al nuevo miembro"
+    }
   },
   "Settings": {
     "nav": {

@@ -1,21 +1,24 @@
-import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
-import { PrismaService } from "../prisma/prisma.service";
-import { S3Service } from "../s3/s3.service";
-import { CreateChannelDto } from "./dto/create-channel.dto";
-import { ChannelRoleEnum } from "./dto/update-role.dto";
-import { SendChannelMessageDto } from "./dto/send-message-channel.dto";
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { S3Service } from '../s3/s3.service';
+import { CreateChannelDto } from './dto/create-channel.dto';
+import { SendChannelMessageDto } from './dto/send-message-channel.dto';
+import { ChannelRoleEnum } from './dto/update-role.dto';
 
 @Injectable()
 export class ChannelService {
-	constructor(private readonly prismaService: PrismaService, private readonly s3Service: S3Service) { }
+	constructor(
+		private readonly prismaService: PrismaService,
+		private readonly s3Service: S3Service,
+	) {}
 
 	// Fetch available users to add in channel
 	async getAvailableUserToAddInChannel(currentUserId: string) {
 		const blockedFriendships = await this.prismaService.friendship.findMany({
 			where: {
 				status: 'BLOCKED',
-				OR: [{ requesterId: currentUserId }, { addresseeId: currentUserId }]
-			}
+				OR: [{ requesterId: currentUserId }, { addresseeId: currentUserId }],
+			},
 		});
 
 		const excludedUserIds = new Set<string>([currentUserId]);
@@ -31,14 +34,14 @@ export class ChannelService {
 
 		return this.prismaService.user.findMany({
 			where: {
-				id: { notIn: Array.from(excludedUserIds) }
+				id: { notIn: Array.from(excludedUserIds) },
 			},
 			select: {
 				id: true,
 				name: true,
 				image: true,
-				email: true
-			}
+				email: true,
+			},
 		});
 	}
 
@@ -46,16 +49,15 @@ export class ChannelService {
 	async getUserChannels(userId: string) {
 		const channels = await this.prismaService.channel.findMany({
 			where: {
-				members: { some: { userId } }
+				members: { some: { userId } },
 			},
 			include: {
 				_count: { select: { messages: true, members: true } },
 				members: {
-					where: { userId },
 					select: {
 						role: true,
-						joinedAt: true
-					}
+						joinedAt: true,
+					},
 				},
 				messages: {
 					take: 1,
@@ -69,7 +71,7 @@ export class ChannelService {
 					},
 				},
 			},
-			orderBy: { updatedat: 'desc' }
+			orderBy: { updatedat: 'desc' },
 		});
 
 		return Promise.all(
@@ -91,7 +93,7 @@ export class ChannelService {
 					lastMessage: channel.messages[0] || null,
 					unreadCount,
 				};
-			})
+			}),
 		);
 	}
 
@@ -107,17 +109,17 @@ export class ChannelService {
 						{ userId, role: 'ADMIN' },
 						...Array.from(new Set(membersIds))
 							.filter((id) => id !== userId)
-							.map((id) => ({ userId: id, role: 'MEMBER' as const }))
-					]
-				}
+							.map((id) => ({ userId: id, role: 'MEMBER' as const })),
+					],
+				},
 			},
 			include: {
 				members: {
 					include: {
-						user: { select: { id: true, name: true, image: true, email: true } }
-					}
-				}
-			}
+						user: { select: { id: true, name: true, image: true, email: true } },
+					},
+				},
+			},
 		});
 	}
 
@@ -164,10 +166,10 @@ export class ChannelService {
 			},
 			include: {
 				user: {
-					select: { id: true, name: true, image: true, email: true }
-				}
-			}
-		})
+					select: { id: true, name: true, image: true, email: true },
+				},
+			},
+		});
 	}
 
 	// Kick member from channel (Channel admin only)
@@ -186,9 +188,9 @@ export class ChannelService {
 			where: {
 				userId_channelId: {
 					userId: targetUserId,
-					channelId
-				}
-			}
+					channelId,
+				},
+			},
 		});
 	}
 
@@ -212,12 +214,12 @@ export class ChannelService {
 			where: {
 				userId_channelId: {
 					userId: targetUserId,
-					channelId
-				}
+					channelId,
+				},
 			},
 			data: {
-				role: newRole
-			}
+				role: newRole,
+			},
 		});
 	}
 
@@ -270,10 +272,10 @@ export class ChannelService {
 			orderBy: { createdAt: 'asc' },
 			include: {
 				user: {
-					select: { id: true, name: true, image: true, email: true }
-				}
-			}
-		})
+					select: { id: true, name: true, image: true, email: true },
+				},
+			},
+		});
 	}
 
 	// Save channel message in DB
@@ -353,15 +355,15 @@ export class ChannelService {
 			where: {
 				userId_channelId: {
 					userId,
-					channelId
-				}
-			}
+					channelId,
+				},
+			},
 		});
 	}
 
 	private async checkAdminCountBeforeChangeAdminCount(channelId: string) {
 		const adminCount = await this.prismaService.userInChannel.count({
-			where: { channelId, role: 'ADMIN' }
+			where: { channelId, role: 'ADMIN' },
 		});
 
 		if (adminCount <= 1) {
