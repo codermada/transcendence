@@ -7,7 +7,7 @@ import { MessageSquare } from "@/components/icons";
 import { NewMessageModal, type ReceiverUser } from "@/components/chat/NewMessageModal";
 
 type StartMessageButtonProps = {
-  user: ReceiverUser & { id: string };
+  user: (ReceiverUser & { id: string }) | null;
   disabled?: boolean;
   className?: string;
   variant?: "button" | "icon";
