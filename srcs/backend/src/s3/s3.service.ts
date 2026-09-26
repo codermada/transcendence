@@ -1,6 +1,7 @@
 import {
 	CreateBucketCommand,
 	DeleteObjectCommand,
+	GetObjectCommand,
 	HeadBucketCommand,
 	PutBucketCorsCommand,
 	PutBucketPolicyCommand,
@@ -9,6 +10,7 @@ import {
 } from '@aws-sdk/client-s3';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { extname } from 'path';
+import { Readable } from 'stream';
 
 @Injectable()
 export class S3Service implements OnModuleInit {
@@ -120,6 +122,25 @@ export class S3Service implements OnModuleInit {
 		}
 	}
 
+	async getFileStream(key: string, range?: string) {
+		const command = new GetObjectCommand({
+			Bucket: this.bucketName,
+			Key: key,
+			Range: range,
+		});
+
+		const response = await this.s3Client.send(command);
+
+		return {
+			stream: response.Body as Readable,
+			contentType: response.ContentType,
+			contentLength: response.ContentLength,
+			contentRange: response.ContentRange,
+			acceptRanges: response.AcceptRanges,
+			httpStatusCode: response.$metadata.httpStatusCode || 200,
+		};
+	}
+
 	async uploadFile(file: Express.Multer.File, folder = 'posts'): Promise<string> {
 		const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
 		const ext = extname(file.originalname);
@@ -135,17 +156,24 @@ export class S3Service implements OnModuleInit {
 			}),
 		);
 
-		return `${this.publicUrl}/${this.bucketName}/${key}`;
+		return `/nest/uploads/${key}`;
 	}
 
 	async deleteFile(fileUrl: string): Promise<void> {
 		if (!fileUrl) return;
 
 		try {
-			const prefix = `${this.publicUrl}/${this.bucketName}/`;
-			const key = fileUrl.replace(prefix, '');
+			let key = fileUrl;
+			const relativePrefix = '/nest/uploads/';
+			const absolutePrefix = `${this.publicUrl}/${this.bucketName}/`;
 
-			if (!key || key === fileUrl) return;
+			if (key.startsWith(relativePrefix)) {
+				key = key.replace(relativePrefix, '');
+			} else if (key.startsWith(absolutePrefix)) {
+				key = key.replace(absolutePrefix, '');
+			}
+
+			if (!key) return;
 
 			await this.s3Client.send(
 				new DeleteObjectCommand({
@@ -154,7 +182,7 @@ export class S3Service implements OnModuleInit {
 				}),
 			);
 		} catch (error) {
-			console.error(`Erreur lors de la suppression du fichier S3 (${fileUrl}):`, error);
+			this.logger.error(`Erreur lors de la suppression du fichier S3 (${fileUrl}):`, error);
 		}
 	}
 

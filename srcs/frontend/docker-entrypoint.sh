@@ -2,7 +2,7 @@
 
 set -e
 
-if [ "$NODE_ENV" = "prod" ]; then
+if [ "$NODE_ENV" = "production" ]; then
     echo "Start Frontend PROD mode"
     npm run build
     exec npm run start
