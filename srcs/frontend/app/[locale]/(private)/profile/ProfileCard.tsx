@@ -13,7 +13,7 @@ type CurrentUser = {
   image: string | null;
 };
 
-const MAX_AVATAR_BYTES = 50 * 1024 * 1024; // 50 MB — keep in sync with backend
+const MAX_AVATAR_BYTES = 50 * 1024 * 1024;
 const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/svg+xml"];
 
 export function ProfileCard() {
@@ -58,7 +58,6 @@ export function ProfileCard() {
 
   async function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
-    // Reset so selecting the same file twice still triggers onChange
     e.target.value = "";
     if (!file) return;
 
@@ -93,7 +92,6 @@ export function ProfileCard() {
       }
 
       const updated: CurrentUser = await res.json();
-      // Cache-bust so the <img> re-fetches the new file
       setUser({
         ...updated,
         image: updated.image ? `${updated.image}?v=${Date.now()}` : null,
@@ -150,7 +148,6 @@ export function ProfileCard() {
         >
           <Avatar src={user.image} initials={initials} alt={displayName} />
 
-          {/* Hover/upload overlay */}
           <span
             className={`absolute inset-0 flex items-center justify-center rounded-full bg-black/55 text-xs font-medium text-white transition-opacity ${
               isUploading ? "opacity-100" : "opacity-0 group-hover:opacity-100"
@@ -216,7 +213,6 @@ function Avatar({
 }) {
   if (src) {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={src}
         alt={alt}
@@ -259,3 +255,4 @@ function MetaRow({
     </div>
   );
 }
+
