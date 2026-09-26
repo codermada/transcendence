@@ -4,6 +4,7 @@ import Navbar from "@/components/Nav/Narbar";
 
 export default async function Home() {
   const t = await getTranslations("Home");
+  const tLegal = await getTranslations("Legal");
 
   return (
     <div className="min-h-screen bg-white text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-white">
@@ -27,17 +28,36 @@ export default async function Home() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Link 
-              href="/sign-up" 
+            <Link
+              href="/sign-up"
               className="rounded-full bg-violet-600 px-6 py-3 text-sm font-medium text-white transition hover:bg-violet-500 active:bg-violet-700"
             >
               {t("playNow")}
             </Link>
-            <Link 
-              href="/sign-in" 
+            <Link
+              href="/sign-in"
               className="rounded-full border border-zinc-200 bg-zinc-50 px-6 py-3 text-sm font-medium text-zinc-900 transition hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-white"
             >
               {t("signIn")}
+            </Link>
+          </div>
+
+          {/* Legal links */}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-zinc-500 dark:text-zinc-500">
+            <Link
+              href="/privacy-policy"
+              className="underline-offset-4 transition hover:text-violet-600 hover:underline dark:hover:text-violet-400"
+            >
+              {tLegal("privacyPolicy")}
+            </Link>
+            <span aria-hidden className="hidden sm:inline">
+              ·
+            </span>
+            <Link
+              href="/terms-of-service"
+              className="underline-offset-4 transition hover:text-violet-600 hover:underline dark:hover:text-violet-400"
+            >
+              {tLegal("termsOfService")}
             </Link>
           </div>
         </div>
