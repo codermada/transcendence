@@ -32,8 +32,8 @@ Make sure the following tools are installed on your machine before running the p
 ├── srcs/
 │   ├── backend/       # NestJS API + Prisma + Better Auth + S3 client
 │   ├── frontend/      # Next.js + Tailwind CSS
-│   ├── database/      # PostgreSQL 17
-│   ├── localstack/    # LocalStack (S3-compatible storage)
+│   ├──                # PostgreSQL 17
+│   ├──                # LocalStack (S3-compatible storage)
 │   └── nginx/         # Nginx reverse proxy
 ├── docker-compose.yml
 └── .env
@@ -400,17 +400,19 @@ LocalStack was chosen over direct disk storage because it provides an S3-compati
 | 3 | **Two-Factor Authentication (2FA)** | TOTP-based 2FA with backup codes. Users can enable, verify, and disable 2FA from their settings. Secrets stored in the `twoFactor` table. | `toloandr` |
 | 4 | **User Profile Management** | Users can update name, email, and avatar. Each user has a public profile page displaying their info, posts, and friends. | `toloandr, aravelom` |
 | 5 | **Avatar Upload** | Users can upload a custom avatar with server-side validation and Sharp processing. A default avatar is used if none is provided. | `toloandr` |
-| 6 | **Friends System** | Full friendship lifecycle: send, accept, reject, and cancel requests. Uses a `pairKey` to prevent duplicate relations. | `as-rakot, toloandr` |
+| 6 | **Friends System** | Full friendship lifecycle: send, accept, reject, and cancel requests. Uses a `pairKey` to prevent duplicate relations. | `aravelom, as-rakot, toloandr` |
 | 7 | **Online Status / Presence** | Real-time presence tracking over WebSockets — users can see who is online among their friends. | `mfidimal` |
 | 8 | **Direct Messaging (Chat)** | One-to-one real-time chat between users. Conversations are stored in `message_tables`, individual messages in `messages`, with media attachments and read receipts (`isSeen`, `seenAt`). | `mfidimal` |
 | 9 | **Social Feed (Posts)** | Users can publish posts with text and media. Posts appear in a feed sorted by creation date (indexed `createdAt DESC`). | `as-rakot, aravelom` |
 | 10 | **Comments and Likes** | Users can comment on posts and like both posts and comments. Likes use composite PKs (`user_post_likes`, `user_comment_likes`) to prevent duplicates. | `as-rakot, aravelom` |
-| 11 | **Advanced Permissions System** | Role-based access control with two roles: `admin` and `user`. Admins can view, edit, and delete users, and access moderation views. Admins have access to admin platform. | `toloandr` |
-| 12 | **Public API with API Keys** | Secured REST API with API key authentication, per-key rate limiting (`rateLimitMax`, `rateLimitTimeWindow`), and Swagger documentation. Exposes 5+ endpoints across GET/POST/PUT/DELETE. | `toloandr` |
-| 13 | **File Upload & Management** | Multi-type upload (images, documents) with client + server validation, Sharp processing, LocalStack S3 storage, access control, progress indicators, preview, and deletion. | `as-rakot` |
+| 11 | **Advanced Permissions System** | Role-based access control with multiple roles (`admin`, `user`, `moderator`). Admins can create, view, edit, and delete users, and access moderation views. Admins have access to the admin platform. | `toloandr` |
+| 12 | **Public API with API Keys** | Secured REST API with API key authentication via the Better Auth API Key plugin, per-key rate limiting, and Swagger documentation. Exposes 5+ endpoints across GET/POST/PUT/DELETE. | `toloandr` |
+| 13 | **File Upload & Management** | Multi-type upload (images, documents) with client + server validation, Sharp processing, LocalStack S3 storage, access control, progress indicators, preview, and deletion. | `as-rakot`, `toloandr` |
 | 14 | **Internationalization (i18n)** | Full translation support for **French**, **English**, and **Spanish** via `next-intl`, with a UI language switcher and per-user language preference stored in `user_settings.language`. | `mfidimal` |
 | 15 | **Theme Switching** | Users can toggle between light, dark, and system themes. Preference stored in `user_settings.theme`. | `toloandr, as-rakot` |
-| 16 | **Real-time WebSocket Layer** | Socket.IO gateway handles connections, disconnections, authentication, and event broadcasting (new messages, notifications, presence). | `mfidimal` |
+| 16 | **Real-time WebSocket Layer** | Socket.IO gateway handles connections, disconnections, authentication, and event broadcasting (new messages, presence). | `mfidimal` |
+| 17 | **Notification System** | Complete notification system for all creation, update, and deletion actions across the platform, using `sonner` for toast notifications. | `mfidimal, toloandr, aravelom, as-rakot` |
+| 18 | **Organization System (Discussion Channels)** | Users can create, edit, and delete discussion channels (organizations), add/remove members, post messages with media, and perform owner-based actions within a channel. | `as-rakot, mfidimal` |
 
 ---
 
@@ -420,19 +422,21 @@ LocalStack was chosen over direct disk storage because it provides an S3-compati
 
 | Module | Type | Points | Chosen By |
 |--------|------|--------|-----------|
-| Use a frontend framework (Next.js / React) | Minor | 1 | `ALL` |
-| Use a backend framework (NestJS) | Minor | 1 | `ALL` |
-| Use an ORM for the database (Prisma) | Minor | 1 | `ALL` |
+| Use a frontend framework (Next.js / React) | Minor | 1 | `mfidimal, as-rakot, toloandr, aravelom` |
+| Use a backend framework (NestJS) | Minor | 1 | `mfidimal, as-rakot, toloandr, aravelom` |
+| Use an ORM for the database (Prisma) | Minor | 1 | `mfidimal, as-rakot, toloandr, aravelom` |
 | Support for multiple languages (i18n, 3+ languages) | Minor | 1 | `mfidimal` |
 | Implement a complete 2FA system | Minor | 1 | `toloandr` |
 | Implement remote authentication with OAuth 2.0 | Minor | 1 | `toloandr` |
-| Standard user management and authentication | Major | 2 | `toloandr` |
+| Standard user management and authentication | Major | 2 | `toloandr, aravelom` |
 | Advanced permissions system (roles, CRUD on users) | Major | 2 | `toloandr` |
 | Public API with secured API key, rate limiting, docs, 5+ endpoints | Major | 2 | `toloandr` |
 | File upload and management system | Minor | 1 | `as-rakot` |
 | Real-time features using WebSockets | Major | 2 | `mfidimal` |
-| Users interact with other users (chat, profile, friends) | Major | 2 | `mfidimal, toloandr, aravelom` |
-| **Total** | | **17 pts** | |
+| Users interact with other users (chat, profile, friends) | Major | 2 | `mfidimal, as-rakot, toloandr, aravelom` |
+| Complete notification system | Minor | 1 | `mfidimal, as-rakot, toloandr, aravelom` |
+| Organization system (discussion channels) | Major | 2 | `as-rakot, mfidimal` |
+| **Total** | | **20 pts** | |
 
 ---
 
@@ -483,23 +487,23 @@ LocalStack was chosen over direct disk storage because it provides an S3-compati
   - **Friends system**: users can send, accept, reject, cancel, and block friend requests via the `Friendship` model, which uses a `pairKey` to prevent duplicates.
   - **Online status**: presence is tracked in real time through WebSockets.
   - **Profile page**: each user has a public profile displaying their info, posts, and friends.
-- **Team Member(s)**: `toloandr, aravelom`
+- **Team Member(s)**: `toloandr, aravelom, as-rakot`
 
 #### Advanced Permissions System — Major (2 pts)
 
 - **Justification**: A social network needs moderation and role-based access to keep the platform safe and manageable. Some pages are not accessible to normal users.
-- **Implementation**: Roles (`admin`, `user`) are stored on `User.role`. NestJS guards enforce role checks on endpoints, and the frontend conditionally renders views and actions based on role. Admins can perform full CRUD on users (view, edit, ban, delete).
+- **Implementation**: Roles (`admin`, `moderator`, `user`) are stored on `User.role`. NestJS guards enforce role checks on endpoints, and the frontend conditionally renders views and actions based on role. Admins can perform full CRUD on users (create, view, edit, delete).
 - **Team Member(s)**: `toloandr`
 
 #### Public API with Secured API Key, Rate Limiting, Docs, 5+ Endpoints — Major (2 pts)
 
 - **Justification**: Exposing a public API allows external integrations and demonstrates a production-grade backend. Security (API keys + rate limiting) and documentation are required to make it usable and safe.
-- **Implementation**: The `Apikey` model stores keys with configurable rate limiting (`rateLimitMax`, `rateLimitTimeWindow`, `refillInterval`). NestJS guards validate the API key and enforce rate limits. Swagger documents the API, which exposes well over 5 endpoints across `GET`, `POST`, `PUT`, and `DELETE` on resources like users, posts, messages, and channels.
+- **Implementation**: API keys are issued and managed through the **Better Auth API Key plugin**, which stores keys with configurable rate limiting (`rateLimitMax`, `rateLimitTimeWindow`, `refillInterval`). NestJS guards validate the API key and enforce rate limits. Swagger documents the API, which exposes well over 5 endpoints across `GET`, `POST`, `PUT`, and `DELETE` on resources like users, posts, messages, and channels.
 - **Team Member(s)**: `toloandr`
 
 #### File Upload and Management System — Minor (1 pt)
 
-- **Justification**: A social network is media-heavy — avatars, post images, chat attachments, and channel banners all require robust file handling with security and previews.
+- **Justification**: A social network is media-heavy — post images, chat attachments, and channel banners all require robust file handling with security and previews.
 - **Implementation**: Files are uploaded via Multer, validated on the client (type, size, format) and server, processed with Sharp (resizing/optimization), and stored in **LocalStack S3** (S3-compatible). Access control is enforced per resource, uploads show progress indicators on the frontend, and users can delete their uploaded files.
 - **Team Member(s)**: `as-rakot`
 
@@ -518,38 +522,18 @@ LocalStack was chosen over direct disk storage because it provides an S3-compati
   - **Friends system**: full lifecycle via `Friendship` (`PENDING`, `ACCEPTED`, `REJECTED`, `CANCELLED`), with `pairKey` preventing duplicate relations.
 - **Team Member(s)**: `as-rakot, toloandr, mfidimal, aravelom`
 
----
+#### Complete Notification System — Minor (1 pt)
 
-## Individual Contributions
+- **Justification**: Users need immediate feedback on all create, update, and delete actions across the platform. A unified notification system improves UX and makes state changes visible in real time.
+- **Implementation**: Notifications are delivered on all CRUD actions (post created, friend request sent, message received, channel updated, etc.) using **sonner** on the frontend for toast notifications. 
+- **Team Member(s)**: `as-rakot, toloandr, mfidimal, aravelom`
 
-### `toloandr` (`PO`)
+#### Organization System — Major (2 pts)
 
-- **Contributions**:
-  - setting up tech stack (Dockerization: Nest+prisma+better-auth in the backend, Next+better-auth-client in the frontend)
-  - completing better-auth setup
-- **Challenges faced**: linking and making sense of each service. 
-- **How it was overcome**: learning to link and learning to make sense of each service.
-
-### `<login2>` — `<Full Name>` (`<Role>`)
-
-- **Contributions**:
-  - `<Feature/module/component 1>`
-  - `<Feature/module/component 2>`
-- **Challenges faced**: `<Description.>`
-- **How it was overcome**: `<Description.>`
-
-### `<login3>` — `<Full Name>` (`<Role>`)
-
-- **Contributions**:
-  - `<Feature/module/component 1>`
-  - `<Feature/module/component 2>`
-- **Challenges faced**: `<Description.>`
-- **How it was overcome**: `<Description.>`
-
-### `<loginN>` — `<Full Name>` (`<Role>`)
-
-- **Contributions**:
-  - `<Feature/module/component 1>`
-  - `<Feature/module/component 2>`
-- **Challenges faced**: `<Description.>`
-- **How it was overcome**: `<Description.>`
+- **Justification**: Organizations allow users to group together and collaborate in shared spaces, extending the social network beyond 1-to-1 interactions. Rather than introducing a separate domain model, organizations are implemented as **discussion channels** — a natural fit for a social platform, since channels already provide a shared space with membership, roles, and messages.
+- **Implementation**:
+  - **Create / edit / delete organizations**: users can create new organizations, update their details, and delete them.
+  - **Add / remove users**: organization owners can invite users to join and remove them from the organization.
+  - **View organizations**: users can browse organizations and see their members, with member-only views exposing the discussion thread.
+  - **Actions within an organization** (minimum create, read, update): ownership and role checks enforce who can edit the organization, invite members, or remove them. All membership and CRUD actions emit notifications and are broadcast in real time.
+- **Team Member(s)**: `as-rakot, mfidimal`
