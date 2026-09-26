@@ -827,6 +827,37 @@
     }
     }
   },
+  "FriendsComponents": {
+      "add": "Add friend",
+      "adding": "Adding...",
+      "pending": "Request pending",
+      "requestSent": "Friend request sent",
+      "requestSendError": {
+        "request": {
+          "sendError": "Couldn't send the friend request"
+        }
+      },
+      "accept": "Accept",
+      "accepting": "Accepting...",
+      "accepted": "Accepted",
+      "requestAccepted": "Friend request accepted",
+      "requestAcceptError": "Couldn't accept the friend request",
+      "decline": "Decline",
+      "declining": "Declining...",
+      "declined": "Declined",
+      "requestDeclined": "Friend request declined",
+      "requestDeclineError": "Couldn't decline the friend request",
+      "cancel": "Cancel",
+      "cancelling": "Cancelling...",
+      "cancelled": "Cancelled",
+      "requestCancelled": "Friend request cancelled",
+      "requestCancelError": "Couldn't cancel the friend request",
+      "removeFriend": "Remove friend",
+      "removing": "Removing...",
+      "removed": "Removed",
+      "friendRemoved": "Friend removed",
+      "friendRemoveError": "Couldn't remove friend"
+  },
   "Language": {
     "switchLanguage": "Language",
     "en": "English",
