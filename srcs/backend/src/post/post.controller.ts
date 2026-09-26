@@ -32,6 +32,7 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { GetPostsFilterDto } from './dto/get-posts.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostService } from './post.service';
+import { ModeratorGuard } from '../auth/ModeratorGuard';
 
 @ApiTags('posts')
 @ApiBearerAuth()
@@ -157,6 +158,17 @@ export class PostController {
 	@ApiResponse({ status: 404, description: 'Post not found.' })
 	async deletePost(@Param('id') id: string, @CurrentUser('id') userId: string) {
 		return this.postService.deletePost(id, userId);
+	}
+
+	@Delete(':id/admin')
+	@UseGuards(ModeratorGuard)
+	@ApiOperation({ summary: 'Delete a post and its associated media files (admin / moderator)' })
+	@ApiParam({ name: 'id', description: 'Post ID', type: String })
+	@ApiResponse({ status: 200, description: 'Post deleted successfully.' })
+	@ApiResponse({ status: 403, description: 'Forbidden.' })
+	@ApiResponse({ status: 404, description: 'Post not found.' })
+	async adminDeletePost(@Param('id') id: string, @CurrentUser('id') userId: string) {
+		return this.postService.adminDeletePost(id, userId);
 	}
 
 	// Create post via API key
