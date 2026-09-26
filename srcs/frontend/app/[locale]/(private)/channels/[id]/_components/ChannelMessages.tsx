@@ -122,25 +122,31 @@ export function ChannelMessages({
               </div>
 
               <div className="mt-1 flex items-center gap-1 px-1">
-                <span className="text-[10px] text-zinc-400 dark:text-zinc-500">
+                <span
+                  suppressHydrationWarning
+                  className="text-[10px] text-zinc-400 dark:text-zinc-500"
+                >
                   {time}
                 </span>
-                {isMe && (
-                  <span
-                    title={
-                      (msg.seenBy || []).some((id) => id !== currentUserId)
-                        ? t("seen")
-                        : t("sent")
-                    }
-                    className="inline-flex items-center"
-                  >
-                    {(msg.seenBy || []).some((id) => id !== currentUserId) ? (
-                      <CheckCheck className="h-3.5 w-3.5 text-violet-600 dark:text-violet-400" />
-                    ) : (
-                      <Check className="h-3.5 w-3.5 text-zinc-400 dark:text-zinc-500" />
-                    )}
-                  </span>
-                )}
+                {isMe && (() => {
+                  const otherSeen = (msg.seenBy || []).filter((id) => id !== currentUserId);
+                  const isSeen = otherSeen.length > 0;
+                  const title = isSeen
+                    ? otherSeen.length > 1
+                      ? `${t("seen")} (${otherSeen.length})`
+                      : t("seen")
+                    : t("sent");
+
+                  return (
+                    <span title={title} className="inline-flex items-center">
+                      {isSeen ? (
+                        <CheckCheck className="h-3.5 w-3.5 text-violet-600 dark:text-violet-400" />
+                      ) : (
+                        <Check className="h-3.5 w-3.5 text-zinc-400 dark:text-zinc-500" />
+                      )}
+                    </span>
+                  );
+                })()}
               </div>
             </div>
           );

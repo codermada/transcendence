@@ -147,7 +147,7 @@ export class ChannelController {
     @Param('id') channelId: string,
   ) {
     const result = await this.channelService.markAsSeen(user.id, channelId);
-    this.channelGateway.broadcastMessagesSeen(channelId, user.id);
+    this.channelGateway.broadcastMessagesSeen(channelId, user.id, result.memberIds);
     return result;
   }
 }

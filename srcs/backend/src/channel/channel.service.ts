@@ -335,7 +335,17 @@ export class ChannelService {
 			  AND NOT (${userId}::text = ANY(COALESCE("seenBy", ARRAY[]::text[])))
 		`;
 
-		return { channelId, userId, success: true };
+		const members = await this.prismaService.userInChannel.findMany({
+			where: { channelId },
+			select: { userId: true },
+		});
+
+		return {
+			channelId,
+			userId,
+			memberIds: members.map((m) => m.userId),
+			success: true,
+		};
 	}
 
 	private async findUserInChannel(userId: string, channelId: string) {

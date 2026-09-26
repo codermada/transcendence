@@ -67,6 +67,7 @@ export function ChannelConversationClient({ channelId }: ChannelConversationClie
 
   useEffect(() => {
     setActiveChannelId(channelId);
+    lastMarkedMsgIdRef.current = null;
     return () => {
       setActiveChannelId(null);
     };
