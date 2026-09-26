@@ -143,7 +143,7 @@ export function PostCard({
       });
       setIsEditing(false);
       toast.success(t("updateSuccess"));
-    } catch (error) {
+    } catch {
       toast.error(t("updateError"));
     } finally {
       setIsSubmitting(false);

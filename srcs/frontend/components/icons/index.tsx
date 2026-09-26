@@ -1703,7 +1703,7 @@ export function Save(props: SVGProps<SVGSVGElement>) {
 }
 
 export function X(props: SVGProps<SVGSVGElement>) {
-  // You have Close — this is just a reminder that X = Close. Skip unless you want the alias.
+  // Alias for Close icon
   return <Close {...props} />;
 }
 

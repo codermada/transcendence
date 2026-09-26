@@ -49,7 +49,7 @@ export function PostActions({
         setIsLiked(res.liked);
         setLikesCount(res.likesCount);
       }
-    } catch (error) {
+    } catch {
       setIsLiked(previousIsLiked);
       setLikesCount(previousLikesCount);
       toast.error(t('postDeletedErrorMessage'));

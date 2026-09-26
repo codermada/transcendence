@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
 import { useFriendRequests } from "./useFriendRequests";
 import { FriendRequestTabs } from "./FriendRequestTabs";
 import { FriendRequestSearch } from "./FriendRequestSearch";
@@ -11,7 +10,6 @@ import { FriendRequestSkeleton } from "./FriendRequestSkeleton";
 import { pickOther, type Tab } from "./types";
 
 export function FriendRequestsClient() {
-  const t = useTranslations("FriendRequests");
   const {
     incoming,
     outgoing,

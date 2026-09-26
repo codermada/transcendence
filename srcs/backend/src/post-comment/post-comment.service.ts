@@ -87,9 +87,7 @@ export class PostCommentService {
         };
     }
 
-    // ─────────────────────────────────────────────────────────
-    // DELETE — author deletes their own comment
-    // ─────────────────────────────────────────────────────────
+    // Author deletes their own comment
     async deleteComment(commentId: string, userId: string) {
         const comment = await this.postCommentRepository.findCommentById(commentId);
 
@@ -114,9 +112,7 @@ export class PostCommentService {
         return { success: true };
     }
 
-    // ─────────────────────────────────────────────────────────
-    // DELETE (moderate) — moderator or admin deletes any comment
-    // ─────────────────────────────────────────────────────────
+    // Moderator or admin deletes any comment
     async deleteCommentAsModerator(commentId: string) {
         const comment = await this.postCommentRepository.findCommentById(commentId);
 

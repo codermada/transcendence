@@ -28,7 +28,7 @@ type UsersTableProps = {
 
 const USERS_PER_PAGE = 10;
 
-// ── Role helpers ────────────────────────────────────────────
+// Role helpers
 const ROLE_ORDER = ["user", "moderator", "admin"] as const;
 type Role = (typeof ROLE_ORDER)[number];
 
@@ -67,7 +67,7 @@ export default function UsersTable({ users: initialUsers }: UsersTableProps) {
     [users, startIndex],
   );
 
-  // ── Role change ─────────────────────────────────────────────
+  // Role change
   const handleRoleChange = async (user: User, newRole: Role) => {
     if (user.id === currentUserId) return;
     if (normalizeRole(user.role) === newRole) return;
@@ -92,7 +92,7 @@ export default function UsersTable({ users: initialUsers }: UsersTableProps) {
     toast.success(t("toastRoleUpdated"));
   };
 
-  // ── Edit save ────────────────────────────────────────────────
+  // Edit save
   const handleEditSave = async (
     id: string,
     patch: { name: string; email: string },
@@ -122,7 +122,7 @@ export default function UsersTable({ users: initialUsers }: UsersTableProps) {
     }
   };
 
-  // ── Delete confirm ───────────────────────────────────────────
+  // Delete confirm
   const handleDeleteConfirm = async (user: User) => {
     setUpdatingUserId(user.id);
     try {

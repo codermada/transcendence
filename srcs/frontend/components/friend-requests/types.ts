@@ -41,10 +41,7 @@ export const FRIEND_API = {
   cancel: (id: string) => `/nest/friend/${id}/cancel`,
 } as const;
 
-/**
- * Picks the "other side" of a friendship, i.e. the user who is NOT me.
- * Falls back to the tab semantics when `viewerId` is unknown.
- */
+// Returns the other participant in the friendship
 export function pickOther(
   friendship: Friendship,
   viewerId: string | null,

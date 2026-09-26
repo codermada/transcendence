@@ -6,9 +6,7 @@ import Link from "next/link";
 import { Search, Users, XCircle } from "@/components/icons";
 import { getInitials } from "@/lib/utils/user-utils";
 
-// ─────────────────────────────────────────────────────────────
 // Types
-// ─────────────────────────────────────────────────────────────
 type FriendUser = {
   id: string;
   name: string | null;
@@ -65,7 +63,7 @@ export function FriendsListClient() {
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
 
-  // Debounce the search box so we don't hammer the API on every keystroke.
+  // Debounce search query
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -73,7 +71,7 @@ export function FriendsListClient() {
     if (searchTimer.current) clearTimeout(searchTimer.current);
     searchTimer.current = setTimeout(() => {
       setDebouncedSearch(search);
-      setPage(1); // reset to page 1 whenever the query changes
+      setPage(1);
     }, 300);
 
     return () => {
@@ -81,7 +79,7 @@ export function FriendsListClient() {
     };
   }, [search]);
 
-  // ── Load page ───────────────────────────────────────────────
+  // Load page
   useEffect(() => {
     let cancelled = false;
     setIsLoading(true);
@@ -115,7 +113,7 @@ export function FriendsListClient() {
     };
   }, [page, debouncedSearch]);
 
-  // ── Remove friend (optimistic) ─────────────────────────────
+  // Remove friend (optimistic)
   const handleRemove = useCallback(
     async (id: string) => {
       setPendingId(id);
@@ -305,9 +303,7 @@ export function FriendsListClient() {
   );
 }
 
-// ─────────────────────────────────────────────────────────────
 // Subcomponents
-// ─────────────────────────────────────────────────────────────
 function Avatar({ user, fallback }: { user: FriendUser; fallback: string }) {
   const [failed, setFailed] = useState(false);
 
