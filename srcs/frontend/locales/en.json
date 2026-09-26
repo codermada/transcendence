@@ -424,21 +424,22 @@
     "noMembers": "No members in this channel.",
     "close": "Close",
     "add": "Add",
-    "toasts": {
-      "leftChannel": "You left the channel.",
-      "channelDeleted": "Channel deleted successfully.",
-      "memberKicked": "Member removed from the channel.",
-      "roleUpdated": "Role updated.",
-      "memberAdded": "Member added to the channel."
+    "success": {
+      "youLeftChannel": "You left channel",
+      "channelRemoved": "Channel removed",
+      "memberFired": "Member fired from channel",
+      "roleUpdated": "Role updated",
+      "memberAdded": "New member added"
+
     },
-    "errors": {
-      "loadChannel": "Failed to load the channel.",
-      "sendMessage": "Failed to send the message.",
-      "leaveChannel": "Failed to leave the channel.",
-      "deleteChannel": "Failed to delete the channel.",
-      "kickMember": "Failed to remove the member.",
-      "updateRole": "Failed to update the role.",
-      "addMember": "Failed to add the member."
+    "error": {
+      "channelLoading": "Error loading channel",
+      "sendingMessage": "Error sending message",
+      "leavingChannel": "Error leaving channel",
+      "deletingChannel": "Error deleting channel",
+      "firingMember": "Error firing member",
+      "updatingRole": "Error updating role",
+      "addingNewMember": "Error adding new member"
     }
   },
   "Settings": {
