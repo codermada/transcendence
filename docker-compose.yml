@@ -1,8 +1,6 @@
 services:
   postgres:
-    build:
-      context: ./srcs/database
-    image: postgres
+    image: postgres:17
     container_name: postgres-db
     restart: unless-stopped
     env_file:

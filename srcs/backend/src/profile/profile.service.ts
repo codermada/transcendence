@@ -1,6 +1,6 @@
 import { 
     Injectable,
-    ForbiddenException, NotFoundException
+    NotFoundException
 } from '@nestjs/common';
 
 import { ProfileRepository } from './profile.repository';

@@ -7,7 +7,7 @@ import {
 	PutObjectCommand,
 	S3Client,
 } from '@aws-sdk/client-s3';
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { extname } from 'path';
 
 @Injectable()
@@ -31,6 +31,8 @@ export class S3Service implements OnModuleInit {
 		});
 	}
 
+	private readonly logger = new Logger(S3Service.name);
+
 	async onModuleInit() {
 		await this.ensureBucketExists();
 	}
@@ -39,50 +41,73 @@ export class S3Service implements OnModuleInit {
 		try {
 			await this.s3Client.send(new HeadBucketCommand({ Bucket: this.bucketName }));
 		} catch {
-			await this.s3Client.send(
-				new CreateBucketCommand({
-					Bucket: this.bucketName,
-					ObjectOwnership: 'ObjectWriter',
-				}),
-			);
+			try {
+				await this.s3Client.send(
+					new CreateBucketCommand({
+						Bucket: this.bucketName,
+						ObjectOwnership: 'ObjectWriter',
+					}),
+				);
+			} catch (err: unknown) {
+				const error = err as { name?: string; Code?: string; $metadata?: { httpStatusCode?: number }; message?: string };
+				if (
+					error?.name !== 'BucketAlreadyExists' &&
+					error?.name !== 'BucketAlreadyOwnedByYou' &&
+					error?.Code !== 'BucketAlreadyExists' &&
+					error?.Code !== 'BucketAlreadyOwnedByYou' &&
+					error?.$metadata?.httpStatusCode !== 409
+				) {
+					this.logger.error(`Failed to create bucket ${this.bucketName}: ${error?.message || err}`);
+				}
+			}
 		}
 
-		const policy = {
-			Version: '2012-10-17',
-			Statement: [
-				{
-					Sid: 'PublicRead',
-					Effect: 'Allow',
-					Principal: '*',
-					Action: ['s3:GetObject'],
-					Resource: [`arn:aws:s3:::${this.bucketName}/*`],
-				},
-			],
-		};
+		try {
+			const policy = {
+				Version: '2012-10-17',
+				Statement: [
+					{
+						Sid: 'PublicRead',
+						Effect: 'Allow',
+						Principal: '*',
+						Action: ['s3:GetObject'],
+						Resource: [`arn:aws:s3:::${this.bucketName}/*`],
+					},
+				],
+			};
 
-		await this.s3Client.send(
-			new PutBucketPolicyCommand({
-				Bucket: this.bucketName,
-				Policy: JSON.stringify(policy),
-			}),
-		);
+			await this.s3Client.send(
+				new PutBucketPolicyCommand({
+					Bucket: this.bucketName,
+					Policy: JSON.stringify(policy),
+				}),
+			);
+		} catch (err: unknown) {
+			const error = err as { message?: string };
+			this.logger.warn(`Could not set bucket policy: ${error?.message || err}`);
+		}
 
-		await this.s3Client.send(
-			new PutBucketCorsCommand({
-				Bucket: this.bucketName,
-				CORSConfiguration: {
-					CORSRules: [
-						{
-							AllowedOrigins: ['*'],
-							AllowedMethods: ['GET', 'HEAD'],
-							AllowedHeaders: ['*'],
-							ExposeHeaders: ['ETag', 'Content-Length', 'Content-Range', 'Accept-Ranges'],
-							MaxAgeSeconds: 3000,
-						},
-					],
-				},
-			}),
-		);
+		try {
+			await this.s3Client.send(
+				new PutBucketCorsCommand({
+					Bucket: this.bucketName,
+					CORSConfiguration: {
+						CORSRules: [
+							{
+								AllowedOrigins: ['*'],
+								AllowedMethods: ['GET', 'HEAD'],
+								AllowedHeaders: ['*'],
+								ExposeHeaders: ['ETag', 'Content-Length', 'Content-Range', 'Accept-Ranges'],
+								MaxAgeSeconds: 3000,
+							},
+						],
+					},
+				}),
+			);
+		} catch (err: unknown) {
+			const error = err as { message?: string };
+			this.logger.warn(`Could not set bucket CORS: ${error?.message || err}`);
+		}
 	}
 
 	async uploadFile(file: Express.Multer.File, folder = 'posts'): Promise<string> {
