@@ -207,7 +207,7 @@ export function ChannelConversationClient({ channelId }: ChannelConversationClie
       toast.success(t("success.channelRemoved"));
       router.push("/channels");
     } catch (err: unknown) {
-      toast.error((err as Error).message || t("error.deletingChannel") /*"Error deleting channel"*/);
+      toast.error((err as Error).message || t("error.deletingChannel"));
     }
   };
 
