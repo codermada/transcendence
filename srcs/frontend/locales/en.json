@@ -67,6 +67,10 @@
     },
     "lastUpdated": "Last Updated: Sep 26 12:03"
   },
+  "Legal": {
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  },
   "Nav": {
     "brand": "Heart",
     "brandAccent": "beat",

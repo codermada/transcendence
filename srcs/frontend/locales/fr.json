@@ -68,6 +68,10 @@
     },
     "lastUpdated": "Dernière mise à jour : 26 sept. 12:03"
   },
+  "Legal": {
+    "privacyPolicy": "Politique de Confidentialité",
+    "termsOfService": "Conditions d'Utilisation"
+  },
   "Nav": {
     "brand": "Heart",
     "brandAccent": "beat",
