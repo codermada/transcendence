@@ -140,20 +140,6 @@ const Users = () => {
       ) : (
         <UsersTable
           users={users}
-          onUserUpdated={(updatedUser) => {
-            setUsers((currentUsers) =>
-              currentUsers.map((user) =>
-                user.id === updatedUser.id ? updatedUser : user,
-              ),
-            );
-            showToast("success", t("toastUpdated"));
-          }}
-          onUserDeleted={(userId) => {
-            setUsers((currentUsers) =>
-              currentUsers.filter((user) => user.id !== userId),
-            );
-            showToast("success", t("toastDeleted"));
-          }}
         />
       )}
     </>
