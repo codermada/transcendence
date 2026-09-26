@@ -7,6 +7,67 @@
     "success": "Succès",
     "or": "ou"
   },
+
+  "PrivacyPolicy": {
+    "badge": "Politique de Confidentialité",
+    "title": "Politique de Confidentialité",
+    "subtitle": "Cette Politique de Confidentialité explique comment Heartbeat (\"nous\", \"notre\" ou \"nos\") collecte, utilise et protège vos informations lorsque vous utilisez notre application (le \"Service\"). En utilisant le Service, vous acceptez les pratiques décrites dans cette politique.",
+    "section1": {
+      "title": "1. Nos Garanties envers Vous",
+      "body": "Nous nous engageons à protéger votre vie privée. Nous garantissons explicitement ce qui suit :\n\n• Authentification Sécurisée — L'authentification de votre compte est sécurisée. Nous ne connaissons pas votre mot de passe. Tous les mots de passe sont chiffrés (hachés) dans notre base de données avant stockage. Nous ne pouvons à aucun moment récupérer ni consulter votre mot de passe en clair.\n\n• Stockage Sécurisé des Fichiers — Tous les fichiers que vous téléversez sur le Service sont stockés dans un service S3 sécurisé (stockage cloud). La seule exception est votre photo de profil, qui est stockée séparément pour permettre un affichage plus rapide et un accès public au sein de l'application.\n\n• Stockage et Accès aux Messages — Tous les messages, y compris les messages directs et les messages de canal, sont stockés dans notre base de données. Ces messages ne sont pas chiffrés de bout en bout. L'accès à cette base de données est strictement limité à un petit nombre de personnes autorisées (les développeurs du site web). Nous ne lisons pas vos messages, sauf lorsque cela est nécessaire pour la sécurité, la modération ou la conformité légale.\n\n• Aucun Partage des Données Utilisateur — Nous ne partagerons pas vos données personnelles avec des tiers. Nous ne vendons, ne louons ni n'échangeons vos informations personnelles avec des annonceurs ou d'autres entreprises externes."
+    },
+    "section2": {
+      "title": "2. Informations que Nous Collectons et Comment Nous les Utilisons",
+      "body": "Nous collectons les informations suivantes : Informations de Compte (nom d'utilisateur, adresse e-mail, mot de passe chiffré), Informations de Profil (photo de profil et détails facultatifs), Contenu Utilisateur (fichiers que vous téléversez et messages que vous envoyez) et Données Techniques (adresse IP, type d'appareil, type de navigateur et journaux d'utilisation).\n\nNous utilisons ces informations uniquement pour : créer et gérer votre compte ; fournir, exploiter et maintenir le Service ; stocker vos fichiers et messages ; assurer la sécurité et l'intégrité du Service ; et respecter les obligations légales."
+    },
+    "section3": {
+      "title": "3. Stockage, Sécurité et Partage des Données",
+      "body": "Les mots de passe sont chiffrés (hachés) dans notre base de données. Les fichiers sont stockés dans un service S3 sécurisé (sauf les photos de profil). Les messages sont stockés dans notre base de données et ne sont accessibles qu'aux développeurs autorisés. Les photos de profil sont stockées séparément et peuvent être visibles publiquement au sein du Service.\n\nBien que nous prenions des mesures raisonnables pour protéger vos données, veuillez noter qu'aucune méthode de transmission ou de stockage n'est sûre à 100 %. Étant donné que les messages ne sont pas chiffrés, nous ne pouvons pas garantir la confidentialité absolue de leur contenu contre tout accès non autorisé.\n\nNous ne partageons pas vos données avec des tiers, sauf : (a) si la loi, une assignation ou une ordonnance judiciaire l'exige ; (b) pour protéger les droits, la propriété ou la sécurité de nos utilisateurs, du public ou de nous-mêmes ; (c) avec des prestataires de services de confiance (tels que le service de stockage S3) qui traitent les données en notre nom dans le cadre d'accords de confidentialité stricts."
+    },
+    "section4": {
+      "title": "4. Conservation des Données et Vos Droits",
+      "body": "Nous conservons vos informations aussi longtemps que votre compte est actif ou que cela est nécessaire pour fournir le Service. Si vous supprimez votre compte, nous supprimerons ou anonymiserons vos données dans un délai raisonnable, sauf si nous sommes tenus de les conserver pour des raisons légales.\n\nSelon votre lieu de résidence, vous pouvez avoir le droit de : accéder à une copie des données que nous détenons à votre sujet ; demander la correction de données inexactes ; demander la suppression de votre compte et des données associées ; et vous opposer à certains traitements de vos données. Pour exercer ces droits, contactez-nous à tolotra025@gmail.com."
+    },
+    "section5": {
+      "title": "5. Confidentialité des Mineurs et Modifications de cette Politique",
+      "body": "Le Service n'est pas destiné aux enfants de moins de 18 ans. Nous ne collectons pas sciemment d'informations personnelles auprès d'enfants. Si nous apprenons que cela s'est produit, nous les supprimerons rapidement.\n\nNous pouvons mettre à jour cette Politique de Confidentialité de temps à autre. Nous vous informerons de tout changement important en publiant la nouvelle politique dans l'application ou par e-mail. Votre utilisation continue du Service après ces modifications constitue votre acceptation de la politique mise à jour."
+    },
+    "contact": {
+      "title": "6. Contact",
+      "body": "Si vous avez des questions concernant cette Politique de Confidentialité, contactez-nous à :\n\ntolotra025@gmail.com"
+    },
+    "lastUpdated": "Dernière mise à jour : 26 sept. 12:03"
+  },
+  "TermsOfService": {
+    "badge": "Conditions d'Utilisation",
+    "title": "Conditions d'Utilisation",
+    "subtitle": "Bienvenue sur Heartbeat (\"nous\", \"notre\" ou \"nos\"). Ces Conditions d'Utilisation (les \"Conditions\") régissent votre accès et votre utilisation de notre application, site web et services (collectivement, le \"Service\"). En créant un compte ou en utilisant le Service, vous acceptez d'être lié par ces Conditions. Si vous n'êtes pas d'accord, n'utilisez pas le Service.",
+    "section1": {
+      "title": "1. Éligibilité et Votre Compte",
+      "body": "Vous devez avoir au moins 18 ans pour utiliser le Service. Si vous avez moins de 18 ans, vous déclarez avoir l'autorisation d'un parent ou d'un tuteur légal. Vous ne devez pas être empêché d'utiliser le Service en vertu de toute loi applicable, et vous devez fournir des informations exactes et complètes lors de la création de votre compte.\n\nVous êtes responsable de la confidentialité de votre mot de passe et de toute activité se produisant sous votre compte. Vous devez nous informer immédiatement à tolotra025@gmail.com si vous soupçonnez un accès non autorisé à votre compte. Nous nous réservons le droit de suspendre ou de résilier votre compte à tout moment en cas de violation de ces Conditions."
+    },
+    "section2": {
+      "title": "2. Utilisation Acceptable",
+      "body": "Vous acceptez de ne pas :\n\n• Publier, téléverser ou partager du contenu illégal, haineux, harcelant, menaçant, diffamatoire, obscène ou autrement répréhensible.\n• Usurper l'identité d'une personne ou d'une entité, ou fausser votre affiliation avec quiconque.\n• Utiliser le Service pour envoyer du spam, du phishing ou distribuer des logiciels malveillants.\n• Tenter de pirater, de faire de l'ingénierie inverse ou de perturber le Service ou ses serveurs.\n• Extraire, collecter ou recueillir des données sur d'autres utilisateurs sans leur consentement.\n• Utiliser le Service à des fins commerciales sans notre autorisation écrite.\n• Violer toute loi ou réglementation applicable."
+    },
+    "section3": {
+      "title": "3. Contenu Utilisateur, Amis et Profils",
+      "body": "Vous conservez la propriété du contenu que vous créez et téléversez (publications, messages, fichiers, photos de profil, etc.). Nous ne revendiquons pas la propriété de votre contenu. En publiant du contenu, vous nous accordez une licence non exclusive, mondiale et gratuite pour stocker, afficher et distribuer votre contenu dans le seul but d'exploiter et d'améliorer le Service. Cette licence prend fin lorsque vous supprimez votre contenu ou votre compte, sauf lorsque nous sommes tenus de le conserver par la loi.\n\nVous êtes seul responsable du contenu que vous publiez. Nous n'approuvons pas et ne sommes pas responsables du contenu des utilisateurs. Nous nous réservons le droit (mais non l'obligation) d'examiner, de supprimer ou de refuser tout contenu qui viole ces Conditions, et nous pouvons supprimer du contenu sur demande légale valide.\n\nVous contrôlez qui peut voir votre profil et vos publications via vos paramètres de confidentialité. L'ajout d'un ami nécessite un consentement mutuel. Vous ne devez pas utiliser les demandes d'amis ou les fonctionnalités de profil pour harceler, spammer ou tromper autrui. Les photos de profil peuvent être visibles par d'autres utilisateurs — ne téléversez pas d'images que vous n'avez pas le droit de partager."
+    },
+    "section4": {
+      "title": "4. Messagerie, Canaux, Téléversement de Fichiers et Confidentialité",
+      "body": "Les messages (y compris les messages de canal) sont stockés sur nos serveurs et ne sont pas chiffrés de bout en bout. Les développeurs autorisés peuvent accéder aux messages uniquement pour des raisons de sécurité, de modération ou de conformité légale, comme décrit dans notre Politique de Confidentialité. N'utilisez pas la messagerie pour envoyer du contenu illégal, des menaces ou du spam. Les canaux de discussion sont des espaces publics ou semi-publics — ne partagez pas d'informations privées que vous ne souhaitez pas que d'autres voient.\n\nVous pouvez téléverser des fichiers sur le Service, qui sont stockés dans un service S3 sécurisé (sauf les photos de profil). Vous ne devez pas téléverser de fichiers contenant des logiciels malveillants, du contenu illégal ou du contenu que vous n'avez pas le droit de distribuer. Nous ne sommes pas responsables de la perte de fichiers — veuillez conserver vos propres sauvegardes.\n\nVotre utilisation du Service est également régie par notre Politique de Confidentialité, qui explique comment nous collectons, utilisons et protégeons vos données. En utilisant le Service, vous consentez à nos pratiques de données telles que décrites dans la Politique de Confidentialité."
+    },
+    "section5": {
+      "title": "5. Propriété Intellectuelle et Résiliation",
+      "body": "Tous les logiciels, designs, logos et marques associés au Service nous appartiennent ou appartiennent à nos concédants de licence. Vous ne pouvez pas copier, modifier, distribuer ou faire de l'ingénierie inverse sur toute partie du Service sans notre autorisation écrite. Vous conservez la propriété de votre propre contenu, comme indiqué à la Section 3.\n\nVous pouvez supprimer votre compte à tout moment. Nous pouvons suspendre ou résilier votre compte si vous violez ces Conditions ou si la loi nous y oblige. À la résiliation, votre droit d'utiliser le Service prend fin immédiatement. Nous pouvons supprimer vos données conformément à notre Politique de Confidentialité."
+    },
+    "contact": {
+      "title": "6. Contact",
+      "body": "Si vous avez des questions concernant ces Conditions, contactez-nous à :\n\ntolotra025@gmail.com"
+    },
+    "lastUpdated": "Dernière mise à jour : 26 sept. 12:03"
+  },
   "Nav": {
     "brand": "Heart",
     "brandAccent": "beat",
