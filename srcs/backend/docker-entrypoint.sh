@@ -8,7 +8,7 @@ npx prisma migrate deploy
 
 npm run create-admin
 
-if [ "${NODE_ENV}" = "prod" ]; then
+if [ "${NODE_ENV}" = "production" ]; then
 	echo "Start Backend PROD mode"
 	npm run build
 	exec npm run start:prod
