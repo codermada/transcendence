@@ -143,4 +143,17 @@ export const postService = {
       throw new Error(errorData.message || "Erreur lors de la suppression du post");
     }
   },
+  async adminDeletePost(postId: string): Promise<void> {
+    const response = await fetch(`${API_URL}/posts/${postId}/admin`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(
+        errorData.message || "Erreur lors de la suppression du post (admin)"
+      );
+    }
+  },
 };

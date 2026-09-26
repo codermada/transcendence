@@ -242,13 +242,18 @@
         "emptyPostError": "Une publication ne peut pas être vide."
       },
       "PostHeader": {
-        "timeAgo": "{value, plural, =0 {À l'instant} =1 {Il y a une {unit}} other {Il y a {value} {unit, select, minute {minutes} hour {heures} day {jours} other {}}}}",
+        "timeAgo": "{value, plural, =0 {À l'instant} =1 {Il y a 1 {unit}} other {Il y a {value} {unit, select, minute {minutes} hour {heures} day {jours} other {}}}}",
         "options": "Options de la publication",
         "edit": "Modifier",
         "delete": "Supprimer",
+        "cancel": "Annuler",
         "justNow": "à l'instant",
         "viewProfile": "Voir le profil de {name}",
-        "viewMyProfile": "Voir mon profil"
+        "viewMyProfile": "Voir mon profil",
+        "adminDelete": "Supprimer la publication (modérateur)",
+        "adminDeleteConfirm": "Supprimer cette publication en tant que modérateur ?",
+        "adminDeleteSuccess": "Publication supprimée",
+        "adminDeleteError": "Impossible de supprimer la publication"
       },
       "CommentItem": {
         "viewProfile": "Voir le profil de {name}",

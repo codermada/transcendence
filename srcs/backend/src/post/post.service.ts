@@ -126,6 +126,22 @@ export class PostService {
 		return { message: 'Publication supprimée avec succès' };
 	}
 
+	async adminDeletePost(postId: string, userId: string) {
+		const existingPost = await this.postRepository.findById(postId, userId);
+
+		if (!existingPost) {
+			throw new NotFoundException(`Publication introuvable avec l'ID: ${postId}`);
+		}
+
+		if (existingPost.mediaUrls && existingPost.mediaUrls.length > 0) {
+			await this.s3Service.deleteFiles(existingPost.mediaUrls);
+		}
+
+		await this.postRepository.delete(postId);
+
+		return { message: 'Publication supprimée avec succès' };
+	}
+
 	async getAssociatedUserIdPosts(filters: GetPostsFilterDto, userId: string, currentUserId: string) {
 		const posts = await this.postRepository.findAssociatedUserIdPosts(filters, userId, currentUserId);
 
