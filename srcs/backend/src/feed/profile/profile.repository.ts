@@ -88,7 +88,10 @@ export class ProfileRepository {
 
 	async getFriendshipStatus(currentUserId: string, otherUserId: string) {
 		if (currentUserId === otherUserId) {
-			return 'SELF';
+			return {
+				status: 'SELF',
+				friendship: null,
+			};
 		}
 
 		const pairKey = [currentUserId, otherUserId].sort().join(':');
@@ -96,43 +99,71 @@ export class ProfileRepository {
 		const friendship = await this.prisma.friendship.findUnique({
 			where: { pairKey },
 			select: {
-			id: true,
-			status: true,
-			requesterId: true,
-			addresseeId: true,
-			blockedById: true,
+				id: true,
+				status: true,
+				requesterId: true,
+				addresseeId: true,
+				blockedById: true,
 			},
 		});
-
+		
 		if (!friendship) {
-			return 'none';
+			return {
+				status: 'NONE',
+				id: null,
+			};
 		}
+
+		let status: string;
 
 		switch (friendship.status) {
 			case 'PENDING': {
-			return friendship.requesterId === currentUserId
-				? 'PENDING_OUTGOING'
-				: 'PENDING_INCOMING';
+				if (friendship.requesterId === currentUserId) {
+					status = 'PENDING_OUTGOING';
+				} else {
+					status = 'PENDING_INCOMING';
+				}
+
+				break;
 			}
 
-			case 'ACCEPTED':
-				return 'FRIENDS';
+			case 'ACCEPTED': {
+				status = 'FRIENDS';
+				break;
+			}
 
 			case 'BLOCKED': {
-			const blockerId = friendship.blockedById ?? friendship.requesterId;
-			return blockerId === currentUserId
-				? 'BLOCKED_BY_ME'
-				: 'BLOCKED_ME';
+				const blockerId =
+					friendship.blockedById ?? friendship.requesterId;
+
+				if (blockerId === currentUserId) {
+					status = 'BLOCKED_BY_ME';
+				} else {
+					status = 'BLOCKED_BY_OTHER';
+				}
+
+				break;
 			}
 
-			case 'REJECTED':
-			return 'REJECTED';
+			case 'REJECTED': {
+				status = 'REJECTED';
+				break;
+			}
 
-			case 'CANCELLED':
-			return 'CANCELLED';
+			case 'CANCELLED': {
+				status = 'CANCELLED';
+				break;
+			}
 
-			default:
-			return 'NONE';
+			default: {
+				status = 'NONE';
+				break;
+			}
 		}
+
+		return {
+			status,
+			friendship,
+		};
 	}
 }
