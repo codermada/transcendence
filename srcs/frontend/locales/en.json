@@ -439,7 +439,7 @@
       "deletingChannel": "Error deleting channel",
       "firingMember": "Error firing member",
       "updatingRole": "Error updating role",
-      "addingNewMember": ""
+      "addingNewMember": "Error adding new member"
     }
   },
   "Settings": {
