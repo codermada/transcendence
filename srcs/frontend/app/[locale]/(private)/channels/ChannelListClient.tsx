@@ -105,7 +105,18 @@ export function ChannelListClient() {
                 <div>
                   <div className="flex items-start justify-between gap-3">
                     <div className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-violet-100 text-violet-600 transition group-hover:scale-105 dark:bg-violet-950/50 dark:text-violet-400">
-                      <Hash className="h-5 w-5" />
+                      {
+                        channel.mediaUrl ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={channel.mediaUrl}
+                            alt={channel.title}
+                            className="h-10 w-10 shrink-0 rounded-xl object-cover ring-1 ring-zinc-200/80 dark:ring-zinc-800"
+                          />
+                        ) : (
+                          <Hash className="h-5 w-5" />
+                        )
+                      }
                       {unread > 0 && (
                         <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-violet-600 px-1 text-[10px] font-bold text-white shadow-xs">
                           {unread > 99 ? "99+" : unread}
