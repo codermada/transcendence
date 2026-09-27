@@ -273,7 +273,7 @@
           "loadError": "Could not load comments.",
           "invalidImageType": "Please select an image.",
           "imageTooLarge": "The image must not exceed 10 MB.",
-          "emptyComment": "Write a comment or add an image.",
+          "emptyComment": "Write a comment.",
           "createSuccess": "Comment added.",
           "createError": "Could not add the comment.",
           "likeError": "Could not update the like.",
@@ -366,7 +366,7 @@
     "loadError": "Couldn't load comments.",
     "selectImage": "Please select an image.",
     "imageTooLarge": "The image must not exceed 10 MB.",
-    "emptyComment": "Write a comment or add an image.",
+    "emptyComment": "Write a comment.",
     "added": "Comment added.",
     "addError": "Couldn't add the comment.",
     "likeError": "Couldn't update the like."
