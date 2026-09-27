@@ -5,7 +5,7 @@ import { twoFactorClient, adminClient } from "better-auth/client/plugins";
 import { ac, roles } from "./permissions";
 
 export const authClient = createAuthClient({
-  baseURL: "https://localhost:9000/nest/auth",
+  baseURL: `https://${process.env.NEXT_PUBLIC_IP_ADDRESS ? process.env.NEXT_PUBLIC_IP_ADDRESS : 'localhost'}:9000/nest/auth`,
   fetchOptions: {
     credentials: "include",
   },
