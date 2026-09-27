@@ -274,7 +274,7 @@
           "loadError": "Impossible de charger les commentaires.",
           "invalidImageType": "Veuillez sélectionner une image.",
           "imageTooLarge": "L'image ne doit pas dépasser 10 MB.",
-          "emptyComment": "Écrivez un commentaire ou ajoutez une image.",
+          "emptyComment": "Écrivez un commentaire.",
           "createSuccess": "Commentaire ajouté.",
           "createError": "Impossible d'ajouter le commentaire.",
           "likeError": "Impossible de mettre à jour le like.",
@@ -367,7 +367,7 @@
     "loadError": "Impossible de charger les commentaires.",
     "selectImage": "Veuillez sélectionner une image.",
     "imageTooLarge": "L'image ne doit pas dépasser 10 Mo.",
-    "emptyComment": "Écrivez un commentaire ou ajoutez une image.",
+    "emptyComment": "Écrivez un commentaire.",
     "added": "Commentaire ajouté.",
     "addError": "Impossible d'ajouter le commentaire.",
     "likeError": "Impossible de mettre à jour le like."
