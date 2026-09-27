@@ -1,6 +1,7 @@
 export interface UserProfileResponse {
 	name: string,
 	username: string,
+  email: string,
 	initials: string,
   image: string | null,
 	stats: {
