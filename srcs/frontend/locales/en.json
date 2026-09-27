@@ -623,6 +623,8 @@
       "errorFailed": "Failed to fetch users.",
       "errorUnexpected": "Something went wrong.",
 
+      "colUserId": "User ID",
+
       "colUser": "User",
       "colEmail": "Email",
       "colRole": "Role",

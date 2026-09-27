@@ -622,6 +622,8 @@
       "errorFailed": "Échec du chargement des utilisateurs.",
       "errorUnexpected": "Une erreur est survenue.",
 
+      "colUserId": "ID utilisateur",
+
       "colUser": "Utilisateur",
       "colEmail": "E-mail",
       "colRole": "Rôle",
