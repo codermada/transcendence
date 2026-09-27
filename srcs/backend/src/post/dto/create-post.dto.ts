@@ -2,7 +2,7 @@ import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreatePostDto {
 	@IsString()
-	@IsNotEmpty({ message: 'Le contenu ne peut pas être vide' })
+	@IsNotEmpty({ message: "Content can't be empty" })
 	content: string;
 
 	@IsArray()
