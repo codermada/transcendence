@@ -4,6 +4,7 @@ import { S3Service } from '../s3/s3.service';
 import { CreateChannelDto } from './dto/create-channel.dto';
 import { SendChannelMessageDto } from './dto/send-message-channel.dto';
 import { ChannelRoleEnum } from './dto/update-role.dto';
+import { UpdateChannelDto } from './dto/update-channel.dto';
 
 @Injectable()
 export class ChannelService {
@@ -119,6 +120,29 @@ export class ChannelService {
 						user: { select: { id: true, name: true, image: true, email: true } },
 					},
 				},
+			},
+		});
+	}
+
+	// Update Channel details
+	async updateChannel(userId: string, channelId: string, dto: UpdateChannelDto, file?: Express.Multer.File) {
+		const member = await this.findUserInChannel(userId, channelId);
+		if (!member) {
+			throw new ForbiddenException('You are not a member of this channel.');
+		}
+
+		let mediaUrl: string | undefined;
+
+		if (file) {
+			mediaUrl = await this.s3Service.uploadFile(file);
+		}
+
+		return await this.prismaService.channel.update({
+			where: { id: channelId },
+			data: {
+				title: dto.title,
+				description: dto.description,
+				mediaUrl,
 			},
 		});
 	}
