@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/routing";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth/auth-client";
@@ -9,6 +10,7 @@ import { AlertCircle, ShieldCheck } from "@/components/icons";
 
 export default function TwoFactorPage() {
   const router = useRouter();
+  const t = useTranslations("TwoFactor.signIn");
 
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,7 +20,7 @@ export default function TwoFactorPage() {
     e.preventDefault();
 
     if (!code) {
-      toast.error("Enter an authentication code.");
+      toast.error(t("toast.enterCode"));
       return;
     }
 
@@ -31,11 +33,11 @@ export default function TwoFactorPage() {
     setLoading(false);
 
     if (error) {
-      toast.error(error.message ?? "Invalid authentication code.");
+      toast.error(error.message ?? t("toast.invalidCode"));
       return;
     }
 
-    toast.success("Two-factor authentication successful!");
+    toast.success(t("toast.success"));
 
     router.push("/feed");
   }
@@ -88,12 +90,12 @@ export default function TwoFactorPage() {
 
             <div>
               <h1 className="text-lg font-semibold tracking-tight">
-                Two-factor authentication
+                {t("title")}
               </h1>
               <p className="text-muted mt-1 text-xs leading-relaxed">
                 {useBackupCode
-                  ? "Enter one of your backup codes to continue."
-                  : "Enter the 6-digit code from your authenticator app."}
+                  ? t("descriptionBackup")
+                  : t("descriptionTotp")}
               </p>
             </div>
           </div>
@@ -105,7 +107,7 @@ export default function TwoFactorPage() {
                 htmlFor="two-factor-code"
                 className="text-muted block px-1 text-xs font-semibold uppercase tracking-wider"
               >
-                {useBackupCode ? "Backup code" : "Authentication code"}
+                {useBackupCode ? t("labelBackup") : t("labelTotp")}
               </label>
 
               <input
@@ -123,7 +125,9 @@ export default function TwoFactorPage() {
                       : e.target.value.replace(/\D/g, ""),
                   )
                 }
-                placeholder={useBackupCode ? "XXXXXXXX" : "000000"}
+                placeholder={
+                  useBackupCode ? t("placeholderBackup") : t("placeholderTotp")
+                }
                 className="
                   bg-background border-border placeholder:text-muted
                   focus:border-brand-500/50 focus:ring-brand-500/20
@@ -165,10 +169,10 @@ export default function TwoFactorPage() {
                       border-t-white
                     "
                   />
-                  Verifying…
+                  {t("submitting")}
                 </span>
               ) : (
-                "Verify"
+                t("submit")
               )}
             </button>
 
@@ -188,9 +192,7 @@ export default function TwoFactorPage() {
                 disabled:opacity-50
               "
             >
-              {useBackupCode
-                ? "Use authenticator code instead"
-                : "Use a backup code instead"}
+              {useBackupCode ? t("switchToTotp") : t("switchToBackup")}
             </button>
           </form>
 
@@ -206,14 +208,14 @@ export default function TwoFactorPage() {
           >
             <AlertCircle className="text-muted mt-0.5 h-3.5 w-3.5 shrink-0" />
             <span>
-              Lost access to your authenticator?{" "}
+              {t("help.prefix")}{" "}
               <Link
                 href="/support"
                 className="text-brand-400 underline-offset-2 font-medium hover:underline"
               >
-                Contact support
+                {t("help.link")}
               </Link>
-              .
+              {t("help.suffix")}
             </span>
           </div>
         </div>

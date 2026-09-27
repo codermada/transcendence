@@ -942,6 +942,36 @@
       "description": "Save these backup codes somewhere safe. Each code can be used once if you lose access to your authenticator app.",
       "backupCodes": "Backup codes",
       "oneTimeUse": "One-time use"
+    },
+
+    "signIn": {
+      "title": "Two-factor authentication",
+      "descriptionTotp": "Enter the 6-digit code from your authenticator app.",
+      "descriptionBackup": "Enter one of your backup codes to continue.",
+
+      "labelTotp": "Authentication code",
+      "labelBackup": "Backup code",
+
+      "placeholderTotp": "000000",
+      "placeholderBackup": "XXXXXXXX",
+
+      "submit": "Verify",
+      "submitting": "Verifying…",
+
+      "switchToBackup": "Use a backup code instead",
+      "switchToTotp": "Use authenticator code instead",
+
+      "toast": {
+        "enterCode": "Enter an authentication code.",
+        "invalidCode": "Invalid authentication code.",
+        "success": "Two-factor authentication successful!"
+      },
+
+      "help": {
+        "prefix": "Lost access to your authenticator?",
+        "link": "Contact support",
+        "suffix": "."
+      }
     }
   }
 
