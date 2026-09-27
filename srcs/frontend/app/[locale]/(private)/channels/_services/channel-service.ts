@@ -157,3 +157,34 @@ export async function markChannelAsSeen(channelId: string): Promise<void> {
     credentials: "include",
   });
 }
+
+export async function updateChannel(
+  channelId: string,
+  data: {
+    title?: string;
+    description?: string;
+    file?: File | null;
+  },
+): Promise<ChannelDetail> {
+  const formData = new FormData();
+  if (data.title !== undefined) {
+    formData.append("title", data.title.trim());
+  }
+  if (data.description !== undefined) {
+    formData.append("description", data.description.trim());
+  }
+  if (data.file) {
+    formData.append("file", data.file);
+  }
+
+  const res = await fetch(`/nest/channels/${channelId}`, {
+    method: "PATCH",
+    credentials: "include",
+    body: formData,
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "Failed to update channel.");
+  }
+  return res.json();
+}

@@ -1,8 +1,7 @@
 import { io, Socket } from "socket.io-client";
 
-/**
- * Returns the base URL for backend WebSocket connections.
- */
+const SOCKETS_CACHE = new Map<string, Socket>();
+
 export const getSocketBaseUrl = (): string => {
   if (process.env.NEXT_PUBLIC_WS_URL) {
     return process.env.NEXT_PUBLIC_WS_URL;
@@ -13,21 +12,11 @@ export const getSocketBaseUrl = (): string => {
   return "https://localhost:9000";
 };
 
-// Global cache of Socket.io client instances keyed by namespace
-const socketsCache = new Map<string, Socket>();
-
-/**
- * Factory to get or create a managed Socket.io client instance for a given namespace.
- * Configured for Docker with Nginx reverse proxy (/nest/socket.io).
- *
- * @param namespace - WebSocket namespace (e.g., "/presence", "/chat")
- * @returns Configured Socket instance
- */
 export function getNamespaceSocket(namespace: string): Socket {
   const normalizedNamespace = namespace.startsWith("/") ? namespace : `/${namespace}`;
 
-  if (socketsCache.has(normalizedNamespace)) {
-    return socketsCache.get(normalizedNamespace)!;
+  if (SOCKETS_CACHE.has(normalizedNamespace)) {
+    return SOCKETS_CACHE.get(normalizedNamespace)!;
   }
 
   const baseUrl = getSocketBaseUrl();
@@ -36,7 +25,7 @@ export function getNamespaceSocket(namespace: string): Socket {
   const socket = io(socketUrl, {
     path: "/nest/socket.io",
     withCredentials: true,
-    autoConnect: false, // Explicit connection managed by providers/hooks
+    autoConnect: false,
     transports: ["polling", "websocket"],
     reconnection: true,
     reconnectionAttempts: 10,
@@ -45,6 +34,6 @@ export function getNamespaceSocket(namespace: string): Socket {
     timeout: 20000,
   });
 
-  socketsCache.set(normalizedNamespace, socket);
+  SOCKETS_CACHE.set(normalizedNamespace, socket);
   return socket;
 }
