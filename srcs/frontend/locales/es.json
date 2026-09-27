@@ -621,6 +621,8 @@
       "errorFailed": "No se pudieron cargar los usuarios.",
       "errorUnexpected": "Algo salió mal.",
 
+      "colUserId": "ID de usuario",
+
       "colUser": "Usuario",
       "colEmail": "Correo electrónico",
       "colRole": "Rol",
