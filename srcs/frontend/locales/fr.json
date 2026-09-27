@@ -940,6 +940,36 @@
       "description": "Conservez ces codes de secours en lieu sûr. Chaque code ne peut être utilisé qu'une seule fois si vous perdez l'accès à votre application d'authentification.",
       "backupCodes": "Codes de secours",
       "oneTimeUse": "Usage unique"
+    },
+
+    "signIn": {
+      "title": "Authentification à deux facteurs",
+      "descriptionTotp": "Saisissez le code à 6 chiffres généré par votre application d'authentification.",
+      "descriptionBackup": "Saisissez l'un de vos codes de secours pour continuer.",
+
+      "labelTotp": "Code d'authentification",
+      "labelBackup": "Code de secours",
+
+      "placeholderTotp": "000000",
+      "placeholderBackup": "XXXXXXXX",
+
+      "submit": "Vérifier",
+      "submitting": "Vérification…",
+
+      "switchToBackup": "Utiliser un code de secours",
+      "switchToTotp": "Utiliser le code de l'application d'authentification",
+
+      "toast": {
+        "enterCode": "Saisissez un code d'authentification.",
+        "invalidCode": "Code d'authentification invalide.",
+        "success": "Authentification à deux facteurs réussie !"
+      },
+
+      "help": {
+        "prefix": "Vous avez perdu l'accès à votre application d'authentification ?",
+        "link": "Contacter le support",
+        "suffix": "."
+      }
     }
   }
 }
