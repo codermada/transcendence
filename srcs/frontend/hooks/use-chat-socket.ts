@@ -5,9 +5,7 @@ import { useSession } from "@/lib/auth/use-session";
 import { getNamespaceSocket } from "@/lib/socket/socket-client";
 import { useChatStore, Message } from "@/stores/use-chat-store";
 
-/**
- * Global chat socket lifecycle hook.
- */
+// Global chat socket lifecycle hook
 export function useChatSocketInit() {
   const { data: session } = useSession();
   const userId = session?.user?.id;
@@ -62,9 +60,7 @@ export function useChatSocketInit() {
   }, [userId, handleNewMessage, handleMessageSeen, setConnected, reset]);
 }
 
-/**
- * Hook to manage room joining, leaving, and read receipts for an active conversation.
- */
+// Room and read receipts lifecycle for active conversation
 export function useConversationSocket(conversationId: string) {
   const socket = getNamespaceSocket("/chat");
 

@@ -67,7 +67,7 @@ export function FriendsListClient() {
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
 
-  // Debounce search input so we don't hammer the API on every keystroke.
+  // Debounce search input
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -82,7 +82,7 @@ export function FriendsListClient() {
     };
   }, [search]);
 
-  // Resolve the viewer once so we can pick the "other" side reliably.
+  // Fetch viewer ID
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -95,7 +95,7 @@ export function FriendsListClient() {
         const me: { id: string } = await res.json();
         if (!cancelled) setViewerId(me.id ?? null);
       } catch {
-        /* leave null — fall back to requester */
+        /* fallback */
       }
     })();
     return () => {

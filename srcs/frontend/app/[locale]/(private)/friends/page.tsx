@@ -8,7 +8,7 @@ export default async function FriendsPage() {
 
   return (
     <div className="mx-auto max-w-5xl p-6">
-      {/* Header — unchanged */}
+      {/* Header */}
       <div className="flex items-center justify-between border-b border-zinc-200/80 pb-5 dark:border-zinc-800">
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-100 text-violet-600 dark:bg-violet-500/15 dark:text-violet-400">
@@ -42,7 +42,7 @@ export default async function FriendsPage() {
         </div>
       </div>
 
-      {/* The list replaces the old static empty card */}
+      {/* Friends list */}
       <FriendsListClient />
     </div>
   );
