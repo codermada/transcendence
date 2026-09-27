@@ -273,7 +273,7 @@
           "loadError": "No se pudieron cargar los comentarios.",
           "invalidImageType": "Selecciona una imagen.",
           "imageTooLarge": "La imagen no debe superar los 10 MB.",
-          "emptyComment": "Escribe un comentario o añade una imagen.",
+          "emptyComment": "Escribe un comentario.",
           "createSuccess": "Comentario añadido.",
           "createError": "No se pudo añadir el comentario.",
           "likeError": "No se pudo actualizar el me gusta.",
@@ -366,7 +366,7 @@
     "loadError": "No se pudieron cargar los comentarios.",
     "selectImage": "Por favor, selecciona una imagen.",
     "imageTooLarge": "La imagen no debe superar los 10 MB.",
-    "emptyComment": "Escribe un comentario o añade una imagen.",
+    "emptyComment": "Escribe un comentario.",
     "added": "Comentario añadido.",
     "addError": "No se pudo añadir el comentario.",
     "likeError": "No se pudo actualizar el me gusta."
