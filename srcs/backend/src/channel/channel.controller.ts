@@ -2,16 +2,20 @@ import {
   Body,
   Controller,
   Delete,
+  FileTypeValidator,
   Get,
+  MaxFileSizeValidator,
   Param,
+  ParseFilePipe,
   Patch,
   Post,
+  UploadedFile,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { AuthGuard } from '../auth/AuthGuard';
 import { CurrentUser } from '../auth/CurrentUser';
@@ -21,6 +25,7 @@ import { CreateChannelDto } from './dto/create-channel.dto';
 import { AddMemberDto } from './dto/add-member.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { SendChannelMessageDto } from './dto/send-message-channel.dto';
+import { UpdateChannelDto } from './dto/update-channel.dto';
 
 @ApiTags('channels')
 @Controller('channels')
@@ -29,7 +34,7 @@ export class ChannelController {
   constructor(
     private readonly channelService: ChannelService,
     private readonly channelGateway: ChannelGateway,
-  ) {}
+  ) { }
 
   @Get('available-users')
   @ApiOperation({ summary: 'User list available for channel (excluding blocked users)' })
@@ -55,6 +60,29 @@ export class ChannelController {
   @ApiOperation({ summary: 'Channel details and members' })
   getChannelDetails(@CurrentUser() user: { id: string }, @Param('id') channelId: string) {
     return this.channelService.getChannel(user.id, channelId);
+  }
+
+  @Patch(':id')
+  @ApiOperation({ summary: 'Update channel details (Member)' })
+  @UseInterceptors(FileInterceptor('file'))
+  async updateChannelDetails(
+    @CurrentUser() user: { id: string },
+    @Param('id') channelId: string,
+    @Body() dto: UpdateChannelDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        fileIsRequired: false,
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }), // 5 MB
+          new FileTypeValidator({ fileType: /^image\/(png|jpe?g|webp|gif)$/ }),
+        ],
+      }),
+    )
+    file?: Express.Multer.File,
+  ) {
+    const updated = await this.channelService.updateChannel(user.id, channelId, dto, file);
+    this.channelGateway.broadcastChannelUpdated(updated);
+    return updated;
   }
 
   @Delete(':id')
