@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import {
   ChangeEvent,
   FormEvent,
@@ -8,13 +9,12 @@ import {
   useState,
 } from "react";
 import { toast } from "sonner";
-import { useTranslations } from "next-intl";
-import type { Comment } from "../feed-section.types";
 import { commentService } from "../../../_services/PostCommentService";
+import type { Comment } from "../feed-section.types";
 
+import { CommentComposer } from "./CommentComposer";
 import { CommentsHeader } from "./CommentsHeader";
 import { CommentsList } from "./CommentsList";
-import { CommentComposer } from "./CommentComposer";
 
 interface CommentsModalProps {
   postId: string;
@@ -120,7 +120,7 @@ export function CommentsModal({
 
     const trimmedContent = content.trim();
 
-    if (!trimmedContent && !selectedImage) {
+    if (!trimmedContent) {
       toast.error(t("toasts.emptyComment"));
       return;
     }
