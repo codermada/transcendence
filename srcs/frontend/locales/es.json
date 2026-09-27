@@ -99,7 +99,8 @@
     "offline": "Desconectado",
     "preferences": "Preferencias",
     "user": "Usuario",
-    "signOutError": "No se pudo cerrar sesión. Inténtalo de nuevo."
+    "signOutError": "No se pudo cerrar sesión. Inténtalo de nuevo.",
+    "legal": "Legal"
   },
   "Auth": {
     "signIn": {
