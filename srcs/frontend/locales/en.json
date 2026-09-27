@@ -876,5 +876,73 @@
   "UploadProgressToast": {
     "notCompleted": "Uploading files...",
     "completed": "Post published!"
+  },
+  "TwoFactor": {
+    "title": "Two-Factor Authentication",
+    "subtitle": "Add an extra layer of security to your account using an authenticator app.",
+    "loading": "Loading security settings…",
+
+    "errors": {
+      "enterPassword": "Enter your current password.",
+      "enableFailed": "Unable to enable two-factor authentication.",
+      "noTotpUri": "The server did not return a TOTP setup URI.",
+      "invalidCode": "Invalid verification code.",
+      "enterSixDigits": "Enter the 6-digit verification code.",
+      "verifyFailed": "Unable to verify the authentication code.",
+      "disableFailed": "Unable to disable two-factor authentication.",
+      "copyFailed": "Unable to copy backup code."
+    },
+
+    "messages": {
+      "scanPrompt": "Scan the QR code with your authenticator app, then enter the verification code.",
+      "enabledSuccess": "Two-factor authentication has been enabled successfully.",
+      "disabledSuccess": "Two-factor authentication has been disabled."
+    },
+
+    "status": {
+      "heading": "Authenticator app",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "enabledDescription": "Your account is protected with two-factor authentication.",
+      "disabledDescription": "Require a verification code from your authenticator app when signing in.",
+      "enableButton": "Enable 2FA",
+      "disableButton": "Disable 2FA"
+    },
+
+    "password": {
+      "heading": "Confirm your password",
+      "description": "Enter your current password to continue.",
+      "placeholder": "Your password",
+      "cancel": "Cancel",
+      "continue": "Continue",
+      "submitting": "Please wait…"
+    },
+
+    "verify": {
+      "heading": "Scan and verify",
+      "description": "Scan the QR code with your authenticator app, then enter the 6-digit code.",
+      "qrAlt": "Two-factor authentication QR code",
+      "codePlaceholder": "000000",
+      "startOver": "Start over",
+      "verify": "Verify",
+      "verifying": "Please wait…"
+    },
+
+    "disable": {
+      "heading": "Disable two-factor authentication",
+      "description": "This will remove the extra layer of security from your account. Enter your password to confirm.",
+      "placeholder": "Your password",
+      "cancel": "Cancel",
+      "disable": "Disable 2FA",
+      "disabling": "Please wait…"
+    },
+
+    "complete": {
+      "heading": "Two-factor authentication enabled",
+      "description": "Save these backup codes somewhere safe. Each code can be used once if you lose access to your authenticator app.",
+      "backupCodes": "Backup codes",
+      "oneTimeUse": "One-time use"
+    }
   }
+
 }

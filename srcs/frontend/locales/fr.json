@@ -874,5 +874,72 @@
   "UploadProgressToast": {
     "notCompleted": "Envoi des fichiers...",
     "completed": "Publication envoyée !"
+  },
+  "TwoFactor": {
+    "title": "Authentification à deux facteurs",
+    "subtitle": "Ajoutez une couche de sécurité supplémentaire à votre compte grâce à une application d'authentification.",
+    "loading": "Chargement des paramètres de sécurité…",
+
+    "errors": {
+      "enterPassword": "Saisissez votre mot de passe actuel.",
+      "enableFailed": "Impossible d'activer l'authentification à deux facteurs.",
+      "noTotpUri": "Le serveur n'a pas renvoyé d'URI de configuration TOTP.",
+      "invalidCode": "Code de vérification invalide.",
+      "enterSixDigits": "Saisissez le code de vérification à 6 chiffres.",
+      "verifyFailed": "Impossible de vérifier le code d'authentification.",
+      "disableFailed": "Impossible de désactiver l'authentification à deux facteurs.",
+      "copyFailed": "Impossible de copier le code de secours."
+    },
+
+    "messages": {
+      "scanPrompt": "Scannez le code QR avec votre application d'authentification, puis saisissez le code de vérification.",
+      "enabledSuccess": "L'authentification à deux facteurs a été activée avec succès.",
+      "disabledSuccess": "L'authentification à deux facteurs a été désactivée."
+    },
+
+    "status": {
+      "heading": "Application d'authentification",
+      "enabled": "Activée",
+      "disabled": "Désactivée",
+      "enabledDescription": "Votre compte est protégé par l'authentification à deux facteurs.",
+      "disabledDescription": "Exigez un code de vérification de votre application d'authentification lors de la connexion.",
+      "enableButton": "Activer la 2FA",
+      "disableButton": "Désactiver la 2FA"
+    },
+
+    "password": {
+      "heading": "Confirmez votre mot de passe",
+      "description": "Saisissez votre mot de passe actuel pour continuer.",
+      "placeholder": "Votre mot de passe",
+      "cancel": "Annuler",
+      "continue": "Continuer",
+      "submitting": "Veuillez patienter…"
+    },
+
+    "verify": {
+      "heading": "Scannez et vérifiez",
+      "description": "Scannez le code QR avec votre application d'authentification, puis saisissez le code à 6 chiffres.",
+      "qrAlt": "Code QR d'authentification à deux facteurs",
+      "codePlaceholder": "000000",
+      "startOver": "Recommencer",
+      "verify": "Vérifier",
+      "verifying": "Veuillez patienter…"
+    },
+
+    "disable": {
+      "heading": "Désactiver l'authentification à deux facteurs",
+      "description": "Cela supprimera la couche de sécurité supplémentaire de votre compte. Saisissez votre mot de passe pour confirmer.",
+      "placeholder": "Votre mot de passe",
+      "cancel": "Annuler",
+      "disable": "Désactiver la 2FA",
+      "disabling": "Veuillez patienter…"
+    },
+
+    "complete": {
+      "heading": "Authentification à deux facteurs activée",
+      "description": "Conservez ces codes de secours en lieu sûr. Chaque code ne peut être utilisé qu'une seule fois si vous perdez l'accès à votre application d'authentification.",
+      "backupCodes": "Codes de secours",
+      "oneTimeUse": "Usage unique"
+    }
   }
 }

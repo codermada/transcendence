@@ -36,7 +36,7 @@ export default async function LocaleLayout({
     >
       <body
         suppressHydrationWarning
-        className="flex min-h-full flex-col bg-white text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-zinc-100"
+        className="bg-ambient flex min-h-full flex-col font-sans transition-colors"
       >
         <Providers>
           <NextIntlClientProvider messages={messages}>
