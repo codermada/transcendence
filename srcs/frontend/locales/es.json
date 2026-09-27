@@ -939,6 +939,36 @@
       "description": "Guarda estos códigos de respaldo en un lugar seguro. Cada código puede usarse una sola vez si pierdes el acceso a tu aplicación de autenticación.",
       "backupCodes": "Códigos de respaldo",
       "oneTimeUse": "Uso único"
+    },
+
+    "signIn": {
+      "title": "Autenticación en dos pasos",
+      "descriptionTotp": "Introduce el código de 6 dígitos de tu aplicación de autenticación.",
+      "descriptionBackup": "Introduce uno de tus códigos de respaldo para continuar.",
+
+      "labelTotp": "Código de autenticación",
+      "labelBackup": "Código de respaldo",
+
+      "placeholderTotp": "000000",
+      "placeholderBackup": "XXXXXXXX",
+
+      "submit": "Verificar",
+      "submitting": "Verificando…",
+
+      "switchToBackup": "Usar un código de respaldo",
+      "switchToTotp": "Usar el código de la aplicación de autenticación",
+
+      "toast": {
+        "enterCode": "Introduce un código de autenticación.",
+        "invalidCode": "Código de autenticación no válido.",
+        "success": "¡Autenticación en dos pasos correcta!"
+      },
+
+      "help": {
+        "prefix": "¿Has perdido el acceso a tu aplicación de autenticación?",
+        "link": "Contacta con soporte",
+        "suffix": "."
+      }
     }
   }
 
