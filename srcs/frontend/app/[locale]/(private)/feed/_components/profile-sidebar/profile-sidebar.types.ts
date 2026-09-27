@@ -7,6 +7,7 @@ export interface UserStats {
 export interface UserProfile {
   name: string;
   username: string;
+  email: string;
   initials: string;
   stats: UserStats;
 }

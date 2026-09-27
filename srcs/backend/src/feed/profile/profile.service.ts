@@ -34,6 +34,7 @@ export class ProfileService {
 		return {
 			id: user.id,
 			name: authorName,
+			email: user.email,
 			initials,
 			image: user.image,
 			stats: {
