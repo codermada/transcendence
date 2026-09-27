@@ -12,7 +12,6 @@ import { PostLikeModule } from './post-like/post-like.module.js';
 import { PostModule } from './post/post.module';
 import { PresenceModule } from './presence/presence.module.js';
 import { PrismaModule } from './prisma/prisma.module';
-import { TestModule } from './test/test.module';
 import { UserModule } from './user/user.module';
 import { PostCommentModule } from './post-comment/post-comment.module';
 import { ChannelModule } from './channel/channel.module';
@@ -21,7 +20,6 @@ import { ChannelModule } from './channel/channel.module';
 	imports: [
 		AuthModule.forRoot({ auth }),
 		PrismaModule,
-		TestModule,
 		UserModule,
 		FriendModule,
 		ChatModule,
