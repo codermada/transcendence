@@ -19,7 +19,7 @@ export default function ForgotPasswordPage() {
           {t("rememberPassword")}{" "}
           <Link
             href="/sign-in"
-            className="text-violet-400 hover:text-violet-300"
+            className="hover:text-brand-300 text-brand-400"
           >
             {t("signInLink")}
           </Link>

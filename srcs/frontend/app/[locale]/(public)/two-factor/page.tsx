@@ -46,14 +46,14 @@ export default function TwoFactorPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-4 py-8 bg-white text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-white">
+    <main className="flex min-h-screen items-center justify-center px-4 py-8 transition-colors">
       <div className="w-full max-w-md">
         <div
           className="
+            bg-surface border-border
             relative overflow-hidden
-            rounded-2xl
-            border border-zinc-200 bg-zinc-50/80 shadow-xl shadow-zinc-200/50 backdrop-blur-xl
-            dark:border-zinc-800 dark:bg-zinc-900/40 dark:shadow-2xl dark:shadow-black/20
+            rounded-2xl border
+            shadow-2xl shadow-black/20 backdrop-blur-xl
             p-6 sm:p-8
             transition-colors
           "
@@ -62,55 +62,52 @@ export default function TwoFactorPage() {
           <div
             aria-hidden
             className="
+              from-transparent via-brand-500/50 to-transparent
               pointer-events-none
               absolute inset-x-10 top-0
               h-px
               bg-gradient-to-r
-              from-transparent
-              via-violet-500/50
-              to-transparent
               shadow-[0_0_14px_rgb(139_92_246_/_0.35)]
             "
           />
-    
+
           {/* Icon + heading */}
           <div className="flex items-start gap-4">
             <div
               className="
+                border-brand-500/30 bg-brand-500/10 text-brand-400
                 flex h-10 w-10 shrink-0
                 items-center justify-center
                 rounded-xl
-                border border-violet-500/30
-                bg-violet-500/10
-                text-violet-600 dark:text-violet-400
+                border
                 shadow-[0_0_20px_rgb(139_92_246_/_0.12)]
               "
             >
               <ShieldCheck className="h-5 w-5" />
             </div>
-      
+
             <div>
-              <h1 className="text-lg font-semibold tracking-tight text-zinc-900 dark:text-white">
+              <h1 className="text-lg font-semibold tracking-tight">
                 Two-factor authentication
               </h1>
-              <p className="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
+              <p className="text-muted mt-1 text-xs leading-relaxed">
                 {useBackupCode
                   ? "Enter one of your backup codes to continue."
                   : "Enter the 6-digit code from your authenticator app."}
               </p>
             </div>
           </div>
-                
+
           {/* Form */}
           <form onSubmit={handleSubmit} className="mt-6 space-y-5">
             <div className="space-y-2">
               <label
                 htmlFor="two-factor-code"
-                className="block px-1 text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400"
+                className="text-muted block px-1 text-xs font-semibold uppercase tracking-wider"
               >
                 {useBackupCode ? "Backup code" : "Authentication code"}
               </label>
-                
+
               <input
                 id="two-factor-code"
                 type="text"
@@ -128,29 +125,30 @@ export default function TwoFactorPage() {
                 }
                 placeholder={useBackupCode ? "XXXXXXXX" : "000000"}
                 className="
-                  w-full rounded-xl
-                  border border-zinc-200 bg-white text-zinc-900 placeholder:text-zinc-400
-                  dark:border-zinc-800 dark:bg-zinc-950 dark:text-white dark:placeholder:text-zinc-500
+                  bg-background border-border placeholder:text-muted
+                  focus:border-brand-500/50 focus:ring-brand-500/20
+                  w-full rounded-xl border
                   px-3 py-2.5
                   text-center
                   font-mono
                   text-lg
                   tracking-[0.5em]
                   transition-colors
-                  focus:border-violet-500/50
                   focus:outline-none
                   focus:ring-2
-                  focus:ring-violet-500/20
                 "
               />
             </div>
-              
+
             <button
               type="submit"
               disabled={loading || !code}
               className="
-                w-full rounded-full bg-violet-600 py-2.5 text-sm font-medium text-white transition
-                hover:bg-violet-500 active:bg-violet-700
+                bg-brand-600 hover:bg-brand-500 active:bg-brand-700
+                w-full rounded-full
+                py-2.5
+                text-sm font-medium text-white
+                transition
                 disabled:cursor-not-allowed disabled:opacity-50
               "
             >
@@ -173,21 +171,19 @@ export default function TwoFactorPage() {
                 "Verify"
               )}
             </button>
-            
+
             <button
               type="button"
               onClick={handleToggleCodeType}
               disabled={loading}
               className="
+                text-muted hover:text-brand-400 focus:ring-brand-500/20
                 w-full
                 text-center
                 text-xs font-medium
-                text-zinc-600 hover:text-violet-600
-                dark:text-zinc-400 dark:hover:text-violet-400
                 transition-colors
                 focus:outline-none
                 focus:ring-2
-                focus:ring-violet-500/20
                 disabled:cursor-not-allowed
                 disabled:opacity-50
               "
@@ -197,24 +193,23 @@ export default function TwoFactorPage() {
                 : "Use a backup code instead"}
             </button>
           </form>
-              
+
           {/* Help */}
           <div
             className="
+              border-border bg-background/60 text-muted
               mt-6 flex items-start gap-3
-              rounded-xl
-              border border-zinc-200 bg-white/60
-              dark:border-zinc-800 dark:bg-zinc-950/60
+              rounded-xl border
               px-3 py-2.5
-              text-xs leading-relaxed text-zinc-600 dark:text-zinc-400
+              text-xs leading-relaxed
             "
           >
-            <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-zinc-500 dark:text-zinc-400" />
+            <AlertCircle className="text-muted mt-0.5 h-3.5 w-3.5 shrink-0" />
             <span>
               Lost access to your authenticator?{" "}
               <Link
                 href="/support"
-                className="font-medium text-violet-600 hover:underline dark:text-violet-400 underline-offset-2"
+                className="text-brand-400 underline-offset-2 font-medium hover:underline"
               >
                 Contact support
               </Link>
