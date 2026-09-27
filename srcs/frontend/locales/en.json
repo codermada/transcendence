@@ -475,6 +475,7 @@
     "admin": "Admin",
     "member": "Member",
     "membersAndRoles": "Members & Roles",
+    "settings": "Settings",
     "promoteToAdmin": "Promote to Admin",
     "demoteToMember": "Demote to Member",
     "kickMember": "Kick",
@@ -494,13 +495,26 @@
     "noMembers": "No members in this channel.",
     "close": "Close",
     "add": "Add",
+    "editChannelTitle": "Channel Settings",
+    "editChannelSubtitle": "Update channel info and photo",
+    "avatarLabel": "Channel photo",
+    "avatarHint": "PNG, JPG, WebP or GIF up to 5 MB",
+    "changeAvatar": "Change photo",
+    "removeNewAvatar": "Cancel image",
+    "saveChanges": "Save changes",
+    "savingChanges": "Saving…",
+    "errorAvatarSize": "Image size must not exceed 5 MB",
+    "errorAvatarType": "Unsupported format (PNG, JPG, WebP or GIF)",
+    "titleMinError": "Channel name is required",
+    "titleMaxError": "Name must not exceed 100 characters",
+    "descMaxError": "Description must not exceed 200 characters",
     "success": {
       "youLeftChannel": "You left channel",
       "channelRemoved": "Channel removed",
       "memberFired": "Member fired from channel",
       "roleUpdated": "Role updated",
-      "memberAdded": "New member added"
-
+      "memberAdded": "New member added",
+      "channelUpdated": "Channel updated successfully"
     },
     "error": {
       "channelLoading": "Error loading channel",
@@ -509,7 +523,8 @@
       "deletingChannel": "Error deleting channel",
       "firingMember": "Error firing member",
       "updatingRole": "Error updating role",
-      "addingNewMember": "Error adding new member"
+      "addingNewMember": "Error adding new member",
+      "updatingChannel": "Error updating channel"
     }
   },
   "Settings": {
