@@ -475,6 +475,7 @@
     "admin": "Admin",
     "member": "Membre",
     "membersAndRoles": "Membres & Rôles",
+    "settings": "Paramètres",
     "promoteToAdmin": "Nommer Admin",
     "demoteToMember": "Rétrograder Membre",
     "kickMember": "Expulser",
@@ -494,12 +495,26 @@
     "noMembers": "Aucun membre dans ce canal.",
     "close": "Fermer",
     "add": "Ajouter",
+    "editChannelTitle": "Paramètres du canal",
+    "editChannelSubtitle": "Modifier les informations et la photo du canal",
+    "avatarLabel": "Photo du canal",
+    "avatarHint": "PNG, JPG, WebP ou GIF jusqu'à 5 Mo",
+    "changeAvatar": "Changer la photo",
+    "removeNewAvatar": "Annuler la nouvelle image",
+    "saveChanges": "Enregistrer les modifications",
+    "savingChanges": "Enregistrement…",
+    "errorAvatarSize": "La taille de l'image ne doit pas dépasser 5 Mo",
+    "errorAvatarType": "Format non supporté (PNG, JPG, WebP ou GIF)",
+    "titleMinError": "Le nom du canal est requis",
+    "titleMaxError": "Le nom ne doit pas dépasser 100 caractères",
+    "descMaxError": "La description ne doit pas dépasser 200 caractères",
     "success": {
       "youLeftChannel": "Vous avez quitté le canal",
       "channelRemoved": "Canal supprimé",
       "memberFired": "Membre retiré du canal",
       "roleUpdated": "Rôle mis à jour",
-      "memberAdded": "Nouveau membre ajouté"
+      "memberAdded": "Nouveau membre ajouté",
+      "channelUpdated": "Canal mis à jour avec succès"
     },
     "error": {
       "channelLoading": "Erreur lors du chargement du canal",
@@ -508,7 +523,8 @@
       "deletingChannel": "Erreur lors de la suppression du canal",
       "firingMember": "Erreur lors du retrait du membre",
       "updatingRole": "Erreur lors de la mise à jour du rôle",
-      "addingNewMember": "Erreur lors de l'ajout du nouveau membre"
+      "addingNewMember": "Erreur lors de l'ajout du nouveau membre",
+      "updatingChannel": "Erreur lors de la mise à jour du canal"
     }
   },
   "Settings": {

@@ -22,6 +22,7 @@ import { ChannelHeader } from "./_components/ChannelHeader";
 import { ChannelInput } from "./_components/ChannelInput";
 import { ChannelMembersModal } from "./_components/ChannelMembersModal";
 import { ChannelMessages } from "./_components/ChannelMessages";
+import { ChannelSettingsModal } from "./_components/ChannelSettingsModal";
 import type { SelectedFile } from "./_components/channel.types";
 
 interface ChannelConversationClientProps {
@@ -41,6 +42,7 @@ export function ChannelConversationClient({ channelId }: ChannelConversationClie
   const addActiveMessage = useChannelStore((state) => state.addActiveMessage);
   const activeChannel = useChannelStore((state) => state.activeChannel);
   const setActiveChannel = useChannelStore((state) => state.setActiveChannel);
+  const handleChannelUpdated = useChannelStore((state) => state.handleChannelUpdated);
 
   const currentUserId = session?.user?.id;
 
@@ -50,6 +52,7 @@ export function ChannelConversationClient({ channelId }: ChannelConversationClie
   const [selectedFiles, setSelectedFiles] = useState<SelectedFile[]>([]);
   const [isSending, setIsSending] = useState(false);
   const [membersModalOpen, setMembersModalOpen] = useState(false);
+  const [settingsModalOpen, setSettingsModalOpen] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -261,6 +264,7 @@ export function ChannelConversationClient({ channelId }: ChannelConversationClie
       <ChannelHeader
         channel={activeChannel}
         onOpenMembersModal={() => setMembersModalOpen(true)}
+        onOpenChannelSettings={() => setSettingsModalOpen(true)}
       />
 
       <ChannelMessages
@@ -296,6 +300,17 @@ export function ChannelConversationClient({ channelId }: ChannelConversationClie
           onKickMember={handleKickMember}
           onUpdateRole={handleUpdateRole}
           onAddMember={handleAddMember}
+        />
+      )}
+
+      {settingsModalOpen && activeChannel && (
+        <ChannelSettingsModal
+          channel={activeChannel}
+          isOpen={settingsModalOpen}
+          onClose={() => setSettingsModalOpen(false)}
+          onUpdated={(updated) => {
+            handleChannelUpdated(updated);
+          }}
         />
       )}
     </div>
