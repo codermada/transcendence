@@ -1,4 +1,4 @@
-import { Controller, Get, Headers, Logger, NotFoundException, Req, Res } from '@nestjs/common';
+import { Controller, Get, Headers, NotFoundException, Req, Res } from '@nestjs/common';
 import type { Request, Response } from 'express';
 import { S3Service } from './s3.service';
 
@@ -38,7 +38,7 @@ export class UploadsController {
 			res.setHeader('Cache-Control', 'public, max-age=31536000');
 
 			stream.pipe(res);
-		} catch (error: any) {
+		} catch {
 			throw new NotFoundException('File not found');
 		}
 	}
