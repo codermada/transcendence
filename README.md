@@ -413,6 +413,7 @@ LocalStack was chosen over direct disk storage because it provides an S3-compati
 | 16 | **Real-time WebSocket Layer** | Socket.IO gateway handles connections, disconnections, authentication, and event broadcasting (new messages, presence). | `mfidimal` |
 | 17 | **Notification System** | Complete notification system for all creation, update, and deletion actions across the platform, using `sonner` for toast notifications. | `mfidimal, toloandr, aravelom, as-rakot` |
 | 18 | **Organization System (Discussion Channels)** | Users can create, edit, and delete discussion channels (organizations), add/remove members, post messages with media, and perform owner-based actions within a channel. | `as-rakot, mfidimal` |
+| 19 | **Custom Design System** | Custom-made design system with reusable components, including a proper color palette, typography, and icons. Minimum of 10 reusable components (e.g., Button, Input, Card, Modal, Avatar, Badge, Tooltip, Dropdown, Tabs, Toast, etc.) built and documented for consistent UI across the platform. | `mfidimal, toloandr, aravelom, as-rakot` |
 
 ---
 
@@ -425,18 +426,19 @@ LocalStack was chosen over direct disk storage because it provides an S3-compati
 | Use a frontend framework (Next.js / React) | Minor | 1 | `mfidimal, as-rakot, toloandr, aravelom` |
 | Use a backend framework (NestJS) | Minor | 1 | `mfidimal, as-rakot, toloandr, aravelom` |
 | Use an ORM for the database (Prisma) | Minor | 1 | `mfidimal, as-rakot, toloandr, aravelom` |
-| Support for multiple languages (i18n, 3+ languages) | Minor | 1 | `mfidimal` |
+| Support for multiple languages (i18n, 3+ languages) | Minor | 1 | `mfidimal, as-rakot, toloandr, aravelom` |
 | Implement a complete 2FA system | Minor | 1 | `toloandr` |
 | Implement remote authentication with OAuth 2.0 | Minor | 1 | `toloandr` |
-| Standard user management and authentication | Major | 2 | `toloandr, aravelom` |
+| Standard user management and authentication | Major | 2 | `toloandr, aravelom, as-rakot` |
 | Advanced permissions system (roles, CRUD on users) | Major | 2 | `toloandr` |
 | Public API with secured API key, rate limiting, docs, 5+ endpoints | Major | 2 | `toloandr` |
-| File upload and management system | Minor | 1 | `as-rakot` |
-| Real-time features using WebSockets | Major | 2 | `mfidimal` |
+| File upload and management system | Minor | 1 | `as-rakot, toloandr` |
+| Real-time features using WebSockets | Major | 2 | `mfidimal, as-rakot` |
 | Users interact with other users (chat, profile, friends) | Major | 2 | `mfidimal, as-rakot, toloandr, aravelom` |
 | Complete notification system | Minor | 1 | `mfidimal, as-rakot, toloandr, aravelom` |
 | Organization system (discussion channels) | Major | 2 | `as-rakot, mfidimal` |
-| **Total** | | **20 pts** | |
+| Custom-made design system with reusable components | Minor | 1 | `mfidimal, as-rakot, toloandr, aravelom` |
+| **Total** | | **21 pts** | |
 
 ---
 

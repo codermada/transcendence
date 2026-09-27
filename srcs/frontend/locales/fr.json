@@ -100,7 +100,8 @@
     "offline": "Hors ligne",
     "preferences": "Préférences",
     "user": "Utilisateur",
-    "signOutError": "Impossible de se déconnecter. Veuillez réessayer."
+    "signOutError": "Impossible de se déconnecter. Veuillez réessayer.",
+    "legal": "Mentions légales"
   },
   "Auth": {
     "signIn": {
@@ -636,6 +637,8 @@
       "subtitle": "Gérez les comptes utilisateurs et les rôles.",
       "errorFailed": "Échec du chargement des utilisateurs.",
       "errorUnexpected": "Une erreur est survenue.",
+
+      "colUserId": "ID utilisateur",
 
       "colUser": "Utilisateur",
       "colEmail": "E-mail",

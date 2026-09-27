@@ -99,7 +99,8 @@
     "offline": "Offline",
     "preferences": "Preferences",
     "user": "User",
-    "signOutError": "Couldn't sign out. Please try again."
+    "signOutError": "Couldn't sign out. Please try again.",
+    "legal": "Legal"
   },
   "Auth": {
     "signIn": {
@@ -636,6 +637,8 @@
       "subtitle": "Manage user accounts and roles.",
       "errorFailed": "Failed to fetch users.",
       "errorUnexpected": "Something went wrong.",
+
+      "colUserId": "User ID",
 
       "colUser": "User",
       "colEmail": "Email",

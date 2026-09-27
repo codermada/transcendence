@@ -99,7 +99,8 @@
     "offline": "Desconectado",
     "preferences": "Preferencias",
     "user": "Usuario",
-    "signOutError": "No se pudo cerrar sesión. Inténtalo de nuevo."
+    "signOutError": "No se pudo cerrar sesión. Inténtalo de nuevo.",
+    "legal": "Legal"
   },
   "Auth": {
     "signIn": {
@@ -635,6 +636,8 @@
       "subtitle": "Gestiona las cuentas de usuario y los roles.",
       "errorFailed": "No se pudieron cargar los usuarios.",
       "errorUnexpected": "Algo salió mal.",
+
+      "colUserId": "ID de usuario",
 
       "colUser": "Usuario",
       "colEmail": "Correo electrónico",
