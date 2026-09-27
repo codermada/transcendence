@@ -9,6 +9,7 @@ import {
 	S3Client,
 } from '@aws-sdk/client-s3';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { NodeHttpHandler } from '@smithy/node-http-handler';
 import { extname } from 'path';
 import { Readable } from 'stream';
 
@@ -20,7 +21,7 @@ export class S3Service implements OnModuleInit {
 
 	constructor() {
 		this.bucketName = process.env.S3_BUCKET_NAME || 'uploads';
-		this.publicUrl = process.env.S3_PUBLIC_URL || 'http://localhost:4566';
+		this.publicUrl = process.env.S3_PUBLIC_URL || 'https://localhost:9000/nest';
 
 		this.s3Client = new S3Client({
 			endpoint: process.env.S3_ENDPOINT || 'http://localstack:4566',
@@ -30,11 +31,9 @@ export class S3Service implements OnModuleInit {
 				secretAccessKey: process.env.S3_SECRET_KEY || 'test',
 			},
 			forcePathStyle: true,
-			requestHandler: {
-				...new (require('@smithy/node-http-handler').NodeHttpHandler)({
-					socketTimeout: 3600,
-				}),
-			},
+			requestHandler: new NodeHttpHandler({
+				socketTimeout: 3600,
+			}),
 		});
 	}
 
@@ -164,16 +163,24 @@ export class S3Service implements OnModuleInit {
 
 		try {
 			let key = fileUrl;
-			const relativePrefix = '/nest/uploads/';
-			const absolutePrefix = `${this.publicUrl}/${this.bucketName}/`;
 
-			if (key.startsWith(relativePrefix)) {
-				key = key.replace(relativePrefix, '');
-			} else if (key.startsWith(absolutePrefix)) {
-				key = key.replace(absolutePrefix, '');
+			const prefixesToRemove = [
+				'/nest/uploads/',
+				`${this.publicUrl}/uploads/`,
+				`http://localhost:4566/${this.bucketName}/`,
+				`http://localstack:4566/${this.bucketName}/`,
+			];
+
+			for (const prefix of prefixesToRemove) {
+				if (key.startsWith(prefix)) {
+					key = key.replace(prefix, '');
+					break;
+				}
 			}
 
-			if (!key) return;
+			if (!key || (key === fileUrl && key.includes('/'))) {
+				key = key.split('/uploads/').pop() || key;
+			}
 
 			await this.s3Client.send(
 				new DeleteObjectCommand({
