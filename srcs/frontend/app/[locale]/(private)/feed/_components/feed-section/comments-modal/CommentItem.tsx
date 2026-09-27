@@ -1,6 +1,6 @@
 "use client";
 
-import { useRole } from "@/hooks/useRole";
+import { useRole } from "@/hooks/use-role";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import type { Comment } from "../feed-section.types";
