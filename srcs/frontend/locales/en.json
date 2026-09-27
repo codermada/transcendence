@@ -99,7 +99,8 @@
     "offline": "Offline",
     "preferences": "Preferences",
     "user": "User",
-    "signOutError": "Couldn't sign out. Please try again."
+    "signOutError": "Couldn't sign out. Please try again.",
+    "legal": "Legal"
   },
   "Auth": {
     "signIn": {

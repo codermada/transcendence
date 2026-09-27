@@ -100,7 +100,8 @@
     "offline": "Hors ligne",
     "preferences": "Préférences",
     "user": "Utilisateur",
-    "signOutError": "Impossible de se déconnecter. Veuillez réessayer."
+    "signOutError": "Impossible de se déconnecter. Veuillez réessayer.",
+    "legal": "Mentions légales"
   },
   "Auth": {
     "signIn": {
