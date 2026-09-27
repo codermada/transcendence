@@ -10,7 +10,6 @@ export function FriendSuggestionItem({
   userId,
   name,
   image,
-  initials,
   mutualFriends,
   onSend,
 }: FriendSuggestionItemProps) {
