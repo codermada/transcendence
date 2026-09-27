@@ -3,6 +3,14 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  /* Semantic — success (emerald) */
+  --color-success: #34d399;        /* emerald-400 — matches dark:text-emerald-400 */
+  --color-success-muted: #064e3b;  /* emerald-900 — for solid bg if needed */
+
+  /* Semantic — danger (red) */
+  --color-danger: #f87171;         /* red-400 — matches dark:text-red-400 */
+  --color-danger-muted: #7f1d1d;   /* red-900 */
+
   /* ===== COLORS ===== */
 
   /* Surfaces / Backgrounds */
