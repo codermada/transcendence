@@ -21,7 +21,7 @@ export class S3Service implements OnModuleInit {
 
 	constructor() {
 		this.bucketName = process.env.S3_BUCKET_NAME || 'uploads';
-		this.publicUrl = process.env.S3_PUBLIC_URL || 'https://localhost:9000/nest';
+		this.publicUrl = process.env.S3_PUBLIC_URL || `https://${process.env.NEXT_PUBLIC_IP_ADDRESS ? process.env.NEXT_PUBLIC_IP_ADDRESS : 'localhost'}:9000/nest`;
 
 		this.s3Client = new S3Client({
 			endpoint: process.env.S3_ENDPOINT || 'http://localstack:4566',

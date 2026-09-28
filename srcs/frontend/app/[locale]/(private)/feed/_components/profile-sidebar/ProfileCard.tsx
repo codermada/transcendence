@@ -10,6 +10,7 @@ export function ProfileCard() {
   const [userProfile, setUserProfile] = useState<UserProfileResponse>({
     name: "Unknown",
     username: "unknown",
+    email: "",
     initials: "U",
     image: null,
     stats: {
@@ -53,7 +54,7 @@ export function ProfileCard() {
           <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
             {userProfile.name}
           </h3>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400">@{userProfile.username}</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">{userProfile.email}</p>
         </div>
       </div>
       <div className="mt-5 space-y-4 border-t border-zinc-100 pt-4 dark:border-zinc-800">

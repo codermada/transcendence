@@ -2,7 +2,6 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 
 export default async function Legal() {
-  const t = await getTranslations("Home");
   const tLegal = await getTranslations("Legal");
 
   return (

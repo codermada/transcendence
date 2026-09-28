@@ -175,7 +175,7 @@ export default function UsersTable({ users: initialUsers }: UsersTableProps) {
           "
         />
 
-        {/* ── Header with create button ─────────────────────── */}
+        {/* Header with create button */}
         <div className="flex items-center justify-between border-b border-zinc-200/80 px-4 py-3 dark:border-zinc-800/80">
           <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
             {t("title")}
@@ -241,7 +241,7 @@ export default function UsersTable({ users: initialUsers }: UsersTableProps) {
                       {startIndex + index + 1}
                     </td>
 
-                    {/* ── User ID column (link to profile) ───────── */}
+                    {/* User ID column (link to profile) */}
                     <td className="border-r border-zinc-200/80 px-4 py-2.5 dark:border-zinc-800/80">
                       <Link
                         href={`/profile/${user.id}`}
@@ -476,9 +476,7 @@ export default function UsersTable({ users: initialUsers }: UsersTableProps) {
   );
 }
 
-// ============================================================
 // RoleSwitcher
-// ============================================================
 
 function RoleSwitcher({
   role,
@@ -556,9 +554,7 @@ function RoleSwitcher({
   );
 }
 
-// ============================================================
 // Modals
-// ============================================================
 
 function UserEditModal({
   user,

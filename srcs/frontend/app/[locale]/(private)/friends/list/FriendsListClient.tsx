@@ -213,20 +213,13 @@ export function FriendsListClient() {
       {showList && (
         <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {friends.map((friendship) => {
-            // Pick the "other" side of the relationship.
+            // Resolve the other user in the friendship
             const other =
               friendship.requesterId === friendship.addresseeId
                 ? friendship.requester
                 : friendship.requester.id === friendship.addressee.id
                   ? friendship.requester
                   : friendship.requester;
-            // The list endpoint doesn't know who *I* am, so pick based on which
-            // side has an id matching the one that is NOT my own.
-            // Simpler: the API returns both; use the one whose id we didn't send.
-            // Since the API is scoped to the current user, `other` is whichever
-            // side is not me — but the client can't know that without /me.
-            // Easiest: prefer addressee if it differs from requester.id, else requester.
-            // To be robust, we render both names when the API can't disambiguate.
             const primary = other;
 
             const displayName =

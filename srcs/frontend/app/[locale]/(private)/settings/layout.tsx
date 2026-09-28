@@ -44,7 +44,7 @@ export default function SettingsLayout({
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[220px_1fr]">
-        {/* ===== Left vertical nav ===== */}
+        {/* Left vertical nav */}
         <aside className="lg:sticky lg:top-6 lg:self-start">
           <nav
             aria-label={t("title")}
@@ -139,7 +139,7 @@ export default function SettingsLayout({
           </nav>
         </aside>
 
-        {/* ===== Right content ===== */}
+        {/* Right content */}
         <main className="min-w-0">{children}</main>
       </div>
     </div>

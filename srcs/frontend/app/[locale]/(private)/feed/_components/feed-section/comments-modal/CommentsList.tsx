@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormatter, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import type { Comment } from "../feed-section.types";
 import { CommentItem } from "./CommentItem";
 import { convertTime } from "./utility/convertTime";
@@ -21,7 +21,6 @@ export function CommentsList({
   onDelete,
 }: CommentsListProps) {
   const t = useTranslations("Feed.feed-section.CommentsList");
-  const format = useFormatter();
 
   if (isLoading) {
     return (
@@ -42,8 +41,6 @@ export function CommentsList({
       </div>
     );
   }
-
-  const now = new Date();
 
   return (
     <div className="space-y-5">

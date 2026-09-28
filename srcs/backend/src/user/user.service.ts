@@ -16,11 +16,10 @@ import { ALLOWED_ROLES, type AllowedRole } from './dto/update-user-role.dto';
 const AVATAR_DIR = join(process.cwd(), 'uploads', 'avatars');
 const DEFAULT_AVATAR = '/nest/uploads/default-avatar.png';
 
-// Output size in pixels (square). 512 is plenty for a 80–200px avatar.
+// Avatar image size in pixels
 const AVATAR_SIZE = 512;
 
-// Accepted input MIME types. Sharp sniffs the actual bytes, so this is
-// a first-pass gate; a mislabeled file will still be rejected by sharp.
+// Accepted input MIME types
 const ALLOWED_MIME = new Set(['image/png', 'image/jpeg', 'image/webp', 'image/gif']);
 
 // Fields safe to expose on a public profile.
@@ -41,8 +40,7 @@ const SELF_USER_SELECT = {
 	role: true,
 } as const;
 
-// Fields returned to the admin users table.
-// Matches the `User` type on the frontend (UsersTable.tsx).
+// Fields returned to the admin users table
 const ADMIN_USER_SELECT = {
 	id: true,
 	name: true,
@@ -107,8 +105,7 @@ export class UserService {
 		const limit = Math.min(50, Math.max(1, query.limit ?? 20));
 		const skip = (page - 1) * limit;
 
-		// IDs the current user already has a relationship with
-		// (as requester OR addressee), so we can exclude them.
+		// Exclude users already having a relationship with current user
 		const relationships = await this.prisma.friendship.findMany({
 			where: {
 				OR: [{ requesterId: currentUserId }, { addresseeId: currentUserId }],
@@ -117,10 +114,6 @@ export class UserService {
 		});
 
 		const excludedIds = new Set<string>([currentUserId]);
-		// for (const r of relationships) {
-		// 	excludedIds.add(r.requesterId);
-		// 	excludedIds.add(r.addresseeId);
-		// }
 
 		const where = {
 			id: { notIn: Array.from(excludedIds) },
@@ -238,33 +231,29 @@ export class UserService {
 			throw new BadRequestException('Unsupported image type');
 		}
 
-		// Process with sharp: auto-rotate (EXIF), crop to a centered square,
-		// resize, strip metadata, encode as WebP.
+		// Process and format avatar image to square WebP
 		let processed: Buffer;
 		try {
 			processed = await sharp(file.buffer)
-				.rotate() // apply EXIF orientation before cropping
+				.rotate()
 				.resize(AVATAR_SIZE, AVATAR_SIZE, {
-					fit: 'cover', // crop to fill the square
-					position: 'centre', // centered crop
+					fit: 'cover',
+					position: 'centre',
 					withoutEnlargement: false,
 				})
 				.webp({ quality: 85 })
 				.toBuffer();
 		} catch {
-			// Sharp throws on malformed/corrupt images or unsupported formats.
 			throw new BadRequestException('Invalid or corrupted image');
 		}
 
-		// Always .webp now — the output format is fixed by sharp.
 		const filename = `${userId}-${Date.now()}-${randomUUID().slice(0, 8)}.webp`;
 		const filepath = join(AVATAR_DIR, filename);
 
 		await fs.mkdir(AVATAR_DIR, { recursive: true });
 		await fs.writeFile(filepath, processed);
 
-		// Delete the previous avatar file (best-effort).
-		// Skip if it's the default — nothing of ours to delete.
+		// Delete previous non-default avatar
 		if (existing.image !== DEFAULT_AVATAR) {
 			const oldName = existing.image.split('/').pop();
 			if (oldName) {
@@ -291,8 +280,7 @@ export class UserService {
 			throw new NotFoundException('User not found');
 		}
 
-		// Remove the uploaded file (best-effort). Skip if it's already the
-		// default — nothing of ours to delete.
+		// Delete previous non-default avatar
 		if (existing.image !== DEFAULT_AVATAR) {
 			const oldName = existing.image.split('/').pop();
 			if (oldName) {

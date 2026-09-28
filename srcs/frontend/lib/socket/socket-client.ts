@@ -9,7 +9,8 @@ export const getSocketBaseUrl = (): string => {
   if (typeof window !== "undefined") {
     return window.location.origin;
   }
-  return "https://localhost:9000";
+
+  return `https://${process.env.NEXT_PUBLIC_IP_ADDRESS ? process.env.NEXT_PUBLIC_IP_ADDRESS : 'localhost' }:9000`
 };
 
 export function getNamespaceSocket(namespace: string): Socket {
