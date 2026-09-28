@@ -207,7 +207,7 @@ prune:
 clean: rm-images
 
 fclean: rm-images prune
-	docker volume prune --all
+	docker volume prune --all -f
 
 # Open a shell in a service:
 # Usage: make shell SERVICE=app
