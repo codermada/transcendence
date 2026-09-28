@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
 
-import { authClient } from "@/lib/auth/auth-client";
 import { PageShell } from "@/components/layout/PageShell";
 import { Field } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
 import { NumberInput } from "@/components/ui/NumberInput";
+import { createApiKey } from "@/lib/auth/create-api-key";
 
 type GeneratedKey = {
   id: string;
@@ -24,57 +24,29 @@ export default function CreateApiKeyPage() {
   const [name, setName] = useState("My Frontend App Key");
   const [expiresInDays, setExpiresInDays] = useState(7);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [generatedKey, setGeneratedKey] =
-    useState<GeneratedKey | null>(null);
+  const [generatedKey, setGeneratedKey] = useState<GeneratedKey | null>(null);
   const [copied, setCopied] = useState(false);
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const trimmedName = name.trim();
-
     if (!trimmedName) return;
 
     setIsLoading(true);
-    setError(null);
 
-    try {
-      const days = Math.max(0, Math.floor(expiresInDays));
+    const key = await createApiKey(t, trimmedName, expiresInDays);
 
-      const { data, error } = await authClient.apiKey.create({
-        name: trimmedName,
-        expiresIn: days > 0 ? days * 24 * 60 * 60 : undefined,
-        metadata: {
-          environment: process.env.NODE_ENV ?? "development",
-        },
-      });
-
-      if (error) {
-        setError(error.message ?? t("errorFailed"));
-        return;
-      }
-
-      if (!data) {
-        setError(t("errorNoKey"));
-        return;
-      }
-
+    if (key) {
       setGeneratedKey({
-        id: data.id,
-        name: data.name ?? trimmedName,
-        key: data.key,
-        expiresAt: data.expiresAt ?? null,
+        id: key.id,
+        name: key.name ?? trimmedName,
+        key: key.key,
+        expiresAt: key.expiresAt ?? null,
       });
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : t("errorUnexpected")
-      );
-    } finally {
-      setIsLoading(false);
     }
+
+    setIsLoading(false);
   };
 
   const handleCopy = async () => {
@@ -88,13 +60,11 @@ export default function CreateApiKeyPage() {
         setCopied(false);
       }, 2000);
     } catch {
-      setError(t("errorFailed"));
+      // Optional: surface a toast, or silently ignore.
     }
   };
 
-  // ============================================================
   // Generated key screen
-  // ============================================================
 
   if (generatedKey) {
     return (
@@ -109,9 +79,8 @@ export default function CreateApiKeyPage() {
             className="
               relative overflow-hidden
               rounded-2xl
-              border border-brand-500/20
-              bg-brand-500/[0.04]
-              p-5
+              border border-violet-200/80 bg-violet-50/50 p-5 shadow-xs transition-colors
+              dark:border-violet-500/20 dark:bg-violet-500/[0.04] dark:shadow-none
             "
           >
             <div
@@ -119,8 +88,8 @@ export default function CreateApiKeyPage() {
               className="
                 pointer-events-none
                 absolute inset-0
-                bg-ambient
-                opacity-40
+                bg-gradient-to-r from-violet-200/20 via-transparent to-transparent
+                opacity-60 dark:opacity-40
               "
             />
 
@@ -130,10 +99,10 @@ export default function CreateApiKeyPage() {
                   flex h-10 w-10 shrink-0
                   items-center justify-center
                   rounded-xl
-                  border border-brand-500/30
-                  bg-brand-500/10
-                  text-brand-400
-                  shadow-[0_0_20px_rgb(139_92_246_/_0.12)]
+                  border border-violet-200 bg-violet-100 text-violet-700
+                  shadow-xs
+                  dark:border-violet-500/30 dark:bg-violet-500/10 dark:text-violet-400
+                  dark:shadow-[0_0_20px_rgb(139_92_246_/_0.12)]
                 "
               >
                 <svg
@@ -153,11 +122,11 @@ export default function CreateApiKeyPage() {
               </div>
 
               <div>
-                <p className="text-sm font-semibold text-foreground">
+                <p className="text-sm font-semibold text-zinc-900 dark:text-white">
                   {t("createdTitle")}
                 </p>
 
-                <p className="mt-1 text-xs leading-relaxed text-muted">
+                <p className="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
                   {t("copyWarning")}
                 </p>
               </div>
@@ -167,11 +136,11 @@ export default function CreateApiKeyPage() {
           {/* API key */}
           <section className="space-y-2">
             <div className="flex items-center justify-between px-1">
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted">
+              <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                 API Key
               </span>
 
-              <span className="text-[10px] font-medium uppercase tracking-wider text-brand-400">
+              <span className="text-[10px] font-medium uppercase tracking-wider text-violet-600 dark:text-violet-400">
                 Secret
               </span>
             </div>
@@ -180,11 +149,8 @@ export default function CreateApiKeyPage() {
               className="
                 relative overflow-hidden
                 rounded-xl
-                border border-border
-                bg-background
-                p-3
-                transition-colors
-                hover:border-border-hover
+                border border-zinc-200 bg-white p-3 transition-colors
+                dark:border-zinc-800 dark:bg-zinc-950
               "
             >
               <div
@@ -195,7 +161,7 @@ export default function CreateApiKeyPage() {
                   h-px
                   bg-gradient-to-r
                   from-transparent
-                  via-brand-500/60
+                  via-violet-500/60
                   to-transparent
                 "
               />
@@ -208,7 +174,7 @@ export default function CreateApiKeyPage() {
                     font-mono
                     text-xs
                     leading-relaxed
-                    text-subtle
+                    text-zinc-900 dark:text-zinc-200
                   "
                 >
                   {generatedKey.key}
@@ -220,18 +186,15 @@ export default function CreateApiKeyPage() {
                   className="
                     shrink-0
                     rounded-lg
-                    border border-brand-500/30
-                    bg-brand-500/10
-                    px-3 py-2
-                    text-xs font-semibold
-                    text-brand-400
+                    border border-violet-200 bg-violet-50 px-3 py-2
+                    text-xs font-semibold text-violet-700
                     transition-all
-                    hover:border-brand-500/50
-                    hover:bg-brand-500/15
-                    hover:text-brand-300
+                    hover:bg-violet-100 hover:text-violet-800
+                    dark:border-violet-500/30 dark:bg-violet-500/10 dark:text-violet-400
+                    dark:hover:border-violet-500/50 dark:hover:bg-violet-500/15 dark:hover:text-violet-300
                     focus:outline-none
                     focus:ring-2
-                    focus:ring-brand-500/20
+                    focus:ring-violet-500/20
                   "
                 >
                   {copied ? t("copied") : t("copy")}
@@ -243,34 +206,28 @@ export default function CreateApiKeyPage() {
           {/* Metadata */}
           <dl
             className="
-              divide-y
-              divide-border
-              rounded-xl
-              border border-border
-              bg-surface/60
-              px-4
+              divide-y divide-zinc-200 rounded-xl border border-zinc-200/80 bg-white px-4 shadow-xs transition-colors
+              dark:divide-zinc-800 dark:border-zinc-800 dark:bg-zinc-900/50 dark:shadow-none
             "
           >
             <div className="flex items-center justify-between gap-4 py-3">
-              <dt className="text-xs text-muted">
+              <dt className="text-xs text-zinc-500 dark:text-zinc-400">
                 {t("name")}
               </dt>
 
-              <dd className="truncate text-right text-sm text-subtle">
+              <dd className="truncate text-right text-sm font-medium text-zinc-900 dark:text-zinc-200">
                 {generatedKey.name}
               </dd>
             </div>
 
             <div className="flex items-center justify-between gap-4 py-3">
-              <dt className="text-xs text-muted">
+              <dt className="text-xs text-zinc-500 dark:text-zinc-400">
                 {t("expires")}
               </dt>
 
-              <dd className="text-right text-sm text-subtle">
+              <dd className="text-right text-sm font-medium text-zinc-900 dark:text-zinc-200">
                 {generatedKey.expiresAt
-                  ? new Date(
-                      generatedKey.expiresAt
-                    ).toLocaleString()
+                  ? new Date(generatedKey.expiresAt).toLocaleString()
                   : t("never")}
               </dd>
             </div>
@@ -283,9 +240,11 @@ export default function CreateApiKeyPage() {
               onClick={() => {
                 setGeneratedKey(null);
                 setCopied(false);
-                setError(null);
               }}
-              className="btn-secondary flex-1"
+              className="
+                flex-1 rounded-xl bg-zinc-100 px-5 py-2.5 text-sm font-medium text-zinc-700 transition hover:bg-zinc-200
+                dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700
+              "
             >
               {t("createAnother")}
             </button>
@@ -293,7 +252,10 @@ export default function CreateApiKeyPage() {
             <button
               type="button"
               onClick={() => router.push("/")}
-              className="btn-primary flex-1"
+              className="
+                flex-1 rounded-xl bg-violet-600 px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700
+                dark:bg-violet-600 dark:hover:bg-violet-500
+              "
             >
               {t("done")}
             </button>
@@ -303,9 +265,7 @@ export default function CreateApiKeyPage() {
     );
   }
 
-  // ============================================================
   // Create form
-  // ============================================================
 
   return (
     <PageShell
@@ -314,23 +274,19 @@ export default function CreateApiKeyPage() {
       maxWidth="max-w-2xl"
     >
       <form onSubmit={handleCreate} className="space-y-7">
-        {/* Form */}
+        {/* Form Container */}
         <div
           className="
             relative
             overflow-hidden
             space-y-6
             rounded-2xl
-            border border-border
-            bg-surface/40
-            p-5
-            shadow-2xl
-            shadow-black/20
-            backdrop-blur-xl
+            border border-zinc-200/80 bg-white p-5 shadow-xs transition-colors
+            dark:border-zinc-800 dark:bg-zinc-900/50 dark:shadow-none
             sm:p-6
           "
         >
-          {/* Futuristic top line */}
+          {/* Futuristic top glow */}
           <div
             aria-hidden
             className="
@@ -339,7 +295,7 @@ export default function CreateApiKeyPage() {
               h-px
               bg-gradient-to-r
               from-transparent
-              via-brand-500/50
+              via-violet-500/50
               to-transparent
               shadow-[0_0_14px_rgb(139_92_246_/_0.35)]
             "
@@ -364,10 +320,7 @@ export default function CreateApiKeyPage() {
             )}
           </Field>
 
-          <Field
-            label={t("expiresLabel")}
-            help={t("expiresHelp")}
-          >
+          <Field label={t("expiresLabel")} help={t("expiresHelp")}>
             {({ id, ...aria }) => (
               <NumberInput
                 id={id}
@@ -380,39 +333,6 @@ export default function CreateApiKeyPage() {
           </Field>
         </div>
 
-        {/* Error */}
-        {error && (
-          <div
-            role="alert"
-            className="
-              flex items-start gap-3
-              rounded-xl
-              border border-danger/30
-              bg-danger/10
-              px-4 py-3
-              text-sm text-danger
-              shadow-[0_0_20px_rgb(239_68_68_/_0.06)]
-            "
-          >
-            <svg
-              aria-hidden
-              viewBox="0 0 24 24"
-              className="mt-0.5 h-4 w-4 shrink-0"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <circle cx="12" cy="12" r="9" />
-              <path
-                strokeLinecap="round"
-                d="M12 8v4m0 4h.01"
-              />
-            </svg>
-
-            <span>{error}</span>
-          </div>
-        )}
-
         {/* Actions */}
         <div className="flex flex-col-reverse gap-3 sm:flex-row">
           <button
@@ -420,10 +340,9 @@ export default function CreateApiKeyPage() {
             onClick={() => router.back()}
             disabled={isLoading}
             className="
-              btn-secondary
-              flex-1
-              disabled:cursor-not-allowed
-              disabled:opacity-50
+              flex-1 rounded-xl bg-zinc-100 px-5 py-2.5 text-sm font-medium text-zinc-700 transition hover:bg-zinc-200
+              dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700
+              disabled:cursor-not-allowed disabled:opacity-50
             "
           >
             {t("cancel")}
@@ -433,10 +352,9 @@ export default function CreateApiKeyPage() {
             type="submit"
             disabled={isLoading || !name.trim()}
             className="
-              btn-primary
-              flex-1
-              disabled:cursor-not-allowed
-              disabled:opacity-50
+              flex-1 rounded-xl bg-violet-600 px-5 py-2.5 text-sm font-medium text-white shadow-md shadow-violet-500/20 transition hover:bg-violet-500 active:bg-violet-700
+              dark:bg-violet-600 dark:hover:bg-violet-500
+              disabled:cursor-not-allowed disabled:opacity-50
             "
           >
             {isLoading ? (

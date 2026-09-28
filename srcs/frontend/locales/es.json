@@ -7,12 +7,77 @@
     "success": "Éxito",
     "or": "o"
   },
+  "PrivacyPolicy": {
+    "badge": "Política de Privacidad",
+    "title": "Política de Privacidad",
+    "subtitle": "Esta Política de Privacidad explica cómo Heartbeat (\"nosotros\", \"nos\" o \"nuestro\") recopila, utiliza y protege tu información cuando utilizas nuestra aplicación (el \"Servicio\"). Al utilizar el Servicio, aceptas las prácticas descritas en esta política.",
+    "section1": {
+      "title": "1. Nuestras Garantías hacia Ti",
+      "body": "Estamos comprometidos con la protección de tu privacidad. Garantizamos explícitamente lo siguiente:\n\n• Autenticación Segura — La autenticación de tu cuenta es segura. No conocemos tu contraseña. Todas las contraseñas están cifradas (hasheadas) en nuestra base de datos antes de almacenarse. No podemos recuperar ni ver tu contraseña en texto plano en ningún momento.\n\n• Almacenamiento Seguro de Archivos — Todos los archivos que subes al Servicio se almacenan en un servicio S3 seguro (almacenamiento en la nube). La única excepción es tu foto de perfil, que se almacena por separado para permitir una visualización más rápida y el acceso público dentro de la aplicación.\n\n• Almacenamiento y Acceso a Mensajes — Todos los mensajes, incluidos los mensajes directos y los mensajes de canal, se almacenan en nuestra base de datos. Estos mensajes no están cifrados de extremo a extremo. El acceso a esta base de datos está estrictamente limitado a un reducido número de personas autorizadas (los desarrolladores del sitio web). No leemos tus mensajes salvo cuando sea necesario por seguridad, moderación o cumplimiento legal.\n\n• Sin Compartición de Datos del Usuario — No compartiremos tus datos personales con terceros. No vendemos, alquilamos ni comerciamos con tu información personal a anunciantes ni a otras empresas externas."
+    },
+    "section2": {
+      "title": "2. Información que Recopilamos y Cómo la Usamos",
+      "body": "Recopilamos la siguiente información: Información de la Cuenta (nombre de usuario, dirección de correo electrónico, contraseña cifrada), Información del Perfil (foto de perfil y datos opcionales), Contenido del Usuario (archivos que subes y mensajes que envías) y Datos Técnicos (dirección IP, tipo de dispositivo, tipo de navegador y registros de uso).\n\nUtilizamos esta información únicamente para: crear y gestionar tu cuenta; proporcionar, operar y mantener el Servicio; almacenar tus archivos y mensajes; garantizar la seguridad e integridad del Servicio; y cumplir con obligaciones legales."
+    },
+    "section3": {
+      "title": "3. Almacenamiento, Seguridad y Compartición de Datos",
+      "body": "Las contraseñas están cifradas (hasheadas) en nuestra base de datos. Los archivos se almacenan en un servicio S3 seguro (excepto las fotos de perfil). Los mensajes se almacenan en nuestra base de datos y solo son accesibles para desarrolladores autorizados. Las fotos de perfil se almacenan por separado y pueden ser visibles públicamente dentro del Servicio.\n\nAunque tomamos medidas razonables para proteger tus datos, ten en cuenta que ningún método de transmisión o almacenamiento es 100 % seguro. Dado que los mensajes no están cifrados, no podemos garantizar la confidencialidad absoluta del contenido de los mensajes frente a accesos no autorizados.\n\nNo compartimos tus datos con terceros, excepto: (a) si lo exige la ley, una citación judicial o una orden judicial; (b) para proteger los derechos, la propiedad o la seguridad de nuestros usuarios, del público o de nosotros mismos; (c) con proveedores de servicios de confianza (como el servicio de almacenamiento S3) que procesan datos en nuestro nombre bajo estrictos acuerdos de confidencialidad."
+    },
+    "section4": {
+      "title": "4. Retención de Datos y Tus Derechos",
+      "body": "Conservamos tu información mientras tu cuenta esté activa o según sea necesario para prestar el Servicio. Si eliminas tu cuenta, borraremos o anonimizaremos tus datos en un plazo razonable, salvo que estemos obligados a conservarlos por motivos legales.\n\nDependiendo de tu ubicación, puedes tener derecho a: acceder a una copia de los datos que conservamos sobre ti; solicitar la corrección de datos inexactos; solicitar la eliminación de tu cuenta y los datos asociados; y oponerte a determinados tratamientos de tus datos. Para ejercer estos derechos, contáctanos en tolotra025@gmail.com."
+    },
+    "section5": {
+      "title": "5. Privacidad de los Menores y Cambios en esta Política",
+      "body": "El Servicio no está destinado a menores de 18 años. No recopilamos conscientemente información personal de menores. Si descubrimos que lo hemos hecho, la eliminaremos de inmediato.\n\nPodemos actualizar esta Política de Privacidad de vez en cuando. Te notificaremos cualquier cambio importante publicando la nueva política en la aplicación o por correo electrónico. El uso continuado del Servicio tras los cambios constituye la aceptación de la política actualizada."
+    },
+    "contact": {
+      "title": "6. Contacto",
+      "body": "Si tienes preguntas sobre esta Política de Privacidad, contáctanos en:\n\ntolotra025@gmail.com"
+    },
+    "lastUpdated": "Última actualización: 26 sep 12:03"
+  },
+  "TermsOfService": {
+    "badge": "Términos de Servicio",
+    "title": "Términos de Servicio",
+    "subtitle": "Bienvenido a Heartbeat (\"nosotros\", \"nos\" o \"nuestro\"). Estos Términos de Servicio (\"Términos\") rigen tu acceso y uso de nuestra aplicación, sitio web y servicios (colectivamente, el \"Servicio\"). Al crear una cuenta o utilizar el Servicio, aceptas quedar vinculado por estos Términos. Si no estás de acuerdo, no utilices el Servicio.",
+    "section1": {
+      "title": "1. Elegibilidad y Tu Cuenta",
+      "body": "Debes tener al menos 18 años para utilizar el Servicio. Si eres menor de 18 años, declaras que cuentas con el permiso de un padre, madre o tutor legal. No debes estar impedido para utilizar el Servicio según la legislación aplicable, y debes proporcionar información precisa y completa al crear tu cuenta.\n\nEres responsable de mantener la confidencialidad de tu contraseña y de toda la actividad que ocurra en tu cuenta. Debes notificarnos de inmediato en tolotra025@gmail.com si sospechas de un acceso no autorizado a tu cuenta. Nos reservamos el derecho de suspender o cancelar tu cuenta en cualquier momento por violaciones de estos Términos."
+    },
+    "section2": {
+      "title": "2. Uso Aceptable",
+      "body": "Aceptas no:\n\n• Publicar, subir o compartir contenido ilegal, de odio, acosador, amenazante, difamatorio, obsceno o de cualquier otra forma objetable.\n• Suplantar la identidad de cualquier persona o entidad, o tergiversar tu afiliación con alguien.\n• Utilizar el Servicio para enviar spam, phishing o distribuir malware.\n• Intentar hackear, aplicar ingeniería inversa o interrumpir el Servicio o sus servidores.\n• Extraer, recolectar o recopilar datos sobre otros usuarios sin su consentimiento.\n• Utilizar el Servicio con cualquier fin comercial sin nuestra autorización por escrito.\n• Violar cualquier ley o normativa aplicable."
+    },
+    "section3": {
+      "title": "3. Contenido del Usuario, Amigos y Perfiles",
+      "body": "Conservas la propiedad del contenido que creas y subes (publicaciones, mensajes, archivos, fotos de perfil, etc.). No reclamamos la propiedad de tu contenido. Al publicar contenido, nos otorgas una licencia no exclusiva, mundial y libre de regalías para almacenar, mostrar y distribuir tu contenido únicamente con el fin de operar y mejorar el Servicio. Esta licencia finaliza cuando eliminas tu contenido o tu cuenta, excepto cuando estemos obligados a conservarlo por ley.\n\nEres el único responsable del contenido que publicas. No respaldamos ni somos responsables de ningún contenido de usuario. Nos reservamos el derecho (pero no la obligación) de revisar, eliminar o rechazar cualquier contenido que viole estos Términos, y podemos eliminar contenido ante una solicitud legal válida.\n\nTú controlas quién puede ver tu perfil y tus publicaciones a través de tu configuración de privacidad. Agregar a un amigo requiere consentimiento mutuo. No debes utilizar las solicitudes de amistad ni las funciones del perfil para acosar, enviar spam o engañar a otros. Las fotos de perfil pueden ser visibles para otros usuarios: no subas imágenes que no tengas derecho a compartir."
+    },
+    "section4": {
+      "title": "4. Mensajería, Canales, Carga de Archivos y Privacidad",
+      "body": "Los mensajes (incluidos los mensajes de canal) se almacenan en nuestros servidores y no están cifrados de extremo a extremo. Los desarrolladores autorizados pueden acceder a los mensajes únicamente por motivos de seguridad, moderación o cumplimiento legal, tal como se describe en nuestra Política de Privacidad. No utilices la mensajería para enviar contenido ilegal, amenazas o spam. Los canales de discusión son espacios públicos o semipúblicos: no compartas información privada que no quieras que otros vean.\n\nPuedes subir archivos al Servicio, que se almacenan en un servicio S3 seguro (excepto las fotos de perfil). No debes subir archivos que contengan malware, contenido ilegal o contenido que no tengas derecho a distribuir. No somos responsables de ninguna pérdida de archivos: conserva tus propias copias de seguridad.\n\nTu uso del Servicio también se rige por nuestra Política de Privacidad, que explica cómo recopilamos, utilizamos y protegemos tus datos. Al utilizar el Servicio, aceptas nuestras prácticas de datos tal como se describen en la Política de Privacidad."
+    },
+    "section5": {
+      "title": "5. Propiedad Intelectual y Terminación",
+      "body": "Todo el software, diseño, logotipos y marcas comerciales asociados con el Servicio son propiedad nuestra o de nuestros licenciantes. No puedes copiar, modificar, distribuir ni aplicar ingeniería inversa a ninguna parte del Servicio sin nuestra autorización por escrito. Conservas la propiedad de tu propio contenido, tal como se establece en la Sección 3.\n\nPuedes eliminar tu cuenta en cualquier momento. Podemos suspender o cancelar tu cuenta si violas estos Términos o si la ley nos obliga a ello. Tras la terminación, tu derecho a utilizar el Servicio finaliza de inmediato. Podemos eliminar tus datos de acuerdo con nuestra Política de Privacidad."
+    },
+    "contact": {
+      "title": "6. Contacto",
+      "body": "Si tienes preguntas sobre estos Términos, contáctanos en:\n\ntolotra025@gmail.com"
+    },
+    "lastUpdated": "Última actualización: 26 sep 12:03"
+  },
+  "Legal": {
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfService": "Términos de Servicio"
+  },
   "Nav": {
     "brand": "Heart",
     "brandAccent": "beat",
     "feed": "Inicio",
     "friends": "Amigos",
     "chat": "Mensajes",
+    "channels": "Canales",
     "settings": "Ajustes",
     "security": "Seguridad y 2FA",
     "profile": "Mi perfil",
@@ -31,8 +96,11 @@
     "noNotifications": "Sin notificaciones",
     "zeroUnread": "0 no leídos",
     "online": "En línea",
+    "offline": "Desconectado",
     "preferences": "Preferencias",
-    "user": "Usuario"
+    "user": "Usuario",
+    "signOutError": "No se pudo cerrar sesión. Inténtalo de nuevo.",
+    "legal": "Legal"
   },
   "Auth": {
     "signIn": {
@@ -72,15 +140,34 @@
     },
     "forgotPassword": {
       "title": "Restablecer contraseña",
-      "subtitle": "Introduce tu correo para recibir un enlace de recuperación",
+      "subtitle": "Introduce tu correo electrónico para recibir un enlace de restablecimiento",
       "emailLabel": "Correo electrónico",
       "emailPlaceholder": "tu@ejemplo.com",
       "submit": "Enviar enlace",
       "submitting": "Enviando enlace...",
       "rememberPassword": "¿Recuerdas tu contraseña?",
       "signInLink": "Iniciar sesión",
-      "successMessage": "Si existe una cuenta con este correo, recibirás un enlace de recuperación pronto.",
-      "errorMessage": "No se pudo enviar el enlace de recuperación. Inténtalo más tarde."
+      "successMessage": "Si existe una cuenta con este correo, recibirás un enlace de restablecimiento en breve.",
+      "errorMessage": "No se pudo enviar el enlace de restablecimiento. Inténtalo de nuevo más tarde."
+    },
+    "resetPassword": {
+      "title": "Restablecer contraseña",
+      "subtitle": "Introduce tu nueva contraseña a continuación.",
+      "passwordLabel": "Nueva contraseña",
+      "passwordPlaceholder": "Introduce una nueva contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "confirmPasswordPlaceholder": "Confirma tu nueva contraseña",
+      "submit": "Restablecer contraseña",
+      "submitting": "Restableciendo...",
+      "rememberPassword": "¿Recuerdas tu contraseña?",
+      "signInLink": "Iniciar sesión",
+      "invalidLink": "Este enlace de restablecimiento no es válido o le falta un token.",
+      "requestNewLink": "Solicitar un nuevo enlace",
+      "successMessage": "Tu contraseña se ha restablecido correctamente.",
+      "errorMissingToken": "Token de restablecimiento inválido o ausente.",
+      "errorPasswordMismatch": "Las contraseñas no coinciden.",
+      "errorPasswordTooShort": "La contraseña debe tener al menos 8 caracteres.",
+      "errorDefault": "No se pudo restablecer tu contraseña."
     },
     "validation": {
       "emailRequired": "El correo electrónico es obligatorio",
@@ -92,6 +179,11 @@
       "nameMax": "El nombre no puede superar los 50 caracteres",
       "confirmPasswordRequired": "Por favor confirma tu contraseña",
       "passwordsDoNotMatch": "Las contraseñas no coinciden"
+    },
+    "Google": {
+      "signIn": "Continuar con Google",
+      "signUp": "Registrarse con Google",
+      "redirecting": "Redirigiendo..."
     }
   },
   "Home": {
@@ -104,22 +196,336 @@
   "Feed": {
     "title": "Feed",
     "welcomeMessage": "¡Bienvenido a tu feed!",
-    "activity": "Actividad reciente"
+    "activity": "Actividad reciente",
+    "feed-section": {
+      "CreatePostCard": {
+      "placeholder": "¿Qué tienes en mente hoy?",
+      "pluralMedia": "Fotos / Vídeos",
+      "singularMedia": "Foto / Vídeo",
+      "publish": "Publicar",
+      "isLoading": "Publicando...",
+      "errors": {
+        "CONTENT_EMPTY": "El contenido no puede estar vacío",
+        "DEFAULT": "Algo salió mal. Inténtalo de nuevo.",
+        "profileLoad": "No se pudo cargar tu perfil."
+      },
+      "multiFile": "archivos",
+      "singleFile": "archivo",
+      "postCreatedSuccess": "¡Publicación creada con éxito!"
+    },
+      "FeedSection": {
+        "emptyTitle": "No hay publicaciones aún",
+        "emptyDescription": "Sé el primero en publicar algo o añade amigos para ver sus novedades.",
+        "defaultTimeAgo": "Hace un momento",
+        "deleteSuccess": "Publicación eliminada",
+        "deleteError": "No se pudo eliminar la publicación",
+        "loadMoreError": "Error al cargar las publicaciones",
+        "loadingMore": "Cargando...",
+        "noMorePosts": "Se han cargado todas las publicaciones."
+      },
+      "MediaModal": {
+
+      },
+      "PostActions": {
+        "postDeletedErrorMessage": "Esta publicación ya no existe."
+      },
+      "PostCard": {
+        "cancel": "Cancelar",
+        "save": "Guardar",
+        "saving": "Guardando...",
+        "updateSuccess": "Publicación actualizada con éxito",
+        "updateError": "Error al actualizar la publicación",
+        "mediaLabel": "Archivos multimedia (máx. 10)",
+        "addMedia": "Añadir",
+        "placeholder": "¿Qué estás pensando?",
+        "maxFilesError": "No puedes adjuntar más de 10 archivos multimedia en total.",
+        "emptyPostError": "Una publicación no puede estar vacía."
+      },
+      "PostHeader": {
+        "timeAgo": "{value, plural, =0 {Justo ahora} =1 {Hace 1 {unit}} other {Hace {value} {unit, select, minute {minutos} hour {horas} day {días} other {}}}}",
+        "options": "Opciones de la publicación",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "cancel": "Cancelar",
+        "justNow": "justo ahora",
+        "viewProfile": "Ver el perfil de {name}",
+        "viewMyProfile": "Ver mi perfil",
+        "adminDelete": "Eliminar publicación (moderador)",
+        "adminDeleteConfirm": "¿Eliminar esta publicación como moderador?",
+        "adminDeleteSuccess": "Publicación eliminada",
+        "adminDeleteError": "No se pudo eliminar la publicación"
+      },
+      "CommentItem": {
+        "viewProfile": "Ver el perfil de {name}",
+        "likeComment": "Me gusta el comentario",
+        "unlikeComment": "Quitar me gusta",
+        "timeAgo": "{time}",
+        "deleteComment": "Eliminar comentario",
+        "removeComment": "Retirar comentario (moderador)",
+        "commentAttachment": "Adjunto del comentario"
+      },
+      "CommentsList": {
+        "loading": "Cargando comentarios...",
+        "emptyTitle": "Aún no hay comentarios",
+        "emptyDescription": "Sé el primero en comentar."
+      },
+      "CommentsModal": {
+        "toasts": {
+          "loadError": "No se pudieron cargar los comentarios.",
+          "invalidImageType": "Selecciona una imagen.",
+          "imageTooLarge": "La imagen no debe superar los 10 MB.",
+          "emptyComment": "Escribe un comentario.",
+          "createSuccess": "Comentario añadido.",
+          "createError": "No se pudo añadir el comentario.",
+          "likeError": "No se pudo actualizar el me gusta.",
+          "deleteSuccess": "Comentario eliminado.",
+          "deleteError": "No se pudo eliminar el comentario."
+        }
+      },
+      "PostMedia": {
+
+      }
+    },
+    "network-sidebar": {
+      "FriendRequestItem": {
+        "acceptButton": "Aceptar",
+        "declineButton": "Rechazar",
+        "cancelButton": "Cancelar"
+      },
+      "FriendRequestsCard": {
+        "friendRequests": "Solicitudes de amistad",
+        "noFriendRequests": "No hay solicitudes de amistad",
+        "upToDate": "¡Estás al día!",
+        "multiReceived": "Recibidas",
+        "multiSent": "Enviadas",
+        "received": "Recibida",
+        "sent": "Enviada"
+      },
+      "FriendSuggestionItem": {
+        "mutualFriend": "amigo en común",
+        "mutualFriends": "amigos en común",
+        "requestedButton": "Enviada",
+        "addButton": "Añadir"
+      },
+      "FriendSuggestionsCard": {
+        "friendSuggestions": "Sugerencias de amistad",
+        "noAvailableFriendSuggestions": "No hay sugerencias disponibles",
+        "upToDate": "Vuelve más tarde para descubrir nuevos perfiles."
+      },
+      "NetworkSidebar": {
+
+      }
+    },
+    "profile-sidebar": {
+      "ProfileCard": {
+        "myProfileButton": "Mi Perfil",
+        "errorProfileLoad": "No se pudo cargar tu perfil."
+      },
+      "ProfileSidebar": {
+
+      },
+      "ProfileStats": {
+        "friends": "Amigos",
+        "posts": "Publicaciones",
+        "reactions": "Reacciones"
+      }
+    },
+    "toast-popup-message": {
+      "handleAcceptRequest": {
+        "successMessage": "Solicitud de amistad aceptada.",
+        "errorMessage": "Error al aceptar la solicitud de amistad."
+      },
+      "handleDeclineRequest": {
+        "successMessage": "Solicitud de amistad rechazada.",
+        "errorMessage": "Error al rechazar la solicitud de amistad."
+      },
+      "handleCancelRequest": {
+        "successMessage": "Solicitud de amistad cancelada.",
+        "errorMessage": "Error al cancelar la solicitud de amistad."
+      },
+      "handleSendFriendRequest": {
+        "successMessage": "Solicitud de amistad enviada.",
+        "errorMessage": "Error al enviar la solicitud de amistad."
+      }
+    }
+  },
+  "Comments": {
+    "title": "Comentarios",
+    "close": "Cerrar comentarios",
+    "loading": "Cargando comentarios...",
+    "emptyTitle": "Aún no hay comentarios",
+    "emptyDescription": "Sé el primero en comentar.",
+    "imagePreviewAlt": "Vista previa de la imagen seleccionada",
+    "removeImage": "Quitar la imagen seleccionada",
+    "placeholder": "Escribe un comentario...",
+    "attachImage": "Adjuntar imagen",
+    "send": "Enviar comentario",
+    "viewProfile": "Ver el perfil de {name}",
+    "like": "Me gusta el comentario",
+    "unlike": "Quitar me gusta del comentario",
+    "attachmentAlt": "Archivo adjunto del comentario",
+    "loadError": "No se pudieron cargar los comentarios.",
+    "selectImage": "Por favor, selecciona una imagen.",
+    "imageTooLarge": "La imagen no debe superar los 10 MB.",
+    "emptyComment": "Escribe un comentario.",
+    "added": "Comentario añadido.",
+    "addError": "No se pudo añadir el comentario.",
+    "likeError": "No se pudo actualizar el me gusta."
+  },
+  "FeedPage": {
+    "loading": "Cargando tu feed...",
+    "toasts": {
+      "acceptSuccess": "Solicitud de amistad aceptada.",
+      "acceptError": "No se pudo aceptar la solicitud.",
+      "declineSuccess": "Solicitud de amistad rechazada.",
+      "declineError": "No se pudo rechazar la solicitud.",
+      "cancelSuccess": "Solicitud de amistad cancelada.",
+      "cancelError": "No se pudo cancelar la solicitud.",
+      "sendSuccess": "Solicitud de amistad enviada.",
+      "sendError": "No se pudo enviar la solicitud de amistad.",
+      "loadPostsError": "No se pudo cargar tu feed.",
+      "loadReceivedRequestsError": "No se pudieron cargar las solicitudes recibidas.",
+      "loadSentRequestsError": "No se pudieron cargar las solicitudes enviadas.",
+      "loadSuggestionsError": "No se pudieron cargar las sugerencias de amistad."
+    }
   },
   "Friends": {
     "title": "Amigos",
-    "subtitle": "Gestiona tus amigos y conexiones en la comunidad.",
+    "subtitle": "Gestiona tus amigos y conexiones.",
     "findFriends": "Buscar amigos",
     "requests": "Solicitudes de amistad",
     "emptyTitle": "Aún no tienes amigos",
-    "emptyDescription": "Busca y añade amigos para ver sus novedades y chatear."
+    "emptyDescription": "Busca y añade amigos para ver sus publicaciones y mensajes aquí.",
+    "searchPlaceholder": "Buscar por nombre…",
+    "startTyping": "Empieza a escribir para buscar personas.",
+    "noResults": "No se encontraron usuarios.",
+    "searchError": "Ocurrió un error. Inténtalo de nuevo.",
+    "add": "Añadir",
+    "back": "Volver",
+    "adding": "Añadiendo…",
+    "pending": "Pendiente…",
+    "friends": "Amigos",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "cancel": "Cancelar",
+    "removeFriend": "Eliminar de amigos",
+    "toasts": {
+      "addSuccess": "Solicitud de amistad enviada",
+      "addError": "Error al enviar la solicitud",
+      "acceptSuccess": "Solicitud de amistad aceptada",
+      "acceptError": "No se pudo aceptar la solicitud",
+      "declineSuccess": "Solicitud de amistad rechazada",
+      "declineError": "No se pudo rechazar la solicitud",
+      "cancelSuccess": "Solicitud cancelada",
+      "cancelError": "Error al cancelar la solicitud",
+      "removeSuccess": "Amigo eliminado",
+      "removeError": "No se pudo eliminar al amigo"
+    }
   },
   "Chat": {
     "title": "Mensajes",
     "subtitle": "Mensajes directos y canales grupales.",
     "emptyTitle": "Tus mensajes",
     "emptyDescription": "Selecciona una conversación o inicia un nuevo chat con un amigo.",
-    "newMessage": "Nuevo mensaje"
+    "newMessage": "Nuevo mensaje",
+    "message": "Mensaje",
+    "sendMessage": "Enviar",
+    "cancel": "Cancelar",
+    "typeMessagePlaceholder": "Escribe un mensaje…",
+    "startConversationWith": "Enviar un mensaje a",
+    "newMessageTitle": "Nueva conversación",
+    "sending": "Enviando…",
+    "backToMessages": "Volver a mensajes",
+    "conversationWith": "Conversación con",
+    "noMessagesYet": "Aún no hay mensajes.",
+    "sayHello": "¡Saluda para comenzar la conversación!",
+    "sendError": "Error al enviar el mensaje. Inténtalo de nuevo.",
+    "online": "En línea",
+    "offline": "Desconectado",
+    "seen": "Visto",
+    "sent": "Enviado",
+    "close": "Cerrar",
+    "loadError": "No se pudo cargar la conversación.",
+    "download": "Haz clic para descargar",
+    "file": "Archivo",
+    "multiFile": "archivos",
+    "singleFile": "archivo",
+    "attachment": "Adjuntar archivo"
+  },
+  "Channels": {
+    "title": "Canales de discusión",
+    "subtitle": "Colabora y chatea en grupos.",
+    "newChannel": "Nuevo canal",
+    "createChannelTitle": "Crear un nuevo canal",
+    "nameLabel": "Nombre del canal",
+    "namePlaceholder": "ej: Discusión del proyecto",
+    "descLabel": "Descripción",
+    "descPlaceholder": "ej: Temas generales y discusiones",
+    "inviteMembers": "Invitar miembros",
+    "searchUser": "Buscar un usuario…",
+    "noUsersFound": "No se encontraron usuarios disponibles",
+    "selected": "seleccionado(s)",
+    "create": "Crear canal",
+    "creating": "Creando…",
+    "cancel": "Cancelar",
+    "emptyTitle": "Sin canales aún",
+    "emptyDescription": "No eres parte de ningún canal por el momento. ¡Crea uno para empezar!",
+    "membersCount": "{count} miembro{count, plural, one {} other {s}}",
+    "messagesCount": "{count} mensaje{count, plural, one {} other {s}}",
+    "admin": "Admin",
+    "member": "Miembro",
+    "membersAndRoles": "Miembros y Roles",
+    "settings": "Configuración",
+    "promoteToAdmin": "Nombrar Admin",
+    "demoteToMember": "Degradar a Miembro",
+    "kickMember": "Expulsar",
+    "leaveChannel": "Salir del grupo",
+    "deleteChannel": "Eliminar canal",
+    "confirmLeave": "¿Estás seguro de que quieres salir de este canal?",
+    "confirmDelete": "⚠️ Esto eliminará permanentemente el canal y todos sus mensajes. ¿Continuar?",
+    "confirmKick": "¿Expulsar a este miembro del canal?",
+    "sayHello": "¡Sé el primero en enviar un mensaje en este canal!",
+    "noMessagesYet": "Aún no hay mensajes en este canal.",
+    "typeMessagePlaceholder": "Escribe un mensaje en el canal…",
+    "backToChannels": "Volver a los canales",
+    "seen": "Visto",
+    "sent": "Enviado",
+    "searchMember": "Buscar un miembro…",
+    "noMembersFound": "No se encontraron miembros.",
+    "noMembers": "No hay miembros en este canal.",
+    "close": "Cerrar",
+    "add": "Añadir",
+    "editChannelTitle": "Ajustes del canal",
+    "editChannelSubtitle": "Modificar información y foto del canal",
+    "avatarLabel": "Foto del canal",
+    "avatarHint": "PNG, JPG, WebP o GIF hasta 5 MB",
+    "changeAvatar": "Cambiar foto",
+    "removeNewAvatar": "Cancelar imagen",
+    "saveChanges": "Guardar cambios",
+    "savingChanges": "Guardando…",
+    "errorAvatarSize": "La imagen no debe superar los 5 MB",
+    "errorAvatarType": "Formato no soportado (PNG, JPG, WebP o GIF)",
+    "titleMinError": "El nombre del canal es obligatorio",
+    "titleMaxError": "El nombre no debe superar los 100 caracteres",
+    "descMaxError": "La descripción no debe superar los 200 caracteres",
+    "success": {
+      "youLeftChannel": "Has abandonado el canal",
+      "channelRemoved": "Canal eliminado",
+      "memberFired": "Miembro expulsado del canal",
+      "roleUpdated": "Rol actualizado",
+      "memberAdded": "Nuevo miembro añadido",
+      "channelUpdated": "Canal actualizado con éxito"
+    },
+    "error": {
+      "channelLoading": "Error al cargar el canal",
+      "sendingMessage": "Error al enviar el mensaje",
+      "leavingChannel": "Error al abandonar el canal",
+      "deletingChannel": "Error al eliminar el canal",
+      "firingMember": "Error al expulsar al miembro",
+      "updatingRole": "Error al actualizar el rol",
+      "addingNewMember": "Error al añadir al nuevo miembro",
+      "updatingChannel": "Error al actualizar el canal"
+    }
   },
   "Settings": {
     "nav": {
@@ -169,7 +575,22 @@
       "comingSoon": "Próximamente",
       "password": {
         "title": "Contraseña",
-        "description": "Cambia la contraseña de tu cuenta."
+        "description": "Cambia la contraseña de tu cuenta.",
+        "subtitle": "Actualiza la contraseña de tu cuenta a continuación.",
+        "back": "Volver a seguridad",
+        "currentPasswordLabel": "Contraseña actual",
+        "currentPasswordPlaceholder": "Introduce tu contraseña actual",
+        "newPasswordLabel": "Nueva contraseña",
+        "newPasswordPlaceholder": "Introduce una nueva contraseña",
+        "confirmPasswordLabel": "Confirmar nueva contraseña",
+        "confirmPasswordPlaceholder": "Confirma tu nueva contraseña",
+        "submit": "Actualizar contraseña",
+        "submitting": "Actualizando...",
+        "successMessage": "Tu contraseña se ha actualizado.",
+        "errorTooShort": "La contraseña debe tener al menos 8 caracteres.",
+        "errorMismatch": "Las contraseñas no coinciden.",
+        "errorSameAsCurrent": "La nueva contraseña debe ser diferente de la actual.",
+        "errorDefault": "No se pudo actualizar tu contraseña. Inténtalo de nuevo."
       },
       "sessions": {
         "title": "Sesiones activas",
@@ -181,26 +602,30 @@
       }
     },
     "apiKeys": {
-      "title": "Crear clave API",
-      "subtitle": "Genera una clave para autenticar tus aplicaciones.",
+      "title": "Crear clave de API",
+      "subtitle": "Genera una clave para autenticar tus aplicaciones contra la API.",
       "nameLabel": "Nombre",
-      "namePlaceholder": "ej. CI Pipeline",
-      "nameHelp": "Una etiqueta para reconocer esta clave más tarde.",
+      "namePlaceholder": "p. ej. Canalización CI",
+      "nameHelp": "Una etiqueta para reconocer esta clave más adelante.",
       "expiresLabel": "Expira en (días)",
-      "expiresHelp": "Establece 0 para una clave que nunca expire.",
-      "submit": "Crear clave API",
+      "expiresHelp": "Establece 0 para una clave que nunca expira.",
+      "submit": "Crear clave de API",
+      "create": "Crear",
       "submitting": "Creando…",
       "cancel": "Cancelar",
-      "createdTitle": "Clave API creada",
-      "copyWarning": "⚠️ Copia esta clave ahora. No podrás volver a verla.",
+      "createdTitle": "Clave de API creada",
+      "copyWarning": "⚠️ Copia esta clave ahora. No podrás verla de nuevo.",
       "copy": "Copiar",
       "copied": "¡Copiado!",
+      "keyLabel": "Clave de API",
+      "secretBadge": "Secreta",
       "name": "Nombre",
-      "expires": "Expira el",
+      "expires": "Expira",
+      "expiresIn": "{days, plural, =0 {Nunca expira} =1 {Expira en 1 día} other {Expira en # días}}",
       "never": "Nunca",
       "done": "Hecho",
       "createAnother": "Crear otra",
-      "errorFailed": "Error al crear la clave API",
+      "errorFailed": "No se pudo crear la clave de API",
       "errorNoKey": "El servidor no devolvió ninguna clave",
       "errorUnexpected": "Error inesperado"
     }
@@ -210,11 +635,81 @@
       "title": "Usuarios",
       "subtitle": "Gestiona las cuentas de usuario y los roles.",
       "errorFailed": "No se pudieron cargar los usuarios.",
-      "errorUnexpected": "Algo salió mal."
+      "errorUnexpected": "Algo salió mal.",
+
+      "colUserId": "ID de usuario",
+
+      "colUser": "Usuario",
+      "colEmail": "Correo electrónico",
+      "colRole": "Rol",
+      "colActions": "Acciones",
+
+      "roleAdmin": "Admin",
+      "roleUser": "Usuario",
+      "you": "tú",
+      "empty": "No se encontraron usuarios.",
+
+      "roleModerator": "Moderador",
+      "promoteRole": "Ascender rol",
+      "demoteRole": "Degradar rol",
+
+      "edit": "Editar usuario",
+      "delete": "Eliminar usuario",
+      "promoteToAdmin": "Ascender a admin",
+      "demoteToUser": "Degradar a usuario",
+      "cannotChangeOwnRole": "No puedes cambiar tu propio rol",
+      "cannotDeleteSelf": "No puedes eliminar tu propia cuenta aquí",
+
+      "errorUpdate": "No se pudo actualizar el usuario.",
+      "errorRole": "No se pudo actualizar el rol.",
+      "errorDelete": "No se pudo eliminar el usuario.",
+
+      "toastUpdated": "Usuario actualizado.",
+      "toastDeleted": "Usuario eliminado.",
+
+      "toastRoleUpdated": "Rol actualizado",
+
+      "createUser": "Crear usuario",
+      "createModal": {
+        "title": "Crear usuario",
+        "subtitle": "Añade un nuevo usuario a la plataforma.",
+        "nameLabel": "Nombre",
+        "emailLabel": "Correo electrónico",
+        "passwordLabel": "Contraseña",
+        "passwordHint": "Debe tener al menos 8 caracteres.",
+        "roleLabel": "Rol",
+        "roleUser": "Usuario",
+        "roleModerator": "Moderador",
+        "roleAdmin": "Administrador",
+        "cancel": "Cancelar",
+        "create": "Crear usuario",
+        "creating": "Creando…",
+        "error": "No se pudo crear el usuario.",
+        "toastCreated": "Usuario creado."
+      },
+
+      "editModal": {
+        "title": "Editar usuario",
+        "subtitle": "Actualiza la información de perfil de {name}.",
+        "nameLabel": "Nombre",
+        "emailLabel": "Correo electrónico",
+        "cancel": "Cancelar",
+        "save": "Guardar cambios"
+      },
+
+      "deleteModal": {
+        "title": "Eliminar usuario",
+        "subtitle": "Esto eliminará permanentemente a {name} ({email}) y todos los datos asociados. Esta acción no se puede deshacer.",
+        "confirmLabel": "Escribe \"{name}\" para confirmar",
+        "confirm": "Eliminar usuario",
+        "deleting": "Eliminando…",
+        "cancel": "Cancelar"
+      }
     },
     "dashboard": {
       "title": "Panel",
-      "subtitle": "Resumen de tu instancia"
+      "subtitle": "Resumen de tu instancia",
+      "totalUsers": "Usuarios totales"
     },
     "nav": {
       "title": "Admin",
@@ -223,19 +718,277 @@
       "users": "Usuarios"
     }
   },
-    "Profile": {
+  "Profile": {
     "title": "Tu perfil",
     "subtitle": "Así apareces en la aplicación.",
     "edit": "Editar perfil",
     "unnamed": "Usuario sin nombre",
     "idLabel": "ID de usuario",
     "emailLabel": "Correo electrónico",
-    "errorUnexpected": "Algo salió mal. Inténtalo de nuevo."
+    "errorUnexpected": "Algo salió mal. Inténtalo de nuevo.",
+    "changeAvatar": "Cambiar avatar",
+    "uploadingAvatar": "Subiendo…",
+    "avatarUpdated": "Avatar actualizado",
+    "errorAvatarType": "Elige una imagen PNG, JPG, WebP o GIF.",
+    "errorAvatarSize": "La imagen debe pesar 5 MB o menos.",
+    "errorAvatarUpload": "No se pudo subir tu avatar. Inténtalo de nuevo.",
+    "removeAvatar": "Eliminar avatar",
+    "removingAvatar": "Eliminando...",
+    "avatarRemoved": "Avatar eliminado",
+    "errorAvatarRemove": "No se pudo eliminar el avatar",
+    "viewPublicProfile": "Ver perfil público"
+  },
+  "PublicProfile": {
+    "title": "Perfil",
+    "subtitle": "Información pública sobre este miembro.",
+    "unnamed": "Usuario sin nombre",
+    "notFound": "Usuario no encontrado",
+    "notFoundHint": "Este perfil no existe o ya no está disponible.",
+    "idLabel": "ID",
+    "joinedLabel": "Se unió",
+    "actionError": "Algo salió mal. Inténtalo de nuevo.",
+    "friendshipLoadError": "No se pudo cargar el estado de amistad.",
+    "friendStatus": {
+      "friends": "Amigos",
+      "requestSent": "Solicitud enviada",
+      "requestReceived": "Quiere ser tu amigo",
+      "blocked": "Bloqueado"
+    },
+    "actions": {
+      "addFriend": "Añadir amigo",
+      "adding": "Añadiendo…",
+      "cancelRequest": "Cancelar solicitud",
+      "cancelling": "Cancelando…",
+      "accept": "Aceptar",
+      "accepting": "Aceptando…",
+      "reject": "Rechazar",
+      "rejecting": "Rechazando…",
+      "removeFriend": "Eliminar amigo",
+      "removing": "Eliminando…",
+      "blocked": "Bloqueado"
+    }
+  },
+  "FriendRequests": {
+    "title": "Solicitudes de amistad",
+    "subtitle": "Gestiona las que enviaste y las que recibiste.",
+    "tabsAriaLabel": "Pestañas de solicitudes de amistad",
+    "searchPlaceholder": "Buscar por nombre o alias…",
+    "loadError": "No se pudieron cargar tus solicitudes de amistad.",
+    "loadErrorHint": "Actualiza la página o inténtalo de nuevo más tarde.",
+    "actionError": "Algo salió mal. Inténtalo de nuevo.",
+    "unnamed": "Usuario sin nombre",
+    "tabs": {
+      "incoming": "Recibidas",
+      "outgoing": "Enviadas"
+    },
+    "empty": {
+      "incomingTitle": "No hay solicitudes recibidas",
+      "incomingDescription": "Cuando alguien quiera ser tu amigo, aparecerá aquí.",
+      "outgoingTitle": "No hay solicitudes enviadas",
+      "outgoingDescription": "Las solicitudes que envíes aparecerán aquí hasta que se respondan.",
+      "searchTitle": "Sin resultados",
+      "searchDescription": "Ninguna solicitud coincide con tu búsqueda."
+    },
+    "actions": {
+      "accept": "Aceptar",
+      "accepting": "Aceptando…",
+      "reject": "Rechazar",
+      "rejecting": "Rechazando…",
+      "cancel": "Cancelar solicitud",
+      "cancelling": "Cancelando…"
+    }
+  },
+  "FriendsList": {
+    "title": "Mis amigos",
+    "subtitle": "Todas las personas con las que estás conectado.",
+    "searchPlaceholder": "Buscar por nombre o alias…",
+    "count": "{count, plural, =0 {Sin amigos} =1 {1 amigo} other {# amigos}}",
+    "unnamed": "Usuario sin nombre",
+    "loadError": "No se pudieron cargar tus amigos.",
+    "loadErrorHint": "Actualiza la página o inténtalo de nuevo más tarde.",
+    "actionError": "Algo salió mal. Inténtalo de nuevo.",
+    "empty": {
+      "title": "Aún no tienes amigos",
+      "description": "Busca y añade amigos para verlos aquí.",
+      "searchTitle": "Sin resultados",
+      "searchDescription": "Ningún amigo coincide con tu búsqueda."
+    },
+    "actions": {
+      "remove": "Eliminar amigo"
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "page": "Página {page} de {pages}"
+    }
+  },
+  "ProfilePage": {
+    "emptyTitle": "Aún no hay publicaciones",
+    "emptyDescription": "Este usuario todavía no ha publicado nada.",
+    "updateError": "No se pudo actualizar la publicación. Inténtalo de nuevo.",
+    "deleteSuccess": "Publicación eliminada.",
+    "deleteError": "No se pudo eliminar la publicación. Inténtalo de nuevo.",
+    "loadProfileError": "No se pudo cargar este perfil.",
+    "toasts": { "loadPostsError": "No se pudieron cargar las publicaciones." },
+    "header": {
+      "friendsCount": "{count} amigos",
+      "actions": {
+        "addToStory": "Añadir a la historia",
+        "editProfile": "Editar perfil",
+        "addFriend": "Añadir amigo",
+        "requestSent": "Solicitud enviada",
+        "friends": "Amigos",
+        "message": "Mensaje",
+        "unblock": "Desbloquear",
+        "blocked": "Bloqueado",
+        "acceptRequest": "Aceptar",
+        "declineRequest": "Rechazar",
+        "accept": "Aceptar",
+        "accepting": "Aceptando…",
+        "reject": "Rechazar",
+        "rejecting": "Rechazando…",
+        "cancel": "Cancelar solicitud",
+        "cancelling": "Cancelando…"
+      }
+    }
+  },
+  "FriendsComponents": {
+   "add": "Agregar",
+    "adding": "Agregando...",
+    "pending": "Solicitud pendiente",
+    "requestSent": "Solicitud de amistad enviada",
+    "requestSendError": {
+      "request": {
+        "sendError": "No se pudo enviar la solicitud de amistad"
+      }
+    },
+    "accept": "Aceptar",
+    "accepting": "Aceptando...",
+    "accepted": "Aceptada",
+    "requestAccepted": "Solicitud de amistad aceptada",
+    "requestAcceptError": "No se pudo aceptar la solicitud de amistad",
+    "decline": "Rechazar",
+    "declining": "Rechazando...",
+    "declined": "Rechazada",
+    "requestDeclined": "Solicitud de amistad rechazada",
+    "requestDeclineError": "No se pudo rechazar la solicitud de amistad",
+    "cancel": "Cancelar",
+    "cancelling": "Cancelando...",
+    "cancelled": "Cancelada",
+    "requestCancelled": "Solicitud de amistad cancelada",
+    "requestCancelError": "No se pudo cancelar la solicitud de amistad",
+    "removeFriend": "Eliminar",
+    "removing": "Eliminando...",
+    "removed": "Eliminado",
+    "friendRemoved": "Amigo eliminado",
+    "friendRemoveError": "No se pudo eliminar al amigo"
   },
   "Language": {
     "switchLanguage": "Idioma",
     "en": "English",
     "fr": "Français",
     "es": "Español"
+  },
+  "UploadProgressToast": {
+    "notCompleted": "Subiendo archivos...",
+    "completed": "¡Publicación enviada!"
+  },
+  "TwoFactor": {
+    "title": "Autenticación en dos pasos",
+    "subtitle": "Añade una capa adicional de seguridad a tu cuenta usando una aplicación de autenticación.",
+    "loading": "Cargando la configuración de seguridad…",
+
+    "errors": {
+      "enterPassword": "Introduce tu contraseña actual.",
+      "enableFailed": "No se pudo activar la autenticación en dos pasos.",
+      "noTotpUri": "El servidor no devolvió una URI de configuración TOTP.",
+      "invalidCode": "Código de verificación no válido.",
+      "enterSixDigits": "Introduce el código de verificación de 6 dígitos.",
+      "verifyFailed": "No se pudo verificar el código de autenticación.",
+      "disableFailed": "No se pudo desactivar la autenticación en dos pasos.",
+      "copyFailed": "No se pudo copiar el código de respaldo."
+    },
+
+    "messages": {
+      "scanPrompt": "Escanea el código QR con tu aplicación de autenticación y luego introduce el código de verificación.",
+      "enabledSuccess": "La autenticación en dos pasos se ha activado correctamente.",
+      "disabledSuccess": "La autenticación en dos pasos se ha desactivado."
+    },
+
+    "status": {
+      "heading": "Aplicación de autenticación",
+      "enabled": "Activada",
+      "disabled": "Desactivada",
+      "enabledDescription": "Tu cuenta está protegida con autenticación en dos pasos.",
+      "disabledDescription": "Solicita un código de verificación de tu aplicación de autenticación al iniciar sesión.",
+      "enableButton": "Activar 2FA",
+      "disableButton": "Desactivar 2FA"
+    },
+
+    "password": {
+      "heading": "Confirma tu contraseña",
+      "description": "Introduce tu contraseña actual para continuar.",
+      "placeholder": "Tu contraseña",
+      "cancel": "Cancelar",
+      "continue": "Continuar",
+      "submitting": "Espera un momento…"
+    },
+
+    "verify": {
+      "heading": "Escanea y verifica",
+      "description": "Escanea el código QR con tu aplicación de autenticación y luego introduce el código de 6 dígitos.",
+      "qrAlt": "Código QR de autenticación en dos pasos",
+      "codePlaceholder": "000000",
+      "startOver": "Empezar de nuevo",
+      "verify": "Verificar",
+      "verifying": "Espera un momento…"
+    },
+
+    "disable": {
+      "heading": "Desactivar la autenticación en dos pasos",
+      "description": "Esto eliminará la capa adicional de seguridad de tu cuenta. Introduce tu contraseña para confirmar.",
+      "placeholder": "Tu contraseña",
+      "cancel": "Cancelar",
+      "disable": "Desactivar 2FA",
+      "disabling": "Espera un momento…"
+    },
+
+    "complete": {
+      "heading": "Autenticación en dos pasos activada",
+      "description": "Guarda estos códigos de respaldo en un lugar seguro. Cada código puede usarse una sola vez si pierdes el acceso a tu aplicación de autenticación.",
+      "backupCodes": "Códigos de respaldo",
+      "oneTimeUse": "Uso único"
+    },
+
+    "signIn": {
+      "title": "Autenticación en dos pasos",
+      "descriptionTotp": "Introduce el código de 6 dígitos de tu aplicación de autenticación.",
+      "descriptionBackup": "Introduce uno de tus códigos de respaldo para continuar.",
+
+      "labelTotp": "Código de autenticación",
+      "labelBackup": "Código de respaldo",
+
+      "placeholderTotp": "000000",
+      "placeholderBackup": "XXXXXXXX",
+
+      "submit": "Verificar",
+      "submitting": "Verificando…",
+
+      "switchToBackup": "Usar un código de respaldo",
+      "switchToTotp": "Usar el código de la aplicación de autenticación",
+
+      "toast": {
+        "enterCode": "Introduce un código de autenticación.",
+        "invalidCode": "Código de autenticación no válido.",
+        "success": "¡Autenticación en dos pasos correcta!"
+      },
+
+      "help": {
+        "prefix": "¿Has perdido el acceso a tu aplicación de autenticación?",
+        "link": "Contacta con soporte",
+        "suffix": "."
+      }
+    }
   }
+
 }

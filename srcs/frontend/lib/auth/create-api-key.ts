@@ -1,28 +1,33 @@
+// src/lib/api-keys/createApiKey.ts
+import type { useTranslations } from "next-intl";
+import { toast } from "sonner";
+
 import { authClient } from "@/lib/auth/auth-client";
 
-export const createApiKey = async () => {
+type T = ReturnType<typeof useTranslations<"Settings.apiKeys">>;
+
+export const createApiKey = async (t: T, name: string, expiresInDays: number) => {
   try {
+    const days = Math.max(0, Math.floor(expiresInDays));
+
     const { data: key, error } = await authClient.apiKey.create({
-      name: "My Frontend App Key",
-      // Optional: expiresIn is in seconds (e.g., 7 days)
-      expiresIn: 60 * 60 * 24 * 7, 
-      // Optional: add metadata
-      metadata: {
-        environment: "development",
-      },
+      name,
+      expiresIn: days > 0 ? days * 24 * 60 * 60 : undefined,
+      metadata: { environment: process.env.NODE_ENV ?? "development" },
     });
 
     if (error) {
-      console.error("Failed to create key:", error);
+      toast.error(error.message ?? t("errorFailed"));
       return;
     }
 
-    // IMPORTANT: The actual key value is only shown ONCE here.
-    console.log("Your new API Key:", key.key);
-    
-    // You should display this to the user and prompt them to save it.
-    // After this, only the metadata (like the ID) is retrievable.
-  } catch (err) {
-    console.error("Unexpected error:", err);
+    toast.success(t("createdTitle"), {
+      description: key.key,
+      duration: 60_000,
+    });
+
+    return key;
+  } catch {
+    toast.error(t("errorUnexpected"));
   }
 };

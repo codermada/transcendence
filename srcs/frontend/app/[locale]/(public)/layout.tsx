@@ -20,8 +20,8 @@ export default function PublicLayout({
 
   if (isPending) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-zinc-950">
-        <p className="text-sm text-zinc-400">Loading...</p>
+      <main className="bg-background text-foreground flex min-h-screen items-center justify-center transition-colors">
+        <p className="text-muted text-sm">Loading...</p>
       </main>
     );
   }

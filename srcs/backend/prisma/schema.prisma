@@ -23,10 +23,12 @@ enum Language {
   ES
 }
 
-model Task {
-  id        String  @id @default(cuid(2))
-  task      String
-  completed Boolean @default(false)
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  BLOCKED
+  CANCELLED
 }
 
 model User {
@@ -35,7 +37,7 @@ model User {
   pseudo        String?  @unique
   email         String
   emailVerified Boolean  @default(false)
-  image         String?
+  image         String   @default("/nest/uploads/default-avatar.png")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -43,11 +45,13 @@ model User {
   accounts Account[]
 
   setting              UserSetting?
-  notifications        Notification[]
   sentMessages         Message[]            @relation("SentMessages")
   receivedMessages     Message[]            @relation("ReceivedMessages")
-  friendshipsInitiated Friendship[]         @relation("User1Friendships")
-  friendshipsReceived  Friendship[]         @relation("User2Friendships")
+  messageTablesAsUser1 MessageTable[]       @relation("MessageTableUser1")
+  messageTablesAsUser2 MessageTable[]       @relation("MessageTableUser2")
+  friendshipsSent      Friendship[]         @relation("FriendshipRequester")
+  friendshipsReceived  Friendship[]         @relation("FriendshipAddressee")
+  friendshipsBlocked   Friendship[]         @relation("FriendshipBlocker")
   channelsCreated      Channel[]            @relation("ChannelCreator")
   channelMemberships   UserInChannel[]
   channelMessages      UserChannelMessage[]
@@ -131,8 +135,8 @@ model Apikey {
   lastRefillAt        DateTime?
   enabled             Boolean?  @default(true)
   rateLimitEnabled    Boolean?  @default(true)
-  rateLimitTimeWindow Int?      @default(86400000)
-  rateLimitMax        Int?      @default(10)
+  rateLimitTimeWindow Int? @default(3600000)
+  rateLimitMax        Int? @default(10) 
   requestCount        Int?      @default(0)
   remaining           Int?
   lastRequest         DateTime?
@@ -174,50 +178,73 @@ model UserSetting {
   @@map("user_settings")
 }
 
-model Notification {
-  id        String   @id @default(cuid(2))
-  userId    String
-  content   String
-  isSeen    Boolean  @default(false)
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-  @@map("notifications")
-}
-
 model Friendship {
-  id         String    @id @default(cuid(2))
-  user1Id    String
-  user2Id    String
-  acceptedAt DateTime?
-  createdAt  DateTime  @default(now())
+  id          String           @id @default(cuid(2))
+  requesterId String
+  addresseeId String
+  status      FriendshipStatus @default(PENDING)
+  blockedById String?
+  message     String?
+  pairKey     String           @unique
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  acceptedAt  DateTime?
+  rejectedAt  DateTime?
+  blockedAt   DateTime?
+  cancelledAt DateTime?
 
-  user1 User @relation("User1Friendships", fields: [user1Id], references: [id], onDelete: Cascade)
-  user2 User @relation("User2Friendships", fields: [user2Id], references: [id], onDelete: Cascade)
+  requester User  @relation("FriendshipRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  addressee User  @relation("FriendshipAddressee", fields: [addresseeId], references: [id], onDelete: Cascade)
+  blockedBy User? @relation("FriendshipBlocker", fields: [blockedById], references: [id], onDelete: SetNull)
 
-  @@unique([user1Id, user2Id])
-  @@index([user1Id])
-  @@index([user2Id])
+  @@index([requesterId, status])
+  @@index([addresseeId, status])
+  @@index([blockedById])
   @@map("friendships")
 }
 
+model MessageTable {
+  id        String   @id @default(cuid(2))
+  user1Id   String?
+  user2Id   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  pairKey String @unique
+
+  user1    User?     @relation("MessageTableUser1", fields: [user1Id], references: [id], onDelete: SetNull)
+  user2    User?     @relation("MessageTableUser2", fields: [user2Id], references: [id], onDelete: SetNull)
+  messages Message[]
+
+  @@index([user1Id])
+  @@index([user2Id])
+  @@map("message_tables")
+}
+
 model Message {
-  id         String    @id @default(cuid(2))
-  senderId   String
-  receiverId String
-  content    String
-  mediaUrls  String[]  @default([])
-  isSeen     Boolean   @default(false)
-  seenAt     DateTime?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id             String    @id @default(cuid(2))
+  messageTableId String
+  senderId       String
+  receiverId     String
+  content        String
+  mediaUrls      String[]  @default([])
+  isSeen         Boolean   @default(false)
+  seenAt         DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
-  sender   User @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
-  receiver User @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+  messageTable MessageTable @relation(fields: [messageTableId], references: [id], onDelete: Cascade)
+  sender       User         @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver     User         @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
 
+  @@index([messageTableId, createdAt(sort: Desc)])
   @@index([senderId, receiverId, createdAt(sort: Desc)])
   @@map("messages")
+}
+
+enum ChannelRole {
+  ADMIN
+  MEMBER
 }
 
 model Channel {
@@ -240,8 +267,8 @@ model Channel {
 model UserInChannel {
   userId    String
   channelId String
-  isOwner   Boolean  @default(false)
-  joinedAt  DateTime @default(now())
+  role      ChannelRole @default(MEMBER)
+  joinedAt  DateTime    @default(now())
 
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   channel Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
@@ -256,6 +283,7 @@ model UserChannelMessage {
   channelId String
   content   String
   mediaUrls String[] @default([])
+  seenBy    String[] @default([])
   createdAt DateTime @default(now())
   updatedat DateTime @updatedAt
 

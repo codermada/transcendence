@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/routing";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth/auth-client";
@@ -9,6 +10,7 @@ import { AlertCircle, ShieldCheck } from "@/components/icons";
 
 export default function TwoFactorPage() {
   const router = useRouter();
+  const t = useTranslations("TwoFactor.signIn");
 
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,7 +20,7 @@ export default function TwoFactorPage() {
     e.preventDefault();
 
     if (!code) {
-      toast.error("Enter an authentication code.");
+      toast.error(t("toast.enterCode"));
       return;
     }
 
@@ -31,11 +33,11 @@ export default function TwoFactorPage() {
     setLoading(false);
 
     if (error) {
-      toast.error(error.message ?? "Invalid authentication code.");
+      toast.error(error.message ?? t("toast.invalidCode"));
       return;
     }
 
-    toast.success("Two-factor authentication successful!");
+    toast.success(t("toast.success"));
 
     router.push("/feed");
   }
@@ -46,32 +48,27 @@ export default function TwoFactorPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-4 py-8">
+    <main className="flex min-h-screen items-center justify-center px-4 py-8 transition-colors">
       <div className="w-full max-w-md">
         <div
           className="
+            bg-surface border-border
             relative overflow-hidden
-            rounded-2xl
-            border border-border
-            bg-surface/40
-            p-6
-            shadow-2xl
-            shadow-black/20
-            backdrop-blur-xl
-            sm:p-8
+            rounded-2xl border
+            shadow-2xl shadow-black/20 backdrop-blur-xl
+            p-6 sm:p-8
+            transition-colors
           "
         >
           {/* Futuristic top line */}
           <div
             aria-hidden
             className="
+              from-transparent via-brand-500/50 to-transparent
               pointer-events-none
               absolute inset-x-10 top-0
               h-px
               bg-gradient-to-r
-              from-transparent
-              via-brand-500/50
-              to-transparent
               shadow-[0_0_14px_rgb(139_92_246_/_0.35)]
             "
           />
@@ -80,12 +77,11 @@ export default function TwoFactorPage() {
           <div className="flex items-start gap-4">
             <div
               className="
+                border-brand-500/30 bg-brand-500/10 text-brand-400
                 flex h-10 w-10 shrink-0
                 items-center justify-center
                 rounded-xl
-                border border-brand-500/30
-                bg-brand-500/10
-                text-brand-400
+                border
                 shadow-[0_0_20px_rgb(139_92_246_/_0.12)]
               "
             >
@@ -93,13 +89,13 @@ export default function TwoFactorPage() {
             </div>
 
             <div>
-              <h1 className="text-lg font-semibold tracking-tight text-foreground">
-                Two-factor authentication
+              <h1 className="text-lg font-semibold tracking-tight">
+                {t("title")}
               </h1>
-              <p className="mt-1 text-xs leading-relaxed text-muted">
+              <p className="text-muted mt-1 text-xs leading-relaxed">
                 {useBackupCode
-                  ? "Enter one of your backup codes to continue."
-                  : "Enter the 6-digit code from your authenticator app."}
+                  ? t("descriptionBackup")
+                  : t("descriptionTotp")}
               </p>
             </div>
           </div>
@@ -109,9 +105,9 @@ export default function TwoFactorPage() {
             <div className="space-y-2">
               <label
                 htmlFor="two-factor-code"
-                className="block px-1 text-xs font-semibold uppercase tracking-wider text-muted"
+                className="text-muted block px-1 text-xs font-semibold uppercase tracking-wider"
               >
-                {useBackupCode ? "Backup code" : "Authentication code"}
+                {useBackupCode ? t("labelBackup") : t("labelTotp")}
               </label>
 
               <input
@@ -129,23 +125,21 @@ export default function TwoFactorPage() {
                       : e.target.value.replace(/\D/g, ""),
                   )
                 }
-                placeholder={useBackupCode ? "XXXXXXXX" : "000000"}
+                placeholder={
+                  useBackupCode ? t("placeholderBackup") : t("placeholderTotp")
+                }
                 className="
-                  w-full rounded-xl
-                  border border-border
-                  bg-background
+                  bg-background border-border placeholder:text-muted
+                  focus:border-brand-500/50 focus:ring-brand-500/20
+                  w-full rounded-xl border
                   px-3 py-2.5
                   text-center
                   font-mono
                   text-lg
                   tracking-[0.5em]
-                  text-foreground
-                  placeholder:text-muted
                   transition-colors
-                  focus:border-brand-500/50
                   focus:outline-none
                   focus:ring-2
-                  focus:ring-brand-500/20
                 "
               />
             </div>
@@ -153,7 +147,14 @@ export default function TwoFactorPage() {
             <button
               type="submit"
               disabled={loading || !code}
-              className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-50"
+              className="
+                bg-brand-600 hover:bg-brand-500 active:bg-brand-700
+                w-full rounded-full
+                py-2.5
+                text-sm font-medium text-white
+                transition
+                disabled:cursor-not-allowed disabled:opacity-50
+              "
             >
               {loading ? (
                 <span className="inline-flex items-center gap-2">
@@ -168,10 +169,10 @@ export default function TwoFactorPage() {
                       border-t-white
                     "
                   />
-                  Verifying…
+                  {t("submitting")}
                 </span>
               ) : (
-                "Verify"
+                t("submit")
               )}
             </button>
 
@@ -180,46 +181,41 @@ export default function TwoFactorPage() {
               onClick={handleToggleCodeType}
               disabled={loading}
               className="
+                text-muted hover:text-brand-400 focus:ring-brand-500/20
                 w-full
                 text-center
                 text-xs font-medium
-                text-muted
                 transition-colors
-                hover:text-brand-400
                 focus:outline-none
                 focus:ring-2
-                focus:ring-brand-500/20
                 disabled:cursor-not-allowed
                 disabled:opacity-50
               "
             >
-              {useBackupCode
-                ? "Use authenticator code instead"
-                : "Use a backup code instead"}
+              {useBackupCode ? t("switchToTotp") : t("switchToBackup")}
             </button>
           </form>
 
           {/* Help */}
           <div
             className="
+              border-border bg-background/60 text-muted
               mt-6 flex items-start gap-3
-              rounded-xl
-              border border-border
-              bg-background/60
+              rounded-xl border
               px-3 py-2.5
-              text-xs leading-relaxed text-muted
+              text-xs leading-relaxed
             "
           >
-            <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted" />
+            <AlertCircle className="text-muted mt-0.5 h-3.5 w-3.5 shrink-0" />
             <span>
-              Lost access to your authenticator?{" "}
+              {t("help.prefix")}{" "}
               <Link
                 href="/support"
-                className="font-medium text-brand-400 underline-offset-2 hover:underline"
+                className="text-brand-400 underline-offset-2 font-medium hover:underline"
               >
-                Contact support
+                {t("help.link")}
               </Link>
-              .
+              {t("help.suffix")}
             </span>
           </div>
         </div>

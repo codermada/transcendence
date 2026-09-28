@@ -7,12 +7,77 @@
     "success": "Success",
     "or": "or"
   },
+  "PrivacyPolicy": {
+    "badge": "Privacy Policy",
+    "title": "Privacy Policy",
+    "subtitle": "This Privacy Policy explains how Heartbeat (\"we,\" \"us,\" or \"our\") collects, uses, and protects your information when you use our application (the \"Service\"). By using the Service, you agree to the practices described in this policy.",
+    "section1": {
+      "title": "1. Our Guarantees to You",
+      "body": "We are committed to protecting your privacy. We explicitly guarantee the following:\n\n• Secure Authentication — Your account authentication is secure. We do not know your password. All passwords are encrypted (hashed) in our database before storage. We cannot retrieve or view your plain-text password at any time.\n\n• Secure File Storage — All files you upload to the Service are stored in a secure S3 (cloud storage) service. The only exception is your profile picture, which is stored separately to allow for faster display and public access within the app.\n\n• Message Storage and Access — All messages, including direct messages and channel messages, are stored in our database. These messages are not end-to-end encrypted. Access to this database is strictly limited to a handful of authorized personnel (the developers of the website). We do not read your messages unless required for security, moderation, or legal compliance.\n\n• No Sharing of User Details — We will not share your personal user details with third parties. We do not sell, rent, or trade your personal information to advertisers or other external companies."
+    },
+    "section2": {
+      "title": "2. Information We Collect and How We Use It",
+      "body": "We collect the following information: Account Information (username, email address, encrypted password), Profile Information (profile picture and optional details), User Content (files you upload and messages you send), and Technical Data (IP address, device type, browser type, and usage logs).\n\nWe use this information only to: create and manage your account; provide, operate, and maintain the Service; store your files and messages; ensure the security and integrity of the Service; and comply with legal obligations."
+    },
+    "section3": {
+      "title": "3. Data Storage, Security, and Sharing",
+      "body": "Passwords are encrypted (hashed) in our database. Files are stored in a secure S3 service (except profile pictures). Messages are stored in our database and are accessible only to authorized developers. Profile pictures are stored separately and may be publicly visible within the Service.\n\nWhile we take reasonable measures to protect your data, no method of transmission or storage is 100% secure. Because messages are not encrypted, we cannot guarantee absolute confidentiality of message content against unauthorized access.\n\nWe do not share your user details with third parties, except: (a) if required by law, subpoena, or court order; (b) to protect the rights, property, or safety of our users, the public, or us; (c) with trusted service providers (such as the S3 storage service) who process data on our behalf under strict confidentiality agreements."
+    },
+    "section4": {
+      "title": "4. Data Retention and Your Rights",
+      "body": "We retain your information for as long as your account is active or as needed to provide the Service. If you delete your account, we will delete or anonymize your data within a reasonable timeframe, unless we are required to retain it for legal reasons.\n\nDepending on your location, you may have the right to: access a copy of the data we hold about you; request correction of inaccurate data; request deletion of your account and associated data; and object to certain processing of your data. To exercise these rights, contact us at tolotra025@gmail.com."
+    },
+    "section5": {
+      "title": "5. Children's Privacy and Changes to This Policy",
+      "body": "The Service is not intended for children under the age of 18. We do not knowingly collect personal information from children. If we learn we have done so, we will delete it promptly.\n\nWe may update this Privacy Policy from time to time. We will notify you of any material changes by posting the new policy in the app or via email. Your continued use of the Service after changes constitutes acceptance of the updated policy."
+    },
+    "contact": {
+      "title": "6. Contact Us",
+      "body": "If you have questions about this Privacy Policy, please contact us at:\n\ntolotra025@gmail.com"
+    },
+    "lastUpdated": "Last Updated: Sep 26 12:03"
+  },
+  "TermsOfService": {
+    "badge": "Terms of Service",
+    "title": "Terms of Service",
+    "subtitle": "Welcome to Heartbeat (\"we,\" \"us,\" or \"our\"). These Terms of Service (\"Terms\") govern your access to and use of our application, website, and services (collectively, the \"Service\"). By creating an account or using the Service, you agree to be bound by these Terms. If you do not agree, do not use the Service.",
+    "section1": {
+      "title": "1. Eligibility and Your Account",
+      "body": "You must be at least 18 years old to use the Service. If you are under 18, you represent that you have permission from a parent or legal guardian. You must not be barred from using the Service under any applicable law, and you must provide accurate and complete information when creating your account.\n\nYou are responsible for maintaining the confidentiality of your password and for all activity that occurs under your account. You must notify us immediately at tolotra025@gmail.com if you suspect unauthorized access to your account. We reserve the right to suspend or terminate your account at any time for violations of these Terms."
+    },
+    "section2": {
+      "title": "2. Acceptable Use",
+      "body": "You agree not to:\n\n• Post, upload, or share content that is illegal, hateful, harassing, threatening, defamatory, obscene, or otherwise objectionable.\n• Impersonate any person or entity, or misrepresent your affiliation with anyone.\n• Use the Service to spam, phish, or distribute malware.\n• Attempt to hack, reverse-engineer, or disrupt the Service or its servers.\n• Scrape, harvest, or collect data about other users without their consent.\n• Use the Service for any commercial purpose without our written permission.\n• Violate any applicable law or regulation."
+    },
+    "section3": {
+      "title": "3. User Content, Friends, and Profiles",
+      "body": "You retain ownership of the content you create and upload (posts, messages, files, profile pictures, etc.). We do not claim ownership of your content. By posting content, you grant us a non-exclusive, worldwide, royalty-free license to store, display, and distribute your content solely for the purpose of operating and improving the Service. This license ends when you delete your content or your account, except where we are required to retain it by law.\n\nYou are solely responsible for the content you post. We do not endorse and are not responsible for any user content. We reserve the right (but have no obligation) to review, remove, or refuse any content that violates these Terms, and we may remove content upon valid legal request.\n\nYou control who can see your profile and posts through your privacy settings. Adding a friend requires mutual consent. You must not use friend requests or profile features to harass, spam, or deceive others. Profile pictures may be visible to other users — do not upload images you do not have the right to share."
+    },
+    "section4": {
+      "title": "4. Messaging, Channels, File Uploads, and Privacy",
+      "body": "Messages (including channel messages) are stored on our servers and are not end-to-end encrypted. Authorized developers may access messages only for security, moderation, or legal compliance, as described in our Privacy Policy. Do not use messaging to send illegal content, threats, or spam. Discussion channels are public or semi-public spaces — do not share private information you do not want others to see.\n\nYou may upload files to the Service, which are stored in a secure S3 service (except profile pictures). You must not upload files that contain malware, illegal content, or content you do not have the right to distribute. We are not responsible for any loss of files — please keep your own backups.\n\nYour use of the Service is also governed by our Privacy Policy, which explains how we collect, use, and protect your data. By using the Service, you consent to our data practices as described in the Privacy Policy."
+    },
+    "section5": {
+      "title": "5. Intellectual Property and Termination",
+      "body": "All software, design, logos, and trademarks associated with the Service are owned by us or our licensors. You may not copy, modify, distribute, or reverse-engineer any part of the Service without our written permission. You retain ownership of your own content, as stated in Section 3.\n\nYou may delete your account at any time. We may suspend or terminate your account if you violate these Terms or if we are required to by law. Upon termination, your right to use the Service ends immediately. We may delete your data in accordance with our Privacy Policy."
+    },
+    "contact": {
+      "title": "6. Contact Us",
+      "body": "If you have questions about these Terms, contact us at:\n\ntolotra025@gmail.com"
+    },
+    "lastUpdated": "Last Updated: Sep 26 12:03"
+  },
+  "Legal": {
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  },
   "Nav": {
     "brand": "Heart",
     "brandAccent": "beat",
     "feed": "Feed",
     "friends": "Friends",
     "chat": "Messages",
+    "channels": "Channels",
     "settings": "Settings",
     "security": "Security & 2FA",
     "profile": "My Profile",
@@ -31,8 +96,11 @@
     "noNotifications": "No new notifications",
     "zeroUnread": "0 unread",
     "online": "Online",
+    "offline": "Offline",
     "preferences": "Preferences",
-    "user": "User"
+    "user": "User",
+    "signOutError": "Couldn't sign out. Please try again.",
+    "legal": "Legal"
   },
   "Auth": {
     "signIn": {
@@ -82,6 +150,25 @@
       "successMessage": "If an account exists with this email, you will receive a reset link shortly.",
       "errorMessage": "Unable to send reset link. Please try again later."
     },
+    "resetPassword": {
+      "title": "Reset password",
+      "subtitle": "Enter your new password below.",
+      "passwordLabel": "New password",
+      "passwordPlaceholder": "Enter a new password",
+      "confirmPasswordLabel": "Confirm password",
+      "confirmPasswordPlaceholder": "Confirm your new password",
+      "submit": "Reset password",
+      "submitting": "Resetting...",
+      "rememberPassword": "Remember your password?",
+      "signInLink": "Sign in",
+      "invalidLink": "This password reset link is invalid or missing a token.",
+      "requestNewLink": "Request a new reset link",
+      "successMessage": "Your password has been reset successfully.",
+      "errorMissingToken": "Invalid or missing password reset token.",
+      "errorPasswordMismatch": "Passwords do not match.",
+      "errorPasswordTooShort": "Password must be at least 8 characters.",
+      "errorDefault": "Unable to reset your password."
+    },
     "validation": {
       "emailRequired": "Email is required",
       "emailInvalid": "Please enter a valid email address",
@@ -92,6 +179,11 @@
       "nameMax": "Name cannot exceed 50 characters",
       "confirmPasswordRequired": "Please confirm your password",
       "passwordsDoNotMatch": "Passwords do not match"
+    },
+    "Google": {
+      "signIn": "Continue with Google",
+      "signUp": "Sign up with Google",
+      "redirecting": "Redirecting..."
     }
   },
   "Home": {
@@ -104,22 +196,336 @@
   "Feed": {
     "title": "Feed",
     "welcomeMessage": "Welcome to your feed!",
-    "activity": "Recent Activity"
+    "activity": "Recent Activity",
+    "feed-section": {
+      "CreatePostCard": {
+        "placeholder": "What's on your mind today?",
+        "pluralMedia": "Photos / Videos",
+        "singularMedia": "Photo / Video",
+        "publish": "Publish",
+        "isLoading": "Publishing...",
+        "errors": {
+          "CONTENT_EMPTY": "Content cannot be empty",
+          "DEFAULT": "Something went wrong. Please try again.",
+          "profileLoad": "Couldn't load your profile."
+        },
+        "multiFile": "files",
+        "singleFile": "file",
+        "postCreatedSuccess": "Post created successfully!"
+      },
+      "FeedSection": {
+        "emptyTitle": "No posts yet",
+        "emptyDescription": "Be the first to post something or add friends to see their updates.",
+        "defaultTimeAgo": "Just now",
+        "deleteSuccess": "Post deleted",
+        "deleteError": "Failed to delete post",
+        "loadMoreError": "Error loading posts",
+        "loadingMore": "Loading...",
+        "noMorePosts": "All posts have been loaded."
+      },
+      "MediaModal": {
+
+      },
+      "PostActions": {
+        "postDeletedErrorMessage": "This post doesn't exist anymore"
+      },
+      "PostCard": {
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving...",
+        "updateSuccess": "Post updated successfully",
+        "updateError": "Failed to update post",
+        "mediaLabel": "Media (max 10)",
+        "addMedia": "Add",
+        "placeholder": "What's on your mind?",
+        "maxFilesError": "You cannot attach more than 10 media files in total.",
+        "emptyPostError": "A post cannot be empty."
+      },
+      "PostHeader": {
+        "timeAgo": "{value, plural, =0 {Just now} =1 {1 {unit} ago} other {{value} {unit, select, minute {minutes} hour {hours} day {days} other {}} ago}}",
+        "options": "Post options",
+        "edit": "Edit",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "justNow": "just now",
+        "viewProfile": "View {name}'s profile",
+        "viewMyProfile": "View my profile",
+        "adminDelete": "Delete post (moderator)",
+        "adminDeleteConfirm": "Delete this post as a moderator?",
+        "adminDeleteSuccess": "Post deleted",
+        "adminDeleteError": "Could not delete post"
+      },
+      "CommentItem": {
+        "viewProfile": "View {name}'s profile",
+        "likeComment": "Like comment",
+        "unlikeComment": "Unlike comment",
+        "timeAgo": "{time}",
+        "deleteComment": "Delete comment",
+        "removeComment": "Remove comment (moderator)",
+        "commentAttachment": "Comment attachment"
+      },
+      "CommentsList": {
+        "loading": "Loading comments...",
+        "emptyTitle": "No comments yet",
+        "emptyDescription": "Be the first to comment."
+      },
+      "CommentsModal": {
+        "toasts": {
+          "loadError": "Could not load comments.",
+          "invalidImageType": "Please select an image.",
+          "imageTooLarge": "The image must not exceed 10 MB.",
+          "emptyComment": "Write a comment.",
+          "createSuccess": "Comment added.",
+          "createError": "Could not add the comment.",
+          "likeError": "Could not update the like.",
+          "deleteSuccess": "Comment deleted.",
+          "deleteError": "Could not delete the comment."
+        }
+      },
+      "PostMedia": {
+
+      }
+    },
+    "network-sidebar": {
+      "FriendRequestItem": {
+        "acceptButton": "Accept",
+        "declineButton": "Decline",
+        "cancelButton": "Cancel"
+      },
+      "FriendRequestsCard": {
+        "friendRequests": "Friend Requests",
+        "noFriendRequests": "No friend requests",
+        "upToDate": "You're all caught up!",
+        "multiReceived": "Received",
+        "multiSent": "Sent",
+        "received": "Received",
+        "sent": "Sent"
+      },
+      "FriendSuggestionItem": {
+        "mutualFriend": "mutual friend",
+        "mutualFriends": "mutual friends",
+        "requestedButton": "Sent",
+        "addButton": "Add"
+      },
+      "FriendSuggestionsCard": {
+        "friendSuggestions": "Friend Suggestions",
+        "noAvailableFriendSuggestions": "No suggestions available",
+        "upToDate": "Check back later to discover new profiles."
+      },
+      "NetworkSidebar": {
+
+      }
+    },
+    "profile-sidebar": {
+      "ProfileCard": {
+        "myProfileButton": "My Profile",
+        "errorProfileLoad": "Couldn't load your profile."
+      },
+      "ProfileSidebar": {
+
+      },
+      "ProfileStats": {
+        "friends": "Friends",
+        "posts": "Posts",
+        "reactions": "Reactions"
+      }
+    },
+    "toast-popup-message": {
+      "handleAcceptRequest": {
+        "successMessage": "Friend request accepted.",
+        "errorMessage": "Error accepting friend request."
+      },
+      "handleDeclineRequest": {
+        "successMessage": "Friend request declined.",
+        "errorMessage": "Error declining friend request."
+      },
+      "handleCancelRequest": {
+        "successMessage": "Friend request canceled.",
+        "errorMessage": "Error canceling friend request."
+      },
+      "handleSendFriendRequest": {
+        "successMessage": "Friend request sent.",
+        "errorMessage": "Error sending friend request."
+      }
+    }
+  },
+  "Comments": {
+    "title": "Comments",
+    "close": "Close comments",
+    "loading": "Loading comments...",
+    "emptyTitle": "No comments yet",
+    "emptyDescription": "Be the first to comment.",
+    "imagePreviewAlt": "Selected image preview",
+    "removeImage": "Remove selected image",
+    "placeholder": "Write a comment...",
+    "attachImage": "Attach image",
+    "send": "Send comment",
+    "viewProfile": "View {name}'s profile",
+    "like": "Like comment",
+    "unlike": "Unlike comment",
+    "attachmentAlt": "Comment attachment",
+    "loadError": "Couldn't load comments.",
+    "selectImage": "Please select an image.",
+    "imageTooLarge": "The image must not exceed 10 MB.",
+    "emptyComment": "Write a comment.",
+    "added": "Comment added.",
+    "addError": "Couldn't add the comment.",
+    "likeError": "Couldn't update the like."
+  },
+  "FeedPage": {
+    "loading": "Loading your feed...",
+    "toasts": {
+      "acceptSuccess": "Friend request accepted.",
+      "acceptError": "Could not accept the request.",
+      "declineSuccess": "Friend request declined.",
+      "declineError": "Could not decline the request.",
+      "cancelSuccess": "Friend request cancelled.",
+      "cancelError": "Could not cancel the request.",
+      "sendSuccess": "Friend request sent.",
+      "sendError": "Could not send the friend request.",
+      "loadPostsError": "Could not load your feed.",
+      "loadReceivedRequestsError": "Could not load received requests.",
+      "loadSentRequestsError": "Could not load sent requests.",
+      "loadSuggestionsError": "Could not load friend suggestions."
+    }
   },
   "Friends": {
     "title": "Friends",
-    "subtitle": "Manage your friends and community connections.",
-    "findFriends": "Find Friends",
-    "requests": "Friend Requests",
+    "subtitle": "Manage your friends and connections.",
+    "findFriends": "Find friends",
+    "requests": "Friend requests",
     "emptyTitle": "No friends yet",
-    "emptyDescription": "Search and add friends to see their updates and messages here."
+    "emptyDescription": "Search and add friends to see their posts and messages here.",
+    "searchPlaceholder": "Search by name…",
+    "startTyping": "Start typing to search for people.",
+    "noResults": "No users found.",
+    "searchError": "An error occurred. Please try again.",
+    "add": "Add",
+    "back": "Back",
+    "adding": "Adding…",
+    "pending": "Pending…",
+    "friends": "Friends",
+    "accept": "Accept",
+    "decline": "Decline",
+    "cancel": "Cancel",
+    "removeFriend": "Remove friend",
+    "toasts": {
+      "addSuccess": "Friend request sent",
+      "addError": "Failed to send request",
+      "acceptSuccess": "Friend request accepted",
+      "acceptError": "Failed to accept request",
+      "declineSuccess": "Friend request declined",
+      "declineError": "Failed to decline request",
+      "cancelSuccess": "Request canceled",
+      "cancelError": "Failed to cancel request",
+      "removeSuccess": "Friend removed",
+      "removeError": "Failed to remove friend"
+    }
   },
   "Chat": {
     "title": "Messages",
     "subtitle": "Direct messages and group channels.",
     "emptyTitle": "Your Messages",
     "emptyDescription": "Select a conversation or start a new chat with a friend.",
-    "newMessage": "New message"
+    "newMessage": "New message",
+    "message": "Message",
+    "sendMessage": "Send",
+    "cancel": "Cancel",
+    "typeMessagePlaceholder": "Write a message…",
+    "startConversationWith": "Send a message to",
+    "newMessageTitle": "New conversation",
+    "sending": "Sending…",
+    "backToMessages": "Back to messages",
+    "conversationWith": "Conversation with",
+    "noMessagesYet": "No messages yet.",
+    "sayHello": "Say hello to start the conversation!",
+    "sendError": "Failed to send message. Please try again.",
+    "online": "Online",
+    "offline": "Offline",
+    "seen": "Seen",
+    "sent": "Sent",
+    "close": "Close",
+    "loadError": "Failed to load conversation.",
+    "download": "Click to download",
+    "file": "File",
+    "multiFile": "files",
+    "singleFile": "file",
+    "attachment": "Attach files"
+  },
+  "Channels": {
+    "title": "Channels",
+    "subtitle": "Collaborate and chat in groups.",
+    "newChannel": "New channel",
+    "createChannelTitle": "Create a new channel",
+    "nameLabel": "Channel Name",
+    "namePlaceholder": "e.g. Project Discussion",
+    "descLabel": "Description",
+    "descPlaceholder": "e.g. General topics and discussions",
+    "inviteMembers": "Invite Members",
+    "searchUser": "Search a user…",
+    "noUsersFound": "No available users found",
+    "selected": "selected",
+    "create": "Create channel",
+    "creating": "Creating…",
+    "cancel": "Cancel",
+    "emptyTitle": "No channels yet",
+    "emptyDescription": "You are not part of any channel yet. Create one to get started!",
+    "membersCount": "{count} member{count, plural, one {} other {s}}",
+    "messagesCount": "{count} message{count, plural, one {} other {s}}",
+    "admin": "Admin",
+    "member": "Member",
+    "membersAndRoles": "Members & Roles",
+    "settings": "Settings",
+    "promoteToAdmin": "Promote to Admin",
+    "demoteToMember": "Demote to Member",
+    "kickMember": "Kick",
+    "leaveChannel": "Leave channel",
+    "deleteChannel": "Delete channel",
+    "confirmLeave": "Are you sure you want to leave this channel?",
+    "confirmDelete": "⚠️ This will permanently delete the channel and all its messages. Continue?",
+    "confirmKick": "Kick this member from the channel?",
+    "sayHello": "Be the first to send a message in this channel!",
+    "noMessagesYet": "No messages in this channel yet.",
+    "typeMessagePlaceholder": "Write a message in the channel…",
+    "backToChannels": "Back to channels",
+    "seen": "Seen",
+    "sent": "Sent",
+    "searchMember": "Search a member…",
+    "noMembersFound": "No members found.",
+    "noMembers": "No members in this channel.",
+    "close": "Close",
+    "add": "Add",
+    "editChannelTitle": "Channel Settings",
+    "editChannelSubtitle": "Update channel info and photo",
+    "avatarLabel": "Channel photo",
+    "avatarHint": "PNG, JPG, WebP or GIF up to 5 MB",
+    "changeAvatar": "Change photo",
+    "removeNewAvatar": "Cancel image",
+    "saveChanges": "Save changes",
+    "savingChanges": "Saving…",
+    "errorAvatarSize": "Image size must not exceed 5 MB",
+    "errorAvatarType": "Unsupported format (PNG, JPG, WebP or GIF)",
+    "titleMinError": "Channel name is required",
+    "titleMaxError": "Name must not exceed 100 characters",
+    "descMaxError": "Description must not exceed 200 characters",
+    "success": {
+      "youLeftChannel": "You left channel",
+      "channelRemoved": "Channel removed",
+      "memberFired": "Member fired from channel",
+      "roleUpdated": "Role updated",
+      "memberAdded": "New member added",
+      "channelUpdated": "Channel updated successfully"
+    },
+    "error": {
+      "channelLoading": "Error loading channel",
+      "sendingMessage": "Error sending message",
+      "leavingChannel": "Error leaving channel",
+      "deletingChannel": "Error deleting channel",
+      "firingMember": "Error firing member",
+      "updatingRole": "Error updating role",
+      "addingNewMember": "Error adding new member",
+      "updatingChannel": "Error updating channel"
+    }
   },
   "Settings": {
     "nav": {
@@ -169,7 +575,22 @@
       "comingSoon": "Coming soon",
       "password": {
         "title": "Password",
-        "description": "Change your account password."
+        "description": "Change your account password.",
+        "subtitle": "Update your account password below.",
+        "back": "Back to security",
+        "currentPasswordLabel": "Current password",
+        "currentPasswordPlaceholder": "Enter your current password",
+        "newPasswordLabel": "New password",
+        "newPasswordPlaceholder": "Enter a new password",
+        "confirmPasswordLabel": "Confirm new password",
+        "confirmPasswordPlaceholder": "Confirm your new password",
+        "submit": "Update password",
+        "submitting": "Updating...",
+        "successMessage": "Your password has been updated.",
+        "errorTooShort": "Password must be at least 8 characters.",
+        "errorMismatch": "Passwords do not match.",
+        "errorSameAsCurrent": "New password must be different from your current one.",
+        "errorDefault": "Unable to update your password. Please try again."
       },
       "sessions": {
         "title": "Active sessions",
@@ -189,14 +610,18 @@
       "expiresLabel": "Expires in (days)",
       "expiresHelp": "Set to 0 for a key that never expires.",
       "submit": "Create API Key",
+      "create": "Create",
       "submitting": "Creating…",
       "cancel": "Cancel",
       "createdTitle": "API Key Created",
       "copyWarning": "⚠️ Copy this key now. You will not be able to see it again.",
       "copy": "Copy",
       "copied": "Copied!",
+      "keyLabel": "API Key",
+      "secretBadge": "Secret",
       "name": "Name",
       "expires": "Expires",
+      "expiresIn": "{days, plural, =0 {Never expires} =1 {Expires in 1 day} other {Expires in # days}}",
       "never": "Never",
       "done": "Done",
       "createAnother": "Create another",
@@ -206,15 +631,86 @@
     }
   },
   "Admin": {
+    
     "users": {
       "title": "Users",
       "subtitle": "Manage user accounts and roles.",
       "errorFailed": "Failed to fetch users.",
-      "errorUnexpected": "Something went wrong."
+      "errorUnexpected": "Something went wrong.",
+
+      "colUserId": "User ID",
+
+      "colUser": "User",
+      "colEmail": "Email",
+      "colRole": "Role",
+      "colActions": "Actions",
+
+      "roleAdmin": "Admin",
+      "roleUser": "User",
+      "you": "you",
+      "empty": "No users found.",
+
+      "roleModerator": "Moderator",
+      "promoteRole": "Promote role",
+      "demoteRole": "Demote role",
+
+      "edit": "Edit user",
+      "delete": "Delete user",
+      "promoteToAdmin": "Promote to admin",
+      "demoteToUser": "Demote to user",
+      "cannotChangeOwnRole": "You cannot change your own role",
+      "cannotDeleteSelf": "You cannot delete your own account here",
+
+      "errorUpdate": "Failed to update user.",
+      "errorRole": "Failed to update role.",
+      "errorDelete": "Failed to delete user.",
+
+      "toastUpdated": "User updated.",
+      "toastDeleted": "User deleted.",
+
+      "toastRoleUpdated": "Role updated",
+
+      "createUser": "Create user",
+      "createModal": {
+        "title": "Create user",
+        "subtitle": "Add a new user to the platform.",
+        "nameLabel": "Name",
+        "emailLabel": "Email",
+        "passwordLabel": "Password",
+        "passwordHint": "Must be at least 8 characters.",
+        "roleLabel": "Role",
+        "roleUser": "User",
+        "roleModerator": "Moderator",
+        "roleAdmin": "Admin",
+        "cancel": "Cancel",
+        "create": "Create user",
+        "creating": "Creating…",
+        "error": "Failed to create user.",
+        "toastCreated": "User created."
+      },
+
+      "editModal": {
+        "title": "Edit user",
+        "subtitle": "Update {name}'s profile information.",
+        "nameLabel": "Name",
+        "emailLabel": "Email",
+        "cancel": "Cancel",
+        "save": "Save changes"
+      },
+
+      "deleteModal": {
+        "title": "Delete user",
+        "subtitle": "This will permanently delete {name} ({email}) and all associated data. This action cannot be undone.",
+        "confirmLabel": "Type \"{name}\" to confirm",
+        "confirm": "Delete user",
+        "deleting": "Deleting…",
+        "cancel": "Cancel"
+      }
     },
     "dashboard": {
       "title": "Dashboard",
-      "subtitle": "Overview of your instance"
+      "subtitle": "Overview of your instance",
+      "totalUsers": "Total users"
     },
     "nav": {
       "title": "Admin",
@@ -223,19 +719,278 @@
       "users": "Users"
     }
   },
-    "Profile": {
+  "Profile": {
     "title": "Your profile",
     "subtitle": "How you appear across the app.",
     "edit": "Edit profile",
     "unnamed": "Unnamed user",
     "idLabel": "User ID",
     "emailLabel": "Email",
-    "errorUnexpected": "Something went wrong. Please try again."
+    "errorUnexpected": "Something went wrong. Please try again.",
+    "changeAvatar": "Change avatar",
+    "uploadingAvatar": "Uploading…",
+    "avatarUpdated": "Avatar updated",
+    "errorAvatarType": "Please choose a PNG, JPG, WebP, or GIF image.",
+    "errorAvatarSize": "Image must be 5 MB or smaller.",
+    "errorAvatarUpload": "Couldn't upload your avatar. Please try again.",
+    "removeAvatar": "Remove avatar",
+    "removingAvatar": "Removing...",
+    "avatarRemoved": "Avatar removed",
+    "errorAvatarRemove": "Failed to remove avatar",
+    "viewPublicProfile": "View public profile"
+  },
+  "PublicProfile": {
+    "title": "Profile",
+    "subtitle": "Public information about this member.",
+    "unnamed": "Unnamed user",
+    "notFound": "User not found",
+    "notFoundHint": "This profile doesn't exist or is no longer available.",
+    "idLabel": "ID",
+    "joinedLabel": "Joined",
+    "actionError": "Something went wrong. Please try again.",
+    "friendshipLoadError": "Couldn't load friendship status.",
+    "friendStatus": {
+      "friends": "Friends",
+      "requestSent": "Request sent",
+      "requestReceived": "Wants to be friends",
+      "blocked": "Blocked"
+    },
+    "actions": {
+      "addFriend": "Add friend",
+      "adding": "Adding…",
+      "cancelRequest": "Cancel request",
+      "cancelling": "Cancelling…",
+      "accept": "Accept",
+      "accepting": "Accepting…",
+      "reject": "Reject",
+      "rejecting": "Rejecting…",
+      "removeFriend": "Remove friend",
+      "removing": "Removing…",
+      "blocked": "Blocked"
+    }
+  },
+  "FriendRequests": {
+    "title": "Friend requests",
+    "subtitle": "Manage who you've asked and who's asked you.",
+    "tabsAriaLabel": "Friend request tabs",
+    "searchPlaceholder": "Search by name or pseudo…",
+    "loadError": "Couldn't load your friend requests.",
+    "loadErrorHint": "Please refresh the page or try again later.",
+    "actionError": "Something went wrong. Please try again.",
+    "unnamed": "Unnamed user",
+    "tabs": {
+      "incoming": "Incoming",
+      "outgoing": "Outgoing"
+    },
+    "empty": {
+      "incomingTitle": "No incoming requests",
+      "incomingDescription": "When someone asks to be your friend, you'll see it here.",
+      "outgoingTitle": "No outgoing requests",
+      "outgoingDescription": "Requests you send will appear here until they're answered.",
+      "searchTitle": "No matches",
+      "searchDescription": "No requests match your search."
+    },
+    "actions": {
+      "accept": "Accept",
+      "accepting": "Accepting…",
+      "reject": "Reject",
+      "rejecting": "Rejecting…",
+      "cancel": "Cancel request",
+      "cancelling": "Cancelling…"
+    }
+  },
+  "FriendsList": {
+    "title": "My friends",
+    "subtitle": "Everyone you're connected with.",
+    "searchPlaceholder": "Search by name or pseudo…",
+    "count": "{count, plural, =0 {No friends} =1 {1 friend} other {# friends}}",
+    "unnamed": "Unnamed user",
+    "loadError": "Couldn't load your friends.",
+    "loadErrorHint": "Please refresh the page or try again later.",
+    "actionError": "Something went wrong. Please try again.",
+    "empty": {
+      "title": "No friends yet",
+      "description": "Search and add friends to see them here.",
+      "searchTitle": "No matches",
+      "searchDescription": "No friends match your search."
+    },
+    "actions": {
+      "remove": "Remove friend"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {page} of {pages}"
+    }
+  },
+  "ProfilePage": {
+    "emptyTitle": "No posts yet",
+    "emptyDescription": "This user hasn't posted anything yet.",
+    "updateError": "Couldn't update the post. Please try again.",
+    "deleteSuccess": "Post deleted.",
+    "deleteError": "Couldn't delete the post. Please try again.",
+    "loadProfileError": "Couldn't load this profile.",
+    "toasts": { "loadPostsError": "Couldn't load posts." },
+    "header": {
+      "friendsCount": "{count} friends",
+      "actions": {
+        "loading": "Loading…",
+        "addToStory": "Add to story",
+        "editProfile": "Edit profile",
+        "addFriend": "Add friend",
+        "requestSent": "Request sent",
+        "friends": "Friends",
+        "message": "Message",
+        "unblock": "Unblock",
+        "blocked": "Blocked",
+        "acceptRequest": "Accept",
+        "declineRequest": "Decline",
+        "accept": "Accept",
+        "accepting": "Accepting…",
+        "reject": "Reject",
+        "rejecting": "Rejecting…",
+        "cancel": "Cancel request",
+        "cancelling": "Cancelling…"
+    }
+    }
+  },
+  "FriendsComponents": {
+      "add": "Add friend",
+      "adding": "Adding...",
+      "pending": "Request pending",
+      "requestSent": "Friend request sent",
+      "requestSendError": {
+        "request": {
+          "sendError": "Couldn't send the friend request"
+        }
+      },
+      "accept": "Accept",
+      "accepting": "Accepting...",
+      "accepted": "Accepted",
+      "requestAccepted": "Friend request accepted",
+      "requestAcceptError": "Couldn't accept the friend request",
+      "decline": "Decline",
+      "declining": "Declining...",
+      "declined": "Declined",
+      "requestDeclined": "Friend request declined",
+      "requestDeclineError": "Couldn't decline the friend request",
+      "cancel": "Cancel",
+      "cancelling": "Cancelling...",
+      "cancelled": "Cancelled",
+      "requestCancelled": "Friend request cancelled",
+      "requestCancelError": "Couldn't cancel the friend request",
+      "removeFriend": "Remove friend",
+      "removing": "Removing...",
+      "removed": "Removed",
+      "friendRemoved": "Friend removed",
+      "friendRemoveError": "Couldn't remove friend"
   },
   "Language": {
     "switchLanguage": "Language",
     "en": "English",
     "fr": "Français",
     "es": "Español"
+  },
+  "UploadProgressToast": {
+    "notCompleted": "Uploading files...",
+    "completed": "Post published!"
+  },
+  "TwoFactor": {
+    "title": "Two-Factor Authentication",
+    "subtitle": "Add an extra layer of security to your account using an authenticator app.",
+    "loading": "Loading security settings…",
+
+    "errors": {
+      "enterPassword": "Enter your current password.",
+      "enableFailed": "Unable to enable two-factor authentication.",
+      "noTotpUri": "The server did not return a TOTP setup URI.",
+      "invalidCode": "Invalid verification code.",
+      "enterSixDigits": "Enter the 6-digit verification code.",
+      "verifyFailed": "Unable to verify the authentication code.",
+      "disableFailed": "Unable to disable two-factor authentication.",
+      "copyFailed": "Unable to copy backup code."
+    },
+
+    "messages": {
+      "scanPrompt": "Scan the QR code with your authenticator app, then enter the verification code.",
+      "enabledSuccess": "Two-factor authentication has been enabled successfully.",
+      "disabledSuccess": "Two-factor authentication has been disabled."
+    },
+
+    "status": {
+      "heading": "Authenticator app",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "enabledDescription": "Your account is protected with two-factor authentication.",
+      "disabledDescription": "Require a verification code from your authenticator app when signing in.",
+      "enableButton": "Enable 2FA",
+      "disableButton": "Disable 2FA"
+    },
+
+    "password": {
+      "heading": "Confirm your password",
+      "description": "Enter your current password to continue.",
+      "placeholder": "Your password",
+      "cancel": "Cancel",
+      "continue": "Continue",
+      "submitting": "Please wait…"
+    },
+
+    "verify": {
+      "heading": "Scan and verify",
+      "description": "Scan the QR code with your authenticator app, then enter the 6-digit code.",
+      "qrAlt": "Two-factor authentication QR code",
+      "codePlaceholder": "000000",
+      "startOver": "Start over",
+      "verify": "Verify",
+      "verifying": "Please wait…"
+    },
+
+    "disable": {
+      "heading": "Disable two-factor authentication",
+      "description": "This will remove the extra layer of security from your account. Enter your password to confirm.",
+      "placeholder": "Your password",
+      "cancel": "Cancel",
+      "disable": "Disable 2FA",
+      "disabling": "Please wait…"
+    },
+
+    "complete": {
+      "heading": "Two-factor authentication enabled",
+      "description": "Save these backup codes somewhere safe. Each code can be used once if you lose access to your authenticator app.",
+      "backupCodes": "Backup codes",
+      "oneTimeUse": "One-time use"
+    },
+
+    "signIn": {
+      "title": "Two-factor authentication",
+      "descriptionTotp": "Enter the 6-digit code from your authenticator app.",
+      "descriptionBackup": "Enter one of your backup codes to continue.",
+
+      "labelTotp": "Authentication code",
+      "labelBackup": "Backup code",
+
+      "placeholderTotp": "000000",
+      "placeholderBackup": "XXXXXXXX",
+
+      "submit": "Verify",
+      "submitting": "Verifying…",
+
+      "switchToBackup": "Use a backup code instead",
+      "switchToTotp": "Use authenticator code instead",
+
+      "toast": {
+        "enterCode": "Enter an authentication code.",
+        "invalidCode": "Invalid authentication code.",
+        "success": "Two-factor authentication successful!"
+      },
+
+      "help": {
+        "prefix": "Lost access to your authenticator?",
+        "link": "Contact support",
+        "suffix": "."
+      }
+    }
   }
+
 }
