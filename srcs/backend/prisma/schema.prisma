@@ -45,7 +45,6 @@ model User {
   accounts Account[]
 
   setting              UserSetting?
-  notifications        Notification[]
   sentMessages         Message[]            @relation("SentMessages")
   receivedMessages     Message[]            @relation("ReceivedMessages")
   messageTablesAsUser1 MessageTable[]       @relation("MessageTableUser1")
@@ -179,28 +178,16 @@ model UserSetting {
   @@map("user_settings")
 }
 
-model Notification {
-  id        String   @id @default(cuid(2))
-  userId    String
-  content   String
-  isSeen    Boolean  @default(false)
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-  @@map("notifications")
-}
-
 model Friendship {
   id          String           @id @default(cuid(2))
   requesterId String
   addresseeId String
   status      FriendshipStatus @default(PENDING)
   blockedById String?
-  message String?
-  pairKey String @unique
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  message     String?
+  pairKey     String           @unique
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
   acceptedAt  DateTime?
   rejectedAt  DateTime?
   blockedAt   DateTime?
@@ -208,7 +195,7 @@ model Friendship {
 
   requester User  @relation("FriendshipRequester", fields: [requesterId], references: [id], onDelete: Cascade)
   addressee User  @relation("FriendshipAddressee", fields: [addresseeId], references: [id], onDelete: Cascade)
-  blockedBy User? @relation("FriendshipBlocker",   fields: [blockedById], references: [id], onDelete: SetNull)
+  blockedBy User? @relation("FriendshipBlocker", fields: [blockedById], references: [id], onDelete: SetNull)
 
   @@index([requesterId, status])
   @@index([addresseeId, status])
@@ -281,7 +268,7 @@ model UserInChannel {
   userId    String
   channelId String
   role      ChannelRole @default(MEMBER)
-  joinedAt  DateTime @default(now())
+  joinedAt  DateTime    @default(now())
 
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   channel Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
