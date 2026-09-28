@@ -1,5 +1,5 @@
 .PHONY: help build up down restart logs ps shell exec \
-        pull rebuild stop start clean prune
+        pull rebuild stop start clean prune fclean
 
 # Docker Compose command
 COMPOSE := docker compose
@@ -24,12 +24,14 @@ help:
 	@echo "  make log-nginx          Follow Nginx logs"
 	@echo "  make log-backend        Follow backend logs"
 	@echo "  make log-frontend       Follow frontend logs"
+	@echo "  make log-localstack     Follow LocalStack logs"
 	@echo ""
 	@echo "Shell access:"
 	@echo "  make exec-postgres      Open shell in PostgreSQL container"
 	@echo "  make exec-nginx         Open shell in Nginx container"
 	@echo "  make exec-backend       Open shell in backend container"
 	@echo "  make exec-frontend      Open shell in frontend container"
+	@echo "  make exec-localstack    Open shell in LocalStack container"
 	@echo "  make shell SERVICE=app  Open shell in a service"
 	@echo "  make exec SERVICE=app CMD=\"...\""
 	@echo "                          Run command in a service"
@@ -39,6 +41,7 @@ help:
 	@echo "  make restart-nginx      Restart Nginx container"
 	@echo "  make restart-backend    Restart backend container"
 	@echo "  make restart-frontend   Restart frontend container"
+	@echo "  make restart-localstack Restart LocalStack container"
 	@echo ""
 	@echo "Rebuild:"
 	@echo "  make rebuild             Rebuild all containers without cache"
@@ -46,6 +49,17 @@ help:
 	@echo "  make rebuild-nginx       Rebuild Nginx"
 	@echo "  make rebuild-backend     Rebuild backend"
 	@echo "  make rebuild-frontend    Rebuild frontend"
+	@echo "  make rebuild-localstack  Rebuild LocalStack"
+	@echo ""
+	@echo "LocalStack / S3:"
+	@echo "  make ls-health          Check LocalStack health"
+	@echo "  make ls-services        List available LocalStack services"
+	@echo "  make ls-s3-buckets      List S3 buckets"
+	@echo "  make ls-s3-create       Create bucket (BUCKET=name)"
+	@echo "  make ls-s3-rm           Remove bucket (BUCKET=name)"
+	@echo "  make ls-logs            Tail LocalStack logs"
+	@echo "  make aws                Run aws CLI against LocalStack"
+	@echo "                          Usage: make aws CMD=\"s3 ls\""
 	@echo ""
 	@echo "Images & cleanup:"
 	@echo "  make pull                Pull latest images"
@@ -75,55 +89,67 @@ logs:
 	$(COMPOSE) logs -f
 
 log-postgres:
-	docker compose logs -f postgres
+	$(COMPOSE) logs -f postgres
 
 log-nginx:
-	docker compose logs -f nginx
+	$(COMPOSE) logs -f nginx
 
 log-backend:
-	docker compose logs -f backend
+	$(COMPOSE) logs -f backend
 
 log-frontend:
-	docker compose logs -f frontend
+	$(COMPOSE) logs -f frontend
+
+log-localstack:
+	$(COMPOSE) logs -f localstack
 
 exec-postgres:
-	docker compose exec postgres bash
+	$(COMPOSE) exec postgres bash
 
 exec-nginx:
-	docker compose exec nginx bash
+	$(COMPOSE) exec nginx bash
 
 exec-backend:
-	docker compose exec backend bash
+	$(COMPOSE) exec backend bash
 
 exec-frontend:
-	docker compose exec frontend bash
+	$(COMPOSE) exec frontend bash
+
+exec-localstack:
+	$(COMPOSE) exec localstack bash
 
 restart-postgres:
-	docker compose restart postgres
+	$(COMPOSE) restart postgres
 
 restart-nginx:
-	docker compose restart nginx
+	$(COMPOSE) restart nginx
 
 restart-backend:
-	docker compose restart backend
+	$(COMPOSE) restart backend
 
 restart-frontend:
-	docker compose restart frontend
+	$(COMPOSE) restart frontend
+
+restart-localstack:
+	$(COMPOSE) restart localstack
 
 rebuild-postgres:
-	docker compose up -d --build --no-deps postgres
+	$(COMPOSE) up -d --build --no-deps postgres
 
 rebuild-nginx:
-	docker compose up -d --build --no-deps nginx
+	$(COMPOSE) up -d --build --no-deps nginx
 
 rebuild-backend:
-	docker compose up -d --build --no-deps backend
+	$(COMPOSE) up -d --build --no-deps backend
 
 rebuild-frontend:
-	docker compose up -d --build --no-deps frontend
+	$(COMPOSE) up -d --build --no-deps frontend
+
+rebuild-localstack:
+	$(COMPOSE) up -d --build --no-deps localstack
 
 prisma-studio:
-	docker compose exec backend npm run prisma:studio
+	$(COMPOSE) exec backend npm run prisma:studio
 
 ps:
 	$(COMPOSE) ps
@@ -140,16 +166,48 @@ stop:
 start:
 	$(COMPOSE) start
 
-clean:
-	$(COMPOSE) down --volumes --remove-orphans
+# --- LocalStack / S3 helpers ------------------------------------------------
+# Uses the LocalStack container's endpoint; override LS_ENDPOINT if needed.
+LS_ENDPOINT ?= http://localhost:4566
+AWS_ENV = AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test AWS_DEFAULT_REGION=us-east-1
 
-fclean: clean
-	docker compose down -v --rmi all
-	docker system prune -a --volumes -f
-	docker volume prune -a -f
+ls-health:
+	@curl -s $(LS_ENDPOINT)/_localstack/health | (command -v jq >/dev/null && jq . || cat)
+
+ls-services:
+	@curl -s $(LS_ENDPOINT)/_localstack/health | (command -v jq >/dev/null && jq '.services' || cat)
+
+ls-s3-buckets:
+	@$(AWS_ENV) aws --endpoint-url=$(LS_ENDPOINT) s3 ls
+
+ls-s3-create:
+	@test -n "$(BUCKET)" || (echo "Usage: make ls-s3-create BUCKET=my-bucket" && exit 1)
+	@$(AWS_ENV) aws --endpoint-url=$(LS_ENDPOINT) s3 mb s3://$(BUCKET)
+
+ls-s3-rm:
+	@test -n "$(BUCKET)" || (echo "Usage: make ls-s3-rm BUCKET=my-bucket" && exit 1)
+	@$(AWS_ENV) aws --endpoint-url=$(LS_ENDPOINT) s3 rb s3://$(BUCKET) --force
+
+ls-logs:
+	$(COMPOSE) logs -f localstack
+
+# Run an arbitrary aws CLI command against LocalStack:
+# Usage: make aws CMD="s3 ls"
+aws:
+	@test -n "$(CMD)" || (echo "Usage: make aws CMD=\"s3 ls\"" && exit 1)
+	@$(AWS_ENV) aws --endpoint-url=$(LS_ENDPOINT) $(CMD)
+
+# --- Cleanup ----------------------------------------------------------------
+rm-images:
+	$(COMPOSE) down -v --rmi all --remove-orphans
 
 prune:
-	docker system prune -f
+	docker system prune -a --volumes -f
+
+clean: rm-images
+
+fclean: rm-images prune
+	docker volume prune --all -f
 
 # Open a shell in a service:
 # Usage: make shell SERVICE=app

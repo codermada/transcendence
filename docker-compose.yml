@@ -1,8 +1,6 @@
 services:
   postgres:
-    build:
-      context: ./srcs/database
-    image: postgres
+    image: postgres:17
     container_name: postgres-db
     restart: unless-stopped
     env_file:
@@ -13,8 +11,6 @@ services:
       POSTGRES_DB: ${DB_NAME}
     networks:
       - net
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -22,6 +18,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
   backend:
     build:
       context: ./srcs/backend
@@ -34,14 +31,15 @@ services:
       - /app/node_modules
     expose:
       - "3000"
+      - "51212"
     ports:
-      - "3000:3000"
       - "51212:51212"
-    
     networks:
       - net
     depends_on:
       postgres:
+        condition: service_healthy
+      localstack:
         condition: service_healthy
 
   frontend:
@@ -57,14 +55,43 @@ services:
       - /app/.next
     expose:
       - "3000"
-    ports:
-      - "3001:3000"
-
     networks:
       - net
     depends_on:
       postgres:
         condition: service_healthy
+
+  localstack:
+    container_name: localstack-s3
+    image: localstack/localstack:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - LOCALSTACK_AUTH_TOKEN=${LOCALSTACK_AUTH_TOKEN}
+      - SERVICES=s3
+      - PERSISTENCE=1
+      - DEBUG=1
+      - DEFAULT_REGION=us-east-1
+      - EXTRA_CORS_ALLOWED_ORIGINS=*
+      - DISABLE_CORS_CHECKS=1
+    ports:
+      - "4566:4566"
+    volumes:
+      - "localstack_data:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - net
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -f http://localhost:4566/_localstack/health || exit 1",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
 
   nginx:
     build:
@@ -80,11 +107,10 @@ services:
     networks:
       - net
 
-
 networks:
   net:
     driver: bridge
 
-
 volumes:
   postgres_data:
+  localstack_data:

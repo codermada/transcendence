@@ -10,7 +10,7 @@ import { signIn } from "@/lib/auth/sign-in";
 import { InputField } from "@/components/ui/InputField";
 import { FormAlert } from "@/components/ui/FormAlert";
 import { SubmitButton } from "@/components/ui/SubmitButton";
-import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton"; // adjust path
+import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton";
 
 export function SignInForm() {
   const t = useTranslations("Auth.signIn");
@@ -78,7 +78,7 @@ export function SignInForm() {
           rightLabel={
             <Link
               href="/forgot-password"
-              className="text-xs text-violet-400 hover:text-violet-300"
+              className="text-xs font-medium text-violet-600 transition-colors hover:text-violet-500 dark:text-violet-400 dark:hover:text-violet-300"
             >
               {t("forgotPassword")}
             </Link>
@@ -96,10 +96,10 @@ export function SignInForm() {
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="w-full border-t border-surface-border" />
+          <div className="w-full border-t border-zinc-200/80 dark:border-zinc-800" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-surface px-2 text-surface-foreground/60">
+          <span className="bg-white px-2.5 font-medium text-zinc-500 dark:bg-zinc-950 dark:text-zinc-400">
             {t("orContinueWith")}
           </span>
         </div>

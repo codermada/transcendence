@@ -44,19 +44,15 @@ export default function SettingsLayout({
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[220px_1fr]">
-        {/* ===== Left vertical nav ===== */}
+        {/* Left vertical nav */}
         <aside className="lg:sticky lg:top-6 lg:self-start">
           <nav
             aria-label={t("title")}
             className="
               flex flex-col gap-1
               rounded-2xl
-              border border-border
-              bg-surface/40
-              p-2
-              shadow-2xl
-              shadow-black/20
-              backdrop-blur-xl
+              border border-zinc-200/80 bg-white p-2 shadow-xs transition-colors
+              dark:border-zinc-800 dark:bg-zinc-900/50 dark:shadow-none
             "
           >
             {links.map((link) => {
@@ -77,11 +73,11 @@ export default function SettingsLayout({
                       text-sm font-medium
                       transition-colors
                       focus:outline-none
-                      focus:ring-2 focus:ring-brand-500/20
+                      focus:ring-2 focus:ring-violet-500/20
                       ${
                         isActive
-                          ? "bg-brand-500/10 text-foreground"
-                          : "text-muted hover:bg-surface-hover hover:text-foreground"
+                          ? "bg-violet-50 text-violet-900 dark:bg-violet-500/10 dark:text-white"
+                          : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800/50 dark:hover:text-white"
                       }
                     `}
                   >
@@ -93,8 +89,8 @@ export default function SettingsLayout({
                           h-5 w-0.5
                           -translate-y-1/2
                           rounded-full
-                          bg-brand-500
-                          shadow-[0_0_10px_rgb(139_92_246_/_0.6)]
+                          bg-violet-600 dark:bg-violet-400
+                          dark:shadow-[0_0_10px_rgb(139_92_246_/_0.6)]
                         "
                       />
                     )}
@@ -102,8 +98,8 @@ export default function SettingsLayout({
                     <span
                       className={
                         isActive
-                          ? "text-brand-400"
-                          : "text-muted group-hover/nav:text-subtle"
+                          ? "text-violet-600 dark:text-violet-400"
+                          : "text-zinc-500 group-hover/nav:text-zinc-800 dark:text-zinc-400 dark:group-hover/nav:text-zinc-200"
                       }
                     >
                       {link.icon}
@@ -126,7 +122,7 @@ export default function SettingsLayout({
                       <p
                         className="
                           px-3 pb-2 pt-1
-                          text-xs leading-relaxed text-muted
+                          text-xs leading-relaxed text-zinc-500 dark:text-zinc-400
                           opacity-0
                           transition-opacity duration-200
                           group-hover/nav:opacity-100
@@ -143,7 +139,7 @@ export default function SettingsLayout({
           </nav>
         </aside>
 
-        {/* ===== Right content ===== */}
+        {/* Right content */}
         <main className="min-w-0">{children}</main>
       </div>
     </div>

@@ -2,3 +2,13 @@
 prompt*.txt
 
 .vscode/
+
+tmp.txt
+
+# Local patches and guides
+run_app_host.patch
+docs/guides/
+
+srcs/backend/tsconfig.build.tsbuildinfo
+
+localstack_data
