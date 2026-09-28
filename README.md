@@ -334,6 +334,10 @@ LocalStack was chosen over direct disk storage because it provides an S3-compati
 
 ## Database Schema
 
+### UML Class Diagram
+
+![UML Class Diagram](./docs/class.png)
+
 ### Tables / Collections and Relationships
 
 | Table | Description | Key Fields | Relationships |
