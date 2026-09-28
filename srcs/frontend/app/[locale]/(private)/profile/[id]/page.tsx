@@ -220,6 +220,7 @@ export default function PublicProfilePage({
                       content={post.content}
                       likesCount={post.likesCount}
                       commentsCount={post.commentsCount}
+                      authorImage={post.authorImage}
                       mediaUrls={post.mediaUrls}
                       isOwner={post.isOwner}
                       isLiked={post.isLiked}
