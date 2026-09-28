@@ -11,9 +11,7 @@ import { Field } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
 import { getInitials } from "@/lib/utils/user-utils";
 
-// ============================================================
-// Schema — email is read-only, so only name is validated/submitted
-// ============================================================
+// Schema (email is read-only)
 
 const profileSchema = z.object({
   name: z.string().trim().min(2, "nameMin").max(50, "nameMax"),
@@ -39,9 +37,7 @@ const TOAST_IDS = {
   profileSave: "profile-save",
 } as const;
 
-// ============================================================
-// Page
-// ============================================================
+// Profile settings page
 
 export default function ProfileSettingsPage() {
   const t = useTranslations("Settings.profile");
@@ -68,9 +64,7 @@ export default function ProfileSettingsPage() {
     },
   });
 
-  // ============================================================
-  // Populate from the database (via Nest)
-  // ============================================================
+  // Populate from backend database
 
   useEffect(() => {
     let cancelled = false;
@@ -109,9 +103,7 @@ export default function ProfileSettingsPage() {
     };
   }, [reset, ta]);
 
-  // ============================================================
   // Avatar upload
-  // ============================================================
 
   async function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -159,9 +151,7 @@ export default function ProfileSettingsPage() {
     }
   }
 
-  // ============================================================
   // Avatar delete
-  // ============================================================
 
   async function handleAvatarDelete() {
     setIsDeleting(true);
@@ -189,9 +179,7 @@ export default function ProfileSettingsPage() {
     }
   }
 
-  // ============================================================
-  // Submit
-  // ============================================================
+  // Form submit
 
   const onSubmit = async (values: ProfileFormValues) => {
     setIsLoading(true);
@@ -229,9 +217,7 @@ export default function ProfileSettingsPage() {
     }
   };
 
-  // ============================================================
   // Render
-  // ============================================================
 
   const displayName = ta("unnamed");
   const initials = getInitials(displayName);
@@ -384,9 +370,7 @@ export default function ProfileSettingsPage() {
   );
 }
 
-// ============================================================
 // Sub-components
-// ============================================================
 
 function Avatar({
   src,

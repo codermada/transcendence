@@ -38,7 +38,6 @@ function formatTimeAgo(createdAt: string | Date, t: ReturnType<typeof useTransla
 export function PostHeader({
   postId,
   author,
-  initials,
   authorId,
   authorImage,
   createdAt,

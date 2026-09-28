@@ -355,7 +355,7 @@ export const useChannelStore = create<ChannelState>((set, get) => ({
               ? channel.mediaUrl
               : state.activeChannel.mediaUrl,
           updatedat: channel.updatedat || new Date().toISOString(),
-          // Preserve existing members untouched as requested
+          // Preserve existing members
           members: state.activeChannel.members,
         };
       }

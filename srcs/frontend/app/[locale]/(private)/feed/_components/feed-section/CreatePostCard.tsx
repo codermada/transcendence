@@ -24,6 +24,7 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
   const [userProfile, setUserProfile] = useState<UserProfileResponse>({
     name: "Unknown",
     username: "unknown",
+    email: "",
     initials: "U",
     image: null,
     stats: {

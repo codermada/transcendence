@@ -92,7 +92,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
       const isCurrentConvActive = state.activeConversationId === convId;
       const isSentByMe = message.senderId === currentUserId;
 
-      // 1. If currently in the active conversation, append message if not present
+      // Append message to active conversation
       let nextActiveMessages = state.activeMessages;
       if (isCurrentConvActive) {
         if (!state.activeMessages.some((m) => m.id === message.id)) {
@@ -100,7 +100,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
         }
       }
 
-      // 2. Update or insert conversation in conversations list
+      // Update or insert conversation in list
       const existingIndex = state.conversations.findIndex((c) => c.id === convId);
       let updatedConv: Conversation;
 
@@ -143,7 +143,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
         };
       }
 
-      // 3. Move the updated conversation to the top
+      // Move updated conversation to top
       const remainingConvs = state.conversations.filter((c) => c.id !== convId);
       const nextConversations = [updatedConv, ...remainingConvs];
 

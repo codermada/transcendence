@@ -1,12 +1,10 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import UsersTable, { type User } from "@/components/admin/UsersTable";
 import { Users as UsersIcon } from "@/components/icons";
-
-type Toast = { kind: "success" | "error"; message: string } | null;
 
 const Users = () => {
   const t = useTranslations("Admin.users");
@@ -14,15 +12,6 @@ const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [toast, setToast] = useState<Toast>(null);
-
-  const showToast = useCallback(
-    (kind: "success" | "error", message: string) => {
-      setToast({ kind, message });
-      window.setTimeout(() => setToast(null), 4000);
-    },
-    [],
-  );
 
   useEffect(() => {
     let cancelled = false;
@@ -94,20 +83,6 @@ const Users = () => {
           </p>
         </div>
       </header>
-
-      {toast && (
-        <div
-          role="status"
-          className={[
-            "mb-4 flex items-start gap-3 rounded-xl border px-4 py-3 text-sm transition-colors",
-            toast.kind === "success"
-              ? "border-success/30 bg-success/10 text-success"
-              : "border-danger/30 bg-danger/10 text-danger",
-          ].join(" ")}
-        >
-          <span>{toast.message}</span>
-        </div>
-      )}
 
       {isLoading ? (
         <UsersTableSkeleton />

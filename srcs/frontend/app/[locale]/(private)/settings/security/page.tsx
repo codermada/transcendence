@@ -19,7 +19,7 @@ export default function SecuritySettingsPage() {
         </p>
       </header>
 
-      {/* ===== Two-Factor Authentication ===== */}
+      {/* Two-Factor Authentication */}
       <Link
         href="/settings/security/two-factor"
         className="
@@ -79,7 +79,7 @@ export default function SecuritySettingsPage() {
         </div>
       </Link>
 
-      {/* ===== Password — now available ===== */}
+      {/* Password */}
       <Link
         href="/settings/security/password"
         className="
@@ -139,7 +139,7 @@ export default function SecuritySettingsPage() {
         </div>
       </Link>
 
-      {/* ===== Placeholders ===== */}
+      {/* Placeholders */}
       <section className="space-y-3">
         <h2 className="px-1 text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
           {t("moreTitle")}

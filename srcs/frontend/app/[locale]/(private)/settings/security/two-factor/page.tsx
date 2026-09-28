@@ -181,7 +181,7 @@ export default function TwoFactorPage() {
 
   return (
     <div className="space-y-6">
-      {/* ===== Header ===== */}
+      {/* Header */}
       <header>
         <h1 className="text-2xl font-semibold tracking-tight text-foreground">
           {t("title")}
@@ -189,7 +189,7 @@ export default function TwoFactorPage() {
         <p className="mt-2 text-sm text-muted">{t("subtitle")}</p>
       </header>
 
-      {/* ===== Messages ===== */}
+      {/* Messages */}
       {message && (
         <div
           role="status"
@@ -226,7 +226,7 @@ export default function TwoFactorPage() {
         </div>
       )}
 
-      {/* ===== Card ===== */}
+      {/* Card */}
       <section
         className="
           relative overflow-hidden
@@ -306,9 +306,7 @@ export default function TwoFactorPage() {
   );
 }
 
-// ============================================================
 // Steps
-// ============================================================
 
 function StatusStep({
   enabled,
