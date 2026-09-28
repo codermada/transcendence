@@ -32,8 +32,6 @@ Make sure the following tools are installed on your machine before running the p
 ├── srcs/
 │   ├── backend/       # NestJS API + Prisma + Better Auth + S3 client
 │   ├── frontend/      # Next.js + Tailwind CSS
-│   ├──                # PostgreSQL 17
-│   ├──                # LocalStack (S3-compatible storage)
 │   └── nginx/         # Nginx reverse proxy
 ├── docker-compose.yml
 └── .env
