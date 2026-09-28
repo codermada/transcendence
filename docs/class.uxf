@@ -1,31 +1,24 @@
-<diagram program="umletino" version="15.1"><zoom_level>6</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>462</x><y>264</y><w>126</w><h>120</h></coordinates><panel_attributes>User
+<diagram program="umletino" version="15.1"><zoom_level>6</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>450</x><y>385</y><w>126</w><h>120</h></coordinates><panel_attributes>User
 -
 *id: string*
-email: string
-pseudo: string
 name: string
-password: string
-role: ADMIN | USER
-avatar: string
-isEmailVerified: boolean
-isOAuthGoogleProvider: boolean
-createdAt: datetime
-updatedAt: datetime
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>30</x><y>174</y><w>78</w><h>48</h></coordinates><panel_attributes>UsedToken
+pseudo: string
+email: string
+emailVerified: boolean
+image: string
+twoFactorEnabled: boolean
+role: string
+banned: boolean
+banReason: string
+banExpires: datetime
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>606</x><y>139</y><w>126</w><h>108</h></coordinates><panel_attributes>UserSetting
 -
-*jti: string*
-expiresAt: datetime
-usedAt: datetime</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>558</x><y>120</y><w>24</w><h>156</h></coordinates><panel_attributes>lt=&lt;-
-m1=1
-m2=*</panel_attributes><additional_attributes>10;240;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>396</x><y>18</y><w>126</w><h>108</h></coordinates><panel_attributes>UserSettings
--
-*id: string*
 /*userId: string*/
 theme: LIGHT | DARK | SYSTEM
 language: FR | EN | ES
 createdAt: datetime
 updatedAt: datetime
-bg=#226622</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>828</x><y>288</y><w>126</w><h>72</h></coordinates><panel_attributes>Post
+bg=#226622</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>816</x><y>409</y><w>126</w><h>72</h></coordinates><panel_attributes>Post
 -
 *id: string*
 /*userId: string*/
@@ -33,9 +26,9 @@ content: string
 mediaUrls: string[]
 createdAt: datetime
 updatedAt: datetime
-bg=#00ffff</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>582</x><y>294</y><w>258</w><h>24</h></coordinates><panel_attributes>lt=&lt;-
+bg=#00ffff</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>570</x><y>415</y><w>258</w><h>24</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
-m2=*</panel_attributes><additional_attributes>10;10;410;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>660</x><y>408</y><w>90</w><h>84</h></coordinates><panel_attributes>Comment
+m2=*</panel_attributes><additional_attributes>10;10;410;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>648</x><y>529</y><w>90</w><h>84</h></coordinates><panel_attributes>Comment
 -
 *id: string*
 /*userId: string*/
@@ -44,40 +37,33 @@ content: string
 mediaUrl: string
 createdAt: datetime
 updatedAt: datetime
-bg=#00aaff</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>744</x><y>336</y><w>96</w><h>120</h></coordinates><panel_attributes>lt=&lt;-
+bg=#00aaff</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>732</x><y>457</y><w>96</w><h>120</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
-m2=*</panel_attributes><additional_attributes>140;10;100;10;100;170;10;170</additional_attributes></element><element><id>Relation</id><coordinates><x>582</x><y>348</y><w>90</w><h>108</h></coordinates><panel_attributes>lt=&lt;-
+m2=*</panel_attributes><additional_attributes>140;10;100;10;100;170;10;170</additional_attributes></element><element><id>Relation</id><coordinates><x>570</x><y>469</y><w>90</w><h>108</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
-m2=*</panel_attributes><additional_attributes>10;10;50;10;50;150;130;150</additional_attributes></element><element><id>UMLClass</id><coordinates><x>660</x><y>210</y><w>90</w><h>54</h></coordinates><panel_attributes>UserPostLike
+m2=*</panel_attributes><additional_attributes>10;10;50;10;50;150;130;150</additional_attributes></element><element><id>UMLClass</id><coordinates><x>648</x><y>331</y><w>90</w><h>54</h></coordinates><panel_attributes>UserPostLike
 -
 *id: string*
 /*userId: string*/
 /*postId: string*/
 createdAt: datetime
-bg=#00ffff</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>570</x><y>228</y><w>102</w><h>48</h></coordinates><panel_attributes>lt=&lt;-
+bg=#00ffff</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>558</x><y>349</y><w>102</w><h>48</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
-m2=*</panel_attributes><additional_attributes>10;60;10;10;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>744</x><y>228</y><w>168</w><h>72</h></coordinates><panel_attributes>lt=&lt;-
+m2=*</panel_attributes><additional_attributes>10;60;10;10;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>732</x><y>349</y><w>168</w><h>72</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
-m2=*</panel_attributes><additional_attributes>250;100;250;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>534</x><y>18</y><w>126</w><h>108</h></coordinates><panel_attributes>Notification
--
-*id: string*
-/*userId: string*/
-content: string
-isSeen: boolean
-createdAt: datetime
-bg=#ff3300</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>660</x><y>312</y><w>90</w><h>54</h></coordinates><panel_attributes>UserCommentLike
+m2=*</panel_attributes><additional_attributes>250;100;250;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>648</x><y>433</y><w>90</w><h>54</h></coordinates><panel_attributes>UserCommentLike
 -
 *id: string*
 /*userId: string*/
 /*commentId: string*/
 createdAt: datetime
-bg=#00aaff</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>582</x><y>324</y><w>90</w><h>24</h></coordinates><panel_attributes>lt=&lt;-
+bg=#00aaff</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>570</x><y>445</y><w>90</w><h>24</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
-m2=*</panel_attributes><additional_attributes>10;10;130;10</additional_attributes></element><element><id>Relation</id><coordinates><x>696</x><y>360</y><w>24</w><h>60</h></coordinates><panel_attributes>lt=&lt;-
+m2=*</panel_attributes><additional_attributes>10;10;130;10</additional_attributes></element><element><id>Relation</id><coordinates><x>684</x><y>481</y><w>24</w><h>60</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
-m2=*</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>504</x><y>120</y><w>24</w><h>156</h></coordinates><panel_attributes>lt=&lt;-
+m2=*</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>528</x><y>241</y><w>162</w><h>156</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
-m2=1</panel_attributes><additional_attributes>10;240;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>30</x><y>18</y><w>126</w><h>108</h></coordinates><panel_attributes>Message
+m2=1</panel_attributes><additional_attributes>10;240;10;100;240;100;240;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>240</x><y>139</y><w>126</w><h>108</h></coordinates><panel_attributes>Message
 -
 *id: string*
 /*messageTableId: string*/
@@ -89,57 +75,66 @@ isSeen: boolean
 seenAt: datetime
 createdAt: datetime
 updatedAt: datetime
-bg=#003399</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>318</x><y>120</y><w>180</w><h>156</h></coordinates><panel_attributes>lt=&lt;-
+bg=#003399</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>498</x><y>247</y><w>24</w><h>150</h></coordinates><panel_attributes>lt=&lt;-
 m1=2
-m2=*</panel_attributes><additional_attributes>270;240;270;60;10;60;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>174</x><y>318</y><w>90</w><h>72</h></coordinates><panel_attributes>Channel
+m2=*</panel_attributes><additional_attributes>10;230;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>162</x><y>439</y><w>90</w><h>84</h></coordinates><panel_attributes>Channel
 -
 *id: string*
-createdById: string
+/*createdById: string*/
 title: string
 description: string
 mediaUrl: string
-joinedAt: datetime
-bg=#fffaa00</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>306</x><y>318</y><w>90</w><h>78</h></coordinates><panel_attributes>UserInChannel
--
-*id: string*
-/*userId: string*/
-/*channelId: string*/
-isOwner: boolean
 createdAt: datetime
 updatedAt: datetime
-bg=#fffaa00</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>342</y><w>84</w><h>24</h></coordinates><panel_attributes>lt=&lt;-
+bg=#fffaa00</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>294</x><y>439</y><w>90</w><h>84</h></coordinates><panel_attributes>UserInChannel
+-
+*userId: string*
+*channelId: string*
+role: ADMIN | MEMBER
+joinedAt: datetime
+bg=#fffaa00</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>378</x><y>463</y><w>84</w><h>24</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
-m2=*</panel_attributes><additional_attributes>120;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>258</x><y>342</y><w>60</w><h>24</h></coordinates><panel_attributes>lt=&lt;-
+m2=*</panel_attributes><additional_attributes>120;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>246</x><y>463</y><w>60</w><h>24</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
-m2=*</panel_attributes><additional_attributes>10;10;80;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>162</x><y>180</y><w>96</w><h>90</h></coordinates><panel_attributes>UserChannelMessage
+m2=*</panel_attributes><additional_attributes>10;10;80;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>150</x><y>301</y><w>96</w><h>90</h></coordinates><panel_attributes>UserChannelMessage
 -
 *id: string*
 /*userId: string*/
 /*channelId: string*/
 content: string
 mediaUrls: string[]
+seenBy: string[]
 createdAt: datetime
 updatedAt: datetime
-bg=#fffaa00</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>204</x><y>264</y><w>24</w><h>66</h></coordinates><panel_attributes>lt=&lt;-
+bg=#fffaa00</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>192</x><y>385</y><w>24</w><h>66</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
-m2=*</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>252</x><y>198</y><w>222</w><h>102</h></coordinates><panel_attributes>lt=&lt;-
+m2=*</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>319</y><w>222</w><h>102</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
-m2=*</panel_attributes><additional_attributes>350;140;280;140;280;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>420</x><y>468</y><w>90</w><h>72</h></coordinates><panel_attributes>Friendship
+m2=*</panel_attributes><additional_attributes>350;140;280;140;280;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>330</x><y>595</y><w>234</w><h>138</h></coordinates><panel_attributes>Friendship
 -
 *id: string*
-/*user1Id: string*/
-/*user2Id: string*/
+/*requesterId: string*/
+/*addresseeId: string*/
+/*blockedById: string*/
+status: PENDING | ACCEPTED | REJECTED | BLOCKED | CANCELLED
+message: string
+pairKey: string
+createdAt: datetime
+updatedAt: datetime
 acceptedAt: datetime
-createdAt: datetime
-bg=#ffaa0</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>474</x><y>378</y><w>24</w><h>102</h></coordinates><panel_attributes>lt=&lt;-
+rejectedAt: datetime
+blockedAt: datetime
+cancelledAt: datetime
+bg=#ffaa0</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>462</x><y>499</y><w>24</w><h>108</h></coordinates><panel_attributes>lt=&lt;-
 m1=2
-m2=*</panel_attributes><additional_attributes>10;10;10;150</additional_attributes></element><element><id>UMLClass</id><coordinates><x>240</x><y>18</y><w>126</w><h>108</h></coordinates><panel_attributes>MessageTable
+m2=*</panel_attributes><additional_attributes>10;10;10;160</additional_attributes></element><element><id>UMLClass</id><coordinates><x>450</x><y>139</y><w>126</w><h>108</h></coordinates><panel_attributes>MessageTable
 -
 *id: string*
 /*user1Id: string*/
 /*user2Id: string*/
 createdAt: datetime
 updatedAt: datetime
-bg=#003399</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>150</x><y>66</y><w>102</w><h>24</h></coordinates><panel_attributes>lt=&lt;-
+pairKey: string
+bg=#003399</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>360</x><y>187</y><w>102</w><h>24</h></coordinates><panel_attributes>lt=&lt;-
 m1=1
 m2=*</panel_attributes><additional_attributes>150;10;10;10</additional_attributes></element></diagram>
