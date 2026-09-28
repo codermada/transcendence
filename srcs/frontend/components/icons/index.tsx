@@ -1,8 +1,6 @@
 import type { SVGProps } from "react";
 
-// ============================================================
 // Brand
-// ============================================================
 
 export function Logo(props: SVGProps<SVGSVGElement>) {
   return (
@@ -45,9 +43,7 @@ export function Google(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// ============================================================
 // Navigation
-// ============================================================
 
 export function ArrowRight(props: SVGProps<SVGSVGElement>) {
   return (
@@ -123,9 +119,7 @@ export function Close(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// ============================================================
 // Settings
-// ============================================================
 
 export function Key(props: SVGProps<SVGSVGElement>) {
   return (
@@ -375,9 +369,7 @@ export function Copy(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// ============================================================
 // Theme
-// ============================================================
 
 export function Sun(props: SVGProps<SVGSVGElement>) {
   return (
@@ -417,9 +409,7 @@ export function Moon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// ============================================================
 // Language
-// ============================================================
 
 export function Globe(props: SVGProps<SVGSVGElement>) {
   return (
@@ -440,9 +430,7 @@ export function Globe(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// ============================================================
 // Admin
-// ============================================================
 
 export function LayoutDashboard(props: SVGProps<SVGSVGElement>) {
   return (
@@ -581,9 +569,7 @@ export function Settings(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// ============================================================
 // Actions
-// ============================================================
 
 export function Plus(props: SVGProps<SVGSVGElement>) {
   return (
@@ -685,9 +671,7 @@ export function LogOut(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// ============================================================
 // Admin (continued)
-// ============================================================
 
 export function BarChart(props: SVGProps<SVGSVGElement>) {
   return (
@@ -833,9 +817,7 @@ export function Bell(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// ============================================================
 // Status
-// ============================================================
 
 export function CheckCircle(props: SVGProps<SVGSVGElement>) {
   return (
@@ -913,9 +895,7 @@ export function Loader(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// ============================================================
 // API keys / security
-// ============================================================
 
 export function KeyRound(props: SVGProps<SVGSVGElement>) {
   return (
@@ -995,9 +975,7 @@ export function EyeOff(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// ============================================================
 // Navigation (continued)
-// ============================================================
 
 export function ChevronLeft(props: SVGProps<SVGSVGElement>) {
   return (
@@ -1075,9 +1053,7 @@ export function ExternalLink(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// ============================================================
 // Time
-// ============================================================
 
 export function Clock(props: SVGProps<SVGSVGElement>) {
   return (
@@ -1126,9 +1102,7 @@ export function Calendar(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// ============================================================
 // Layout
-// ============================================================
 
 export function Home(props: SVGProps<SVGSVGElement>) {
   return (
@@ -1248,9 +1222,7 @@ export function FileText(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// ============================================================
 // Misc
-// ============================================================
 
 export function Filter(props: SVGProps<SVGSVGElement>) {
   return (
@@ -1358,9 +1330,7 @@ export function Upload(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-// ============================================================
 // Actions (continued)
-// ============================================================
 
 export function UserPlus(props: SVGProps<SVGSVGElement>) {
   return (
@@ -1817,6 +1787,51 @@ export function Hash(props: SVGProps<SVGSVGElement>) {
       <line x1="4" y1="15" x2="20" y2="15" />
       <line x1="10" y1="3" x2="8" y2="21" />
       <line x1="16" y1="3" x2="14" y2="21" />
+    </svg>
+  );
+}
+
+export function Scale(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M12 3v18M7 21h10M5 7h14M5 7 2 14a3 3 0 0 0 6 0L5 7Zm14 0-3 7a3 3 0 0 0 6 0l-3-7Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function FileShield(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14 3v5h5M20 12v2c0 2-1.5 3.5-3.5 4.5C14.5 17.5 13 16 13 14v-2l3.5-1.5L20 12Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

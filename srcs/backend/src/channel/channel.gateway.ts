@@ -124,4 +124,10 @@ export class ChannelGateway implements OnGatewayConnection<Socket>, OnGatewayDis
 			this.server.to(`channel:${channelId}`).emit('channel_deleted', { channelId });
 		}
 	}
+
+	broadcastChannelUpdated(channel: any) {
+		if (this.server) {
+			this.server.to(`channel:${channel.id}`).emit('channel_updated', channel);
+		}
+	}
 }

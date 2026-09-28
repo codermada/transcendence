@@ -15,6 +15,7 @@ import {
   LogOut,
   ChevronDown,
   Loader,
+  Scale,
 } from "@/components/icons";
 
 type MeUser = {
@@ -306,6 +307,21 @@ export function UserDropdown() {
             >
               <KeyRound className="h-4 w-4 text-zinc-400 dark:text-zinc-400" />
               <span>{t("apiKeys")}</span>
+            </Link>
+
+            <Link
+              href="/legal/privacy-policy"
+              onClick={() => setIsOpen(false)}
+              role="menuitem"
+              className="
+                flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium
+                text-zinc-600 transition-colors
+                hover:bg-zinc-100 hover:text-zinc-900
+                dark:text-zinc-300 dark:hover:bg-zinc-900 dark:hover:text-white
+              "
+            >
+              <Scale className="h-4 w-4 text-zinc-400 dark:text-zinc-400" />
+              <span>{t("legal")}</span>
             </Link>
 
             {isAdmin && (

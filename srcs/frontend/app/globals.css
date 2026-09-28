@@ -3,7 +3,15 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* ===== COLORS ===== */
+  /* Semantic — success (emerald) */
+  --color-success: #34d399;        /* emerald-400 — matches dark:text-emerald-400 */
+  --color-success-muted: #064e3b;  /* emerald-900 — for solid bg if needed */
+
+  /* Semantic — danger (red) */
+  --color-danger: #f87171;         /* red-400 — matches dark:text-red-400 */
+  --color-danger-muted: #7f1d1d;   /* red-900 */
+
+  /* Colors */
 
   /* Surfaces / Backgrounds */
   --color-background: #09090b;         /* page bg (zinc-950) */
@@ -32,7 +40,7 @@
   --color-border: #27272a;             /* zinc-800 */
   --color-border-hover: #3f3f46;       /* zinc-700 */
 
-  /* ===== RADII ===== */
+  /* Radii */
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
@@ -40,11 +48,11 @@
   --radius-2xl: 1.5rem;
   --radius-full: 9999px;               /* pill badge */
 
-  /* ===== SHADOWS ===== */
+  /* Shadows */
   --shadow-brand: 0 10px 15px -3px rgb(124 58 237 / 0.3),
                   0 4px 6px -4px rgb(124 58 237 / 0.3);
 
-  /* ===== FONTS ===== */
+  /* Fonts */
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
                "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
@@ -62,7 +70,7 @@
   --font-weight-bold: 700;
 }
 
-/* ===== BASE LAYER ===== */
+/* Base layer */
 @layer base {
   :root {
     color-scheme: dark;
@@ -80,9 +88,9 @@
   }
 }
 
-/* ===== COMPONENT UTILITIES ===== */
+/* Component utilities */
 @layer components {
-  /* Primary CTA button — matches your violet sign-up button */
+  /* Primary CTA button */
   .btn-primary {
     display: inline-flex;
     align-items: center;

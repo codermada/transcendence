@@ -25,8 +25,7 @@ export default async function TermsOfServicePage() {
             {t("subtitle")}
           </p>
 
-          <div className="mt-10 space-y-8 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
-            {/* Section 1 */}
+          <div className="mt-10 space-y-8 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
             <section>
               <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
                 {t("section1.title")}
@@ -34,7 +33,6 @@ export default async function TermsOfServicePage() {
               <p className="mt-2">{t("section1.body")}</p>
             </section>
 
-            {/* Section 2 */}
             <section>
               <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
                 {t("section2.title")}
@@ -42,7 +40,6 @@ export default async function TermsOfServicePage() {
               <p className="mt-2">{t("section2.body")}</p>
             </section>
 
-            {/* Section 3 */}
             <section>
               <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
                 {t("section3.title")}
@@ -50,7 +47,6 @@ export default async function TermsOfServicePage() {
               <p className="mt-2">{t("section3.body")}</p>
             </section>
 
-            {/* Section 4 */}
             <section>
               <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
                 {t("section4.title")}
@@ -58,7 +54,6 @@ export default async function TermsOfServicePage() {
               <p className="mt-2">{t("section4.body")}</p>
             </section>
 
-            {/* Section 5 */}
             <section>
               <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
                 {t("section5.title")}
@@ -75,7 +70,7 @@ export default async function TermsOfServicePage() {
             </section>
           </div>
 
-          <p className="mt-12 text-xs text-zinc-500 dark:text-zinc-500">
+          <p className="mt-12 text-xs text-zinc-600 dark:text-zinc-400">
             {t("lastUpdated")}
           </p>
         </div>

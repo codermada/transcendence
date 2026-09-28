@@ -99,7 +99,8 @@
     "offline": "Offline",
     "preferences": "Preferences",
     "user": "User",
-    "signOutError": "Couldn't sign out. Please try again."
+    "signOutError": "Couldn't sign out. Please try again.",
+    "legal": "Legal"
   },
   "Auth": {
     "signIn": {
@@ -273,7 +274,7 @@
           "loadError": "Could not load comments.",
           "invalidImageType": "Please select an image.",
           "imageTooLarge": "The image must not exceed 10 MB.",
-          "emptyComment": "Write a comment or add an image.",
+          "emptyComment": "Write a comment.",
           "createSuccess": "Comment added.",
           "createError": "Could not add the comment.",
           "likeError": "Could not update the like.",
@@ -366,7 +367,7 @@
     "loadError": "Couldn't load comments.",
     "selectImage": "Please select an image.",
     "imageTooLarge": "The image must not exceed 10 MB.",
-    "emptyComment": "Write a comment or add an image.",
+    "emptyComment": "Write a comment.",
     "added": "Comment added.",
     "addError": "Couldn't add the comment.",
     "likeError": "Couldn't update the like."
@@ -457,9 +458,9 @@
     "newChannel": "New channel",
     "createChannelTitle": "Create a new channel",
     "nameLabel": "Channel Name",
-    "namePlaceholder": "e.g. Pong Tournament 42",
+    "namePlaceholder": "e.g. Project Discussion",
     "descLabel": "Description",
-    "descPlaceholder": "e.g. Match organization and rules",
+    "descPlaceholder": "e.g. General topics and discussions",
     "inviteMembers": "Invite Members",
     "searchUser": "Search a user…",
     "noUsersFound": "No available users found",
@@ -474,6 +475,7 @@
     "admin": "Admin",
     "member": "Member",
     "membersAndRoles": "Members & Roles",
+    "settings": "Settings",
     "promoteToAdmin": "Promote to Admin",
     "demoteToMember": "Demote to Member",
     "kickMember": "Kick",
@@ -493,13 +495,26 @@
     "noMembers": "No members in this channel.",
     "close": "Close",
     "add": "Add",
+    "editChannelTitle": "Channel Settings",
+    "editChannelSubtitle": "Update channel info and photo",
+    "avatarLabel": "Channel photo",
+    "avatarHint": "PNG, JPG, WebP or GIF up to 5 MB",
+    "changeAvatar": "Change photo",
+    "removeNewAvatar": "Cancel image",
+    "saveChanges": "Save changes",
+    "savingChanges": "Saving…",
+    "errorAvatarSize": "Image size must not exceed 5 MB",
+    "errorAvatarType": "Unsupported format (PNG, JPG, WebP or GIF)",
+    "titleMinError": "Channel name is required",
+    "titleMaxError": "Name must not exceed 100 characters",
+    "descMaxError": "Description must not exceed 200 characters",
     "success": {
       "youLeftChannel": "You left channel",
       "channelRemoved": "Channel removed",
       "memberFired": "Member fired from channel",
       "roleUpdated": "Role updated",
-      "memberAdded": "New member added"
-
+      "memberAdded": "New member added",
+      "channelUpdated": "Channel updated successfully"
     },
     "error": {
       "channelLoading": "Error loading channel",
@@ -508,7 +523,8 @@
       "deletingChannel": "Error deleting channel",
       "firingMember": "Error firing member",
       "updatingRole": "Error updating role",
-      "addingNewMember": "Error adding new member"
+      "addingNewMember": "Error adding new member",
+      "updatingChannel": "Error updating channel"
     }
   },
   "Settings": {
@@ -621,6 +637,8 @@
       "subtitle": "Manage user accounts and roles.",
       "errorFailed": "Failed to fetch users.",
       "errorUnexpected": "Something went wrong.",
+
+      "colUserId": "User ID",
 
       "colUser": "User",
       "colEmail": "Email",
@@ -876,5 +894,103 @@
   "UploadProgressToast": {
     "notCompleted": "Uploading files...",
     "completed": "Post published!"
+  },
+  "TwoFactor": {
+    "title": "Two-Factor Authentication",
+    "subtitle": "Add an extra layer of security to your account using an authenticator app.",
+    "loading": "Loading security settings…",
+
+    "errors": {
+      "enterPassword": "Enter your current password.",
+      "enableFailed": "Unable to enable two-factor authentication.",
+      "noTotpUri": "The server did not return a TOTP setup URI.",
+      "invalidCode": "Invalid verification code.",
+      "enterSixDigits": "Enter the 6-digit verification code.",
+      "verifyFailed": "Unable to verify the authentication code.",
+      "disableFailed": "Unable to disable two-factor authentication.",
+      "copyFailed": "Unable to copy backup code."
+    },
+
+    "messages": {
+      "scanPrompt": "Scan the QR code with your authenticator app, then enter the verification code.",
+      "enabledSuccess": "Two-factor authentication has been enabled successfully.",
+      "disabledSuccess": "Two-factor authentication has been disabled."
+    },
+
+    "status": {
+      "heading": "Authenticator app",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "enabledDescription": "Your account is protected with two-factor authentication.",
+      "disabledDescription": "Require a verification code from your authenticator app when signing in.",
+      "enableButton": "Enable 2FA",
+      "disableButton": "Disable 2FA"
+    },
+
+    "password": {
+      "heading": "Confirm your password",
+      "description": "Enter your current password to continue.",
+      "placeholder": "Your password",
+      "cancel": "Cancel",
+      "continue": "Continue",
+      "submitting": "Please wait…"
+    },
+
+    "verify": {
+      "heading": "Scan and verify",
+      "description": "Scan the QR code with your authenticator app, then enter the 6-digit code.",
+      "qrAlt": "Two-factor authentication QR code",
+      "codePlaceholder": "000000",
+      "startOver": "Start over",
+      "verify": "Verify",
+      "verifying": "Please wait…"
+    },
+
+    "disable": {
+      "heading": "Disable two-factor authentication",
+      "description": "This will remove the extra layer of security from your account. Enter your password to confirm.",
+      "placeholder": "Your password",
+      "cancel": "Cancel",
+      "disable": "Disable 2FA",
+      "disabling": "Please wait…"
+    },
+
+    "complete": {
+      "heading": "Two-factor authentication enabled",
+      "description": "Save these backup codes somewhere safe. Each code can be used once if you lose access to your authenticator app.",
+      "backupCodes": "Backup codes",
+      "oneTimeUse": "One-time use"
+    },
+
+    "signIn": {
+      "title": "Two-factor authentication",
+      "descriptionTotp": "Enter the 6-digit code from your authenticator app.",
+      "descriptionBackup": "Enter one of your backup codes to continue.",
+
+      "labelTotp": "Authentication code",
+      "labelBackup": "Backup code",
+
+      "placeholderTotp": "000000",
+      "placeholderBackup": "XXXXXXXX",
+
+      "submit": "Verify",
+      "submitting": "Verifying…",
+
+      "switchToBackup": "Use a backup code instead",
+      "switchToTotp": "Use authenticator code instead",
+
+      "toast": {
+        "enterCode": "Enter an authentication code.",
+        "invalidCode": "Invalid authentication code.",
+        "success": "Two-factor authentication successful!"
+      },
+
+      "help": {
+        "prefix": "Lost access to your authenticator?",
+        "link": "Contact support",
+        "suffix": "."
+      }
+    }
   }
+
 }

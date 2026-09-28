@@ -64,9 +64,7 @@ export default function CreateApiKeyPage() {
     }
   };
 
-  // ============================================================
   // Generated key screen
-  // ============================================================
 
   if (generatedKey) {
     return (
@@ -267,9 +265,7 @@ export default function CreateApiKeyPage() {
     );
   }
 
-  // ============================================================
   // Create form
-  // ============================================================
 
   return (
     <PageShell

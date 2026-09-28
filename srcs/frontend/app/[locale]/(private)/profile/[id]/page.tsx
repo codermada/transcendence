@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { ProfileHeader } from "./_components/profile-header/ProfileHeader";
@@ -21,7 +21,7 @@ export default function PublicProfilePage({
 }) {
   const t = useTranslations("ProfilePage");
 
-  const [id, setId] = useState<string | null>(null);
+  const [id, setId] = useState<string>("");
 
   const [userProfile, setUserProfile] =
     useState<ProfileHeaderUser | null>(null);
@@ -43,7 +43,7 @@ export default function PublicProfilePage({
       .catch(() => {
         if (!mounted) return;
 
-        setId(null);
+        setId("");
         setUserProfile(null);
         setPosts([]);
         setIsProfileLoading(false);
@@ -213,6 +213,7 @@ export default function PublicProfilePage({
                     <PostCard
                       key={post.id}
                       postId={post.id}
+                      authorId={post.authorId}
                       author={post.author}
                       initials={post.initials}
                       createdAt={post.createdAt}

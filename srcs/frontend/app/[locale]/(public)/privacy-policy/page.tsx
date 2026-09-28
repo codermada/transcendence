@@ -25,7 +25,7 @@ export default async function PrivacyPolicyPage() {
             {t("subtitle")}
           </p>
 
-          <div className="mt-10 space-y-8 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
+          <div className="mt-10 space-y-8 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
             {/* Section 1 */}
             <section>
               <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
@@ -75,7 +75,7 @@ export default async function PrivacyPolicyPage() {
             </section>
           </div>
 
-          <p className="mt-12 text-xs text-zinc-500 dark:text-zinc-500">
+          <p className="mt-12 text-xs text-zinc-600 dark:text-zinc-400">
             {t("lastUpdated")}
           </p>
         </div>

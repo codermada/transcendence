@@ -14,7 +14,7 @@ interface CreatePostCardProps {
 }
 
 const BACKEND_ERROR_MAP: Record<string, string> = {
-  "Le contenu ne peut pas être vide": "errors.CONTENT_EMPTY",
+  "Content can't be empty": "errors.CONTENT_EMPTY",
 };
 
 export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
@@ -24,6 +24,7 @@ export function CreatePostCard({ onPostCreated }: CreatePostCardProps) {
   const [userProfile, setUserProfile] = useState<UserProfileResponse>({
     name: "Unknown",
     username: "unknown",
+    email: "",
     initials: "U",
     image: null,
     stats: {

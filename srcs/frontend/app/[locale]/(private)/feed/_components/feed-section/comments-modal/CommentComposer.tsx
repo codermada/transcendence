@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { ChangeEvent, FormEvent } from "react";
 
 interface CommentComposerProps {
@@ -8,7 +9,7 @@ interface CommentComposerProps {
   selectedImage: File | null;
   previewUrl: string | null;
   isSubmitting: boolean;
-  inputRef: React.RefObject<HTMLInputElement>;
+  inputRef: React.RefObject<HTMLInputElement | null>;
   onImageChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onRemoveImage: () => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
@@ -25,6 +26,7 @@ export function CommentComposer({
   onRemoveImage,
   onSubmit,
 }: CommentComposerProps) {
+  const t = useTranslations('Comments');
   return (
     <form
       onSubmit={onSubmit}
@@ -72,11 +74,10 @@ export function CommentComposer({
       )}
 
       <div className="flex items-end gap-2">
-        {/* TEXTAREA */}
         <textarea
           value={content}
           onChange={(event) => setContent(event.target.value)}
-          placeholder="Write a comment..."
+          placeholder={t('placeholder')}
           rows={1}
           disabled={isSubmitting}
           className="
@@ -145,7 +146,7 @@ export function CommentComposer({
 
         <button
           type="submit"
-          disabled={isSubmitting || (!content.trim() && !selectedImage)}
+          disabled={isSubmitting || !content.trim()}
           aria-label="Send comment"
           className="
             flex

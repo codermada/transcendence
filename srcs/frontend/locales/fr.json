@@ -100,7 +100,8 @@
     "offline": "Hors ligne",
     "preferences": "Préférences",
     "user": "Utilisateur",
-    "signOutError": "Impossible de se déconnecter. Veuillez réessayer."
+    "signOutError": "Impossible de se déconnecter. Veuillez réessayer.",
+    "legal": "Mentions légales"
   },
   "Auth": {
     "signIn": {
@@ -274,7 +275,7 @@
           "loadError": "Impossible de charger les commentaires.",
           "invalidImageType": "Veuillez sélectionner une image.",
           "imageTooLarge": "L'image ne doit pas dépasser 10 MB.",
-          "emptyComment": "Écrivez un commentaire ou ajoutez une image.",
+          "emptyComment": "Écrivez un commentaire.",
           "createSuccess": "Commentaire ajouté.",
           "createError": "Impossible d'ajouter le commentaire.",
           "likeError": "Impossible de mettre à jour le like.",
@@ -367,7 +368,7 @@
     "loadError": "Impossible de charger les commentaires.",
     "selectImage": "Veuillez sélectionner une image.",
     "imageTooLarge": "L'image ne doit pas dépasser 10 Mo.",
-    "emptyComment": "Écrivez un commentaire ou ajoutez une image.",
+    "emptyComment": "Écrivez un commentaire.",
     "added": "Commentaire ajouté.",
     "addError": "Impossible d'ajouter le commentaire.",
     "likeError": "Impossible de mettre à jour le like."
@@ -458,9 +459,9 @@
     "newChannel": "Créer un canal",
     "createChannelTitle": "Créer un nouveau canal",
     "nameLabel": "Nom du canal",
-    "namePlaceholder": "ex: Tournoi Pong 42",
+    "namePlaceholder": "ex: Discussion du projet",
     "descLabel": "Description",
-    "descPlaceholder": "ex: Organisation des matchs et règles",
+    "descPlaceholder": "ex: Sujets généraux et discussions",
     "inviteMembers": "Inviter des membres",
     "searchUser": "Rechercher un utilisateur…",
     "noUsersFound": "Aucun utilisateur disponible",
@@ -475,6 +476,7 @@
     "admin": "Admin",
     "member": "Membre",
     "membersAndRoles": "Membres & Rôles",
+    "settings": "Paramètres",
     "promoteToAdmin": "Nommer Admin",
     "demoteToMember": "Rétrograder Membre",
     "kickMember": "Expulser",
@@ -494,12 +496,26 @@
     "noMembers": "Aucun membre dans ce canal.",
     "close": "Fermer",
     "add": "Ajouter",
+    "editChannelTitle": "Paramètres du canal",
+    "editChannelSubtitle": "Modifier les informations et la photo du canal",
+    "avatarLabel": "Photo du canal",
+    "avatarHint": "PNG, JPG, WebP ou GIF jusqu'à 5 Mo",
+    "changeAvatar": "Changer la photo",
+    "removeNewAvatar": "Annuler la nouvelle image",
+    "saveChanges": "Enregistrer les modifications",
+    "savingChanges": "Enregistrement…",
+    "errorAvatarSize": "La taille de l'image ne doit pas dépasser 5 Mo",
+    "errorAvatarType": "Format non supporté (PNG, JPG, WebP ou GIF)",
+    "titleMinError": "Le nom du canal est requis",
+    "titleMaxError": "Le nom ne doit pas dépasser 100 caractères",
+    "descMaxError": "La description ne doit pas dépasser 200 caractères",
     "success": {
       "youLeftChannel": "Vous avez quitté le canal",
       "channelRemoved": "Canal supprimé",
       "memberFired": "Membre retiré du canal",
       "roleUpdated": "Rôle mis à jour",
-      "memberAdded": "Nouveau membre ajouté"
+      "memberAdded": "Nouveau membre ajouté",
+      "channelUpdated": "Canal mis à jour avec succès"
     },
     "error": {
       "channelLoading": "Erreur lors du chargement du canal",
@@ -508,7 +524,8 @@
       "deletingChannel": "Erreur lors de la suppression du canal",
       "firingMember": "Erreur lors du retrait du membre",
       "updatingRole": "Erreur lors de la mise à jour du rôle",
-      "addingNewMember": "Erreur lors de l'ajout du nouveau membre"
+      "addingNewMember": "Erreur lors de l'ajout du nouveau membre",
+      "updatingChannel": "Erreur lors de la mise à jour du canal"
     }
   },
   "Settings": {
@@ -620,6 +637,8 @@
       "subtitle": "Gérez les comptes utilisateurs et les rôles.",
       "errorFailed": "Échec du chargement des utilisateurs.",
       "errorUnexpected": "Une erreur est survenue.",
+
+      "colUserId": "ID utilisateur",
 
       "colUser": "Utilisateur",
       "colEmail": "E-mail",
@@ -874,5 +893,102 @@
   "UploadProgressToast": {
     "notCompleted": "Envoi des fichiers...",
     "completed": "Publication envoyée !"
+  },
+  "TwoFactor": {
+    "title": "Authentification à deux facteurs",
+    "subtitle": "Ajoutez une couche de sécurité supplémentaire à votre compte grâce à une application d'authentification.",
+    "loading": "Chargement des paramètres de sécurité…",
+
+    "errors": {
+      "enterPassword": "Saisissez votre mot de passe actuel.",
+      "enableFailed": "Impossible d'activer l'authentification à deux facteurs.",
+      "noTotpUri": "Le serveur n'a pas renvoyé d'URI de configuration TOTP.",
+      "invalidCode": "Code de vérification invalide.",
+      "enterSixDigits": "Saisissez le code de vérification à 6 chiffres.",
+      "verifyFailed": "Impossible de vérifier le code d'authentification.",
+      "disableFailed": "Impossible de désactiver l'authentification à deux facteurs.",
+      "copyFailed": "Impossible de copier le code de secours."
+    },
+
+    "messages": {
+      "scanPrompt": "Scannez le code QR avec votre application d'authentification, puis saisissez le code de vérification.",
+      "enabledSuccess": "L'authentification à deux facteurs a été activée avec succès.",
+      "disabledSuccess": "L'authentification à deux facteurs a été désactivée."
+    },
+
+    "status": {
+      "heading": "Application d'authentification",
+      "enabled": "Activée",
+      "disabled": "Désactivée",
+      "enabledDescription": "Votre compte est protégé par l'authentification à deux facteurs.",
+      "disabledDescription": "Exigez un code de vérification de votre application d'authentification lors de la connexion.",
+      "enableButton": "Activer la 2FA",
+      "disableButton": "Désactiver la 2FA"
+    },
+
+    "password": {
+      "heading": "Confirmez votre mot de passe",
+      "description": "Saisissez votre mot de passe actuel pour continuer.",
+      "placeholder": "Votre mot de passe",
+      "cancel": "Annuler",
+      "continue": "Continuer",
+      "submitting": "Veuillez patienter…"
+    },
+
+    "verify": {
+      "heading": "Scannez et vérifiez",
+      "description": "Scannez le code QR avec votre application d'authentification, puis saisissez le code à 6 chiffres.",
+      "qrAlt": "Code QR d'authentification à deux facteurs",
+      "codePlaceholder": "000000",
+      "startOver": "Recommencer",
+      "verify": "Vérifier",
+      "verifying": "Veuillez patienter…"
+    },
+
+    "disable": {
+      "heading": "Désactiver l'authentification à deux facteurs",
+      "description": "Cela supprimera la couche de sécurité supplémentaire de votre compte. Saisissez votre mot de passe pour confirmer.",
+      "placeholder": "Votre mot de passe",
+      "cancel": "Annuler",
+      "disable": "Désactiver la 2FA",
+      "disabling": "Veuillez patienter…"
+    },
+
+    "complete": {
+      "heading": "Authentification à deux facteurs activée",
+      "description": "Conservez ces codes de secours en lieu sûr. Chaque code ne peut être utilisé qu'une seule fois si vous perdez l'accès à votre application d'authentification.",
+      "backupCodes": "Codes de secours",
+      "oneTimeUse": "Usage unique"
+    },
+
+    "signIn": {
+      "title": "Authentification à deux facteurs",
+      "descriptionTotp": "Saisissez le code à 6 chiffres généré par votre application d'authentification.",
+      "descriptionBackup": "Saisissez l'un de vos codes de secours pour continuer.",
+
+      "labelTotp": "Code d'authentification",
+      "labelBackup": "Code de secours",
+
+      "placeholderTotp": "000000",
+      "placeholderBackup": "XXXXXXXX",
+
+      "submit": "Vérifier",
+      "submitting": "Vérification…",
+
+      "switchToBackup": "Utiliser un code de secours",
+      "switchToTotp": "Utiliser le code de l'application d'authentification",
+
+      "toast": {
+        "enterCode": "Saisissez un code d'authentification.",
+        "invalidCode": "Code d'authentification invalide.",
+        "success": "Authentification à deux facteurs réussie !"
+      },
+
+      "help": {
+        "prefix": "Vous avez perdu l'accès à votre application d'authentification ?",
+        "link": "Contacter le support",
+        "suffix": "."
+      }
+    }
   }
 }

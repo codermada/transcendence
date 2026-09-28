@@ -1,8 +1,9 @@
 "use client";
 
-import { useFormatter, useTranslations } from "next-intl";
-import type { Comment } from "./feed-section.types";
+import { useTranslations } from "next-intl";
+import type { Comment } from "../feed-section.types";
 import { CommentItem } from "./CommentItem";
+import { convertTime } from "./utility/convertTime";
 
 interface CommentsListProps {
   comments: Comment[];
@@ -20,7 +21,6 @@ export function CommentsList({
   onDelete,
 }: CommentsListProps) {
   const t = useTranslations("Feed.feed-section.CommentsList");
-  const format = useFormatter();
 
   if (isLoading) {
     return (
@@ -42,8 +42,6 @@ export function CommentsList({
     );
   }
 
-  const now = new Date();
-
   return (
     <div className="space-y-5">
       {comments.map((comment) => (
@@ -53,11 +51,7 @@ export function CommentsList({
           isLiking={likingCommentId === comment.id}
           onToggleLike={onToggleLike}
           onDelete={onDelete}
-          timeAgo={
-            comment.createdAt
-              ? format.relativeTime(new Date(comment.createdAt), now)
-              : undefined
-          }
+          timeAgo={convertTime(comment.createdAt)}
         />
       ))}
     </div>

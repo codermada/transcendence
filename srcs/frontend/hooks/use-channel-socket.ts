@@ -22,6 +22,7 @@ export function useChannelSocketInit() {
   const handleMemberLeft = useChannelStore((s) => s.handleMemberLeft);
   const handleRoleUpdated = useChannelStore((s) => s.handleRoleUpdated);
   const handleChannelDeleted = useChannelStore((s) => s.handleChannelDeleted);
+  const handleChannelUpdated = useChannelStore((s) => s.handleChannelUpdated);
   const setConnected = useChannelStore((s) => s.setConnected);
   const reset = useChannelStore((s) => s.reset);
 
@@ -96,6 +97,12 @@ export function useChannelSocketInit() {
       }
     };
 
+    const onChannelUpdated = (channel: Partial<ChannelDetail> & { id: string }) => {
+      if (channel?.id) {
+        handleChannelUpdated(channel);
+      }
+    };
+
     const onChannelAddedYou = async () => {
       try {
         const res = await fetch("/nest/channels/my", { credentials: "include" });
@@ -131,6 +138,7 @@ export function useChannelSocketInit() {
     socket.on("channel_member_left", onMemberLeft);
     socket.on("channel_role_updated", onRoleUpdated);
     socket.on("channel_deleted", onChannelDeleted);
+    socket.on("channel_updated", onChannelUpdated);
     socket.on("channel_added_you", onChannelAddedYou);
     socket.on("channel_removed_you", onChannelRemovedYou);
 
@@ -150,6 +158,7 @@ export function useChannelSocketInit() {
       socket.off("channel_member_left", onMemberLeft);
       socket.off("channel_role_updated", onRoleUpdated);
       socket.off("channel_deleted", onChannelDeleted);
+      socket.off("channel_updated", onChannelUpdated);
       socket.off("channel_added_you", onChannelAddedYou);
       socket.off("channel_removed_you", onChannelRemovedYou);
       socket.disconnect();
@@ -165,6 +174,7 @@ export function useChannelSocketInit() {
     handleMemberLeft,
     handleRoleUpdated,
     handleChannelDeleted,
+    handleChannelUpdated,
     setConnected,
     reset,
   ]);

@@ -11,6 +11,7 @@ import {
 } from "@/components/icons";
 import { authClient } from "@/lib/auth/auth-client";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
@@ -174,7 +175,7 @@ export default function UsersTable({ users: initialUsers }: UsersTableProps) {
           "
         />
 
-        {/* ── Header with create button ─────────────────────── */}
+        {/* Header with create button */}
         <div className="flex items-center justify-between border-b border-zinc-200/80 px-4 py-3 dark:border-zinc-800/80">
           <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
             {t("title")}
@@ -202,6 +203,9 @@ export default function UsersTable({ users: initialUsers }: UsersTableProps) {
               <tr className="border-b border-zinc-200/80 bg-zinc-50/80 dark:border-zinc-800/80 dark:bg-zinc-800/40">
                 <th className="w-12 border-r border-zinc-200/80 px-3 py-2.5 text-center text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:border-zinc-800/80 dark:text-zinc-400">
                   #
+                </th>
+                <th className="min-w-[180px] border-r border-zinc-200/80 px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:border-zinc-800/80 dark:text-zinc-400">
+                  {t("colUserId")}
                 </th>
                 <th className="min-w-[220px] border-r border-zinc-200/80 px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:border-zinc-800/80 dark:text-zinc-400">
                   {t("colUser")}
@@ -235,6 +239,24 @@ export default function UsersTable({ users: initialUsers }: UsersTableProps) {
                   >
                     <td className="border-r border-zinc-200/80 bg-zinc-50/40 px-3 py-2.5 text-center text-xs text-zinc-500 dark:border-zinc-800/80 dark:bg-zinc-800/20 dark:text-zinc-400">
                       {startIndex + index + 1}
+                    </td>
+
+                    {/* User ID column (link to profile) */}
+                    <td className="border-r border-zinc-200/80 px-4 py-2.5 dark:border-zinc-800/80">
+                      <Link
+                        href={`/profile/${user.id}`}
+                        className="
+                          inline-flex max-w-[160px] items-center gap-1 truncate
+                          rounded-md font-mono text-xs text-violet-600
+                          transition-colors hover:text-violet-500
+                          hover:underline focus:outline-none focus:ring-2
+                          focus:ring-violet-500/20
+                          dark:text-violet-400 dark:hover:text-violet-300
+                        "
+                        title={user.id}
+                      >
+                        <span className="truncate">{user.id}</span>
+                      </Link>
                     </td>
 
                     <td className="border-r border-zinc-200/80 px-4 py-2.5 text-zinc-900 dark:border-zinc-800/80 dark:text-zinc-100">
@@ -329,7 +351,7 @@ export default function UsersTable({ users: initialUsers }: UsersTableProps) {
               {currentUsers.length === 0 && (
                 <tr>
                   <td
-                    colSpan={5}
+                    colSpan={6}
                     className="px-4 py-12 text-center text-sm text-zinc-500 dark:text-zinc-400"
                   >
                     {t("empty")}
@@ -454,9 +476,7 @@ export default function UsersTable({ users: initialUsers }: UsersTableProps) {
   );
 }
 
-// ============================================================
 // RoleSwitcher
-// ============================================================
 
 function RoleSwitcher({
   role,
@@ -534,9 +554,7 @@ function RoleSwitcher({
   );
 }
 
-// ============================================================
 // Modals
-// ============================================================
 
 function UserEditModal({
   user,

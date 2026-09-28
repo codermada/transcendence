@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
 import { authClient } from "@/lib/auth/auth-client";
 import QRCode from "qrcode";
@@ -11,6 +12,7 @@ type Step = "status" | "password" | "verify" | "complete" | "disable";
 
 export default function TwoFactorPage() {
   const router = useRouter();
+  const t = useTranslations("TwoFactor");
 
   const { data: session, isPending } = authClient.useSession();
 
@@ -65,7 +67,7 @@ export default function TwoFactorPage() {
 
   async function enableTwoFactor() {
     if (!password) {
-      setErrorMessage("Enter your current password.");
+      setErrorMessage(t("errors.enterPassword"));
       return;
     }
 
@@ -76,13 +78,11 @@ export default function TwoFactorPage() {
       const { data, error } = await authClient.twoFactor.enable({ password });
 
       if (error) {
-        throw new Error(
-          error.message ?? "Unable to enable two-factor authentication.",
-        );
+        throw new Error(error.message ?? t("errors.enableFailed"));
       }
 
       if (!data || data.method !== "totp" || !("totpURI" in data) || !data.totpURI) {
-        throw new Error("The server did not return a TOTP setup URI.");
+        throw new Error(t("errors.noTotpUri"));
       }
 
       const qr = await QRCode.toDataURL(data.totpURI);
@@ -90,14 +90,10 @@ export default function TwoFactorPage() {
       setQrCode(qr);
       setBackupCodes(data.backupCodes ?? []);
       setStep("verify");
-      setMessage(
-        "Scan the QR code with your authenticator app, then enter the verification code.",
-      );
+      setMessage(t("messages.scanPrompt"));
     } catch (error) {
       setErrorMessage(
-        error instanceof Error
-          ? error.message
-          : "Unable to enable two-factor authentication.",
+        error instanceof Error ? error.message : t("errors.enableFailed"),
       );
     } finally {
       setLoading(false);
@@ -106,7 +102,7 @@ export default function TwoFactorPage() {
 
   async function verifyTwoFactor() {
     if (verificationCode.length !== 6) {
-      setErrorMessage("Enter the 6-digit verification code.");
+      setErrorMessage(t("errors.enterSixDigits"));
       return;
     }
 
@@ -119,17 +115,15 @@ export default function TwoFactorPage() {
       });
 
       if (error) {
-        throw new Error(error.message ?? "Invalid verification code.");
+        throw new Error(error.message ?? t("errors.invalidCode"));
       }
 
       setStep("complete");
-      setMessage("Two-factor authentication has been enabled successfully.");
+      setMessage(t("messages.enabledSuccess"));
       await authClient.getSession();
     } catch (error) {
       setErrorMessage(
-        error instanceof Error
-          ? error.message
-          : "Unable to verify the authentication code.",
+        error instanceof Error ? error.message : t("errors.verifyFailed"),
       );
     } finally {
       setLoading(false);
@@ -138,7 +132,7 @@ export default function TwoFactorPage() {
 
   async function disableTwoFactor() {
     if (!password) {
-      setErrorMessage("Enter your current password.");
+      setErrorMessage(t("errors.enterPassword"));
       return;
     }
 
@@ -149,20 +143,16 @@ export default function TwoFactorPage() {
       const { error } = await authClient.twoFactor.disable({ password });
 
       if (error) {
-        throw new Error(
-          error.message ?? "Unable to disable two-factor authentication.",
-        );
+        throw new Error(error.message ?? t("errors.disableFailed"));
       }
 
       setPassword("");
       setStep("status");
-      setMessage("Two-factor authentication has been disabled.");
+      setMessage(t("messages.disabledSuccess"));
       await authClient.getSession();
     } catch (error) {
       setErrorMessage(
-        error instanceof Error
-          ? error.message
-          : "Unable to disable two-factor authentication.",
+        error instanceof Error ? error.message : t("errors.disableFailed"),
       );
     } finally {
       setLoading(false);
@@ -175,14 +165,14 @@ export default function TwoFactorPage() {
       setCopiedCode(code);
       setTimeout(() => setCopiedCode(null), 2000);
     } catch {
-      setErrorMessage("Unable to copy backup code.");
+      setErrorMessage(t("errors.copyFailed"));
     }
   }
 
   if (isPending) {
     return (
       <div className="flex items-center justify-center py-24 text-sm text-muted">
-        Loading security settings…
+        {t("loading")}
       </div>
     );
   }
@@ -191,18 +181,15 @@ export default function TwoFactorPage() {
 
   return (
     <div className="space-y-6">
-      {/* ===== Header ===== */}
+      {/* Header */}
       <header>
         <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-          Two-Factor Authentication
+          {t("title")}
         </h1>
-        <p className="mt-2 text-sm text-muted">
-          Add an extra layer of security to your account using an
-          authenticator app.
-        </p>
+        <p className="mt-2 text-sm text-muted">{t("subtitle")}</p>
       </header>
 
-      {/* ===== Messages ===== */}
+      {/* Messages */}
       {message && (
         <div
           role="status"
@@ -239,7 +226,7 @@ export default function TwoFactorPage() {
         </div>
       )}
 
-      {/* ===== Card ===== */}
+      {/* Card */}
       <section
         className="
           relative overflow-hidden
@@ -319,9 +306,7 @@ export default function TwoFactorPage() {
   );
 }
 
-// ============================================================
 // Steps
-// ============================================================
 
 function StatusStep({
   enabled,
@@ -332,6 +317,8 @@ function StatusStep({
   onEnable: () => void;
   onDisable: () => void;
 }) {
+  const t = useTranslations("TwoFactor.status");
+
   return (
     <div className="flex items-start gap-4">
       <div
@@ -351,7 +338,7 @@ function StatusStep({
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           <h2 className="text-sm font-semibold text-foreground">
-            Authenticator app
+            {t("heading")}
           </h2>
 
           <span
@@ -369,14 +356,12 @@ function StatusStep({
                 `
             }
           >
-            {enabled ? "Enabled" : "Disabled"}
+            {enabled ? t("enabled") : t("disabled")}
           </span>
         </div>
 
         <p className="mt-1 text-xs leading-relaxed text-muted">
-          {enabled
-            ? "Your account is protected with two-factor authentication."
-            : "Require a verification code from your authenticator app when signing in."}
+          {enabled ? t("enabledDescription") : t("disabledDescription")}
         </p>
 
         <div className="mt-4">
@@ -385,7 +370,7 @@ function StatusStep({
             onClick={enabled ? onDisable : onEnable}
             className={enabled ? "btn-secondary" : "btn-primary"}
           >
-            {enabled ? "Disable 2FA" : "Enable 2FA"}
+            {enabled ? t("disableButton") : t("enableButton")}
           </button>
         </div>
       </div>
@@ -406,6 +391,8 @@ function PasswordStep({
   onContinue: () => void;
   onCancel: () => void;
 }) {
+  const t = useTranslations("TwoFactor.password");
+
   return (
     <form
       onSubmit={(e) => {
@@ -416,11 +403,9 @@ function PasswordStep({
     >
       <div>
         <h2 className="text-sm font-semibold text-foreground">
-          Confirm your password
+          {t("heading")}
         </h2>
-        <p className="mt-1 text-xs text-muted">
-          Enter your current password to continue.
-        </p>
+        <p className="mt-1 text-xs text-muted">{t("description")}</p>
       </div>
 
       <input
@@ -428,7 +413,7 @@ function PasswordStep({
         value={password}
         onChange={(e) => onPasswordChange(e.target.value)}
         autoComplete="current-password"
-        placeholder="Your password"
+        placeholder={t("placeholder")}
         className="
           w-full rounded-xl
           border border-border
@@ -451,7 +436,7 @@ function PasswordStep({
           disabled={loading}
           className="btn-secondary flex-1 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Cancel
+          {t("cancel")}
         </button>
 
         <button
@@ -459,7 +444,7 @@ function PasswordStep({
           disabled={loading || !password}
           className="btn-primary flex-1 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {loading ? "Please wait…" : "Continue"}
+          {loading ? t("submitting") : t("continue")}
         </button>
       </div>
     </form>
@@ -481,6 +466,8 @@ function VerifyStep({
   onVerify: () => void;
   onStartOver: () => void;
 }) {
+  const t = useTranslations("TwoFactor.verify");
+
   return (
     <form
       onSubmit={(e) => {
@@ -491,12 +478,9 @@ function VerifyStep({
     >
       <div>
         <h2 className="text-sm font-semibold text-foreground">
-          Scan and verify
+          {t("heading")}
         </h2>
-        <p className="mt-1 text-xs text-muted">
-          Scan the QR code with your authenticator app, then enter the
-          6-digit code.
-        </p>
+        <p className="mt-1 text-xs text-muted">{t("description")}</p>
       </div>
 
       {qrCode && (
@@ -514,7 +498,7 @@ function VerifyStep({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={qrCode}
-              alt="Two-factor authentication QR code"
+              alt={t("qrAlt")}
               className="h-48 w-48"
             />
           </div>
@@ -530,7 +514,7 @@ function VerifyStep({
         onChange={(e) =>
           onVerificationCodeChange(e.target.value.replace(/\D/g, ""))
         }
-        placeholder="000000"
+        placeholder={t("codePlaceholder")}
         className="
           w-full rounded-xl
           border border-border
@@ -557,7 +541,7 @@ function VerifyStep({
           disabled={loading}
           className="btn-secondary flex-1 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Start over
+          {t("startOver")}
         </button>
 
         <button
@@ -565,7 +549,7 @@ function VerifyStep({
           disabled={loading || verificationCode.length !== 6}
           className="btn-primary flex-1 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {loading ? "Please wait…" : "Verify"}
+          {loading ? t("verifying") : t("verify")}
         </button>
       </div>
     </form>
@@ -585,6 +569,8 @@ function DisableStep({
   onDisable: () => void;
   onCancel: () => void;
 }) {
+  const t = useTranslations("TwoFactor.disable");
+
   return (
     <form
       onSubmit={(e) => {
@@ -595,12 +581,9 @@ function DisableStep({
     >
       <div>
         <h2 className="text-sm font-semibold text-danger">
-          Disable two-factor authentication
+          {t("heading")}
         </h2>
-        <p className="mt-1 text-xs text-muted">
-          This will remove the extra layer of security from your account.
-          Enter your password to confirm.
-        </p>
+        <p className="mt-1 text-xs text-muted">{t("description")}</p>
       </div>
 
       <input
@@ -608,7 +591,7 @@ function DisableStep({
         value={password}
         onChange={(e) => onPasswordChange(e.target.value)}
         autoComplete="current-password"
-        placeholder="Your password"
+        placeholder={t("placeholder")}
         className="
           w-full rounded-xl
           border border-border
@@ -631,7 +614,7 @@ function DisableStep({
           disabled={loading}
           className="btn-secondary flex-1 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Cancel
+          {t("cancel")}
         </button>
 
         <button
@@ -650,7 +633,7 @@ function DisableStep({
             disabled:opacity-50
           "
         >
-          {loading ? "Please wait…" : "Disable 2FA"}
+          {loading ? t("disabling") : t("disable")}
         </button>
       </div>
     </form>
@@ -666,6 +649,8 @@ function CompleteStep({
   copiedCode: string | null;
   onCopyCode: (code: string) => void;
 }) {
+  const t = useTranslations("TwoFactor.complete");
+
   return (
     <div className="space-y-5">
       <div className="flex items-start gap-4">
@@ -685,11 +670,10 @@ function CompleteStep({
 
         <div>
           <h2 className="text-sm font-semibold text-foreground">
-            Two-factor authentication enabled
+            {t("heading")}
           </h2>
           <p className="mt-1 text-xs leading-relaxed text-muted">
-            Save these backup codes somewhere safe. Each code can be used
-            once if you lose access to your authenticator app.
+            {t("description")}
           </p>
         </div>
       </div>
@@ -698,10 +682,10 @@ function CompleteStep({
         <div className="space-y-2">
           <div className="flex items-center justify-between px-1">
             <span className="text-xs font-semibold uppercase tracking-wider text-muted">
-              Backup codes
+              {t("backupCodes")}
             </span>
             <span className="text-[10px] font-medium uppercase tracking-wider text-brand-400">
-              One-time use
+              {t("oneTimeUse")}
             </span>
           </div>
 

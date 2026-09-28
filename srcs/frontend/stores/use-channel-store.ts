@@ -85,6 +85,7 @@ export interface ChannelState {
   handleMemberLeft: (channelId: string, userId: string, currentUserId?: string) => void;
   handleRoleUpdated: (channelId: string, userId: string, role: "ADMIN" | "MEMBER", currentUserId?: string) => void;
   handleChannelDeleted: (channelId: string) => void;
+  handleChannelUpdated: (channel: Partial<ChannelDetail> & { id: string }) => void;
 
   getTotalUnreadCount: () => number;
   reset: () => void;
@@ -336,6 +337,51 @@ export const useChannelStore = create<ChannelState>((set, get) => ({
       activeChannel: state.activeChannel?.id === channelId ? null : state.activeChannel,
       activeChannelId: state.activeChannelId === channelId ? null : state.activeChannelId,
     }));
+  },
+
+  handleChannelUpdated: (channel: Partial<ChannelDetail> & { id: string }) => {
+    set((state) => {
+      let nextActiveChannel = state.activeChannel;
+      if (state.activeChannel && state.activeChannel.id === channel.id) {
+        nextActiveChannel = {
+          ...state.activeChannel,
+          title: channel.title !== undefined ? channel.title : state.activeChannel.title,
+          description:
+            channel.description !== undefined
+              ? channel.description
+              : state.activeChannel.description,
+          mediaUrl:
+            channel.mediaUrl !== undefined
+              ? channel.mediaUrl
+              : state.activeChannel.mediaUrl,
+          updatedat: channel.updatedat || new Date().toISOString(),
+          // Preserve existing members
+          members: state.activeChannel.members,
+        };
+      }
+
+      const nextChannels = state.channels.map((c) => {
+        if (c.id === channel.id) {
+          return {
+            ...c,
+            title: channel.title !== undefined ? channel.title : c.title,
+            description:
+              channel.description !== undefined
+                ? channel.description
+                : c.description,
+            mediaUrl:
+              channel.mediaUrl !== undefined ? channel.mediaUrl : c.mediaUrl,
+            updatedat: channel.updatedat || new Date().toISOString(),
+          };
+        }
+        return c;
+      });
+
+      return {
+        activeChannel: nextActiveChannel,
+        channels: nextChannels,
+      };
+    });
   },
 
   getTotalUnreadCount: () => {

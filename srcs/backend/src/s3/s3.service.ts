@@ -1,6 +1,7 @@
 import {
 	CreateBucketCommand,
 	DeleteObjectCommand,
+	GetObjectCommand,
 	HeadBucketCommand,
 	PutBucketCorsCommand,
 	PutBucketPolicyCommand,
@@ -8,7 +9,9 @@ import {
 	S3Client,
 } from '@aws-sdk/client-s3';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { NodeHttpHandler } from '@smithy/node-http-handler';
 import { extname } from 'path';
+import { Readable } from 'stream';
 
 @Injectable()
 export class S3Service implements OnModuleInit {
@@ -18,7 +21,7 @@ export class S3Service implements OnModuleInit {
 
 	constructor() {
 		this.bucketName = process.env.S3_BUCKET_NAME || 'uploads';
-		this.publicUrl = process.env.S3_PUBLIC_URL || 'http://localhost:4566';
+		this.publicUrl = process.env.S3_PUBLIC_URL || `https://${process.env.NEXT_PUBLIC_IP_ADDRESS ? process.env.NEXT_PUBLIC_IP_ADDRESS : 'localhost'}:9000/nest`;
 
 		this.s3Client = new S3Client({
 			endpoint: process.env.S3_ENDPOINT || 'http://localstack:4566',
@@ -28,6 +31,9 @@ export class S3Service implements OnModuleInit {
 				secretAccessKey: process.env.S3_SECRET_KEY || 'test',
 			},
 			forcePathStyle: true,
+			requestHandler: new NodeHttpHandler({
+				socketTimeout: 3600,
+			}),
 		});
 	}
 
@@ -49,7 +55,12 @@ export class S3Service implements OnModuleInit {
 					}),
 				);
 			} catch (err: unknown) {
-				const error = err as { name?: string; Code?: string; $metadata?: { httpStatusCode?: number }; message?: string };
+				const error = err as {
+					name?: string;
+					Code?: string;
+					$metadata?: { httpStatusCode?: number };
+					message?: string;
+				};
 				if (
 					error?.name !== 'BucketAlreadyExists' &&
 					error?.name !== 'BucketAlreadyOwnedByYou' &&
@@ -95,10 +106,10 @@ export class S3Service implements OnModuleInit {
 						CORSRules: [
 							{
 								AllowedOrigins: ['*'],
-								AllowedMethods: ['GET', 'HEAD'],
+								AllowedMethods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE'],
 								AllowedHeaders: ['*'],
 								ExposeHeaders: ['ETag', 'Content-Length', 'Content-Range', 'Accept-Ranges'],
-								MaxAgeSeconds: 3000,
+								MaxAgeSeconds: 3600,
 							},
 						],
 					},
@@ -108,6 +119,25 @@ export class S3Service implements OnModuleInit {
 			const error = err as { message?: string };
 			this.logger.warn(`Could not set bucket CORS: ${error?.message || err}`);
 		}
+	}
+
+	async getFileStream(key: string, range?: string) {
+		const command = new GetObjectCommand({
+			Bucket: this.bucketName,
+			Key: key,
+			Range: range,
+		});
+
+		const response = await this.s3Client.send(command);
+
+		return {
+			stream: response.Body as Readable,
+			contentType: response.ContentType,
+			contentLength: response.ContentLength,
+			contentRange: response.ContentRange,
+			acceptRanges: response.AcceptRanges,
+			httpStatusCode: response.$metadata.httpStatusCode || 200,
+		};
 	}
 
 	async uploadFile(file: Express.Multer.File, folder = 'posts'): Promise<string> {
@@ -125,17 +155,32 @@ export class S3Service implements OnModuleInit {
 			}),
 		);
 
-		return `${this.publicUrl}/${this.bucketName}/${key}`;
+		return `/nest/uploads/${key}`;
 	}
 
 	async deleteFile(fileUrl: string): Promise<void> {
 		if (!fileUrl) return;
 
 		try {
-			const prefix = `${this.publicUrl}/${this.bucketName}/`;
-			const key = fileUrl.replace(prefix, '');
+			let key = fileUrl;
 
-			if (!key || key === fileUrl) return;
+			const prefixesToRemove = [
+				'/nest/uploads/',
+				`${this.publicUrl}/uploads/`,
+				`http://localhost:4566/${this.bucketName}/`,
+				`http://localstack:4566/${this.bucketName}/`,
+			];
+
+			for (const prefix of prefixesToRemove) {
+				if (key.startsWith(prefix)) {
+					key = key.replace(prefix, '');
+					break;
+				}
+			}
+
+			if (!key || (key === fileUrl && key.includes('/'))) {
+				key = key.split('/uploads/').pop() || key;
+			}
 
 			await this.s3Client.send(
 				new DeleteObjectCommand({
@@ -144,7 +189,7 @@ export class S3Service implements OnModuleInit {
 				}),
 			);
 		} catch (error) {
-			console.error(`Erreur lors de la suppression du fichier S3 (${fileUrl}):`, error);
+			this.logger.error(`Erreur lors de la suppression du fichier S3 (${fileUrl}):`, error);
 		}
 	}
 

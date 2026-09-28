@@ -45,7 +45,7 @@ async function sendMail({
 
 export const auth = betterAuth({
   appName: "ft_transcendence",
-  baseURL: process.env.BETTER_AUTH_URL ?? "http://localhost:3000",
+  baseURL: process.env.BETTER_AUTH_URL ?? `http://${process.env.NEXT_PUBLIC_IP_ADDRESS ? process.env.NEXT_PUBLIC_IP_ADDRESS : 'localhost'}:3000`,
   basePath: "/auth",
 
   database: prismaAdapter(prisma, {
@@ -59,7 +59,7 @@ export const auth = betterAuth({
       const resetUrl = new URL(url);
 
       resetUrl.protocol = 'https:';
-      resetUrl.host = 'localhost:9000';
+      resetUrl.host = `${process.env.NEXT_PUBLIC_IP_ADDRESS ? process.env.NEXT_PUBLIC_IP_ADDRESS : 'localhost'}:9000`;
       resetUrl.pathname = `/nest${resetUrl.pathname}`;
 
       await sendMail({
@@ -172,9 +172,9 @@ export const auth = betterAuth({
   },
 
   trustedOrigins: [
-    "https://localhost:9000",
-    "http://localhost:3000",
-    "http://localhost:3001",
+    `https://${process.env.NEXT_PUBLIC_IP_ADDRESS ? process.env.NEXT_PUBLIC_IP_ADDRESS : 'localhost'}:9000`,
+    `http://${process.env.NEXT_PUBLIC_IP_ADDRESS ? process.env.NEXT_PUBLIC_IP_ADDRESS : 'localhost'}:3000`,
+    `http://${process.env.NEXT_PUBLIC_IP_ADDRESS ? process.env.NEXT_PUBLIC_IP_ADDRESS : 'localhost'}:3001`,
     ...(process.env.UI_URL ? [process.env.UI_URL] : []),
   ],
 
