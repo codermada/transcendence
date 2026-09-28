@@ -32,6 +32,15 @@ async function bootstrap() {
     .setDescription('<API for ft_transcendence>')
     .setVersion('1.0')
     .addServer('/nest')
+    .addApiKey(
+      {
+        type: 'apiKey',
+        name: 'x-api-key',
+        in: 'header',
+        description: 'API key for programmatic access to protected endpoints',
+      },
+      'x-api-key',
+    )
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);

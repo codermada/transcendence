@@ -220,6 +220,11 @@ export const auth = betterAuth({
       apiKeyHeaders: "x-api-key",
       enableMetadata: true,
       enableSessionForAPIKeys: true,
+      rateLimit: {
+        enabled: true,
+        timeWindow: 1000 * 60 * 60,
+        maxRequests: 10,
+      },
     }),
     twoFactor({
       issuer: 'ft_transcendence',
